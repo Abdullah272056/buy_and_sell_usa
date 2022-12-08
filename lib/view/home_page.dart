@@ -40,22 +40,23 @@ class HomePage extends StatelessWidget {
                       onTap: (){
 
 
-                          // Get.to(DashBoardPageScreen(),arguments: [
-                          //   {"selectedTabIndex": '1'},
-                          //   {"selectedPageName": 'ShopPage'}
-                          // ]);
-                          //
-                          // // Get.to(HomePage22(),arguments: [
-                          // //   {"first": 'First data'},
-                          // //   {"second": 'Second data'}
-                          // // ]);
 
 
+                        // DashBoardPageController().selectedTabIndex(1);
+                        // DashBoardPageController().cl
+                        bool test = Get.isRegistered<DashBoardPageController>();
+                        if(test){
+                          Get.delete<DashBoardPageController>();
+
+                        }
 
                           Get.to(() => DashBoardPageScreen(), arguments: [
                             {"first": '1'},
                             {"second": 'ShopPage'}
                           ])?.then((value) => Get.delete<DashBoardPageController>());
+
+
+
 
 
 
