@@ -17,3 +17,7 @@ const Color box_bg_color = Color(0xFFF9F9FC);
 
 const Color text_color = Color(0xFF1D2733);
 
+
+const Color bottom_nav_item_selected_color = Color(0xFFFD8B17);
+const Color bottom_nav_item_unselected_color = Color(0xFF212121);
+

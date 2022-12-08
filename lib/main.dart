@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/background.dart';
+import 'package:fnf_buy/view/dash_board_page.dart';
+import 'package:fnf_buy/view/home_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,16 +24,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Stack(
-          children: [
-
-            Background(),
-
-          ],
-        ),
+        // body:DashBoardPageScreen(),
+        body: DashBoardPageScreen(),
+        // body:DashBoardPageScreen(),
       ),
     );
   }
