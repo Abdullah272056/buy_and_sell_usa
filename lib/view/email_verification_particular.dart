@@ -6,95 +6,23 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
 
 import '../api_service/api_service.dart';
+import '../controller/email_verification_page_controller.dart';
 import '../static/Colors.dart';
 
 
-class EmailVerificationScreen extends StatefulWidget {
-  String userId;
-  EmailVerificationScreen(this.userId, {Key? key}) : super(key: key);
-
-  @override
-  State<EmailVerificationScreen> createState() => _EmailVerificationParticularScreenState(this.userId);
-}
-
-class _EmailVerificationParticularScreenState extends State<EmailVerificationScreen> {
-  String _userId;
-  _EmailVerificationParticularScreenState(this._userId);
-//  String _otpTxt="";
+class EmailVerificationScreen extends StatelessWidget {
 
 
-  String _firstDigitPin="-";
-  String _secondDigitPin="-";
-  String _thirdDigitPin="-";
-  String _fourthDigitPin="-";
-  String _fifthDigitPin="-";
-  String _sixthDigitPin="-";
-  double keyboardfontSize= 25;
-  double keyboardfontTopPadding= 15;
-  double keyboardfontBottomPadding= 15;
-  String inputText="";
-  TextStyle keyboardTextStyle= const TextStyle(
-      color: text_color,
-      fontSize: 26,
-      decoration: TextDecoration.none,
-      fontWeight: FontWeight.w500);
-  TextStyle otpInputBoxTextStyle= const TextStyle(
-      color: text_color,
-      fontSize: 20,
-      decoration: TextDecoration.none,
-      fontWeight: FontWeight.w500);
+  final emailVerifyPageController = Get.put(EmailVerifyPageController());
 
-  bool _isCountingStatus=false;
-  late Timer _timer;
-  String _startTxt = "00:00";
 
-  void startTimer(int second) {
-    const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec,
-          (Timer timer) {
-        if (second == 0) {
-          setState(() {
-            _isCountingStatus=true;
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            second--;
 
-            _startTxt=_printDuration(Duration(seconds: second));
-          });
-        }
-      },
-    );
-  }
 
-  String _printDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$twoDigitMinutes:$twoDigitSeconds";
-  }
-
-  @override
-  @mustCallSuper
-  void initState() {
-    super.initState();
-    //countDown();
-    _isCountingStatus=false;
-    // startTimer(otp_coundown_second);
-    //controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +108,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 //       ),),
                                 //   ),
                                 // ],
+
+
                                 Container(
                                   margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
                                   child: Align(alignment: Alignment.topCenter,
@@ -228,10 +158,6 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
 
     );
   }
-
-
-
-
 
 
   //toast create
@@ -290,12 +216,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("1");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "1",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -304,12 +230,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("2");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "2",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style:emailVerifyPageController. keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -318,12 +244,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("3");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "3",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -338,12 +264,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("4");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "4",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -352,12 +278,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("5");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "5",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -366,12 +292,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("6");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "6",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -386,12 +312,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("7");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "7",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -400,12 +326,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("8");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "8",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -414,12 +340,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("9");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "9",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -434,7 +360,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("x");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 10, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child:Image.asset(
                                   'assets/images/icon_backspace.png',
                                   height: 20,
@@ -454,12 +380,12 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                                 typeKeyboard("0");
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
                                 child: Text(
                                   "0",
                                   textAlign: TextAlign.center,
 
-                                  style: keyboardTextStyle,
+                                  style: emailVerifyPageController.keyboardTextStyle,
                                 ),
                               ),
                             ),),
@@ -467,7 +393,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
                               onTap: (){
 
                                // _showToast(inputText);
-                                if(inputText.length<6||inputText.length>6){
+                                if(emailVerifyPageController.inputText.value.length<6||emailVerifyPageController.inputText.value.length>6){
 
                                   _showToast("Input six digit pin");
 
@@ -479,7 +405,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
 
                               },
                               child: Container(
-                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 10, bottom:emailVerifyPageController. keyboardfontBottomPadding),
                                 child:Image.asset('assets/images/submit_icon.png',
                                   height: 30,
                                   width: 30,
@@ -517,14 +443,17 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
           child: Center(
-            child: Text(
-              _firstDigitPin,
-              textAlign: TextAlign.center,
+            child:   Obx(() =>
+                Text(
+                  emailVerifyPageController.firstDigitPin.value,
+                  textAlign: TextAlign.center,
 
-              style: otpInputBoxTextStyle,
-            ),
+                  style: emailVerifyPageController.otpInputBoxTextStyle,
+                )
+            )
+            ,
           ),
         ),),
         Expanded(child: Container(
@@ -533,14 +462,14 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
           child:Center(
-            child:  Text(
-              _secondDigitPin,
+            child: Obx(() => Text(
+              emailVerifyPageController.secondDigitPin.value,
               textAlign: TextAlign.center,
 
-              style: otpInputBoxTextStyle,
-            ),
+              style: emailVerifyPageController.otpInputBoxTextStyle,
+            )),
           ),
         ),),
         Expanded(child: Container(
@@ -549,14 +478,14 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
           child: Center(
-            child: Text(
-              _thirdDigitPin,
+            child: Obx(() =>Text(
+              emailVerifyPageController.thirdDigitPin.value,
               textAlign: TextAlign.center,
 
-              style: otpInputBoxTextStyle,
-            ),
+              style: emailVerifyPageController.otpInputBoxTextStyle,
+            )),
           ),
         ),),
         Expanded(child: Container(
@@ -565,14 +494,14 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
           child: Center(
-            child: Text(
-              _fourthDigitPin,
+            child: Obx(() =>Text(
+              emailVerifyPageController.fourthDigitPin.value,
               textAlign: TextAlign.center,
 
-              style: otpInputBoxTextStyle,
-            ),
+              style: emailVerifyPageController.otpInputBoxTextStyle,
+            )),
           ),
         ),),
         Expanded(child: Container(
@@ -581,13 +510,16 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
           child: Center(
-            child: Text(
-              _fifthDigitPin,
-              textAlign: TextAlign.center,
+            child:Obx(() =>
+                Text(
+                  emailVerifyPageController.fifthDigitPin.value,
+                  textAlign: TextAlign.center,
 
-              style: otpInputBoxTextStyle,
+                  style: emailVerifyPageController.otpInputBoxTextStyle,
+                )
+
             ),
           ),
         ),),
@@ -597,13 +529,15 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
               color:box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-          child: Center(child: Text(
-            _sixthDigitPin,
+          padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
+          child: Center(child: Obx(() =>
+          Text(
+            emailVerifyPageController.sixthDigitPin.value,
             textAlign: TextAlign.center,
 
-            style: otpInputBoxTextStyle,
-          ),),
+            style: emailVerifyPageController.otpInputBoxTextStyle,
+          )),
+          ),
         ),),
 
       ],
@@ -613,100 +547,199 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationScr
 
   ///input otp text combination
   void typeKeyboard(String typeKey) {
-    setState(() {
-      if (typeKey == "x") {
-        if (inputText.length > 1) {
-          inputText = inputText.substring(0, inputText.length - 1);
-        } else {
-          inputText = "";
-        }
+    if (typeKey == "x") {
+      if (emailVerifyPageController.inputText.value.length > 1) {
+        emailVerifyPageController.inputText(emailVerifyPageController.inputText.value.substring(0, emailVerifyPageController.inputText.value.length - 1));
+        // inputText = emailVerifyPageController.inputText.value.substring(0, emailVerifyPageController.inputText.value.length - 1);
+      } else {
+        emailVerifyPageController.inputText("");
+        // inputText = "";
       }
-      else {
-        String abc = inputText + typeKey;
-        if(abc.length<=6){
-          inputText = inputText + typeKey;
-        }
+    }
+    else {
+      String abc = emailVerifyPageController.inputText.value + typeKey;
+      if(abc.length<=6){
+        emailVerifyPageController.inputText(emailVerifyPageController.inputText.value + typeKey);
+        // inputText = emailVerifyPageController.inputText.value + typeKey;
+      }
 
-      }
-      setText(inputText);
-    });
+    }
+    setText(emailVerifyPageController.inputText.value);
   }
 
 
   ///input text set in text box
   void setText(String inputText){
 
-    setState(() {
-      if(inputText.isEmpty){
-        _firstDigitPin="-";
-        _secondDigitPin="-";
-        _thirdDigitPin="-";
-        _fourthDigitPin="-";
-        _fifthDigitPin="-";
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==1){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin="-";
-        _thirdDigitPin="-";
-        _fourthDigitPin="-";
-        _fifthDigitPin="-";
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==2){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin=inputText[1].toString();
-        _thirdDigitPin="-";
-        _fourthDigitPin="-";
-        _fifthDigitPin="-";
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==3){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin=inputText[1].toString();
-        _thirdDigitPin=inputText[2].toString();
-        _fourthDigitPin="-";
-        _fifthDigitPin="-";
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==4){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin=inputText[1].toString();
-        _thirdDigitPin=inputText[2].toString();
-        _fourthDigitPin=inputText[3].toString();
-        _fifthDigitPin="-";
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==5){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin=inputText[1].toString();
-        _thirdDigitPin=inputText[2].toString();
-        _fourthDigitPin=inputText[3].toString();
-        _fifthDigitPin=inputText[4].toString();
-        _sixthDigitPin="-";
-        return;
-      }
-      if(inputText.length==6){
-        _firstDigitPin=inputText[0].toString();
-        _secondDigitPin=inputText[1].toString();
-        _thirdDigitPin=inputText[2].toString();
-        _fourthDigitPin=inputText[3].toString();
-        _fifthDigitPin=inputText[4].toString();
-        _sixthDigitPin=inputText[5].toString();
-        return;
+    if(inputText.isEmpty){
+      emailVerifyPageController.firstDigitPin("-");
+      emailVerifyPageController.secondDigitPin("-");
+      emailVerifyPageController.thirdDigitPin("-");
+      emailVerifyPageController.fourthDigitPin("-");
+      emailVerifyPageController.fifthDigitPin("-");
+      emailVerifyPageController.sixthDigitPin("-");
+      return;
+    }
+    if(inputText.length==1){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin("-");
+      emailVerifyPageController.thirdDigitPin("-");
+      emailVerifyPageController.fourthDigitPin("-");
+      emailVerifyPageController.fifthDigitPin("-");
+      emailVerifyPageController.sixthDigitPin("-");
+      return;
+    }
+    if(inputText.length==2){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin(inputText[1].toString());
+      emailVerifyPageController.thirdDigitPin("-");
+      emailVerifyPageController.fourthDigitPin("-");
+      emailVerifyPageController.fifthDigitPin("-");
+      emailVerifyPageController.sixthDigitPin("-");
+      return;
+    }
+    if(inputText.length==3){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin(inputText[1].toString());
+      emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+      emailVerifyPageController.fourthDigitPin("-");
+      emailVerifyPageController.fifthDigitPin("-");
+      emailVerifyPageController.sixthDigitPin("-");
+      return;
+    }
+    if(inputText.length==4){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin(inputText[1].toString());
+      emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+      emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+      emailVerifyPageController.fifthDigitPin("-");
+      emailVerifyPageController.sixthDigitPin("-");
+      return;
+    }
+    if(inputText.length==5){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin(inputText[1].toString());
+      emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+      emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+      emailVerifyPageController.fifthDigitPin(inputText[4].toString());
+      emailVerifyPageController.sixthDigitPin("-");
 
-      }
+      return;
+    }
+    if(inputText.length==6){
+      emailVerifyPageController.firstDigitPin(inputText[0].toString());
+      emailVerifyPageController.secondDigitPin(inputText[1].toString());
+      emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+      emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+      emailVerifyPageController.fifthDigitPin(inputText[4].toString());
+      emailVerifyPageController.sixthDigitPin(inputText[5].toString());
 
-    });
+      return;
+
+    }
 
   }
 
 
+  ///input otp text combination
+  void typeKeyboard1(String typeKey) {
+    // setState(() {
+    //   if (typeKey == "x") {
+    //     if (emailVerifyPageController.inputText.value.length > 1) {
+    //       emailVerifyPageController.inputText(emailVerifyPageController.inputText.value.substring(0, emailVerifyPageController.inputText.value.length - 1));
+    //       // inputText = emailVerifyPageController.inputText.value.substring(0, emailVerifyPageController.inputText.value.length - 1);
+    //     } else {
+    //       emailVerifyPageController.inputText("");
+    //       // inputText = "";
+    //     }
+    //   }
+    //   else {
+    //     String abc = emailVerifyPageController.inputText.value + typeKey;
+    //     if(abc.length<=6){
+    //       emailVerifyPageController.inputText(emailVerifyPageController.inputText.value + typeKey);
+    //       // inputText = emailVerifyPageController.inputText.value + typeKey;
+    //     }
+    //
+    //   }
+    //   setText(emailVerifyPageController.inputText.value);
+    // });
+  }
+
+
+  ///input text set in text box
+  void setText1(String inputText){
+
+    // setState(() {
+    //   if(inputText.isEmpty){
+    //     emailVerifyPageController.firstDigitPin("-");
+    //     emailVerifyPageController.secondDigitPin("-");
+    //     emailVerifyPageController.thirdDigitPin("-");
+    //     emailVerifyPageController.fourthDigitPin("-");
+    //     emailVerifyPageController.fifthDigitPin("-");
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //     return;
+    //   }
+    //   if(inputText.length==1){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin("-");
+    //     emailVerifyPageController.thirdDigitPin("-");
+    //     emailVerifyPageController.fourthDigitPin("-");
+    //     emailVerifyPageController.fifthDigitPin("-");
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //     return;
+    //   }
+    //   if(inputText.length==2){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin(inputText[1].toString());
+    //     emailVerifyPageController.thirdDigitPin("-");
+    //     emailVerifyPageController.fourthDigitPin("-");
+    //     emailVerifyPageController.fifthDigitPin("-");
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //     return;
+    //   }
+    //   if(inputText.length==3){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin(inputText[1].toString());
+    //     emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+    //     emailVerifyPageController.fourthDigitPin("-");
+    //     emailVerifyPageController.fifthDigitPin("-");
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //     return;
+    //   }
+    //   if(inputText.length==4){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin(inputText[1].toString());
+    //     emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+    //     emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+    //     emailVerifyPageController.fifthDigitPin("-");
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //     return;
+    //   }
+    //   if(inputText.length==5){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin(inputText[1].toString());
+    //     emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+    //     emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+    //     emailVerifyPageController.fifthDigitPin(inputText[4].toString());
+    //     emailVerifyPageController.sixthDigitPin("-");
+    //
+    //     return;
+    //   }
+    //   if(inputText.length==6){
+    //     emailVerifyPageController.firstDigitPin(inputText[0].toString());
+    //     emailVerifyPageController.secondDigitPin(inputText[1].toString());
+    //     emailVerifyPageController.thirdDigitPin(inputText[2].toString());
+    //     emailVerifyPageController.fourthDigitPin(inputText[3].toString());
+    //     emailVerifyPageController.fifthDigitPin(inputText[4].toString());
+    //     emailVerifyPageController.sixthDigitPin(inputText[5].toString());
+    //
+    //     return;
+    //
+    //   }
+    //
+    // });
+
+  }
 
 }
 
