@@ -2,11 +2,24 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../static/Colors.dart';
 
 class EmailVerifyPageController extends GetxController {
+
+  dynamic argumentData = Get.arguments;
+
+  @override
+  void onInit() {
+
+    _showToast(argumentData[0]['userId']);
+    _showToast(argumentData[1]['second']);
+    print(argumentData[0]['userId']);
+    print(argumentData[1]['second']);
+    super.onInit();
+  }
 
   ///input box controller
   double keyboardfontSize= 25;
@@ -67,4 +80,16 @@ class EmailVerifyPageController extends GetxController {
     return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
+
+  //toast create
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:toast_bg_color,
+        textColor: toast_text_color,
+        fontSize: 16.0);
+  }
 }
