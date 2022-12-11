@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/sign_up_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
@@ -12,6 +13,7 @@ import 'package:http/http.dart';
 
 import '../../controller/log_in_page_controller.dart';
 import '../static/Colors.dart';
+import 'fotget_password_page.dart';
 
 
 class LogInScreen extends StatelessWidget {
@@ -63,12 +65,9 @@ class LogInScreen extends StatelessWidget {
 
                         //user email input
                         _buildTextFieldUserEmail(
-                          // hintText: 'Email Address',
                           obscureText: false,
-
-                          prefixedIcon: const Icon(Icons.email, color: hint_color),
+                          prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
                           labelText: "Email Address",
-
                         ),
                         const SizedBox(
                           height: 25,
@@ -78,9 +77,8 @@ class LogInScreen extends StatelessWidget {
 
                         //password input
                         _buildTextFieldPassword(
-                          // hintText: 'Password',
                           obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: hint_color),
+                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
                           labelText: "Password",
                         ),
 
@@ -103,11 +101,7 @@ class LogInScreen extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            // Get.to(ForgetPasswordScreen());
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ForgetPasswordScreen()));
+                            Get.to(ForgetPasswordScreen());
                           },
                         ),
 
@@ -143,7 +137,7 @@ class LogInScreen extends StatelessWidget {
   }
 
 
-  //user name input field create
+  //user email input field create
   Widget _buildTextFieldUserEmail({
     required bool obscureText,
     Widget? prefixedIcon,
@@ -354,9 +348,8 @@ class LogInScreen extends StatelessWidget {
             ),
           ),
           onTap: () {
+            Get.to(SignUpScreen());
 
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => ChooseRoleScreen()));
           },
         ),
       ],

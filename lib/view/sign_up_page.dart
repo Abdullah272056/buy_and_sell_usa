@@ -13,6 +13,7 @@ import 'package:http/http.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../controller/sign_up_page_controller.dart';
 import '../static/Colors.dart';
+import 'log_in_page.dart';
 
 
 class SignUpScreen extends StatelessWidget {
@@ -77,7 +78,7 @@ class SignUpScreen extends StatelessWidget {
                           // hintText: 'name',
                           obscureText: false,
 
-                          prefixedIcon: const Icon(Icons.email, color: hint_color),
+                          prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
                           labelText: "Your Name",
 
                         ),
@@ -88,7 +89,7 @@ class SignUpScreen extends StatelessWidget {
                           // hintText: 'Email Address',
                           obscureText: false,
 
-                          prefixedIcon: const Icon(Icons.person, color: hint_color),
+                          prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
                           labelText: "Email Address",
 
                         ),
@@ -112,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                         _buildTextFieldPassword(
                           // hintText: 'Password',
                           obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: hint_color),
+                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
                           labelText: "Password",
                         ),
                         const SizedBox(
@@ -122,7 +123,7 @@ class SignUpScreen extends StatelessWidget {
                         _buildTextFieldConfirmPassword(
                           // hintText: 'Password',
                           obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: hint_color),
+                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
                           labelText: "Confirm Password",
                         ),
 
@@ -517,8 +518,8 @@ class SignUpScreen extends StatelessWidget {
           ),
           onTap: () {
 
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => ChooseRoleScreen()));
+            Get.to(LogInScreen());
+
           },
         ),
       ],
@@ -566,8 +567,6 @@ class SignUpScreen extends StatelessWidget {
 
     return false;
   }
-
-
 
 
   //toast create

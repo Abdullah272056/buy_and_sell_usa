@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/background.dart';
 import 'package:fnf_buy/view/dash_board_page.dart';
+import 'package:fnf_buy/view/email_verification_particular.dart';
+import 'package:fnf_buy/view/fotget_password_page.dart';
 import 'package:fnf_buy/view/home_page.dart';
 import 'package:fnf_buy/view/log_in_page.dart';
-import 'package:fnf_buy/view/sign_up_page.dart';
+
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         // body:DashBoardPageScreen(),
-        body: SignUpScreen(),
+        body: EmailVerificationParticularScreen("12"),
         // body:DashBoardPageScreen(),
       ),
     );
