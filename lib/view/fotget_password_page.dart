@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../controller/forget_password_page_controller.dart';
 import '../static/Colors.dart';
 import 'background.dart';
+import 'email_verification_particular.dart';
 import 'log_in_page.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -216,6 +217,12 @@ class ForgetPasswordScreen extends StatelessWidget {
       onPressed: () {
         String emailTxt = forgetPasswordPageController.emailController.value.text;
         if (_inputValid(emailTxt) == false) {
+          // Get.to(EmailVerificationParticularScreen("dd"));
+
+          // Get.to(() => EmailVerificationParticularScreen(), arguments: [
+          //   {"first": 'First data'},
+          //   {"second": 'Second data'}
+          // ]);
 
           _sendEmailForOtp(emailTxt);
         } else {}
