@@ -12,12 +12,28 @@ const Color awsColor = Color(0xFF6999B0);
 const Color hint_color = Color(0xFFa8a8a8);
 const Color hint_color1 = Color(0xff858585);
 const Color unactive_color = Color(0xff696868);
-const Color backGroundColor = Color(0xfff6f6f6);
+const Color backGroundColor = Color(0xffffffff);
+
 const Color box_bg_color = Color(0xFFF9F9FC);
 
 const Color text_color = Color(0xFF1D2733);
 
 
+///fnf color
+
 const Color bottom_nav_item_selected_color = Color(0xFFFD8B17);
 const Color bottom_nav_item_unselected_color = Color(0xFF212121);
+
+const Color input_box_OutlineInputBorder_active_color = Color(0xFF56B5E3);
+const Color input_box_OutlineInputBorder_de_active_color = Color(0xFFa8a8a8);
+
+const Color forgotten_password_text_color = Color(0xFFC26466);
+const Color  input_box_icon_color = Color(0xff858585);
+const Color  button_bg_color = Color(0xffFE4344);
+
+const Color  fnf_color = Color(0xffFE4344);
+const Color  fnf_small_color = Color(0xff525252);
+const  Color fnf_bold_text_color = Color(0xFF1D2733);
+const Color  toast_bg_color = Color(0xfffcfcfc);
+const Color  toast_text_color = Color(0xffFE4344);
 

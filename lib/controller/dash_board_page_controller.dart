@@ -36,27 +36,27 @@ void onInit() {
 
     selectedTabIndex(3);
 
-    // if(argumentData[0]['first']=="0"){
-    //   selectedTabIndex(0);
-    //   updateSelectedPage([CartPage()]);
-    // }
-    // if(argumentData[0]['first']=="1"){
-    //   selectedTabIndex(1);
-    //   updateSelectedPage([CartPage()]);
-    // }
-    //
-    // if(argumentData[0]['first']=="2"){
-    //   selectedTabIndex(2);
-    //   updateSelectedPage([CartPage()]);
-    // }
-    // if(argumentData[0]['first']=="3"){
-    //   selectedTabIndex(3);
-    //   updateSelectedPage([CartPage()]);
-    // }
-    // if(argumentData[0]['first']=="4"){
-    //   selectedTabIndex(4);
-    //   updateSelectedPage([CartPage()]);
-    // }
+    if(argumentData[0]['first']=="0"){
+      selectedTabIndex(0);
+      updateSelectedPage([CartPage()]);
+    }
+    if(argumentData[0]['first']=="1"){
+      selectedTabIndex(1);
+      updateSelectedPage([CartPage()]);
+    }
+
+    if(argumentData[0]['first']=="2"){
+      selectedTabIndex(2);
+      updateSelectedPage([CartPage()]);
+    }
+    if(argumentData[0]['first']=="3"){
+      selectedTabIndex(3);
+      updateSelectedPage([CartPage()]);
+    }
+    if(argumentData[0]['first']=="4"){
+      selectedTabIndex(4);
+      updateSelectedPage([CartPage()]);
+    }
 
 
 
