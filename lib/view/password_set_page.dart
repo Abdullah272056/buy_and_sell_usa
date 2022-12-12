@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/sign_up_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
@@ -12,60 +11,54 @@ import 'package:http/http.dart';
 
 
 import '../../controller/log_in_page_controller.dart';
+import '../controller/password_set_page_controller.dart';
+import '../controller/sign_up_page_controller.dart';
 import '../static/Colors.dart';
-import 'fotget_password_page.dart';
+import 'log_in_page.dart';
 
 
-class LogInScreen extends StatelessWidget {
+class PasswordSetScreen extends StatelessWidget {
 
-  final logInPageController = Get.put(LogInPageController());
+  final passwordSetPageController = Get.put(PasswordSetPageController());
   var width;
   var height;
-
   @override
   Widget build(BuildContext context) {
-     width =MediaQuery.of(context).size.width;
-     height =MediaQuery.of(context).size.height;
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor:  backGroundColor,
-        body: LayoutBuilder(builder: (context,constraints){
+          backgroundColor:  backGroundColor,
+          body: LayoutBuilder(builder: (context,constraints){
 
-          if(constraints.maxWidth<600){
-            return _buildBodyDesign();
-          }
-          else{
-            return Center(child:
-            Container(
-              // height: 100,
-            width: 500,
-            child: _buildBodyDesign(),
-            // color: Colors.amber,
-            ),);
+            if(constraints.maxWidth<600){
+              return _buildBodyDesign();
+            }
+            else{
+              return Center(child:
+              Container(
+                // height: 100,
+                width: 500,
+                child: _buildBodyDesign(),
+                // color: Colors.amber,
+              ),);
 
-          }
+            }
 
-        },)
+          },)
 
 
 
 
       ),
     );
-  }
 
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("AppLifecycleState changed: $state");
-    if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
-    }
   }
 
 
   Widget _buildBodyDesign() {
-    return Center(
+    return  Center(
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
@@ -83,65 +76,74 @@ class LogInScreen extends StatelessWidget {
                   children: [
                     ///ratio 1:2.25
                     Image.asset(
-                      "assets/images/fnf_logo.png",
-                      width: 180,
+                      "assets/images/icon_forgot.png",
+                      width: 80,
                       height: 80,
+                      fit: BoxFit.fill,
+                      color: forgotten_password_text_color,
                     )
                   ],
                 ),
               ),
 
+
+              Container(
+                margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                child: const Align(alignment: Alignment.center,
+                  child: Text(
+                    "Create Password",
+                    textAlign: TextAlign.center,
+
+                    style: TextStyle(
+                        color:text_color,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+              Container(
+                margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                child: const Align(alignment: Alignment.center,
+                  child: Text(
+                    "Create a password for your account",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: hint_color,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400),
+                  ),),
+              ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
-
-
-
-              //user email input
-              _buildTextFieldUserEmail(
-                obscureText: false,
-                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
-                labelText: "Email Address",
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-
 
 
               //password input
               _buildTextFieldPassword(
+                // hintText: 'Password',
                 obscureText: true,
                 prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
                 labelText: "Password",
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              //password input
+              _buildTextFieldConfirmPassword(
+                // hintText: 'Password',
+                obscureText: true,
+                prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
+                labelText: "Confirm Password",
               ),
 
               const SizedBox(
                 height: 45,
               ),
-              _buildLoginButton(),
+              _buildSaveButton(),
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
 
-              InkWell(
-                child: const Text(
-                  'Forgot Password',
-                  style: TextStyle(
-                    fontFamily: 'PT-Sans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color:forgotten_password_text_color,
-                  ),
-                ),
-                onTap: () {
-                  Get.to(ForgetPasswordScreen());
-                },
-              ),
-
-              const SizedBox(
-                height: 20,
-              ),
               _buildSignUpQuestion(),
               const SizedBox(
                 height: 15,
@@ -153,71 +155,14 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-  //user email input field create
-  Widget _buildTextFieldUserEmail({
-    required bool obscureText,
-    Widget? prefixedIcon,
-    String? hintText,
-    String? labelText,
-  }) {
-    return Container(
-      // height: 70,
-
-      color:transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          logInPageController.userEmailLevelTextColor.value = hasFocus ? hint_color : hint_color;
-        },
-        child: TextField(
-          cursorColor: awsCursorColor,
-          cursorWidth: 1.5,
-         // maxLength: 13,
-          // autofocus: false,
-
-          focusNode:logInPageController.userEmailControllerFocusNode.value,
-          onSubmitted:(_){
-           logInPageController.passwordControllerFocusNode.value.requestFocus();
-          },
-          controller: logInPageController.userEmailController.value,
-          textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-            labelText: labelText,
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
-            // contentPadding:  EdgeInsets.all(17),
-            prefixIcon: prefixedIcon,
-            prefixIconColor: input_box_icon_color,
-
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
-            ),
-            labelStyle: TextStyle(
-              color:logInPageController.userEmailLevelTextColor.value,
-            ),
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
-            ),
-          ),
-          keyboardType: TextInputType.text,
-          // inputFormatters: [
-          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
-          //   LengthLimitingTextInputFormatter(
-          //     13,
-          //   ),
-          // ],
-        ),
-      ),
-    );
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("AppLifecycleState changed: $state");
+    if (state == AppLifecycleState.resumed) {
+      _showToast("resumed");
+    }
   }
+
 
 
 //password input field create
@@ -233,19 +178,22 @@ class LogInScreen extends StatelessWidget {
 
     Focus(
       onFocusChange: (hasFocus) {
-     logInPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
     },
     child:  Obx(() =>
 
 
         TextField(
-          controller: logInPageController.passwordController.value,
+          controller: passwordSetPageController.passwordController.value,
           cursorColor:awsCursorColor,
           cursorWidth: 1.5,
 
-          obscureText: logInPageController.isObscure.value,
+          obscureText: passwordSetPageController.isObscurePassword.value,
           // obscuringCharacter: "*",
-          focusNode:logInPageController.passwordControllerFocusNode.value,
+          focusNode:passwordSetPageController.passwordControllerFocusNode.value,
+          onSubmitted:(_){
+            passwordSetPageController.confirmPasswordControllerFocusNode.value.requestFocus();
+          },
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -253,18 +201,19 @@ class LogInScreen extends StatelessWidget {
             // labelText: 'Password',
             // contentPadding: const EdgeInsets.all(17),
             contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
             suffixIcon: IconButton(
                 color: input_box_icon_color,
                 icon: Icon(
-                  logInPageController.isObscure.value ? Icons.visibility_off : Icons.visibility,
+                  passwordSetPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
                 ),
 
                 // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                 onPressed: () {
-                  logInPageController.updateIsObscure(!logInPageController.isObscure.value);
+                  passwordSetPageController.updateIsObscurePassword(!passwordSetPageController.isObscurePassword.value);
                 }),
 
-            filled: true,
+            // filled: true,
             fillColor: Colors.white,
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
@@ -283,7 +232,7 @@ class LogInScreen extends StatelessWidget {
             ),
             labelText: labelText,
             labelStyle:  TextStyle(
-              color: logInPageController.passwordLevelTextColor.value,
+              color: passwordSetPageController.passwordLevelTextColor.value,
             ),
           ),
         )),
@@ -292,17 +241,89 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
+  //password input field create
+  Widget _buildTextFieldConfirmPassword({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Material(
+        color:transparent,
+        child:
+
+        Focus(
+          onFocusChange: (hasFocus) {
+            passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          },
+          child:  Obx(() =>
+
+
+              TextField(
+                controller: passwordSetPageController.confirmPasswordController.value,
+                cursorColor:awsCursorColor,
+                cursorWidth: 1.5,
+
+                obscureText: passwordSetPageController.isObscureConfirmPassword.value,
+                // obscuringCharacter: "*",
+                focusNode:passwordSetPageController.confirmPasswordControllerFocusNode.value,
+                style: const TextStyle(color: Colors.black, fontSize: 18),
+                decoration: InputDecoration(
+                  // border: InputBorder.none,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  // labelText: 'Password',
+                  // contentPadding: const EdgeInsets.all(17),
+                  contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+                  suffixIcon: IconButton(
+                      color: input_box_icon_color,
+                      icon: Icon(
+                        passwordSetPageController.isObscureConfirmPassword.value ? Icons.visibility_off : Icons.visibility,
+                      ),
+
+                      // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        passwordSetPageController.updateIsObscureConfirmPassword(!passwordSetPageController.isObscureConfirmPassword.value);
+                      }),
+
+                  filled: true,
+                  fillColor: Colors.white,
+                  prefixIcon: prefixedIcon,
+                  prefixIconColor: input_box_icon_color,
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    color: hint_color,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'PTSans',
+                  ),
+
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+                  ),
+                  labelText: labelText,
+                  labelStyle:  TextStyle(
+                    color: passwordSetPageController.passwordLevelTextColor.value,
+                  ),
+                ),
+              )),
+        )
+
+    );
+  }
+
 
 
   //login button create
-  Widget _buildLoginButton() {
+  Widget _buildSaveButton() {
     return ElevatedButton(
         onPressed: () {
 
-          String userEmailTxt = logInPageController.userEmailController.value.text;
-          String passwordTxt = logInPageController.passwordController.value.text;
+          String passwordTxt = passwordSetPageController.passwordController.value.text;
+          String confirmPasswordTxt = passwordSetPageController.confirmPasswordController.value.text;
 
-          if (_inputValid(userEmailTxt, passwordTxt)== false) {
+          if (_inputValid(password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
             // userAutoLogIn();
 
         //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
@@ -328,7 +349,7 @@ class LogInScreen extends StatelessWidget {
           height: 50,
           alignment: Alignment.center,
           child:  const Text(
-            "Login",
+            "Save",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
@@ -350,7 +371,7 @@ class LogInScreen extends StatelessWidget {
 
 
          Text(
-          "Don't have an Account? ",
+          "Already have an Account? ",
           style: TextStyle(
             fontFamily: 'PT-Sans',
             fontSize: 16,
@@ -359,7 +380,7 @@ class LogInScreen extends StatelessWidget {
         ),
         InkWell(
           child: const Text(
-            'Sign Up',
+            'Sign In',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,
@@ -368,7 +389,8 @@ class LogInScreen extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Get.to(SignUpScreen());
+
+            Get.to(LogInScreen());
 
           },
         ),
@@ -377,20 +399,8 @@ class LogInScreen extends StatelessWidget {
   }
 
   //input text validation check
-  _inputValid(String userEmail, String password) {
-    if (userEmail.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Email can't empty!");
-      return;
-    }
-    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
-      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-    )
-        .hasMatch(userEmail)) {
-      Fluttertoast.cancel();
-      _showToast("Enter valid email!");
-      return;
-    }
+  _inputValid({required String password, required String confirmPassword}) {
+
     if (password.isEmpty) {
       Fluttertoast.cancel();
       _showToast("Password can't empty!");
@@ -402,10 +412,14 @@ class LogInScreen extends StatelessWidget {
       return;
     }
 
+    if (password != confirmPassword) {
+      Fluttertoast.cancel();
+      _showToast("Confirm Password does not match!");
+      return;
+    }
+
     return false;
   }
-
-
 
 
   //toast create

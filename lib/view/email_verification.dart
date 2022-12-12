@@ -23,143 +23,305 @@ class EmailVerificationScreen extends StatelessWidget {
 
 
 
-
+  var width;
+  var height;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor:Colors.white ,
-      body:CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor:  backGroundColor,
+          body: LayoutBuilder(builder: (context,constraints){
+
+            if(constraints.maxWidth<600){
+              return _buildBodyDesign(width);
+            }
+            else{
+              return _buildBodyDesign(550);
+
+            }
+
+          },)
 
 
-              children: [
-                Expanded(child: Stack(
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 55,
-                        ),
-                        Padding(
-                            padding:
-                            const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
-                            child: Column(
-                              children: [
-
-                                const SizedBox(
-                                  height: 40,
-                                ),
-
-                                Image.asset(
-                                  "assets/images/fnf_logo.png",
-                                  width: 158,
-                                  height: 70,
-                                  fit: BoxFit.fill,
-                                ),
-
-                                Container(
-                                  margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10,bottom: 0),
-                                  child: const Align(alignment: Alignment.topCenter,
-                                    child: Text(
-                                      "Please enter the verification code, was send to your email",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: fnf_small_color,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400),
-                                    ),),
-                                ),
-
-                                // if(_isCountingStatus==false)...[
-                                //   Container(
-                                //     margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
-                                //     child: Align(alignment: Alignment.topCenter,
-                                //       child: Text(
-                                //         _startTxt,
-                                //         textAlign: TextAlign.center,
-                                //         style: const TextStyle(
-                                //             color: fnf_color,
-                                //             fontSize: 18,
-                                //             fontWeight: FontWeight.w400),
-                                //       ),),
-                                //   ),
-                                // ]
-                                // else...[
-                                //   Container(
-                                //     margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
-                                //     child: Align(alignment: Alignment.topCenter,
-                                //       child: InkResponse(
-                                //         onTap: (){
-                                //
-                                //          // _userSendCodeWithEmail();
-                                //
-                                //         },
-                                //         child: const Text(
-                                //           "Resend Code",
-                                //           textAlign: TextAlign.center,
-                                //           style: TextStyle(
-                                //               color: hint_color,
-                                //               fontSize: 15,
-                                //               fontWeight: FontWeight.w400),
-                                //         ),
-                                //       ),),
-                                //   ),
-                                // ],
 
 
-                                Container(
-                                  margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
-                                  child: Align(alignment: Alignment.topCenter,
-                                    child: InkResponse(
-                                      onTap: (){
-
-                                        // _userSendCodeWithEmail();
-
-                                      },
-                                      child: const Text(
-                                        "Resend Code",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: fnf_color,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),),
-                                ),
-
-
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                _buildTextFieldOTPView1(),
-
-
-                              ],
-                            )),
-                        Expanded(child:  Align(alignment: Alignment.bottomCenter,
-                          child: _buildBottomDesign(),
-                        ),)
-
-
-                      ],
-                    )
-                  ],
-                )),
-
-              ],
-            ),
-          ),
-        ],
       ),
-
-
     );
+
+    // return Scaffold(
+    //   backgroundColor:Colors.white ,
+    //   body:CustomScrollView(
+    //     slivers: [
+    //       SliverFillRemaining(
+    //         hasScrollBody: false,
+    //         child: Column(
+    //
+    //
+    //           children: [
+    //             Expanded(child:Column(
+    //               children: [
+    //                 const SizedBox(
+    //                   height: 55,
+    //                 ),
+    //                 Padding(
+    //                     padding:
+    //                     const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
+    //                     child: Column(
+    //                       children: [
+    //
+    //                         const SizedBox(
+    //                           height: 40,
+    //                         ),
+    //
+    //                         Image.asset(
+    //                           "assets/images/fnf_logo.png",
+    //                           width: 158,
+    //                           height: 70,
+    //                           fit: BoxFit.fill,
+    //                         ),
+    //
+    //                         Container(
+    //                           margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10,bottom: 0),
+    //                           child: const Align(alignment: Alignment.topCenter,
+    //                             child: Text(
+    //                               "Please enter the verification code, was send to your email",
+    //                               textAlign: TextAlign.center,
+    //                               style: TextStyle(
+    //                                   color: fnf_small_color,
+    //                                   fontSize: 15,
+    //                                   fontWeight: FontWeight.w400),
+    //                             ),),
+    //                         ),
+    //
+    //                         // if(_isCountingStatus==false)...[
+    //                         //   Container(
+    //                         //     margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
+    //                         //     child: Align(alignment: Alignment.topCenter,
+    //                         //       child: Text(
+    //                         //         _startTxt,
+    //                         //         textAlign: TextAlign.center,
+    //                         //         style: const TextStyle(
+    //                         //             color: fnf_color,
+    //                         //             fontSize: 18,
+    //                         //             fontWeight: FontWeight.w400),
+    //                         //       ),),
+    //                         //   ),
+    //                         // ]
+    //                         // else...[
+    //                         //   Container(
+    //                         //     margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+    //                         //     child: Align(alignment: Alignment.topCenter,
+    //                         //       child: InkResponse(
+    //                         //         onTap: (){
+    //                         //
+    //                         //          // _userSendCodeWithEmail();
+    //                         //
+    //                         //         },
+    //                         //         child: const Text(
+    //                         //           "Resend Code",
+    //                         //           textAlign: TextAlign.center,
+    //                         //           style: TextStyle(
+    //                         //               color: hint_color,
+    //                         //               fontSize: 15,
+    //                         //               fontWeight: FontWeight.w400),
+    //                         //         ),
+    //                         //       ),),
+    //                         //   ),
+    //                         // ],
+    //
+    //
+    //                         Container(
+    //                           margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+    //                           child: Align(alignment: Alignment.topCenter,
+    //                             child: InkResponse(
+    //                               onTap: (){
+    //
+    //                                 // _userSendCodeWithEmail();
+    //
+    //                               },
+    //                               child: const Text(
+    //                                 "Resend Code",
+    //                                 textAlign: TextAlign.center,
+    //                                 style: TextStyle(
+    //                                     color: fnf_color,
+    //                                     fontSize: 15,
+    //                                     fontWeight: FontWeight.w500),
+    //                               ),
+    //                             ),),
+    //                         ),
+    //
+    //
+    //                         const SizedBox(
+    //                           height: 30,
+    //                         ),
+    //                         _buildTextFieldOTPView1(),
+    //
+    //
+    //                       ],
+    //                     )),
+    //                 Expanded(child:  Align(alignment: Alignment.bottomCenter,
+    //                   child: _buildBottomDesign(),
+    //                 ),)
+    //
+    //
+    //               ],
+    //             )),
+    //
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    //
+    //
+    // );
   }
 
+  Widget _buildBodyDesign(double otpBoxLength) {
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Column(
 
+
+            children: [
+              Expanded(child:Column(
+                children: [
+                  const SizedBox(
+                    height: 55,
+                  ),
+                  Padding(
+                      padding:
+                      const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
+                      child: Column(
+                        children: [
+
+                          const SizedBox(
+                            height: 40,
+                          ),
+
+                          Image.asset(
+                            "assets/images/verified.webp",
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.fill,
+                            color: forgotten_password_text_color,
+                          ),
+                          Container(
+                            margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                            child: const Align(alignment: Alignment.center,
+                              child: Text(
+                                "OTP Verified",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color:text_color,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+
+                            margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10,bottom: 0),
+                            child: const Align(alignment: Alignment.topCenter,
+                              child: Text(
+                                "Please enter the verification code, was send to your email",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: fnf_small_color,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400),
+                              ),),
+                          ),
+
+                          // if(_isCountingStatus==false)...[
+                          //   Container(
+                          //     margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
+                          //     child: Align(alignment: Alignment.topCenter,
+                          //       child: Text(
+                          //         _startTxt,
+                          //         textAlign: TextAlign.center,
+                          //         style: const TextStyle(
+                          //             color: fnf_color,
+                          //             fontSize: 18,
+                          //             fontWeight: FontWeight.w400),
+                          //       ),),
+                          //   ),
+                          // ]
+                          // else...[
+                          //   Container(
+                          //     margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                          //     child: Align(alignment: Alignment.topCenter,
+                          //       child: InkResponse(
+                          //         onTap: (){
+                          //
+                          //          // _userSendCodeWithEmail();
+                          //
+                          //         },
+                          //         child: const Text(
+                          //           "Resend Code",
+                          //           textAlign: TextAlign.center,
+                          //           style: TextStyle(
+                          //               color: hint_color,
+                          //               fontSize: 15,
+                          //               fontWeight: FontWeight.w400),
+                          //         ),
+                          //       ),),
+                          //   ),
+                          // ],
+
+
+                          Container(
+                            margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                            child: Align(alignment: Alignment.topCenter,
+                              child: InkResponse(
+                                onTap: (){
+
+                                  // _userSendCodeWithEmail();
+
+                                },
+                                child: const Text(
+                                  "Resend Code",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: fnf_color,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),),
+                          ),
+
+
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            width: otpBoxLength,
+                            child:_buildTextFieldOTPView1(),
+                          )
+
+
+
+                        ],
+                      )),
+                  Expanded(child:  Align(alignment: Alignment.bottomCenter,
+                    child: _buildBottomDesign(),
+                  ),)
+
+
+                ],
+              )),
+
+            ],
+          ),
+        ),
+      ],
+    );
+  }
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -175,7 +337,7 @@ class EmailVerificationScreen extends StatelessWidget {
 
   Widget _buildBottomDesign() {
     return Container(
-        height: 280,
+        height: 300,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -435,7 +597,8 @@ class EmailVerificationScreen extends StatelessWidget {
 
   ///otp field box
   Widget _buildTextFieldOTPView1() {
-    return  Flex(direction: Axis.horizontal,
+    return
+      Flex(direction: Axis.horizontal,
       children: [
         Expanded(child: Container(
           height: 55,
