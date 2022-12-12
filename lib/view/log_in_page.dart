@@ -19,110 +19,37 @@ import 'fotget_password_page.dart';
 class LogInScreen extends StatelessWidget {
 
   final logInPageController = Get.put(LogInPageController());
+  var width;
+  var height;
 
   @override
   Widget build(BuildContext context) {
+     width =MediaQuery.of(context).size.width;
+     height =MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         backgroundColor:  backGroundColor,
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-             // Background(),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
+        body: LayoutBuilder(builder: (context,constraints){
 
-                    // padding: const EdgeInsets.symmetric(
-                    //   horizontal: 40,
-                    // ).copyWith(top: 20),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                          ),
-                          child: Column(
-                            children: [
-                              ///ratio 1:2.25
-                              Image.asset(
-                                "assets/images/fnf_logo.png",
-                                width: 180,
-                                height: 80,
-                              )
-                            ],
-                          ),
-                        ),
+          if(constraints.maxWidth<600){
+            return _buildBodyDesign();
+          }
+          else{
+            return Center(child:
+            Container(
+              // height: 100,
+            width: 500,
+            child: _buildBodyDesign(),
+            // color: Colors.amber,
+            ),);
 
-                        const SizedBox(
-                          height: 20,
-                        ),
+          }
+
+        },)
 
 
 
-                        //user email input
-                        _buildTextFieldUserEmail(
-                          obscureText: false,
-                          prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
-                          labelText: "Email Address",
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
 
-
-
-                        //password input
-                        _buildTextFieldPassword(
-                          obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
-                          labelText: "Password",
-                        ),
-
-                        const SizedBox(
-                          height: 45,
-                        ),
-                        _buildLoginButton(),
-                        const SizedBox(
-                          height: 25,
-                        ),
-
-                        InkWell(
-                          child: const Text(
-                            'Forgot Password',
-                            style: TextStyle(
-                              fontFamily: 'PT-Sans',
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color:forgotten_password_text_color,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.to(ForgetPasswordScreen());
-                          },
-                        ),
-
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _buildSignUpQuestion(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-
-            ],
-          )
-
-          ,
-        ),
       ),
     );
   }
@@ -137,6 +64,95 @@ class LogInScreen extends StatelessWidget {
   }
 
 
+  Widget _buildBodyDesign() {
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
+
+          // padding: const EdgeInsets.symmetric(
+          //   horizontal: 40,
+          // ).copyWith(top: 20),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                child: Column(
+                  children: [
+                    ///ratio 1:2.25
+                    Image.asset(
+                      "assets/images/fnf_logo.png",
+                      width: 180,
+                      height: 80,
+                    )
+                  ],
+                ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+
+
+
+              //user email input
+              _buildTextFieldUserEmail(
+                obscureText: false,
+                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
+                labelText: "Email Address",
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+
+
+
+              //password input
+              _buildTextFieldPassword(
+                obscureText: true,
+                prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
+                labelText: "Password",
+              ),
+
+              const SizedBox(
+                height: 45,
+              ),
+              _buildLoginButton(),
+              const SizedBox(
+                height: 25,
+              ),
+
+              InkWell(
+                child: const Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    fontFamily: 'PT-Sans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color:forgotten_password_text_color,
+                  ),
+                ),
+                onTap: () {
+                  Get.to(ForgetPasswordScreen());
+                },
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              _buildSignUpQuestion(),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   //user email input field create
   Widget _buildTextFieldUserEmail({
     required bool obscureText,
@@ -145,6 +161,8 @@ class LogInScreen extends StatelessWidget {
     String? labelText,
   }) {
     return Container(
+      // height: 70,
+
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
@@ -168,7 +186,8 @@ class LogInScreen extends StatelessWidget {
             labelText: labelText,
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+            // contentPadding:  EdgeInsets.all(17),
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
 
@@ -232,7 +251,8 @@ class LogInScreen extends StatelessWidget {
             // border: InputBorder.none,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             // labelText: 'Password',
-            contentPadding: const EdgeInsets.all(17),
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
             suffixIcon: IconButton(
                 color: input_box_icon_color,
                 icon: Icon(
@@ -301,7 +321,7 @@ class LogInScreen extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(7.0)
+            borderRadius: BorderRadius.circular(5.0)
         ),
         child: Container(
 

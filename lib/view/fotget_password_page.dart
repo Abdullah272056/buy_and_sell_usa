@@ -12,10 +12,40 @@ import 'log_in_page.dart';
 class ForgetPasswordScreen extends StatelessWidget {
 
   final forgetPasswordPageController = Get.put(ForgetPasswordPageController());
-  late String userId;
 
+  var width;
+  var height;
   @override
   Widget build(BuildContext context) {
+
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor:  backGroundColor,
+          body: LayoutBuilder(builder: (context,constraints){
+
+            if(constraints.maxWidth<600){
+              return _buildBodyDesign();
+            }
+            else{
+              return Center(child:
+              Container(
+                // height: 100,
+                width: 550,
+                child: _buildBodyDesign(),
+                // color: Colors.amber,
+              ),);
+
+            }
+
+          },)
+
+
+
+
+      ),
+    );
     return SafeArea(
       child: Scaffold(
         backgroundColor:  backGroundColor,
@@ -134,6 +164,104 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   }
 
+  Widget _buildBodyDesign() {
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+          ).copyWith(
+            top: 10,
+            bottom: 60,
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/icon_forgot.png",
+                      width: 80,
+                      height: 80,
+                      color: forgotten_password_text_color,
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Forgot Password",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color:fnf_bold_text_color,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                "Enter your email address associated with your account "
+                    "we will send you a link to reset your password.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: hint_color1,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
+
+              // Image.asset('assets/images/profile.jpg'),
+              const Text(
+                "",
+                style: TextStyle(
+                  fontFamily: 'PT-Sans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              // Image.asset('assets/images/profile.jpg'),
+
+
+
+              const SizedBox(
+                height: 50,
+              ),
+              _buildTextFieldEmail(
+                // hintText: 'Phone Number',
+                obscureText: false,
+
+                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
+
+
+                labelText: "Email *",
+              ),
+
+              const SizedBox(
+                height: 40,
+              ),
+
+              _buildNextButton(),
+              const SizedBox(
+                height: 20,
+              ),
+              _buildSignUpQuestion(),
+
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   //user email input field create
   Widget _buildTextFieldEmail({
     required bool obscureText,
@@ -153,7 +281,8 @@ class ForgetPasswordScreen extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.all(15),
+          // contentPadding: const EdgeInsets.all(15),
+          contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
           prefixIcon: prefixedIcon,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),

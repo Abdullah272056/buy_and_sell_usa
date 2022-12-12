@@ -19,9 +19,42 @@ import 'log_in_page.dart';
 class SignUpScreen extends StatelessWidget {
 
   final signUpPageController = Get.put(SignUpPageController());
-
+  var width;
+  var height;
   @override
   Widget build(BuildContext context) {
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor:  backGroundColor,
+          body: LayoutBuilder(builder: (context,constraints){
+
+            if(constraints.maxWidth<600){
+              return _buildBodyDesign();
+            }
+            else{
+              return Center(child:
+              Container(
+                // height: 100,
+                width: 500,
+                child: _buildBodyDesign(),
+                // color: Colors.amber,
+              ),);
+
+            }
+
+          },)
+
+
+
+
+      ),
+    );
+
+
+
+
     return SafeArea(
       child: Scaffold(
         backgroundColor:  backGroundColor,
@@ -155,6 +188,122 @@ class SignUpScreen extends StatelessWidget {
   }
 
 
+  Widget _buildBodyDesign() {
+    return  Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
+
+          // padding: const EdgeInsets.symmetric(
+          //   horizontal: 40,
+          // ).copyWith(top: 20),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                child: Column(
+                  children: [
+                    ///ratio 1:2.25
+                    Image.asset(
+                      "assets/images/fnf_logo.png",
+                      width: 180,
+                      height: 80,
+                    )
+                  ],
+                ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+
+
+              // const Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text("Email",
+              //       style: TextStyle(
+              //           color: hint_color,
+              //           fontSize: 15,
+              //           fontWeight: FontWeight.w400)),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              //user email input
+              _buildTextFieldUserName(
+                // hintText: 'name',
+                obscureText: false,
+
+                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
+                labelText: "Your Name",
+
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              _buildTextFieldUserEmail(
+                // hintText: 'Email Address',
+                obscureText: false,
+
+                prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                labelText: "Email Address",
+
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+
+              // const Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text("Email",
+              //       style: TextStyle(
+              //           color: hint_color,
+              //           fontSize: 15,
+              //           fontWeight: FontWeight.w400)),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+
+              //password input
+              _buildTextFieldPassword(
+                // hintText: 'Password',
+                obscureText: true,
+                prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
+                labelText: "Password",
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              //password input
+              _buildTextFieldConfirmPassword(
+                // hintText: 'Password',
+                obscureText: true,
+                prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
+                labelText: "Confirm Password",
+              ),
+
+              const SizedBox(
+                height: 45,
+              ),
+              _buildSignUpButton(),
+              const SizedBox(
+                height: 30,
+              ),
+
+              _buildSignUpQuestion(),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
@@ -196,7 +345,9 @@ class SignUpScreen extends StatelessWidget {
             labelText: labelText,
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.all(17),
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
 
@@ -260,7 +411,9 @@ class SignUpScreen extends StatelessWidget {
             labelText: labelText,
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.all(17),
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
 
@@ -327,7 +480,9 @@ class SignUpScreen extends StatelessWidget {
             // border: InputBorder.none,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             // labelText: 'Password',
-            contentPadding: const EdgeInsets.all(17),
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
             suffixIcon: IconButton(
                 color: input_box_icon_color,
                 icon: Icon(
@@ -339,7 +494,7 @@ class SignUpScreen extends StatelessWidget {
                   signUpPageController.updateIsObscurePassword(!signUpPageController.isObscurePassword.value);
                 }),
 
-            filled: true,
+            // filled: true,
             fillColor: Colors.white,
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
@@ -398,7 +553,8 @@ class SignUpScreen extends StatelessWidget {
                   // border: InputBorder.none,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   // labelText: 'Password',
-                  contentPadding: const EdgeInsets.all(17),
+                  // contentPadding: const EdgeInsets.all(17),
+                  contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
                   suffixIcon: IconButton(
                       color: input_box_icon_color,
                       icon: Icon(
@@ -470,7 +626,7 @@ class SignUpScreen extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(7.0)
+            borderRadius: BorderRadius.circular(5.0)
         ),
         child: Container(
 

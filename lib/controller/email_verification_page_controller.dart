@@ -9,15 +9,15 @@ import '../static/Colors.dart';
 
 class EmailVerifyPageController extends GetxController {
 
-  dynamic argumentData = Get.arguments;
+  // dynamic argumentData = Get.arguments;
 
   @override
   void onInit() {
 
-    _showToast(argumentData[0]['userId']);
-    _showToast(argumentData[1]['second']);
-    print(argumentData[0]['userId']);
-    print(argumentData[1]['second']);
+    // _showToast(argumentData[0]['userId']);
+    // _showToast(argumentData[1]['second']);
+    // print(argumentData[0]['userId']);
+    // print(argumentData[1]['second']);
     super.onInit();
   }
 
