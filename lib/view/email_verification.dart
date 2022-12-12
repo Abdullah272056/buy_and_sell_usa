@@ -204,10 +204,24 @@ class EmailVerificationScreen extends StatelessWidget {
                           ),
 
                           Image.asset(
-                            "assets/images/fnf_logo.png",
-                            width: 158,
-                            height: 70,
+                            "assets/images/verified.webp",
+                            width: 80,
+                            height: 80,
                             fit: BoxFit.fill,
+                            color: forgotten_password_text_color,
+                          ),
+                          Container(
+                            margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                            child: const Align(alignment: Alignment.center,
+                              child: Text(
+                                "OTP Verified",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color:text_color,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
                           ),
 
                           Container(
