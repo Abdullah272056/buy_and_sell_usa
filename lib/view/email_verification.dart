@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/password_set_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
@@ -561,6 +562,7 @@ class EmailVerificationScreen extends StatelessWidget {
 
                                 }
                                 else{
+                                  Get.to(PasswordSetScreen());
                                  // _userVerify(userId: _userId,otp:inputText );
                                   //_userVerify(userId: _userId,otp:inputText );
                                 }
