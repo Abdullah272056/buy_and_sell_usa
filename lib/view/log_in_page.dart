@@ -345,30 +345,7 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-  userLogIn({
-    required String email,
-    required String password,
-  }) async {
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('POST', Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'));
-    request.body = json.encode({
-      "email": "abdullah272056@gmail.com",
-      "password": "aaaaaaaa"
-    });
-    request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
-    _showToast(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    }
-    else {
-      print(response.reasonPhrase);
-    }
-
-  }
 
   //join now asking
   Widget _buildSignUpQuestion() {

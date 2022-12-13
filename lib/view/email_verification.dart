@@ -9,11 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/password_set_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../api_service/api_service.dart';
 import '../controller/email_verification_page_controller.dart';
 import '../static/Colors.dart';
+import 'log_in_page.dart';
 
 
 class EmailVerificationScreen extends StatelessWidget {
@@ -555,16 +556,25 @@ class EmailVerificationScreen extends StatelessWidget {
                             Expanded(child:InkWell(
                               onTap: (){
 
-                               // _showToast(inputText);
+                               // _showToast(emailVerifyPageController.userEmail.value);
                                 if(emailVerifyPageController.inputText.value.length<6||emailVerifyPageController.inputText.value.length>6){
 
                                   _showToast("Input six digit pin");
 
                                 }
                                 else{
-                                  Get.to(PasswordSetScreen());
-                                 // _userVerify(userId: _userId,otp:inputText );
-                                  //_userVerify(userId: _userId,otp:inputText );
+
+                                  userVerify(
+                                      email: emailVerifyPageController.userEmail.value,
+                                      otp: emailVerifyPageController.inputText.value);
+
+
+                               //   _showToast(emailVerifyPageController.userEmail.value);
+                                  // userVerify(
+                                  //     email: "abdullah272056@gmail.com",
+                                  //     otp: emailVerifyPageController.inputText.value);
+                                //  Get.to(PasswordSetScreen());
+
                                 }
 
                               },
@@ -905,6 +915,107 @@ class EmailVerificationScreen extends StatelessWidget {
     // });
 
   }
+
+
+  userVerify({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          // var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
+              var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
+              body: {
+                'email': email,
+                'otp': otp
+              }
+          );
+          Get.back();
+        //  _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            Get.to(() => PasswordSetScreen(), arguments: [
+              {"email": email},
+              {"otp": otp}
+            ]);
+          //  Get.to(PasswordSetScreen());
+
+          }
+
+          else {
+            // Get.back();
+            var data = jsonDecode(response.body);
+           _showToast("Otp Invalid!");
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          // Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  //loading dialog crete
+  void showLoadingDialog(String message) {
+
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
+
+
 
 }
 

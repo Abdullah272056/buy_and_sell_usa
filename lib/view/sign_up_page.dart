@@ -691,9 +691,7 @@ class SignUpScreen extends StatelessWidget {
 
           }
           else if (response.statusCode == 404) {
-            //   Get.back();
             var data = jsonDecode(response.body);
-
             if(data["message"]["name"]!=null){
               _showToast(data["message"]["name"][0].toString());
               return;
@@ -711,7 +709,7 @@ class SignUpScreen extends StatelessWidget {
 
           }
           else {
-            // Get.back();
+
             var data = jsonDecode(response.body);
             //_showToast(data['message']);
           }
@@ -721,7 +719,6 @@ class SignUpScreen extends StatelessWidget {
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
-          // Get.back();
 
           /// Navigator.of(context).pop();
         }

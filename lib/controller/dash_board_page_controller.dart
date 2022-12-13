@@ -27,47 +27,47 @@ var selectedPageIndex=1.obs;
     HomePage()
 ].obs;
 
-  dynamic argumentData = Get.arguments;
+ // dynamic argumentData = Get.arguments;
 
 @override
 void onInit() {
   super.onInit();
-  if(argumentData!=null){
-
-    selectedTabIndex(3);
-
-    if(argumentData[0]['first']=="0"){
-      selectedTabIndex(0);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="1"){
-      selectedTabIndex(1);
-      updateSelectedPage([CartPage()]);
-    }
-
-    if(argumentData[0]['first']=="2"){
-      selectedTabIndex(2);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="3"){
-      selectedTabIndex(3);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="4"){
-      selectedTabIndex(4);
-      updateSelectedPage([CartPage()]);
-    }
-
-
-
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
-    _showToast("ok");
-
-  }else{
-
-    _showToast("else");
-  }
+  // if(argumentData!=null){
+  //
+  //   selectedTabIndex(3);
+  //
+  //   if(argumentData[0]['first']=="0"){
+  //     selectedTabIndex(0);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="1"){
+  //     selectedTabIndex(1);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //
+  //   if(argumentData[0]['first']=="2"){
+  //     selectedTabIndex(2);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="3"){
+  //     selectedTabIndex(3);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="4"){
+  //     selectedTabIndex(4);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //
+  //
+  //
+  //   // print(argumentData[0]['first']);
+  //   // print(argumentData[1]['second']);
+  //   _showToast("ok");
+  //
+  // }else{
+  //
+  //   _showToast("else");
+  // }
 
 
 

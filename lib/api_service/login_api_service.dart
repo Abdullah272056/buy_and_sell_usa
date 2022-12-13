@@ -28,48 +28,50 @@ class LogInApiService {
 
           showLoadingDialog("Checking");
 
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
-          // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
-              body: {
+          // var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
+          var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+           body: {
             'email': email,
             'password': password,
           }
           );
 
-        //  _showToast(response.statusCode.toString());
+        // _showToast(response.statusCode.toString());
+
+          Get.back();
           if (response.statusCode == 200) {
-           // _showToast("success");
+            _showToast("success");
+
             var data = jsonDecode(response.body);
             saveUserInfo(
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
 
             Get.to(DashBoardPageScreen());
-            // Get.offAll(DashBoardPageScreen());
+           // Get.offAll(DashBoardPageScreen());
 
           }
           else if (response.statusCode == 401) {
-         //   Get.back();
-            var data = jsonDecode(response.body);
             _showToast("User name or password not match!");
           }
           else {
-           // Get.back();
+
             var data = jsonDecode(response.body);
-            _showToast(data['message']);
+           // _showToast(data['message']);
           }
-          Get.back();
+       //   Get.back();
 
         } catch (e) {
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
-         // Get.back();
+       //   Get.back();
 
           /// Navigator.of(context).pop();
         }
       }
     } on SocketException catch (_) {
+
       Fluttertoast.cancel();
       _showToast("No Internet Connection!");
     }
