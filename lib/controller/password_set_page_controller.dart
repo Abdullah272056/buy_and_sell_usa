@@ -15,8 +15,8 @@ class PasswordSetPageController extends GetxController {
   void onInit() {
     userEmail(argumentData[0]['email']);
     useOtp(argumentData[1]['otp'].toString());
-    _showToast(argumentData[0]['email']);
-    _showToast(argumentData[1]['otp'].toString());
+    // _showToast(argumentData[0]['email']);
+    // _showToast(argumentData[1]['otp'].toString());
 
     super.onInit();
   }

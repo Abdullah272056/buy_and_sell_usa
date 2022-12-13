@@ -14,11 +14,9 @@ class EmailVerifyPageController extends GetxController {
   @override
   void onInit() {
 
-    _showToast(argumentData[0]['email']);
+   // _showToast(argumentData[0]['email']);
     userEmail(argumentData[0]['email']);
-    // _showToast(argumentData[1]['second']);
-    // print(argumentData[0]['userId']);
-    // print(argumentData[1]['second']);
+
     super.onInit();
   }
 

@@ -331,8 +331,8 @@ class ForgetPasswordScreen extends StatelessWidget {
 
           showLoadingDialog("Checking");
 
-          // var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_RESET_PASSWORD'),
-              var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-password'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_RESET_PASSWORD'),
+          //var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-password'),
               body: {
                 'email': email,
               }

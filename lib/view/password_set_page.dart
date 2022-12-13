@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 
 import '../../controller/log_in_page_controller.dart';
+import '../api_service/api_service.dart';
 import '../controller/password_set_page_controller.dart';
 import '../controller/sign_up_page_controller.dart';
 import '../static/Colors.dart';
@@ -495,8 +496,8 @@ class PasswordSetScreen extends StatelessWidget {
 
           showLoadingDialog("Checking");
 
-          // var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
-           var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SET_NEW_PASSWORD'),
+           // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
               body: {
                 'otp': otp,
                 'email': email,

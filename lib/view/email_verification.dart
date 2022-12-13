@@ -928,8 +928,8 @@ class EmailVerificationScreen extends StatelessWidget {
 
           showLoadingDialog("Checking");
 
-          // var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
-              var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP'),
+          //     var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
               body: {
                 'email': email,
                 'otp': otp
