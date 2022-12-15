@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -36,7 +35,6 @@ class PasswordSetPageController extends GetxController {
   var isObscureConfirmPassword = true.obs;
 
 
-
   updateUserNameLevelTextColor(Color value) {
     userEmailLevelTextColor(value);
   }
@@ -49,6 +47,7 @@ class PasswordSetPageController extends GetxController {
   updateIsObscurePassword(var value) {
     isObscurePassword(value);
   }
+
   updatePasswordLevelTextColor(Color value) {
     passwordLevelTextColor(value);
   }

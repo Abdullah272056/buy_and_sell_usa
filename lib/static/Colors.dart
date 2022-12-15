@@ -37,3 +37,4 @@ const  Color fnf_bold_text_color = Color(0xFF1D2733);
 const Color  toast_bg_color = Color(0xfffcfcfc);
 const Color  toast_text_color = Color(0xffFE4344);
 
+
