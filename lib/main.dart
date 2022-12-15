@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // body:DashBoardPageScreen(),
-        body: HomePage(),
+        body:DashBoardPageScreen(),
+        // body: HomePage(),
         // body:DashBoardPageScreen(),
       ),
     );

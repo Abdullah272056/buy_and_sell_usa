@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/shop_page.dart';
+import 'package:fnf_buy/view/category_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -200,6 +200,7 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(

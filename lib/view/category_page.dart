@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ShopPage extends StatelessWidget {
+class CategoryPage extends StatelessWidget {
 
 
   @override
@@ -11,7 +11,7 @@ class ShopPage extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-            "Shop page"
+            "Category page"
         ),
       ),
     );

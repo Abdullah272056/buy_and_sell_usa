@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fnf_buy/view/account_page.dart';
 import 'package:fnf_buy/view/cart_page.dart';
 import 'package:fnf_buy/view/home_page.dart';
-import 'package:fnf_buy/view/search_page.dart';
-import 'package:fnf_buy/view/shop_page.dart';
+import 'package:fnf_buy/view/More_page.dart';
+import 'package:fnf_buy/view/category_page.dart';
 
 import 'package:get/get.dart';
 import '../controller/dash_board_page_controller.dart';
@@ -55,8 +55,8 @@ class DashBoardPageScreen extends StatelessWidget {
           selectedItemColor: bottom_nav_item_selected_color,
           unselectedItemColor: bottom_nav_item_unselected_color,
           currentIndex: dashBoardPageController.selectedTabIndex.value,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           onTap: (int index){
             dashBoardPageController.selectedTabIndex(index);
             if(index==0){
@@ -66,7 +66,7 @@ class DashBoardPageScreen extends StatelessWidget {
             }
 
             if(index==1){
-              dashBoardPageController.updateSelectedPage([ShopPage()]);
+              dashBoardPageController.updateSelectedPage([CategoryPage()]);
               //  selectedPage(HomePage( ));
               // selectedPage= ShopPage( );
               return;
@@ -85,7 +85,7 @@ class DashBoardPageScreen extends StatelessWidget {
             }
 
             if(index==4){
-              dashBoardPageController.updateSelectedPage([SearchPage()]);
+              dashBoardPageController.updateSelectedPage([MorePage()]);
               // selectedPage= SearchPage( );
               return;
             }
@@ -94,10 +94,10 @@ class DashBoardPageScreen extends StatelessWidget {
           },
           items: [
             _bottomNavigationBarItem(iconData: Icons.home, levelText: 'Home'),
-            _bottomNavigationBarItem(iconData: Icons.menu, levelText: 'Shop'),
+            _bottomNavigationBarItem(iconData: Icons.grid_view, levelText: 'Category'),
             _bottomNavigationBarItem(iconData: Icons.person, levelText: 'Account'),
             _bottomNavigationBarItem(iconData: Icons.add_shopping_cart, levelText: 'Cart'),
-            _bottomNavigationBarItem(iconData: Icons.search, levelText: 'Search'),
+            _bottomNavigationBarItem(iconData: Icons.read_more, levelText: 'More'),
 
 
           ],
