@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../view/account_page.dart';
-import '../view/home_page.dart';
+import '../view/home_page11.dart';
 import '../view/category_page.dart';
 
 class HomeController extends GetxController {

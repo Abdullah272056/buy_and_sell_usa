@@ -8,6 +8,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../view/account_page.dart';
 import '../view/home_page.dart';
+import '../view/home_page11.dart';
 import '../view/category_page.dart';
 
 class DashBoardPageController extends GetxController {
@@ -24,7 +25,7 @@ var selectedPageIndex=1.obs;
 
 // final Widget destination;
   var selectedPage = <Widget>[
-    HomePage()
+    HomePageScreen()
 ].obs;
 
  // dynamic argumentData = Get.arguments;

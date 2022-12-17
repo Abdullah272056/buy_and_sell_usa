@@ -8,6 +8,7 @@ class SaleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      margin: EdgeInsets.only(left: 20,right: 20),
       width: double.infinity,
       height: size.height * 0.2,
       decoration: BoxDecoration(

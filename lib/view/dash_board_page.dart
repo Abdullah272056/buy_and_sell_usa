@@ -3,20 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:fnf_buy/view/account_page.dart';
 import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/home_page.dart';
+import 'package:fnf_buy/view/home_page11.dart';
 import 'package:fnf_buy/view/More_page.dart';
 import 'package:fnf_buy/view/category_page.dart';
 
 import 'package:get/get.dart';
 import '../controller/dash_board_page_controller.dart';
 import '../static/Colors.dart';
+import 'home_page.dart';
 
 class DashBoardPageScreen extends StatelessWidget {
 
   // int selectedTabIndex;
   //  Widget selectedPage;
-  //
-  //
   // DashBoardPageScreen(this.selectedTabIndex, this.selectedPage);
 
   final dashBoardPageController = Get.put(DashBoardPageController());
@@ -26,28 +25,8 @@ class DashBoardPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
 
-      body: SafeArea(
-
-          child:Container(
-           child: Obx(() =>dashBoardPageController.selectedPage[0]),
-
-          )
-
-        //
-        //   child:  Obx(() =>
-        //     IndexedStack(
-        //       index:dashBoardPageController.selectedTabIndex.value,
-        //       children: [
-        //         HomePage(),
-        //         ShopPage(),
-        //         AccountPage(),
-        //         CartPage(),
-        //         SearchPage(),
-        //       ],
-        // )
-        // ),
-
-
+      body: Container(
+        child: Obx(() =>dashBoardPageController.selectedPage[0]),
 
       ),
 
@@ -60,7 +39,7 @@ class DashBoardPageScreen extends StatelessWidget {
           onTap: (int index){
             dashBoardPageController.selectedTabIndex(index);
             if(index==0){
-              dashBoardPageController.updateSelectedPage([HomePage()]);
+              dashBoardPageController.updateSelectedPage([HomePageScreen()]);
               // selectedPage(HomePage( ));
               return;
             }
@@ -107,7 +86,6 @@ class DashBoardPageScreen extends StatelessWidget {
   }
 
 
-
 _bottomNavigationBarItem({required IconData iconData,required String levelText}){
 
     return BottomNavigationBarItem(
@@ -119,5 +97,7 @@ _bottomNavigationBarItem({required IconData iconData,required String levelText})
         // items:
     );
 }
+
+
 
 }
