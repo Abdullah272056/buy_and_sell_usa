@@ -39,22 +39,21 @@ class CustomDrawerController extends GetxController {
           var response = await get(
               Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
           );
-          _showToast("status = ${response.statusCode}");
+          // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var data = response.body;
             CategoriesData categoriesDataAllListModel= categoriesDataFromJson(data);
 
             categoriesList(categoriesDataAllListModel.data);
-            _showToast(categoriesList.length.toString());
+           // _showToast(categoriesList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
-            log('data:'+response.body.toString());
+
             _showToast("failed try again!");
           }
         } catch (e) {
-          _showToast("AA");
           // Fluttertoast.cancel();
         }
       }

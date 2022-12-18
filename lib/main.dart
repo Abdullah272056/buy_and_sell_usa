@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/special_offers_screen.dart';
 import 'package:fnf_buy/view/background.dart';
-import 'package:fnf_buy/view/custom_drawer.dart';
 import 'package:fnf_buy/view/dash_board_page.dart';
 import 'package:fnf_buy/view/auth/email_verification.dart';
 import 'package:fnf_buy/view/home_page11.dart';
@@ -39,9 +38,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
 
-        body:CustomDrawer(),
+        // body:HomePageScreen(),
         // body: HomePageScreen(),
-        // body:DashBoardPageScreen(),
+       body:DashBoardPageScreen(),
       ),
     );
 

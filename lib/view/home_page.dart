@@ -8,6 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 
+import 'custom_drawer.dart';
+
 
 
 class HomePageScreen extends StatefulWidget {
@@ -26,7 +28,7 @@ class _HomePageScreenState
     "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"];
 
   int _subCategoriesButtonColorStatus=0;
-
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
   @override
   @mustCallSuper
   void initState() {
@@ -34,10 +36,12 @@ class _HomePageScreenState
 
 
   }
-
+  bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _drawerKey,
+      drawer: CustomDrawer(),
       body: Container(
         decoration: BoxDecoration(
           color:fnf_title_bar_bg_color,
@@ -56,7 +60,18 @@ class _HomePageScreenState
                   margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
-                      Navigator.of(context).pop();
+
+                      if (_drawerKey.currentState!.isDrawerOpen) {
+                        setState(() {
+                          isDrawerOpen = false;
+                        });
+                        _drawerKey.currentState!.openEndDrawer();
+                        return;
+                      } else
+                      _drawerKey.currentState!.openDrawer();
+                      setState(() {
+                      isDrawerOpen = true;
+                      });
                     },
                     child: const Icon(
                       Icons.menu,
