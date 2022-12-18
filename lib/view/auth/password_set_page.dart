@@ -6,23 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 
 
-import '../../controller/log_in_page_controller.dart';
-import '../api_service/api_service.dart';
-import '../api_service/sharePreferenceDataSaveName.dart';
-import '../controller/sign_up_page_controller.dart';
-import '../static/Colors.dart';
-import 'dash_board_page.dart';
+import '../../../controller/log_in_page_controller.dart';
+import '../../api_service/api_service.dart';
+import '../../controller/password_set_page_controller.dart';
+import '../../controller/sign_up_page_controller.dart';
+import '../../static/Colors.dart';
+
 import 'log_in_page.dart';
 
 
-class SignUpScreen extends StatelessWidget {
+class PasswordSetScreen extends StatelessWidget {
 
-  final signUpPageController = Get.put(SignUpPageController());
+  final passwordSetPageController = Get.put(PasswordSetPageController());
   var width;
   var height;
   @override
@@ -56,6 +55,7 @@ class SignUpScreen extends StatelessWidget {
       ),
     );
 
+
   }
 
 
@@ -78,65 +78,47 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     ///ratio 1:2.25
                     Image.asset(
-                      "assets/images/fnf_logo.png",
-                      width: 180,
+                      "assets/images/icon_forgot.png",
+                      width: 80,
                       height: 80,
+                      fit: BoxFit.fill,
+                      color: forgotten_password_text_color,
                     )
                   ],
                 ),
               ),
 
-              const SizedBox(
-                height: 20,
+
+              Container(
+                margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                child: const Align(alignment: Alignment.center,
+                  child: Text(
+                    "Create Password",
+                    textAlign: TextAlign.center,
+
+                    style: TextStyle(
+                        color:text_color,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
               ),
-
-
-              // const Align(
-              //   alignment: Alignment.topLeft,
-              //   child: Text("Email",
-              //       style: TextStyle(
-              //           color: hint_color,
-              //           fontSize: 15,
-              //           fontWeight: FontWeight.w400)),
-              // ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              //user email input
-              _buildTextFieldUserName(
-                // hintText: 'name',
-                obscureText: false,
-
-                prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                labelText: "Your Name",
-
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              _buildTextFieldUserEmail(
-                // hintText: 'Email Address',
-                obscureText: false,
-
-                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
-                labelText: "Email Address",
-
+              Container(
+                margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                child: const Align(alignment: Alignment.center,
+                  child: Text(
+                    "Create a password for your account",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: hint_color,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400),
+                  ),),
               ),
               const SizedBox(
-                height: 25,
+                height: 50,
               ),
 
-              // const Align(
-              //   alignment: Alignment.topLeft,
-              //   child: Text("Email",
-              //       style: TextStyle(
-              //           color: hint_color,
-              //           fontSize: 15,
-              //           fontWeight: FontWeight.w400)),
-              // ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
 
               //password input
               _buildTextFieldPassword(
@@ -159,7 +141,7 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(
                 height: 45,
               ),
-              _buildSignUpButton(),
+              _buildSaveButton(),
               const SizedBox(
                 height: 30,
               ),
@@ -185,138 +167,6 @@ class SignUpScreen extends StatelessWidget {
 
 
 
-  //user name input field create
-  Widget _buildTextFieldUserName({
-    required bool obscureText,
-    Widget? prefixedIcon,
-    String? hintText,
-    String? labelText,
-  }) {
-    return Container(
-      color:transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          signUpPageController.userEmailLevelTextColor.value = hasFocus ? hint_color : hint_color;
-        },
-        child: TextField(
-          cursorColor: awsCursorColor,
-          cursorWidth: 1.5,
-          // maxLength: 13,
-          // autofocus: false,
-
-          focusNode:signUpPageController.userNameControllerFocusNode.value,
-          onSubmitted:(_){
-            signUpPageController.userEmailControllerFocusNode.value.requestFocus();
-          },
-          controller: signUpPageController.userNameController.value,
-          textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-            labelText: labelText,
-            filled: true,
-            fillColor: Colors.white,
-            // contentPadding: const EdgeInsets.all(17),
-            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
-
-            prefixIcon: prefixedIcon,
-            prefixIconColor: input_box_icon_color,
-
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
-            ),
-            labelStyle: TextStyle(
-              color:signUpPageController.userEmailLevelTextColor.value,
-            ),
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
-            ),
-          ),
-          keyboardType: TextInputType.text,
-          // inputFormatters: [
-          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
-          //   LengthLimitingTextInputFormatter(
-          //     13,
-          //   ),
-          // ],
-        ),
-      ),
-    );
-  }
-
-  //user name input field create
-  Widget _buildTextFieldUserEmail({
-    required bool obscureText,
-    Widget? prefixedIcon,
-    String? hintText,
-    String? labelText,
-  }) {
-    return Container(
-      color:transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          signUpPageController.userEmailLevelTextColor.value = hasFocus ? hint_color : hint_color;
-        },
-        child: TextField(
-          cursorColor: awsCursorColor,
-          cursorWidth: 1.5,
-         // maxLength: 13,
-          // autofocus: false,
-
-          focusNode:signUpPageController.userEmailControllerFocusNode.value,
-          onSubmitted:(_){
-            signUpPageController.passwordControllerFocusNode.value.requestFocus();
-          },
-
-          controller: signUpPageController.userEmailController.value,
-          textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-            labelText: labelText,
-            filled: true,
-            fillColor: Colors.white,
-            // contentPadding: const EdgeInsets.all(17),
-            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
-
-            prefixIcon: prefixedIcon,
-            prefixIconColor: input_box_icon_color,
-
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
-            ),
-            labelStyle: TextStyle(
-              color:signUpPageController.userEmailLevelTextColor.value,
-            ),
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
-            ),
-          ),
-          keyboardType: TextInputType.text,
-          // inputFormatters: [
-          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
-          //   LengthLimitingTextInputFormatter(
-          //     13,
-          //   ),
-          // ],
-        ),
-      ),
-    );
-  }
-
-
 //password input field create
   Widget _buildTextFieldPassword({
     required bool obscureText,
@@ -330,21 +180,21 @@ class SignUpScreen extends StatelessWidget {
 
     Focus(
       onFocusChange: (hasFocus) {
-        signUpPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
     },
     child:  Obx(() =>
 
 
         TextField(
-          controller: signUpPageController.passwordController.value,
+          controller: passwordSetPageController.passwordController.value,
           cursorColor:awsCursorColor,
           cursorWidth: 1.5,
 
-          obscureText: signUpPageController.isObscurePassword.value,
+          obscureText: passwordSetPageController.isObscurePassword.value,
           // obscuringCharacter: "*",
-          focusNode:signUpPageController.passwordControllerFocusNode.value,
+          focusNode:passwordSetPageController.passwordControllerFocusNode.value,
           onSubmitted:(_){
-            signUpPageController.confirmPasswordControllerFocusNode.value.requestFocus();
+            passwordSetPageController.confirmPasswordControllerFocusNode.value.requestFocus();
           },
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -357,12 +207,12 @@ class SignUpScreen extends StatelessWidget {
             suffixIcon: IconButton(
                 color: input_box_icon_color,
                 icon: Icon(
-                  signUpPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
+                  passwordSetPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
                 ),
 
                 // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                 onPressed: () {
-                  signUpPageController.updateIsObscurePassword(!signUpPageController.isObscurePassword.value);
+                  passwordSetPageController.updateIsObscurePassword(!passwordSetPageController.isObscurePassword.value);
                 }),
 
             // filled: true,
@@ -384,7 +234,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             labelText: labelText,
             labelStyle:  TextStyle(
-              color: signUpPageController.passwordLevelTextColor.value,
+              color: passwordSetPageController.passwordLevelTextColor.value,
             ),
           ),
         )),
@@ -406,19 +256,19 @@ class SignUpScreen extends StatelessWidget {
 
         Focus(
           onFocusChange: (hasFocus) {
-            signUpPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+            passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
           },
           child:  Obx(() =>
 
 
               TextField(
-                controller: signUpPageController.confirmPasswordController.value,
+                controller: passwordSetPageController.confirmPasswordController.value,
                 cursorColor:awsCursorColor,
                 cursorWidth: 1.5,
 
-                obscureText: signUpPageController.isObscureConfirmPassword.value,
+                obscureText: passwordSetPageController.isObscureConfirmPassword.value,
                 // obscuringCharacter: "*",
-                focusNode:signUpPageController.confirmPasswordControllerFocusNode.value,
+                focusNode:passwordSetPageController.confirmPasswordControllerFocusNode.value,
                 style: const TextStyle(color: Colors.black, fontSize: 18),
                 decoration: InputDecoration(
                   // border: InputBorder.none,
@@ -429,12 +279,12 @@ class SignUpScreen extends StatelessWidget {
                   suffixIcon: IconButton(
                       color: input_box_icon_color,
                       icon: Icon(
-                        signUpPageController.isObscureConfirmPassword.value ? Icons.visibility_off : Icons.visibility,
+                        passwordSetPageController.isObscureConfirmPassword.value ? Icons.visibility_off : Icons.visibility,
                       ),
 
                       // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                       onPressed: () {
-                        signUpPageController.updateIsObscureConfirmPassword(!signUpPageController.isObscureConfirmPassword.value);
+                        passwordSetPageController.updateIsObscureConfirmPassword(!passwordSetPageController.isObscureConfirmPassword.value);
                       }),
 
                   filled: true,
@@ -456,7 +306,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   labelText: labelText,
                   labelStyle:  TextStyle(
-                    color: signUpPageController.passwordLevelTextColor.value,
+                    color: passwordSetPageController.passwordLevelTextColor.value,
                   ),
                 ),
               )),
@@ -468,21 +318,17 @@ class SignUpScreen extends StatelessWidget {
 
 
   //login button create
-  Widget _buildSignUpButton() {
+  Widget _buildSaveButton() {
     return ElevatedButton(
         onPressed: () {
 
-          String userNameTxt = signUpPageController.userNameController.value.text;
-          String userEmailTxt = signUpPageController.userEmailController.value.text;
-          String passwordTxt = signUpPageController.passwordController.value.text;
-          String confirmPasswordTxt = signUpPageController.confirmPasswordController.value.text;
+          String passwordTxt = passwordSetPageController.passwordController.value.text;
+          String confirmPasswordTxt = passwordSetPageController.confirmPasswordController.value.text;
 
-          if (_inputValid(userName: userNameTxt, userEmail:userEmailTxt,
-              password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
-            // userAutoLogIn();
-            userSignUp(name: userNameTxt, email: userEmailTxt, password: confirmPasswordTxt);
-
-        //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
+          if (_inputValid(password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
+            newPassword(otp: passwordSetPageController.useOtp.value,
+                email: passwordSetPageController.userEmail.value,
+                password: confirmPasswordTxt);
 
           }
 
@@ -505,7 +351,7 @@ class SignUpScreen extends StatelessWidget {
           height: 50,
           alignment: Alignment.center,
           child:  const Text(
-            "Sign Up",
+            "Save",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
@@ -555,26 +401,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   //input text validation check
-  _inputValid({required String userName,required String userEmail,
-    required String password, required String confirmPassword}) {
-    if (userName.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Name can't empty!");
-      return;
-    }
-    if (userEmail.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Email can't empty!");
-      return;
-    }
-    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
-      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-    )
-        .hasMatch(userEmail)) {
-      Fluttertoast.cancel();
-      _showToast("Enter valid email!");
-      return;
-    }
+  _inputValid({required String password, required String confirmPassword}) {
 
     if (password.isEmpty) {
       Fluttertoast.cancel();
@@ -601,7 +428,7 @@ class SignUpScreen extends StatelessWidget {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:toast_bg_color,
@@ -657,8 +484,9 @@ class SignUpScreen extends StatelessWidget {
   }
 
 
-  userSignUp({
-    required String name,
+  // new password set api call
+  newPassword({
+    required String otp,
     required String email,
     required String password,
   }) async {
@@ -669,49 +497,27 @@ class SignUpScreen extends StatelessWidget {
 
           showLoadingDialog("Checking");
 
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
-              // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SET_NEW_PASSWORD'),
+           // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
               body: {
-                'name': name,
+                'otp': otp,
                 'email': email,
                 'password': password
               }
           );
           Get.back();
-           // _showToast(response.statusCode.toString());
+         // _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             // _showToast("success");
             var data = jsonDecode(response.body);
-            saveUserInfo(
-                userName: data["data"]["name"].toString(),
-                userToken: data["data"]["token"].toString());
-
-            Get.to(DashBoardPageScreen());
-            // Get.offAll(DashBoardPageScreen());
+            Get.to(LogInScreen());
 
           }
-          else if (response.statusCode == 404) {
-            var data = jsonDecode(response.body);
-            if(data["message"]["name"]!=null){
-              _showToast(data["message"]["name"][0].toString());
-              return;
-            }
 
-            if(data["message"]["email"]!=null){
-              _showToast(data["message"]["email"][0].toString());
-              return;
-            }
-
-            if(data["message"]["password"]!=null){
-              _showToast(data["message"]["password"][0].toString());
-              return;
-            }
-
-          }
           else {
 
             var data = jsonDecode(response.body);
-            //_showToast(data['message']);
+            _showToast(data['data']);
           }
 
 
@@ -728,20 +534,6 @@ class SignUpScreen extends StatelessWidget {
       _showToast("No Internet Connection!");
     }
   }
-
-
-  ///user info with share pref
-  void saveUserInfo({required String userName,required String userToken,}) async {
-    try {
-      var storage =GetStorage();
-      storage.write(pref_user_name, userName);
-      storage.write(pref_user_token, userToken);
-    } catch (e) {
-      //code
-    }
-
-  }
-
 
 }
 

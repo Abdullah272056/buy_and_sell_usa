@@ -40,3 +40,6 @@ const Color  toast_text_color = Color(0xffFE4344);
 const Color  fnf_title_bar_bg_color = Color(0xff2146fc);
 
 
+const Color  sohojatri_color = Color(0xff2146fc);
+
+

@@ -8,6 +8,7 @@ String SUB_URL_API_SIGN_UP = "api/register";
 String SUB_URL_API_RESET_PASSWORD = "api/reset-password";
 String SUB_URL_API_SEND_OTP = "api/reset-otp-check";
 String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
+String SUB_URL_API_GET_CATEGORIES = "api/categories";
 
 
 

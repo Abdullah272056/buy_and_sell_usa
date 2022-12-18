@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/special_offers_screen.dart';
 import 'package:fnf_buy/view/background.dart';
+import 'package:fnf_buy/view/custom_drawer.dart';
 import 'package:fnf_buy/view/dash_board_page.dart';
-import 'package:fnf_buy/view/email_verification.dart';
+import 'package:fnf_buy/view/auth/email_verification.dart';
 import 'package:fnf_buy/view/home_page11.dart';
-import 'package:fnf_buy/view/log_in_page.dart';
+
 import 'package:fnf_buy/view/main_page_product_card.dart';
-import 'package:fnf_buy/view/password_set_page.dart';
+import 'package:fnf_buy/view/auth/password_set_page.dart';
 import 'package:fnf_buy/view/home_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -38,9 +39,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
 
-        // body:HomePageScreen(),
+        body:CustomDrawer(),
         // body: HomePageScreen(),
-        body:DashBoardPageScreen(),
+        // body:DashBoardPageScreen(),
       ),
     );
 
