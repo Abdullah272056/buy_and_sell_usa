@@ -1,16 +1,11 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
 import '../controller/custom_drawer_controller.dart';
-import '../controller/log_in_page_controller.dart';
 import '../static/Colors.dart';
 import 'auth/log_in_page.dart';
+import 'home_page/product_list.dart';
 
 
 class CustomDrawer extends StatelessWidget {
@@ -416,7 +411,12 @@ class CustomDrawer extends StatelessWidget {
 
                     ),
                     onTap: (){
-
+                      Get.to(() => ProductListPage(), arguments: [
+                        {"categoriesId": customDrawerController.categoriesList[index].id.toString()},
+                        {"subCategoriesId": customDrawerController.categoriesList[index].subCategories[index2].id.toString()}
+                      ]);
+                      // _showToast(customDrawerController.categoriesList[index].id.toString());
+                      // _showToast(customDrawerController.categoriesList[index].subCategories[index2].id.toString());
                     },
                   ),
                 );
@@ -443,7 +443,16 @@ class CustomDrawer extends StatelessWidget {
   }
 
 
-
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: fnf_color,
+        fontSize: 15.0);
+  }
 
 
 

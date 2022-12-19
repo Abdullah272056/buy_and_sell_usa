@@ -1,13 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../static/Colors.dart';
-import 'main_page_product_card2.dart';
+
 
 
 class HomeScreenProductCard extends StatefulWidget {

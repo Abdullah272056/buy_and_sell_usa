@@ -1,14 +1,10 @@
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
-
-import 'custom_drawer.dart';
+import '../custom_drawer.dart';
 
 
 

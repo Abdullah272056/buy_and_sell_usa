@@ -1,19 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-
-
-
-import '../../../controller/log_in_page_controller.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/password_set_page_controller.dart';
-import '../../controller/sign_up_page_controller.dart';
 import '../../static/Colors.dart';
 
 import 'log_in_page.dart';

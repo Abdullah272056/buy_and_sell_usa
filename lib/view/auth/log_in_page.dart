@@ -1,16 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/sign_up_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart' as http;
-
-
-
 import '../../api_service/login_api_service.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../../static/Colors.dart';

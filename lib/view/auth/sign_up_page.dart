@@ -1,17 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
-
-
-import '../../../controller/log_in_page_controller.dart';
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../../controller/sign_up_page_controller.dart';

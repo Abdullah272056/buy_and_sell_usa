@@ -1,20 +1,14 @@
 
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/auth/sign_up_page.dart';
 import 'package:get/get.dart';
-
 import '../../api_service/api_service.dart';
 import '../../controller/forget_password_page_controller.dart';
 import '../../static/Colors.dart';
-import '../background.dart';
 import 'email_verification.dart';
-
 import 'package:http/http.dart' as http;
-
 import 'log_in_page.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {

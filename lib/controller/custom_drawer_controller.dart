@@ -1,13 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-
 import '../api_service/api_service.dart';
 import '../model/CategoriesData.dart';
 import '../static/Colors.dart';

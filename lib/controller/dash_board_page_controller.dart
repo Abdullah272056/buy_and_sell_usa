@@ -1,34 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/More_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import '../view/home_page/home_page.dart';
 
-import '../view/account_page.dart';
-import '../view/home_page.dart';
-import '../view/home_page11.dart';
-import '../view/category_page.dart';
 
 class DashBoardPageController extends GetxController {
-  // int tabIndex;
-  // Widget selectedPageName;
-  //
-  //
-  // DashBoardPageController(this.tabIndex, this.selectedPageName);
 
 var selectedTabIndex=0.obs;
 var selectedPageIndex=1.obs;
 
-// var selectedPage=Container().obs;
-
-// final Widget destination;
   var selectedPage = <Widget>[
     HomePageScreen()
 ].obs;
 
- // dynamic argumentData = Get.arguments;
 
 @override
 void onInit() {

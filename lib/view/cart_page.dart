@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
+import 'home_page/product_list.dart';
 import 'home_page1.dart';
 
 class CartPage extends StatelessWidget {
@@ -21,8 +19,13 @@ class CartPage extends StatelessWidget {
                 child:  InkWell(
                   child: Text("click1"),
                   onTap: (){
-                    Get.to(HomePage22());
-                    // _showToast("");
+
+                    // Get.to(ProductListPage());
+                    Get.to(() => ProductListPage(), arguments: [
+                      {"categoriesId": '1'},
+                      {"subCategoriesId": '7'}
+                    ]);
+
                   },
 
                 ),

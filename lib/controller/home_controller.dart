@@ -1,14 +1,7 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/More_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-import '../view/account_page.dart';
-import '../view/home_page11.dart';
-import '../view/category_page.dart';
 
 class HomeController extends GetxController {
   // int tabIndex;

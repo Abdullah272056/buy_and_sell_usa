@@ -1,16 +1,13 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:fnf_buy/view/account_page.dart';
 import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/home_page11.dart';
 import 'package:fnf_buy/view/More_page.dart';
 import 'package:fnf_buy/view/category_page.dart';
-
 import 'package:get/get.dart';
 import '../controller/dash_board_page_controller.dart';
 import '../static/Colors.dart';
-import 'home_page.dart';
+import 'home_page/home_page.dart';
 
 class DashBoardPageScreen extends StatelessWidget {
 

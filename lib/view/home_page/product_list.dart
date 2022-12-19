@@ -1,35 +1,28 @@
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/category_page.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../api_service/api_service.dart';
+import '../../controller/all_product_list_controller.dart';
+import '../../static/Colors.dart';
 
-import '../controller/dash_board_page_controller.dart';
-import '../static/Colors.dart';
-import 'background.dart';
-import 'dash_board_page.dart';
-import 'home_page1.dart';
-
-
-class HomePage11 extends StatelessWidget {
-
+class ProductListPage extends StatelessWidget {
+  final allProductListPageController = Get.put(AllProductListPageController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         // backgroundColor: Colors.backGroundColor,
         // key: _key,
-
         body:Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-           Expanded(child:  GridView.builder(
-               itemCount:10,
+           Expanded(child:
+           Obx(()=>GridView.builder(
+               itemCount:allProductListPageController.filterProductList.length,
                // shrinkWrap: true,
                // physics: const ClampingScrollPhysics(),
                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -39,9 +32,9 @@ class HomePage11 extends StatelessWidget {
                    mainAxisExtent: 250
                ),
                itemBuilder: (BuildContext context, int index) {
-                 return  productCardDesign(height: 00, width: MediaQuery.of(context).size.width);
-               }),)
-
+                 return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index);
+               }),
+           ),)
           ],
         )
 
@@ -50,9 +43,11 @@ class HomePage11 extends StatelessWidget {
   }
 
   //user name input field create
-  Widget productCardDesign({
+  Widget productCardItemDesign({
     required double height,
     required double width,
+    required int index,
+
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -79,11 +74,27 @@ class HomePage11 extends StatelessWidget {
                     AspectRatio(
                         aspectRatio: 1,
                         child:Padding(
-                          padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                          // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                          padding: EdgeInsets.only(left: 0,right: 0,top: 0),
                           // padding: EdgeInsets.all(16),
-                          child: Image.asset(
-                              "assets/images/shirt.png"
-                          ),
+                          child: FadeInImage.assetNetwork(
+                            fit: BoxFit.fill,
+                            placeholder: 'assets/images/loading.png',
+                            // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
+                            image:BASE_URL_API_IMAGE+
+                                allProductListPageController.filterProductList[index].coverImage??"",
+
+
+                            imageErrorBuilder: (context, url, error) =>
+                                Image.asset(
+                                  'assets/images/loading.png',
+                                  fit: BoxFit.fill,
+                                ),
+                          )
+
+                          // Image.asset(
+                          //     "assets/images/shirt.png"
+                          // ),
                         )
                     ),
                     Positioned(
@@ -112,7 +123,9 @@ class HomePage11 extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child:  Text("Men Grey Classic Regular Fit Formal Shirt",
+                        child:  Text(
+                          allProductListPageController.filterProductList[index].productName,
+                          //"Men Grey Classic Regular Fit Formal Shirt",
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: Colors.black.withOpacity(0.5),
@@ -168,7 +181,8 @@ class HomePage11 extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child:  Text("\$ 99.00",
+                        child:  Text("\$ "+
+                            allProductListPageController.filterProductList[index].price,
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: Colors.black.withOpacity(0.7),
