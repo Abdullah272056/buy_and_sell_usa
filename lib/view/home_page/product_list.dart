@@ -287,14 +287,14 @@ class ProductListPage extends StatelessWidget {
                           //  buttonHeight: 40,
                           //   menuMaxHeight:55,
                           itemPadding: EdgeInsets.only(left: 5,right: 0),
-                          value: allProductListPageController.selectAssignmentId.value != null &&
-                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
-                          allProductListPageController.selectAssignmentId.value : null,
+                          value: allProductListPageController.selectSizeId.value != null &&
+                              allProductListPageController.selectSizeId.value.isNotEmpty ?
+                          allProductListPageController.selectSizeId.value : null,
                           underline:const SizedBox.shrink(),
                           hint:Row(
                             children: const [
                               SizedBox(width: 5,),
-                              Expanded(child: Center(child: Text("Sort",
+                              Expanded(child: Center(child: Text("Size",
                                   style: TextStyle(
                                       color: text_color,
                                       fontSize: 12,
@@ -306,7 +306,7 @@ class ProductListPage extends StatelessWidget {
                           /// icon: SizedBox.shrink(),
                           buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-                          items: allProductListPageController.data.map((list) {
+                          items: allProductListPageController.sizeList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
                               child: Row(
@@ -316,7 +316,7 @@ class ProductListPage extends StatelessWidget {
 
                                   Expanded(child: Center(
                                     child: Text(
-                                        list["category_name"].toString(),
+                                        list["size_name"].toString(),
                                         textAlign: TextAlign.center,
                                         style:  TextStyle(
                                             color: text_color,
@@ -339,7 +339,7 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            String data= allProductListPageController.selectSizeId(value.toString());
                             // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
                           },
 

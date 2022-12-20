@@ -22,6 +22,7 @@ class AllProductListPageController extends GetxController {
   var data = [].obs;
   var selectColorsId="".obs;
   var colorsList = [].obs;
+  var selectSizeId="".obs;
   var sizeList = [].obs;
 
   @override
