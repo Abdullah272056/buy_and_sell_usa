@@ -349,14 +349,14 @@ class ProductListPage extends StatelessWidget {
                           //  buttonHeight: 40,
                           //   menuMaxHeight:55,
                           itemPadding: EdgeInsets.only(left: 5,right: 0),
-                          value: allProductListPageController.selectAssignmentId.value != null &&
-                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
-                          allProductListPageController.selectAssignmentId.value : null,
+                          value: allProductListPageController.selectBrandsId.value != null &&
+                              allProductListPageController.selectBrandsId.value.isNotEmpty ?
+                          allProductListPageController.selectBrandsId.value : null,
                           underline:const SizedBox.shrink(),
                           hint:Row(
                             children: const [
                               SizedBox(width: 5,),
-                              Expanded(child: Center(child: Text("Sort",
+                              Expanded(child: Center(child: Text("Brands",
                                   style: TextStyle(
                                       color: text_color,
                                       fontSize: 12,
@@ -368,7 +368,7 @@ class ProductListPage extends StatelessWidget {
                           /// icon: SizedBox.shrink(),
                           buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-                          items: allProductListPageController.data.map((list) {
+                          items: allProductListPageController.brandsList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
                               child: Row(
@@ -378,7 +378,7 @@ class ProductListPage extends StatelessWidget {
 
                                   Expanded(child: Center(
                                     child: Text(
-                                        list["category_name"].toString(),
+                                        list["vendor_name"].toString(),
                                         textAlign: TextAlign.center,
                                         style:  TextStyle(
                                             color: text_color,
@@ -401,7 +401,7 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            String data= allProductListPageController.selectBrandsId(value.toString());
                             // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
                           },
 
@@ -416,7 +416,14 @@ class ProductListPage extends StatelessWidget {
                     Expanded(child: InkWell(
                       onTap: (){
 
-                        _showToast("df");
+                        if(allProductListPageController.showFilterStatus==1){
+                          allProductListPageController.showFilterStatus(2);
+                        }
+                        else{
+                          allProductListPageController.showFilterStatus(1);
+                        }
+
+                       // _showToast("df");
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -452,14 +459,14 @@ class ProductListPage extends StatelessWidget {
                           //  buttonHeight: 40,
                           //   menuMaxHeight:55,
                           itemPadding: EdgeInsets.only(left: 5,right: 0),
-                          value: allProductListPageController.selectAssignmentId.value != null &&
-                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
-                          allProductListPageController.selectAssignmentId.value : null,
+                          value: allProductListPageController.selectCategoriesId.value != null &&
+                              allProductListPageController.selectCategoriesId.value.isNotEmpty ?
+                          allProductListPageController.selectCategoriesId.value : null,
                           underline:const SizedBox.shrink(),
                           hint:Row(
                             children: const [
                               SizedBox(width: 5,),
-                              Expanded(child: Center(child: Text("Sort",
+                              Expanded(child: Center(child: Text("Categories",
                                   style: TextStyle(
                                       color: text_color,
                                       fontSize: 12,
@@ -471,7 +478,7 @@ class ProductListPage extends StatelessWidget {
                           /// icon: SizedBox.shrink(),
                           buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-                          items: allProductListPageController.data.map((list) {
+                          items: allProductListPageController.categoriesList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
                               child: Row(
@@ -504,7 +511,69 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            String data= allProductListPageController.selectCategoriesId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Expanded(child: Obx(() =>
+                     DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectSubCategoriesId.value != null &&
+                              allProductListPageController.selectSubCategoriesId.value.isNotEmpty ?
+                          allProductListPageController.selectSubCategoriesId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sub categories",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.subCategoriesList.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["subcategory_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectSubCategoriesId(value.toString());
                             // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
                           },
 
@@ -514,9 +583,9 @@ class ProductListPage extends StatelessWidget {
                           //  buttonHeight: 40,
                           //   menuMaxHeight:55,
                           itemPadding: EdgeInsets.only(left: 5,right: 0),
-                          value: allProductListPageController.selectAssignmentId.value != null &&
-                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
-                          allProductListPageController.selectAssignmentId.value : null,
+                          value: allProductListPageController.selectCategoriesId.value != null &&
+                              allProductListPageController.selectCategoriesId.value.isNotEmpty ?
+                          allProductListPageController.selectCategoriesId.value : null,
                           underline:const SizedBox.shrink(),
                           hint:Row(
                             children: const [
@@ -533,7 +602,7 @@ class ProductListPage extends StatelessWidget {
                           /// icon: SizedBox.shrink(),
                           buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-                          items: allProductListPageController.data.map((list) {
+                          items: allProductListPageController.categoriesList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
                               child: Row(
@@ -566,105 +635,11 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            String data= allProductListPageController.selectCategoriesId(value.toString());
                             // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
                           },
 
                         ),)),
-                    Expanded(child: Obx(() =>
-                        DropdownButton2(
-                          //  buttonHeight: 40,
-                          //   menuMaxHeight:55,
-                          itemPadding: EdgeInsets.only(left: 5,right: 0),
-                          value: allProductListPageController.selectAssignmentId.value != null &&
-                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
-                          allProductListPageController.selectAssignmentId.value : null,
-                          underline:const SizedBox.shrink(),
-                          hint:Row(
-                            children: const [
-                              SizedBox(width: 5,),
-                              Expanded(child: Center(child: Text("Sort",
-                                  style: TextStyle(
-                                      color: text_color,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),))
-                            ],
-                          ),
-                          isExpanded: true,
-
-                          /// icon: SizedBox.shrink(),
-                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
-
-                          items: allProductListPageController.data.map((list) {
-                            return DropdownMenuItem(
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-
-
-                                  Expanded(child: Center(
-                                    child: Text(
-                                        list["category_name"].toString(),
-                                        textAlign: TextAlign.center,
-                                        style:  TextStyle(
-                                            color: text_color,
-                                            //color: intello_text_color,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal)),
-                                  ),),
-
-
-
-
-                                ],
-                              ),
-
-                              // Text(list["country_name"].toString()),
-                              value: list["id"].toString(),
-                            );
-
-                          },
-                          ).toList(),
-                          onChanged: (String? value) {
-
-                            String data= allProductListPageController.selectAssignmentId(value.toString());
-                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
-                          },
-
-                        ),)),
-                    Container(
-                      margin: EdgeInsets.only(left: 5),
-                      color: hint_color,
-                      width: 1,
-                      height: 30,
-                    ),
-
-                    Expanded(child: InkWell(
-                      onTap: (){
-
-                        _showToast("df");
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(width: 5,),
-                          Text("Filter",
-                              style: TextStyle(
-                                  color: text_color,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.normal)),
-                          SizedBox(width: 5,),
-
-                          Icon(
-                            Icons.filter_alt_outlined,
-                            color: text_color,
-                            size: 20.0,
-                          ),
-                        ],
-                      ),
-                    )),
-
 
 
 

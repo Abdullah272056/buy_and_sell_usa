@@ -16,14 +16,22 @@ import '../static/Colors.dart';
 class AllProductListPageController extends GetxController {
   // dynamic argumentData = Get.arguments;
   var filterProductList=[].obs;
-  var selectAssignmentId="".obs;
-
   var showFilterStatus=1.obs;
-  var data = [].obs;
+
+  var selectCategoriesId="".obs;
+  var categoriesList = [].obs;
+
   var selectColorsId="".obs;
   var colorsList = [].obs;
+
   var selectSizeId="".obs;
   var sizeList = [].obs;
+
+  var selectBrandsId="".obs;
+  var brandsList = [].obs;
+
+  var selectSubCategoriesId="".obs;
+  var subCategoriesList = [].obs;
 
   @override
   void onInit() {
@@ -36,6 +44,8 @@ class AllProductListPageController extends GetxController {
     getColors();
     getProductSize();
     getCategories();
+    getBrands();
+    getSubCategoriesList();
 
     getCategoriesProductsDataList(categoryId: "1",
         subcategoryId: "6",
@@ -81,7 +91,7 @@ class AllProductListPageController extends GetxController {
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
-            data(dataResponse["data"]);
+            categoriesList(dataResponse["data"]);
           }
           else {
             // Fluttertoast.cancel();
@@ -110,7 +120,7 @@ class AllProductListPageController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
             colorsList(dataResponse["data"]);
-            _showToast("Colors= "+colorsList.length.toString());
+           // _showToast("Colors= "+colorsList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -139,7 +149,7 @@ class AllProductListPageController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
             sizeList(dataResponse["data"]);
-            _showToast("Colors= "+sizeList.length.toString());
+           // _showToast("Colors= "+sizeList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -155,6 +165,63 @@ class AllProductListPageController extends GetxController {
     }
   }
 
+  void getBrands() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_BRANDS_LIST}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            brandsList(dataResponse["data"]);
+            _showToast("brandsList= "+brandsList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again111!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  void getSubCategoriesList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_SUBCATEGORIES}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            subCategoriesList(dataResponse["data"]);
+           // _showToast("brandsList= "+brandsList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again111!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
 
 
   void getCategoriesProductsDataList({
