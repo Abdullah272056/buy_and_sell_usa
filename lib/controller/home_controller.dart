@@ -4,22 +4,26 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  // int tabIndex;
-  // Widget selectedPageName;
-  //
-  //
-  // DashBoardPageController(this.tabIndex, this.selectedPageName);
+  TextEditingController? searchController = TextEditingController();
+
+  var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
+    "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"].obs;
+  var isDrawerOpen = false.obs;
+
+  var subCategoriesButtonColorStatus=0.obs;
+
+
 
   var selectedTabIndex=0.obs;
   var selectedPageIndex=1.obs;
   var abcd="0".obs;
 
-  dynamic argumentData = Get.arguments;
+  // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-    abcd(argumentData[0]['first']);
-    print(argumentData[0]['first']);
-    print(argumentData[1]['second']);
+    // abcd(argumentData[0]['first']);
+    // print(argumentData[0]['first']);
+    // print(argumentData[1]['second']);
     super.onInit();
 
 

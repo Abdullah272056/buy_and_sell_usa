@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         // body:HomePageScreen(),
         // body: CartPage(),
-       body:DashBoardPageScreen(),
+       body:HomePageScreen(),
       ),
     );
 

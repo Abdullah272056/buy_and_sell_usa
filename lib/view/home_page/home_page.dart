@@ -1,38 +1,41 @@
 
+
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../controller/home_controller.dart';
 import '../custom_drawer.dart';
 
 
 
-class HomePageScreen extends StatefulWidget {
-  const HomePageScreen({Key? key}) : super(key: key);
+class HomePageScreen extends StatelessWidget {
+   // HomePageScreen({Key? key}) : super(key: key);
 
-  @override
-  State<HomePageScreen> createState() =>
-      _HomePageScreenState();
-}
-
-class _HomePageScreenState
-    extends State<HomePageScreen> {
-  TextEditingController? searchController = TextEditingController();
-
-  List<String> categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
-    "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"];
-
-  int _subCategoriesButtonColorStatus=0;
+  final homeController = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
-  @override
-  @mustCallSuper
-  void initState() {
-    super.initState();
 
+//   @override
+//   State<HomePageScreen> createState() =>
+//       _HomePageScreenState();
+// }
+//
+// class _HomePageScreenState
+//     extends State<HomePageScreen> {
+//
+//   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+//   @override
+//   @mustCallSuper
+//   void initState() {
+//     super.initState();
+//
+//
+//   }
 
-  }
-  bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,16 +61,12 @@ class _HomePageScreenState
                     onTap: () {
 
                       if (_drawerKey.currentState!.isDrawerOpen) {
-                        setState(() {
-                          isDrawerOpen = false;
-                        });
+                        homeController.isDrawerOpen(false);
                         _drawerKey.currentState!.openEndDrawer();
                         return;
                       } else
                       _drawerKey.currentState!.openDrawer();
-                      setState(() {
-                      isDrawerOpen = true;
-                      });
+                      homeController.isDrawerOpen(true);
                     },
                     child: const Icon(
                       Icons.menu,
@@ -174,24 +173,24 @@ class _HomePageScreenState
       height: 40,
       child: Row(
         children: [
-          Expanded(child: ListView.builder(
-            itemCount:categoryList.length,
+          Expanded(child:Obx(()=> ListView.builder(
+              itemCount:homeController.categoryList.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-              if(index==0){
-                return  _buildCategoriesTabItem(categoryList[index].toUpperCase(),index,15,0);
-              }
-              else if(index==categoryList.length-1){
-                return  _buildCategoriesTabItem(categoryList[index].toUpperCase(),index,5,15);
-              }
+                if(index==0){
+                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,15,0);
+                }
+                else if(index==homeController.categoryList.length-1){
+                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,5,15);
+                }
 
-              else{
-                return  _buildCategoriesTabItem(categoryList[index].toUpperCase(),index,5,0);
-              }
+                else{
+                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,5,0);
+                }
 
-              }),)
+              })),)
         ],
       ),
     );
@@ -201,9 +200,7 @@ class _HomePageScreenState
   Widget _buildCategoriesTabItem(var response,int index,double marginLeft,double marginRight) {
     return  InkWell(
       onTap: (){
-        setState(() {
-          _subCategoriesButtonColorStatus = index;
-        });
+        homeController.subCategoriesButtonColorStatus (index) ;
       },
       child: Container(
         padding: const EdgeInsets.only(
@@ -222,13 +219,13 @@ class _HomePageScreenState
                 style: TextStyle(
                     color:Colors.black,
                     fontSize: 14,
-                    fontWeight:_subCategoriesButtonColorStatus== index? FontWeight.w700:FontWeight.w500),
+                    fontWeight:homeController.subCategoriesButtonColorStatus== index? FontWeight.w700:FontWeight.w500),
               ),
               Container(height: 7,),
               Container(
                 height: 3.5,
               width: 50,
-              color: _subCategoriesButtonColorStatus== index?Colors.blue:Colors.transparent,
+              color: homeController.subCategoriesButtonColorStatus== index?Colors.blue:Colors.transparent,
               // color: Colors.blue,
               )
             ],
@@ -251,9 +248,13 @@ class _HomePageScreenState
   }
 
   Widget _buildBottomSectionDesign() {
-    Size size = MediaQuery.of(context).size;
+    double sizeHeight = Get.height;
+    double sizeWidth = Get.width;
+    // Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
+
     return Container(
-        width: MediaQuery.of(context).size.width,
+        width: sizeWidth,
         decoration:  BoxDecoration(
           color:Colors.white,
           borderRadius: const BorderRadius.only(
@@ -271,7 +272,7 @@ class _HomePageScreenState
 
                 ///slider section
                 Container(
-                  height: size.height * 0.23,
+                  height: sizeHeight * 0.23,
                   child: Swiper(
                     itemCount: 7,
                     itemBuilder: (ctx, index) {
@@ -301,7 +302,7 @@ class _HomePageScreenState
                   // color: Colors.lime,
                   child: Center(
                     child: GridView.builder(
-                        itemCount:categoryList.length,
+                        itemCount:homeController.categoryList.length,
                         padding: EdgeInsets.only(left: 10,right: 10),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -314,7 +315,7 @@ class _HomePageScreenState
 
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return  categoriesListItemDesign(response: categoryList[index]);
+                          return  categoriesListItemDesign(response: homeController.categoryList[index]);
                           // return _buildRecentlyCourseItemForGrid(_recentlyAddedCourse[index]);
                         }),
                   ),
@@ -542,6 +543,7 @@ class _HomePageScreenState
           width:width/2 ,
           // height:width/1.3
           padding: EdgeInsets.only(left: 10,right: 10),
+          margin: EdgeInsets.only(left: 10,right: 10),
           // color: Colors.white,
           child:  Column(
             // alignment: Alignment.bottomCenter,
@@ -555,7 +557,8 @@ class _HomePageScreenState
                     AspectRatio(
                         aspectRatio: 1,
                         child:Padding(
-                          padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                          padding: EdgeInsets.only(left: 0,right: 0,top: 0),
+                          // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
                           // padding: EdgeInsets.all(16),
                           child: FadeInImage.assetNetwork(
                             fit: BoxFit.fill,
@@ -687,11 +690,12 @@ class _HomePageScreenState
   }
 
   Widget _sliderCardDesign() {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
+    double sizeHeight = Get.height;
     return Container(
       margin: EdgeInsets.only(left: 20,right: 20),
       width: double.infinity,
-      height: size.height * 0.2,
+      height: sizeHeight * 0.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: const LinearGradient(

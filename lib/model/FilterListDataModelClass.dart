@@ -293,10 +293,14 @@ class Datum {
   Category ? category;
   InnerCategoryClass ? subCategory;
   InnerCategoryClass ? innerCategory;
-  List<String>?  colors;
-  List<String> ? sizes;
+  // List<String>?  colors;
+  // List<String> ? sizes;
+  // List<Image> ? images;
+  // List<String> ? sizeCharts;
+  List<dynamic>?  colors;
+  List<dynamic> ? sizes;
   List<Image> ? images;
-  List<String> ? sizeCharts;
+  List<dynamic> ? sizeCharts;
   Seller ? seller;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -330,10 +334,10 @@ class Datum {
     category: Category.fromJson(json["category"]),
     subCategory: InnerCategoryClass.fromJson(json["sub_category"]),
     innerCategory: InnerCategoryClass.fromJson(json["inner_category"]),
-    colors: List<String>.from(json["colors"].map((x) => x)),
-    sizes: List<String>.from(json["sizes"].map((x) => x)),
+    colors: List<dynamic>.from(json["colors"].map((x) => x)),
+    sizes: List<dynamic>.from(json["sizes"].map((x) => x)),
     images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-    sizeCharts: List<String>.from(json["size_charts"].map((x) => x)),
+    sizeCharts: List<dynamic>.from(json["size_charts"].map((x) => x)),
     seller: Seller.fromJson(json["seller"]),
   );
 
@@ -368,10 +372,10 @@ class Datum {
     "category": category!.toJson(),
     "sub_category": subCategory!.toJson(),
     "inner_category": innerCategory!.toJson(),
-    "colors": List<String>.from(colors!.map((x) => x)),
-    "sizes": List<String>.from(sizes!.map((x) => x)),
-    "images": List<String>.from(images!.map((x) => x.toJson())),
-    "size_charts": List<String>.from(sizeCharts!.map((x) => x)),
+    "colors": List<dynamic>.from(colors!.map((x) => x)),
+    "sizes": List<dynamic>.from(sizes!.map((x) => x)),
+    "images": List<Image>.from(images!.map((x) => x.toJson())),
+    "size_charts": List<dynamic>.from(sizeCharts!.map((x) => x)),
     "seller": seller!.toJson(),
   };
 }

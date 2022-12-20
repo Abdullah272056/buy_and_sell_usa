@@ -82,7 +82,7 @@ class AllProductListPageController extends GetxController {
               "search": search
           })
           );
-          _showToast("status = ${response.statusCode}");
+         // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
             var responseData = response.body;
             FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
