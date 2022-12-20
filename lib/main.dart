@@ -10,6 +10,8 @@ import 'package:fnf_buy/view/home_page/product_list.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'controller/all_product_list_controller.dart';
+
 
 void main() {
   GetStorage.init();
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         // body:HomePageScreen(),
         // body: CartPage(),
-       body:HomePageScreen(),
+       body:ProductListPage(),
       ),
     );
 

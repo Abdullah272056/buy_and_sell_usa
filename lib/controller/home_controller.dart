@@ -12,7 +12,7 @@ class HomeController extends GetxController {
 
   var subCategoriesButtonColorStatus=0.obs;
 
-
+  var searchBoxVisible=0.obs;
 
   var selectedTabIndex=0.obs;
   var selectedPageIndex=1.obs;

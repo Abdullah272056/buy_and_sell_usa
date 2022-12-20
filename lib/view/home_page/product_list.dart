@@ -1,5 +1,6 @@
 
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,6 +21,7 @@ class ProductListPage extends StatelessWidget {
         body:Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            userInputSelectTopic(),
            Expanded(child:
            Obx(()=>GridView.builder(
                itemCount:allProductListPageController.filterProductList.length,
@@ -47,7 +49,6 @@ class ProductListPage extends StatelessWidget {
     required double height,
     required double width,
     required int index,
-
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -59,12 +60,8 @@ class ProductListPage extends StatelessWidget {
           padding: EdgeInsets.only(left: 10,right: 10),
           // color: Colors.white,
           child:  Column(
-
             // alignment: Alignment.bottomCenter,
             children: [
-
-
-
               Container(
                 decoration: BoxDecoration(
                   // color:Colors.white,
@@ -83,8 +80,6 @@ class ProductListPage extends StatelessWidget {
                             // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
                             image:BASE_URL_API_IMAGE+
                                 allProductListPageController.filterProductList[index].coverImage??"",
-
-
                             imageErrorBuilder: (context, url, error) =>
                                 Image.asset(
                                   'assets/images/loading.png',
@@ -117,7 +112,6 @@ class ProductListPage extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +127,6 @@ class ProductListPage extends StatelessWidget {
                               fontWeight: FontWeight.normal),
                           softWrap: false,
                           maxLines: 1,
-
                         ),
                       ),
                       // 12.widthBox,
@@ -172,7 +165,6 @@ class ProductListPage extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ],
                   ),
                   SizedBox(height: 5,),
@@ -190,29 +182,502 @@ class ProductListPage extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                           softWrap: false,
                           maxLines: 2,
-
                         ),
                       ),
                       // 12.widthBox,
                       // RatingWidget(rating: widget.product.rating),
                     ],
                   ),
-
-
-
                 ],
               ),
-
-
-
-
-
-
             ],
           ),
         )
       ],
     );
+  }
+
+  Widget userInputSelectTopic() {
+    return Column(
+      children: [
+        Container(
+           // height: 50,
+
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+
+            decoration: BoxDecoration(
+                color:Colors.white,
+                border: Border(
+
+                  left: BorderSide(width: 1.0, color: hint_color),
+                  right: BorderSide(width:1.0, color: hint_color),
+                  bottom: BorderSide(width: 1.0, color: hint_color),
+                  top: BorderSide(width: 1.0, color: hint_color),
+                ),
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectColorsId.value != null &&
+                              allProductListPageController.selectColorsId.value.isNotEmpty ?
+                          allProductListPageController.selectColorsId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("color",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.colorsList.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["color_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectColorsId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectAssignmentId.value != null &&
+                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
+                          allProductListPageController.selectAssignmentId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sort",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.data.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["category_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectAssignmentId.value != null &&
+                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
+                          allProductListPageController.selectAssignmentId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sort",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.data.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["category_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      color: hint_color,
+                      width: 1,
+                      height: 30,
+                    ),
+
+                    Expanded(child: InkWell(
+                      onTap: (){
+
+                        _showToast("df");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(width: 5,),
+                          Text("Filter",
+                              style: TextStyle(
+                                  color: text_color,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.normal)),
+                          SizedBox(width: 5,),
+
+                          Icon(
+                            Icons.filter_alt_outlined,
+                            color: text_color,
+                            size: 20.0,
+                          ),
+                        ],
+                      ),
+                    )),
+
+
+
+
+                  ],
+                ),
+
+                Obx(() => allProductListPageController.showFilterStatus==1?
+                Row(
+                  children: [
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectAssignmentId.value != null &&
+                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
+                          allProductListPageController.selectAssignmentId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sort",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.data.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["category_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectAssignmentId.value != null &&
+                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
+                          allProductListPageController.selectAssignmentId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sort",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.data.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["category_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Expanded(child: Obx(() =>
+                        DropdownButton2(
+                          //  buttonHeight: 40,
+                          //   menuMaxHeight:55,
+                          itemPadding: EdgeInsets.only(left: 5,right: 0),
+                          value: allProductListPageController.selectAssignmentId.value != null &&
+                              allProductListPageController.selectAssignmentId.value.isNotEmpty ?
+                          allProductListPageController.selectAssignmentId.value : null,
+                          underline:const SizedBox.shrink(),
+                          hint:Row(
+                            children: const [
+                              SizedBox(width: 5,),
+                              Expanded(child: Center(child: Text("Sort",
+                                  style: TextStyle(
+                                      color: text_color,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),))
+                            ],
+                          ),
+                          isExpanded: true,
+
+                          /// icon: SizedBox.shrink(),
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+                          items: allProductListPageController.data.map((list) {
+                            return DropdownMenuItem(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+
+
+                                  Expanded(child: Center(
+                                    child: Text(
+                                        list["category_name"].toString(),
+                                        textAlign: TextAlign.center,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            //color: intello_text_color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ),),
+
+
+
+
+                                ],
+                              ),
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
+                            );
+
+                          },
+                          ).toList(),
+                          onChanged: (String? value) {
+
+                            String data= allProductListPageController.selectAssignmentId(value.toString());
+                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          },
+
+                        ),)),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      color: hint_color,
+                      width: 1,
+                      height: 30,
+                    ),
+
+                    Expanded(child: InkWell(
+                      onTap: (){
+
+                        _showToast("df");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(width: 5,),
+                          Text("Filter",
+                              style: TextStyle(
+                                  color: text_color,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.normal)),
+                          SizedBox(width: 5,),
+
+                          Icon(
+                            Icons.filter_alt_outlined,
+                            color: text_color,
+                            size: 20.0,
+                          ),
+                        ],
+                      ),
+                    )),
+
+
+
+
+                  ],
+                )
+                    :Container())
+              ],
+            )
+        ),
+
+      ],
+    )
+     ;
   }
 
   //toast create
@@ -226,4 +691,6 @@ class ProductListPage extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
+
 }

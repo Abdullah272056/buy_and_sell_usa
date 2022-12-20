@@ -2,6 +2,7 @@
 
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,6 +53,9 @@ class HomePageScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 18,
               // height: 50,
             ),
+
+            ///title bar
+            Obx(() => homeController.searchBoxVisible==0?
             Flex(
               direction: Axis.horizontal,
               children: [
@@ -65,7 +69,7 @@ class HomePageScreen extends StatelessWidget {
                         _drawerKey.currentState!.openEndDrawer();
                         return;
                       } else
-                      _drawerKey.currentState!.openDrawer();
+                        _drawerKey.currentState!.openDrawer();
                       homeController.isDrawerOpen(true);
                     },
                     child: const Icon(
@@ -80,6 +84,7 @@ class HomePageScreen extends StatelessWidget {
                   child: InkWell(
 
                     onTap: () {
+                      homeController. searchBoxVisible(1);
                     },
                     child:  Icon(
                       Icons.search_rounded,
@@ -139,7 +144,18 @@ class HomePageScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ):
+
+            DelayedWidget(
+              delayDuration: const Duration(milliseconds: 10),// Not required
+              animationDuration: const Duration(milliseconds: 500),// Not required
+              animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
+              child: userInputSearchField(homeController.searchController!, 'Search product', TextInputType.text),
             ),
+
+            ),
+
+
             SizedBox(
               height: MediaQuery.of(context).size.height / 35,
               // height: 30,
@@ -166,6 +182,84 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(left: 20,right: 20),
+      decoration: BoxDecoration(
+          color:Colors.white,
+
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        child: TextFormField(
+          controller: userInput,
+          textInputAction: TextInputAction.search,
+          autofocus: true,
+          cursorColor:fnf_color,
+          style: TextStyle(color:text_color,),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: IconButton(
+              // color: Colors.intello_input_text_color,
+                icon: Icon(
+                  Icons.arrow_back_outlined,
+                  color:hint_color,
+
+                  //color: Colors.intello_hint_color,
+                  size: 25,
+                ),
+                onPressed: () {
+                  homeController. searchBoxVisible(0);
+
+                }),
+            suffixIconConstraints: BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+            suffixIcon: IconButton(
+              // color: Colors.intello_input_text_color,
+                icon: Icon(
+                  Icons.search,
+                  color:hint_color,
+
+                  //color: Colors.intello_hint_color,
+                  size: 25,
+                ),
+                onPressed: () {
+                 // homeController. searchBoxVisible(0);
+
+                }),
+
+            hintText: hintTitle,
+
+            hintStyle:  TextStyle(fontSize: 16,
+                color:hint_color,
+                // color: Colors.intello_hint_color,
+                fontStyle: FontStyle.normal),
+          ),
+          onChanged: (value){
+            if(value.isEmpty){
+            //  _getMyCourseCourseDataList();
+            }
+
+          },
+          onFieldSubmitted: (value) {
+            if (value.isNotEmpty) {
+             // _search_courseList(value);
+              // _showToast(value);
+              /// Navigator.push(context,MaterialPageRoute(builder: (context)=>SearchResultFileScreen(inputValue: value,)));
+            }
+          },
+
+          keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildTabButton() {
     return Container(

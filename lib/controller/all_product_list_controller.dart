@@ -7,14 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import '../api_service/api_service.dart';
 import '../model/CategoriesData.dart';
 import '../model/FilterListDataModelClass.dart';
 import '../model/FilterListDataModelClass2.dart';
 import '../static/Colors.dart';
 
 class AllProductListPageController extends GetxController {
-  dynamic argumentData = Get.arguments;
+  // dynamic argumentData = Get.arguments;
   var filterProductList=[].obs;
+  var selectAssignmentId="".obs;
+
+  var showFilterStatus=1.obs;
+  var data = [].obs;
+  var selectColorsId="".obs;
+  var colorsList = [].obs;
+  var sizeList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -23,12 +32,23 @@ class AllProductListPageController extends GetxController {
     // _showToast(argumentData[1]['subCategoriesId']);
 
 
-    getCategories(categoryId: argumentData[0]['categoriesId'],
-        subcategoryId: argumentData[1]['subCategoriesId'],
+    getColors();
+    getProductSize();
+    getCategories();
+
+    getCategoriesProductsDataList(categoryId: "1",
+        subcategoryId: "6",
         innerCategoryId: '', filterCategoryList: [],
         filterSubCategoryList: [], filterInnerCategoryList: [],
         brandName: 'admin', minPrice: '', sortBy: '', search: '',
         brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+
+    // getCategories(categoryId: argumentData[0]['categoriesId'],
+    //     subcategoryId: argumentData[1]['subCategoriesId'],
+    //     innerCategoryId: '', filterCategoryList: [],
+    //     filterSubCategoryList: [], filterInnerCategoryList: [],
+    //     brandName: 'admin', minPrice: '', sortBy: '', search: '',
+    //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
 
   }
 
@@ -44,50 +64,142 @@ class AllProductListPageController extends GetxController {
         fontSize: 16.0);
   }
 
-  void getCategories({
-                required String categoryId,required String subcategoryId,
-                required String innerCategoryId,
-                required List filterCategoryList, required List filterSubCategoryList,required List filterInnerCategoryList,
-                required String brandName,required String minPrice,
-                required String maxPrice,
-                required String sortBy,required String search,
-                required List brandsList, required List sizesList,required List colorsList
-            }) async{
+
+
+
+
+  void getCategories() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            data(dataResponse["data"]);
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  void getColors() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_COLOR_LIST}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            colorsList(dataResponse["data"]);
+            _showToast("Colors= "+colorsList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  void getProductSize() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_SIZE_LIST}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            sizeList(dataResponse["data"]);
+            _showToast("Colors= "+sizeList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+  void getCategoriesProductsDataList({
+    required String categoryId,required String subcategoryId,
+    required String innerCategoryId,
+    required List filterCategoryList, required List filterSubCategoryList,required List filterInnerCategoryList,
+    required String brandName,required String minPrice,
+    required String maxPrice,
+    required String sortBy,required String search,
+    required List brandsList, required List sizesList,required List colorsList
+  }) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
         try {
           var response = await post(
-            Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
+              Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
 
-            // Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
+              // Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
               headers : {
                 'Content-Type': 'application/json'
               },
-             body: json.encode({
-              "category": categoryId,
-              "subcategory": subcategoryId,
-              "innercategory": innerCategoryId,
-              "filetercategory": filterCategoryList,
-              "filtersubcategory": filterSubCategoryList,
-              "filterinnercategory": filterInnerCategoryList,
-              "brands": brandsList,
-              "brand_name": brandName,
-              "min_price":minPrice,
-              "max_price": maxPrice,
-              "sizes": sizesList,
-              "colors": colorsList,
-              "sort_by": sortBy,
-              "search": search
-          })
+              body: json.encode({
+                "category": categoryId,
+                "subcategory": subcategoryId,
+                "innercategory": innerCategoryId,
+                "filetercategory": filterCategoryList,
+                "filtersubcategory": filterSubCategoryList,
+                "filterinnercategory": filterInnerCategoryList,
+                "brands": brandsList,
+                "brand_name": brandName,
+                "min_price":minPrice,
+                "max_price": maxPrice,
+                "sizes": sizesList,
+                "colors": colorsList,
+                "sort_by": sortBy,
+                "search": search
+              })
           );
-         // _showToast("status = ${response.statusCode}");
+          // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
             var responseData = response.body;
             FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
-           filterProductList(filterListDataModelClass.data!.products!.data);
-           _showToast(filterProductList.length.toString());
+            filterProductList(filterListDataModelClass.data!.products!.data);
+          //  _showToast(filterProductList.length.toString());
 
           }
           else {
