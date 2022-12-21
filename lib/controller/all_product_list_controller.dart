@@ -33,6 +33,9 @@ class AllProductListPageController extends GetxController {
   var selectSubCategoriesId="".obs;
   var subCategoriesList = [].obs;
 
+  var selectInnerCategoriesId="".obs;
+  var innerCategoriesList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -74,10 +77,6 @@ class AllProductListPageController extends GetxController {
         textColor: fnf_color,
         fontSize: 16.0);
   }
-
-
-
-
 
   void getCategories() async{
     try {
@@ -223,6 +222,34 @@ class AllProductListPageController extends GetxController {
     }
   }
 
+  void getInnerCategoriesList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_INNER_CATEGORIES}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            innerCategoriesList(dataResponse["data"]);
+             _showToast("innerCategoriesList= "+innerCategoriesList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again111!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
 
   void getCategoriesProductsDataList({
     required String categoryId,required String subcategoryId,

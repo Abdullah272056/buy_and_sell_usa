@@ -33,6 +33,7 @@ const Color  button_bg_color = Color(0xffFE4344);
 
 const Color  fnf_color = Color(0xffFE4344);
 const Color  fnf_small_color = Color(0xff525252);
+const Color  fnf_small_text_color = Color(0xff525252);
 const  Color fnf_bold_text_color = Color(0xFF1D2733);
 const Color  toast_bg_color = Color(0xfffcfcfc);
 const Color  toast_text_color = Color(0xffFE4344);
@@ -41,5 +42,7 @@ const Color  fnf_title_bar_bg_color = Color(0xff2146fc);
 
 
 const Color  sohojatri_color = Color(0xff2146fc);
+
+const Color  color_demo = Color(0xffe9ffff);
 
 

@@ -10,6 +10,7 @@ import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../controller/home_controller.dart';
+import '../../product_details.dart';
 import '../custom_drawer.dart';
 
 
@@ -629,158 +630,167 @@ class HomePageScreen extends StatelessWidget {
     required double width,
     required String imageLink
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
 
-        Container(
-          width:width/2 ,
-          // height:width/1.3
-          padding: EdgeInsets.only(left: 10,right: 10),
-          margin: EdgeInsets.only(left: 10,right: 10),
-          // color: Colors.white,
-          child:  Column(
-            // alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  // color:Colors.white,
-                    borderRadius: BorderRadius.circular(24)),
-                child: Stack(
-                  children: [
-                    AspectRatio(
-                        aspectRatio: 1,
-                        child:Padding(
-                          padding: EdgeInsets.only(left: 0,right: 0,top: 0),
-                          // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
-                          // padding: EdgeInsets.all(16),
-                          child: FadeInImage.assetNetwork(
-                            fit: BoxFit.fill,
-                            placeholder: 'assets/images/loading.png',
-                            image:imageLink,
-                            imageErrorBuilder: (context, url, error) =>
-                                Image.asset(
-                                  'assets/images/loading.png',
-                                  fit: BoxFit.fill,
-                                ),
+
+    return InkWell(
+      onTap: (){
+        Get.to(ProductDetailsePageScreen());
+      },
+      child:  Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          Container(
+            width:width/2 ,
+            // height:width/1.3
+            padding: EdgeInsets.only(left: 10,right: 10),
+            margin: EdgeInsets.only(left: 10,right: 10),
+            // color: Colors.white,
+            child:  Column(
+              // alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    // color:Colors.white,
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Stack(
+                    children: [
+                      AspectRatio(
+                          aspectRatio: 1,
+                          child:Padding(
+                              padding: EdgeInsets.only(left: 0,right: 0,top: 0),
+                              // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                              // padding: EdgeInsets.all(16),
+                              child: FadeInImage.assetNetwork(
+                                fit: BoxFit.fill,
+                                placeholder: 'assets/images/loading.png',
+                                image:imageLink,
+                                imageErrorBuilder: (context, url, error) =>
+                                    Image.asset(
+                                      'assets/images/loading.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                              )
+                            // Image.asset(
+                            //     imageLink
+                            // ),
                           )
-                          // Image.asset(
-                          //     imageLink
-                          // ),
-                        )
-                    ),
-                    Positioned(
-                      right: 5,
-                      top: 5,
-                      child: InkWell(
-                        onTap: (){
+                      ),
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: InkWell(
+                          onTap: (){
 
-                        },
-                        child: Icon(Icons.favorite_outline,
-                          color: hint_color,
+                          },
+                          child: Icon(Icons.favorite_outline,
+                            color: hint_color,
+                          ),
+
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child:  Text("Men Grey Classic Regular Fit Formal Shirt",
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal),
+                            softWrap: false,
+                            maxLines: 1,
+
+                          ),
+                        ),
+                        // 12.widthBox,
+                        // RatingWidget(rating: widget.product.rating),
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Wrap(
+                            children: [
+                              RatingBarIndicator(
+                                // rating:response["avg_rating"],
+                                rating:double.parse("4.5"),
+                                itemBuilder: (context, index) => const Icon(
+                                  Icons.star,
+                                  color:Colors.orange,
+                                ),
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                direction: Axis.horizontal,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                " 8 Review",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color:hint_color,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                maxLines: 2,
+                              ),
+                            ],
+                          ),
                         ),
 
-                      ),
-                    )
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child:  Text("\$ 99.00",
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: Colors.black.withOpacity(0.7),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
+                            softWrap: false,
+                            maxLines: 2,
+
+                          ),
+                        ),
+                        // 12.widthBox,
+                        // RatingWidget(rating: widget.product.rating),
+                      ],
+                    ),
+
+
+
                   ],
                 ),
-              ),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child:  Text("Men Grey Classic Regular Fit Formal Shirt",
-                          overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal),
-                          softWrap: false,
-                          maxLines: 1,
-
-                        ),
-                      ),
-                      // 12.widthBox,
-                      // RatingWidget(rating: widget.product.rating),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Wrap(
-                          children: [
-                            RatingBarIndicator(
-                              // rating:response["avg_rating"],
-                              rating:double.parse("4.5"),
-                              itemBuilder: (context, index) => const Icon(
-                                Icons.star,
-                                color:Colors.orange,
-                              ),
-                              itemCount: 5,
-                              itemSize: 15.0,
-                              direction: Axis.horizontal,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              " 8 Review",
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color:hint_color,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child:  Text("\$ 99.00",
-                          overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: Colors.black.withOpacity(0.7),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                          softWrap: false,
-                          maxLines: 2,
-
-                        ),
-                      ),
-                      // 12.widthBox,
-                      // RatingWidget(rating: widget.product.rating),
-                    ],
-                  ),
-
-
-
-                ],
-              ),
 
 
 
 
 
 
-            ],
-          ),
-        )
-      ],
-    );
+              ],
+            ),
+          )
+        ],
+      )
+    )
+
+     ;
   }
 
   Widget _sliderCardDesign() {
@@ -874,10 +884,7 @@ class HomePageScreen extends StatelessWidget {
     return InkResponse(
       onTap: (){
 
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>
-        //     SendMoneyAmountPageScreen(
-        //         response["id"].toString(),response["username"].toString()
-        //     )));
+
 
 
       },
