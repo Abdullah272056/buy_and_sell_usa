@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SearchPage extends StatelessWidget {
+class MorePage extends StatelessWidget {
 
 
   @override
@@ -11,7 +10,7 @@ class SearchPage extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-            "Search page"
+            "Mare page"
         ),
       ),
     );

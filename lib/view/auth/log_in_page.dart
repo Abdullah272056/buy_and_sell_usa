@@ -1,19 +1,13 @@
-import 'dart:convert';
-import 'dart:io';
-
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/sign_up_page.dart';
+import 'package:fnf_buy/view/auth/sign_up_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
-
-
-
+import '../../api_service/login_api_service.dart';
 import '../../controller/log_in_page_controller.dart';
-import '../static/Colors.dart';
+import '../../static/Colors.dart';
 import 'fotget_password_page.dart';
+
 
 
 class LogInScreen extends StatelessWidget {
@@ -301,9 +295,11 @@ class LogInScreen extends StatelessWidget {
 
           String userEmailTxt = logInPageController.userEmailController.value.text;
           String passwordTxt = logInPageController.passwordController.value.text;
-
+        //  userLogIn(email: 'gggh', password: 'fgvhnj');
           if (_inputValid(userEmailTxt, passwordTxt)== false) {
             // userAutoLogIn();
+        //    userLogIn(email: userEmailTxt, password: passwordTxt);
+             LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
 
         //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
 
@@ -341,6 +337,8 @@ class LogInScreen extends StatelessWidget {
       ),
     );
   }
+
+
 
   //join now asking
   Widget _buildSignUpQuestion() {

@@ -1,73 +1,58 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/search_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import '../view/dash_board/home_page.dart';
 
-import '../view/account_page.dart';
-import '../view/home_page.dart';
-import '../view/shop_page.dart';
 
 class DashBoardPageController extends GetxController {
-  // int tabIndex;
-  // Widget selectedPageName;
-  //
-  //
-  // DashBoardPageController(this.tabIndex, this.selectedPageName);
 
 var selectedTabIndex=0.obs;
 var selectedPageIndex=1.obs;
 
-// var selectedPage=Container().obs;
-
-// final Widget destination;
   var selectedPage = <Widget>[
-    HomePage()
+    HomePageScreen()
 ].obs;
 
-  dynamic argumentData = Get.arguments;
 
 @override
 void onInit() {
   super.onInit();
-  if(argumentData!=null){
-
-    selectedTabIndex(3);
-
-    if(argumentData[0]['first']=="0"){
-      selectedTabIndex(0);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="1"){
-      selectedTabIndex(1);
-      updateSelectedPage([CartPage()]);
-    }
-
-    if(argumentData[0]['first']=="2"){
-      selectedTabIndex(2);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="3"){
-      selectedTabIndex(3);
-      updateSelectedPage([CartPage()]);
-    }
-    if(argumentData[0]['first']=="4"){
-      selectedTabIndex(4);
-      updateSelectedPage([CartPage()]);
-    }
-
-
-
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
-    _showToast("ok");
-
-  }else{
-
-    _showToast("else");
-  }
+  // if(argumentData!=null){
+  //
+  //   selectedTabIndex(3);
+  //
+  //   if(argumentData[0]['first']=="0"){
+  //     selectedTabIndex(0);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="1"){
+  //     selectedTabIndex(1);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //
+  //   if(argumentData[0]['first']=="2"){
+  //     selectedTabIndex(2);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="3"){
+  //     selectedTabIndex(3);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //   if(argumentData[0]['first']=="4"){
+  //     selectedTabIndex(4);
+  //     updateSelectedPage([CartPage()]);
+  //   }
+  //
+  //
+  //
+  //   // print(argumentData[0]['first']);
+  //   // print(argumentData[1]['second']);
+  //   _showToast("ok");
+  //
+  // }else{
+  //
+  //   _showToast("else");
+  // }
 
 
 

@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../../controller/sign_up_page_controller.dart';
+import '../../static/Colors.dart';
 
-
-
-import '../../controller/log_in_page_controller.dart';
-import '../controller/sign_up_page_controller.dart';
-import '../static/Colors.dart';
+import '../common_page/dash_board_page.dart';
 import 'log_in_page.dart';
 
 
@@ -52,139 +50,6 @@ class SignUpScreen extends StatelessWidget {
       ),
     );
 
-
-
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor:  backGroundColor,
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-             // Background(),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
-
-                    // padding: const EdgeInsets.symmetric(
-                    //   horizontal: 40,
-                    // ).copyWith(top: 20),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                          ),
-                          child: Column(
-                            children: [
-                              ///ratio 1:2.25
-                              Image.asset(
-                                "assets/images/fnf_logo.png",
-                                width: 180,
-                                height: 80,
-                              )
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height: 20,
-                        ),
-
-
-                        // const Align(
-                        //   alignment: Alignment.topLeft,
-                        //   child: Text("Email",
-                        //       style: TextStyle(
-                        //           color: hint_color,
-                        //           fontSize: 15,
-                        //           fontWeight: FontWeight.w400)),
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        //user email input
-                        _buildTextFieldUserName(
-                          // hintText: 'name',
-                          obscureText: false,
-
-                          prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
-                          labelText: "Your Name",
-
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        _buildTextFieldUserEmail(
-                          // hintText: 'Email Address',
-                          obscureText: false,
-
-                          prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                          labelText: "Email Address",
-
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-
-                        // const Align(
-                        //   alignment: Alignment.topLeft,
-                        //   child: Text("Email",
-                        //       style: TextStyle(
-                        //           color: hint_color,
-                        //           fontSize: 15,
-                        //           fontWeight: FontWeight.w400)),
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-
-                        //password input
-                        _buildTextFieldPassword(
-                          // hintText: 'Password',
-                          obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
-                          labelText: "Password",
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        //password input
-                        _buildTextFieldConfirmPassword(
-                          // hintText: 'Password',
-                          obscureText: true,
-                          prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
-                          labelText: "Confirm Password",
-                        ),
-
-                        const SizedBox(
-                          height: 45,
-                        ),
-                        _buildSignUpButton(),
-                        const SizedBox(
-                          height: 30,
-                        ),
-
-                        _buildSignUpQuestion(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-
-            ],
-          )
-
-          ,
-        ),
-      ),
-    );
   }
 
 
@@ -236,7 +101,7 @@ class SignUpScreen extends StatelessWidget {
                 // hintText: 'name',
                 obscureText: false,
 
-                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
+                prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
                 labelText: "Your Name",
 
               ),
@@ -247,7 +112,7 @@ class SignUpScreen extends StatelessWidget {
                 // hintText: 'Email Address',
                 obscureText: false,
 
-                prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
                 labelText: "Email Address",
 
               ),
@@ -609,6 +474,7 @@ class SignUpScreen extends StatelessWidget {
           if (_inputValid(userName: userNameTxt, userEmail:userEmailTxt,
               password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
             // userAutoLogIn();
+            userSignUp(name: userNameTxt, email: userEmailTxt, password: confirmPasswordTxt);
 
         //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
 
@@ -729,7 +595,7 @@ class SignUpScreen extends StatelessWidget {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:toast_bg_color,
@@ -739,44 +605,135 @@ class SignUpScreen extends StatelessWidget {
 
 
   //loading dialog crete
-  void showLoadingDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 20, bottom: 20),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: awsStartColor,
-                          color: awsEndColor,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          message,
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
+  void showLoadingDialog(String message) {
+
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
                     ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
+
+
+  userSignUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
+              // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+              body: {
+                'name': name,
+                'email': email,
+                'password': password
+              }
+          );
+          Get.back();
+           // _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            // _showToast("success");
+            var data = jsonDecode(response.body);
+            saveUserInfo(
+                userName: data["data"]["name"].toString(),
+                userToken: data["data"]["token"].toString());
+
+            Get.to(DashBoardPageScreen());
+            // Get.offAll(DashBoardPageScreen());
+
+          }
+          else if (response.statusCode == 404) {
+            var data = jsonDecode(response.body);
+            if(data["message"]["name"]!=null){
+              _showToast(data["message"]["name"][0].toString());
+              return;
+            }
+
+            if(data["message"]["email"]!=null){
+              _showToast(data["message"]["email"][0].toString());
+              return;
+            }
+
+            if(data["message"]["password"]!=null){
+              _showToast(data["message"]["password"][0].toString());
+              return;
+            }
+
+          }
+          else {
+
+            var data = jsonDecode(response.body);
+            //_showToast(data['message']);
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+    } catch (e) {
+      //code
+    }
+
   }
 
 

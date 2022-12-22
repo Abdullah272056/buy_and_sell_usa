@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AccountPage extends StatelessWidget {
-
+class CategoryPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -10,7 +8,7 @@ class AccountPage extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-            "Account page"
+            "Category page"
         ),
       ),
     );

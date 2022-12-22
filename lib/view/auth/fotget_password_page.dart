@@ -1,12 +1,14 @@
 
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-import '../controller/forget_password_page_controller.dart';
-import '../static/Colors.dart';
-import 'background.dart';
+import '../../api_service/api_service.dart';
+import '../../controller/forget_password_page_controller.dart';
+import '../../static/Colors.dart';
 import 'email_verification.dart';
+import 'package:http/http.dart' as http;
 import 'log_in_page.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -233,14 +235,18 @@ class ForgetPasswordScreen extends StatelessWidget {
       onPressed: () {
         String emailTxt = forgetPasswordPageController.emailController.value.text;
         if (_inputValid(emailTxt) == false) {
-          // Get.to(EmailVerificationScreen());
 
-          Get.to(() => EmailVerificationScreen(), arguments: [
-            {"userId": '12'},
-            {"second": 'Second'}
-          ]);
+         _sendEmailForOtp(email: emailTxt);
 
-          _sendEmailForOtp(emailTxt);
+          // Get.to(EmailVerificationScreen(),
+          //     arguments: [
+          //       {"first": 'First data'},
+          //       {"second": 'Second data'}
+          //     ]
+          // );
+
+
+
         } else {}
 
 
@@ -275,47 +281,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
     );
   }
-  _sendEmailForOtp(String email) async {
-    // try {
-    //   final result = await InternetAddress.lookup('example.com');
-    //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-    //     _showLoadingDialog(context);
-    //     try {
-    //       Response response = await post(
-    //           Uri.parse('$BASE_URL_API$SUB_URL_API_FORGRT_PASSWORD'),
-    //           body: {
-    //             'email': email,
-    //           });
-    //       Navigator.of(context).pop();
-    //       if (response.statusCode == 200) {
-    //         setState(() {
-    //          // _showToast("success");
-    //           var data = jsonDecode(response.body.toString());
-    //           userId = data['data']["user_id"].toString();
-    //           Navigator.push(
-    //               context,
-    //               MaterialPageRoute(
-    //                   builder: (context) =>
-    //                       VerificationResetPasswordScreen(userId)));
-    //         });
-    //       } else if (response.statusCode == 401) {
-    //         var data = jsonDecode(response.body.toString());
-    //         _showToast(data['message']);
-    //       } else {
-    //         var data = jsonDecode(response.body.toString());
-    //         //print(data['message']);
-    //         _showToast(data['message']);
-    //       }
-    //     } catch (e) {
-    //       Navigator.of(context).pop();
-    //       print(e.toString());
-    //     }
-    //   }
-    // } on SocketException catch (_) {
-    //   Fluttertoast.cancel();
-    //   _showToast("No Internet Connection!");
-    // }
-  }
+
 
 
   _inputValid(String email) {
@@ -338,7 +304,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:toast_bg_color,
@@ -346,47 +312,113 @@ class ForgetPasswordScreen extends StatelessWidget {
         fontSize: 16.0);
   }
 
-  void _showLoadingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
 
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 20, bottom: 20),
-                  child: Center(
-                    child: Row(
-                      children: const [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: awsEndColor,
-                          color: awsStartColor,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          "Checking...",
-                          style: TextStyle(fontSize: 20,color:awsMixedColor),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
+
+
+
+
+  _sendEmailForOtp({
+    required String email,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_RESET_PASSWORD'),
+          //var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-password'),
+              body: {
+                'email': email,
+              }
+          );
+          Get.back();
+          // _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            _showToast("success");
+            // var data = jsonDecode(response.body);
+
+
+            // Get.to(SignUpScreen());
+
+            Get.to(() => EmailVerificationScreen(), arguments: [
+              {"email": email},
+              {"second": 'Second'}
+            ]);
+
+
+          }
+          else if (response.statusCode == 401) {
+
+            var data = jsonDecode(response.body);
+            _showToast("User name or password not match!");
+          }
+          else {
+
+            var data = jsonDecode(response.body);
+           // _showToast(data['message']);
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
+  //loading dialog crete
+  void showLoadingDialog(String message) {
 
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
 }

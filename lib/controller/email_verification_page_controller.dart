@@ -1,23 +1,19 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
 import '../static/Colors.dart';
 
 class EmailVerifyPageController extends GetxController {
 
-  // dynamic argumentData = Get.arguments;
-
+  dynamic argumentData = Get.arguments;
+  var userEmail="".obs;
   @override
   void onInit() {
 
-    // _showToast(argumentData[0]['userId']);
-    // _showToast(argumentData[1]['second']);
-    // print(argumentData[0]['userId']);
-    // print(argumentData[1]['second']);
+   // _showToast(argumentData[0]['email']);
+    userEmail(argumentData[0]['email']);
+
     super.onInit();
   }
 
@@ -38,6 +34,7 @@ class EmailVerifyPageController extends GetxController {
 
 
   var inputText="".obs;
+
 
   var firstDigitPin="-".obs;
   var secondDigitPin="-".obs;

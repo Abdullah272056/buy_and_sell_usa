@@ -2,16 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/background.dart';
-import 'package:fnf_buy/view/dash_board_page.dart';
-import 'package:fnf_buy/view/email_verification.dart';
-import 'package:fnf_buy/view/home_page.dart';
-import 'package:fnf_buy/view/log_in_page.dart';
-import 'package:fnf_buy/view/password_set_page.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:fnf_buy/view/common_page/dash_board_page.dart';
+ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-
-
 
 void main() {
   GetStorage.init();
@@ -29,13 +22,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
+      // color: Colors.lime,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // body:DashBoardPageScreen(),
-        body: EmailVerificationScreen(),
-        // body:DashBoardPageScreen(),
+        body:DashBoardPageScreen(),
+        // body: CartPage(),
+       // body:ProductDetailsePageScreen(),
       ),
     );
+
+
   }
 
   @override

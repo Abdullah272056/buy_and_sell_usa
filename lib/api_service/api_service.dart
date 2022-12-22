@@ -1,34 +1,23 @@
 
-String BASE_URL = "https://hw.arenaclass.stream";
-String BASE_URL_EXAM_PANNEL1 = "http://192.168.1.4:8002/";
-String BASE_URL_EXAM_PANNEL = "https://exam.arenaclass.stream/";
-String BASE_URL_API = "https://hw.arenaclass.stream/";
+String BASE_URL = "http://192.168.68.106/bijoytech_ecomerce";
 
-String SUB_URL_API_LOG_IN = "apk/login/";
-// String SUB_URL_API_LOG_IN = "android/login/";
+String BASE_URL_API = "http://192.168.68.106/bijoytech_ecomerce/";
+String BASE_URL_API_IMAGE = "http://192.168.68.106/bijoytech_ecomerce/public/images/product/";
 
-// https://hw.arenaclass.stream/apk/login/
-//
-///cross login
-String SUB_URL_API_CROSSS_LOG_IN = "cross-login/";
-// String SUB_URL_API_CROSSS_LOG_IN = "cross-login/40f8f7811abb4abb96f3dfb3757ddf88/";
-
-String SUB_URL_API_AUTO_LOG_IN = "api/auto-login/";
+String SUB_URL_API_LOG_IN = "api/login";
+String SUB_URL_API_SIGN_UP = "api/register";
+String SUB_URL_API_RESET_PASSWORD = "api/reset-password";
+String SUB_URL_API_SEND_OTP = "api/reset-otp-check";
+String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 
 
+String SUB_URL_API_GET_CATEGORIES = "api/categories";
+String SUB_URL_API_GET_SUBCATEGORIES = "api/sub-categories";
+String SUB_URL_API_GET_INNER_CATEGORIES = "api/inner-categories";
 
-String SUB_URL_API_SHORT_QUESTION_ANSWER_SUBMIT = "api/student-short-submit-answer-mobile/";
-String SUB_URL_API_MCQ_QUESTION_ANSWER_SUBMIT = "api/student-mcq-submit-answer-mobile/";
-String SUB_URL_API_GET_QUESTION = "api/exam-question-list-mobile/";
-String SUB_URL_API_GET_QUIZ_LIST = "api/individual-classroom-quiz-all-list/";
-String SUB_URL_API_GET_ALL_CLASS_ROOM_LIST = "api/student-all-join-classroom-list-mobile/";
-
-
-String SUB_URL_API_GET_TERMS_AND_CONDITION = "api/individual-quiz-terms-and-condition/";
-
-String SUB_URL_API_GET_ASSIGNMENT_LIST = "apk/apk-assignment/?batch_id=";
-String SUB_URL_API_SUBMIT_ASSIGNMENT = "apk/apk-assignment/";
-String SUB_URL_API_SUBMIT_ASSIGNMENT_COUNT_DATA = "apk/login/";
+String SUB_URL_API_GET_COLOR_LIST = "api/colors";
+String SUB_URL_API_GET_SIZE_LIST = "api/sizes";
+String SUB_URL_API_GET_BRANDS_LIST = "api/vendors";
 
 
 

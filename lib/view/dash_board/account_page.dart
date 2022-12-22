@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ShopPage extends StatelessWidget {
-
+class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +9,7 @@ class ShopPage extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-            "Shop page"
+            "Account page"
         ),
       ),
     );

@@ -1,19 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import '../../api_service/api_service.dart';
+import '../../controller/password_set_page_controller.dart';
+import '../../static/Colors.dart';
 
-
-
-import '../../controller/log_in_page_controller.dart';
-import '../controller/password_set_page_controller.dart';
-import '../controller/sign_up_page_controller.dart';
-import '../static/Colors.dart';
 import 'log_in_page.dart';
 
 
@@ -324,9 +319,9 @@ class PasswordSetScreen extends StatelessWidget {
           String confirmPasswordTxt = passwordSetPageController.confirmPasswordController.value.text;
 
           if (_inputValid(password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
-            // userAutoLogIn();
-
-        //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
+            newPassword(otp: passwordSetPageController.useOtp.value,
+                email: passwordSetPageController.userEmail.value,
+                password: confirmPasswordTxt);
 
           }
 
@@ -436,46 +431,102 @@ class PasswordSetScreen extends StatelessWidget {
 
 
   //loading dialog crete
-  void showLoadingDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 20, bottom: 20),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: awsStartColor,
-                          color: awsEndColor,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          message,
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
+  void showLoadingDialog(String message) {
+
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
                     ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
   }
 
+
+  // new password set api call
+  newPassword({
+    required String otp,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SET_NEW_PASSWORD'),
+           // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
+              body: {
+                'otp': otp,
+                'email': email,
+                'password': password
+              }
+          );
+          Get.back();
+         // _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            // _showToast("success");
+            var data = jsonDecode(response.body);
+            Get.to(LogInScreen());
+
+          }
+
+          else {
+
+            var data = jsonDecode(response.body);
+            _showToast(data['data']);
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
 }
 

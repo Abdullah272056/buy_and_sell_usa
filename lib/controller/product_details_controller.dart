@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class ProductDetailsController extends GetxController {
   TextEditingController? searchController = TextEditingController();
 
   var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
