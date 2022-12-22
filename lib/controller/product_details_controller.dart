@@ -16,6 +16,11 @@ class ProductDetailsController extends GetxController {
 
   var selectedTabIndex=0.obs;
   var selectedPageIndex=1.obs;
+
+  var selectedColorIndex=0.obs;
+  var selectedSizeIndex=0.obs;
+
+
   var abcd="0".obs;
 
   // dynamic argumentData = Get.arguments;

@@ -195,6 +195,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
   Widget _buildAddToCartButton() {
     return ElevatedButton(
       onPressed: () {
+        openBottomSheet("dfghj");
       },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -223,6 +224,334 @@ class ProductDetailsePageScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void openBottomSheet(String text) {
+    Get.bottomSheet(
+      Column(
+        children: [
+          const SizedBox(height: 20),
+
+          Container(
+            margin: EdgeInsets.only(left: 10,right: 10),
+            child:  Row(
+              children: [
+                Container(
+                  color: Colors.white,
+                  height: 80,
+                  width: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: Container(
+
+                      decoration: BoxDecoration(
+                        // color:Colors.white,
+                          border: Border.all(
+                              width: 1,
+                              color: Colors.blue//                   <--- border width here
+                          ),
+                          borderRadius: BorderRadius.circular(24)),
+                      child: FadeInImage.assetNetwork(
+
+                        fit: BoxFit.fill,
+                        placeholder: 'assets/images/loading.png',
+                        image:"https://fnfbuy.bizoytech.com/public/images/product/1669097419-637c67cbbabda.webp",
+                        // image:BASE_URL_API_IMAGE+
+                        //    allProductListPageController.filterProductList[index].coverImage??"",
+                        imageErrorBuilder: (context, url, error) =>
+                            Image.asset(
+                              'assets/images/loading.png',
+                              fit: BoxFit.fill,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Expanded(child: Text(
+                          "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
+                          overflow: TextOverflow.ellipsis,
+                          style:  TextStyle(
+                              color: text_color,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                          softWrap: false,
+                          maxLines: 2,
+                        ))
+                      ],
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(left: 15,top: 10),
+                      child:  Row(
+                        children: [
+                          RatingBarIndicator(
+                            // rating:response["avg_rating"],
+                            rating:double.parse("4.5"),
+                            itemBuilder: (context, index) => const Icon(
+                              Icons.star,
+                              color:Colors.orange,
+                            ),
+                            itemCount: 5,
+                            itemSize: 15.0,
+                            direction: Axis.horizontal,
+                          ),
+                          Text(
+                            "(100 review)",
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: text_color,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                            softWrap: false,
+                            maxLines: 3,
+                          )
+
+                        ],
+                      ),
+                    )
+                  ],
+                ))
+              ],
+            ),
+          ),
+
+          Container(
+            margin: EdgeInsets.only(left: 10,right: 10,top: 20),
+            child:  Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 00,right: 20),
+                  padding: EdgeInsets.all(7),
+                    // height: 80,
+                   width:80,
+                  child: Center(
+                    child: Text(
+                      "10.0% OFF",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.normal
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color:Colors.blue,
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(7.0),
+                      bottomLeft: Radius.circular(7.0),
+                      topLeft: Radius.circular(7.0),
+                      topRight: Radius.circular(7.0),
+                    ),
+                    boxShadow: [BoxShadow(
+
+                      color:Colors.grey.withOpacity(.5),
+                      //  blurRadius: 20.0, // soften the shadow
+                      blurRadius:20, // soften the shadow
+                      spreadRadius: 0.0, //extend the shadow
+                      offset:Offset(
+                        2.0, // Move to right 10  horizontally
+                        1.0, // Move to bottom 10 Vertically
+                      ),
+                    )],
+                  ),
+                ),
+                Expanded(child:  Row(
+                  children: [
+                    Text(
+                      "\$5000.0",
+                      overflow: TextOverflow.ellipsis,
+
+                      style:  TextStyle(
+                          color: Colors.red,
+                          fontSize: 13,
+                          decoration: TextDecoration.lineThrough,
+                          fontWeight: FontWeight.normal),
+                      softWrap: false,
+                      maxLines: 1,
+                    ),
+                    SizedBox(height: 10,),
+
+                    Text(
+                      "\$4500.0",                                overflow: TextOverflow.ellipsis,
+                      style:  TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                      softWrap: false,
+                      maxLines: 1,
+                    )
+                  ],
+                ))
+              ],
+            ),
+          ),
+
+          //color
+          Container(
+            margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+            height: 30,
+            child: Row(
+              children: [
+                Text(
+                  "Available Color: ",
+                  overflow: TextOverflow.ellipsis,
+                  style:  TextStyle(
+                      color: text_color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal),
+                  softWrap: false,
+                  maxLines:1,
+                ),
+                SizedBox(width: 10,),
+                Expanded(child: ListView.builder(
+                  //  shrinkWrap: true,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                  itemCount:5,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: (){
+                        homeController.selectedColorIndex(index);
+                      },
+                      child: Obx(()=>Container(
+                        height: 30,
+                        width: 30,
+                        margin: EdgeInsets.only(right: 5),
+
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          // color:Colors.white,
+                          border: Border.all(
+                            color: homeController.selectedColorIndex.value==index?Colors.blue:
+                            Colors.white,
+                            width: .5, //                   <--- border width here
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5.0),
+
+                          ),
+
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 27,
+                            width:27,
+                            decoration: BoxDecoration(
+                              color:color_demo,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5.0),
+
+                              ),
+
+                            ),
+
+                          ),
+                        ),
+                      )),
+                    );
+
+                  },
+                  scrollDirection: Axis.horizontal,
+                ))
+
+
+              ],
+            ) ,
+          ),
+
+          //size
+          Container(
+            margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+            height: 25,
+            child: Row(
+              children: [
+                Text(
+                  "Available Size: ",
+                  overflow: TextOverflow.ellipsis,
+                  style:  TextStyle(
+                      color: text_color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal),
+                  softWrap: false,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10,),
+                Expanded(child: ListView.builder(
+                  //  shrinkWrap: true,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                  itemCount:5,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: (){
+                        homeController.selectedSizeIndex(index);
+                      },
+
+                      child: Obx(()=>Container(
+                        margin: EdgeInsets.only(right: 5),
+                        height: 27,
+                        width:35,
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          // color:Colors.white,
+                          border: Border.all(
+                            color: homeController.selectedSizeIndex.value==index?Colors.blue:
+                            Colors.white,
+                            width: .5, //                   <--- border width here
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5.0),
+
+                          ),
+
+                        ),
+                        child:  Center(
+                          child: Text(
+                            "L",
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: text_color,
+                                fontSize: 13,
+                                fontWeight: FontWeight.normal),
+                            softWrap: false,
+                            maxLines: 2,
+                          ),
+                        ),
+                      ),));
+
+                  },
+                  scrollDirection: Axis.horizontal,
+                ))
+
+
+              ],
+            ) ,
+          ),
+
+           Center(
+            child: Text(text,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
