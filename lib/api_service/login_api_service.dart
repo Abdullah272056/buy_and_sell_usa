@@ -7,6 +7,8 @@ import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import '../view/auth/log_in_page.dart';
+import '../view/auth/sign_up_page.dart';
 import '../view/common_page/dash_board_page.dart';
 import 'api_service.dart';
 
@@ -46,16 +48,13 @@ class LogInApiService {
             saveUserInfo(
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
-
             Get.to(DashBoardPageScreen());
            // Get.offAll(DashBoardPageScreen());
-
           }
           else if (response.statusCode == 401) {
             _showToast("User name or password not match!");
           }
           else {
-
             var data = jsonDecode(response.body);
            // _showToast(data['message']);
           }
@@ -88,7 +87,6 @@ class LogInApiService {
     } catch (e) {
       //code
     }
-
   }
 
   void showLoadingDialog(String message) {

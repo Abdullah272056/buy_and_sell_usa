@@ -295,16 +295,13 @@ class LogInScreen extends StatelessWidget {
 
           String userEmailTxt = logInPageController.userEmailController.value.text;
           String passwordTxt = logInPageController.passwordController.value.text;
-        //  userLogIn(email: 'gggh', password: 'fgvhnj');
+           //  userLogIn(email: 'gggh', password: 'fgvhnj');
           if (_inputValid(userEmailTxt, passwordTxt)== false) {
-            // userAutoLogIn();
-        //    userLogIn(email: userEmailTxt, password: passwordTxt);
-             LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-
-        //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
-
+         // userAutoLogIn();
+        // userLogIn(email: userEmailTxt, password: passwordTxt);
+          LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+      // LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
           }
-
 
         },
       style: ElevatedButton.styleFrom(
