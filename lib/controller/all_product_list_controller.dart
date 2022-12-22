@@ -14,7 +14,7 @@ import '../model/FilterListDataModelClass2.dart';
 import '../static/Colors.dart';
 
 class AllProductListPageController extends GetxController {
-  // dynamic argumentData = Get.arguments;
+  dynamic argumentData = Get.arguments;
   var filterProductList=[].obs;
   var showFilterStatus=1.obs;
 
@@ -50,19 +50,19 @@ class AllProductListPageController extends GetxController {
     getBrands();
     getSubCategoriesList();
 
-    getCategoriesProductsDataList(categoryId: "1",
-        subcategoryId: "6",
-        innerCategoryId: '', filterCategoryList: [],
-        filterSubCategoryList: [], filterInnerCategoryList: [],
-        brandName: 'admin', minPrice: '', sortBy: '', search: '',
-        brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
-
-    // getCategories(categoryId: argumentData[0]['categoriesId'],
-    //     subcategoryId: argumentData[1]['subCategoriesId'],
+    // getCategoriesProductsDataList(categoryId: "1",
+    //     subcategoryId: "6",
     //     innerCategoryId: '', filterCategoryList: [],
     //     filterSubCategoryList: [], filterInnerCategoryList: [],
     //     brandName: 'admin', minPrice: '', sortBy: '', search: '',
     //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+
+    getCategoriesProductsDataList(categoryId: argumentData[0]['categoriesId'],
+        subcategoryId: argumentData[1]['subCategoriesId'],
+        innerCategoryId: '', filterCategoryList: [],
+        filterSubCategoryList: [], filterInnerCategoryList: [],
+        brandName: 'admin', minPrice: '', sortBy: '', search: '',
+        brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
 
   }
 

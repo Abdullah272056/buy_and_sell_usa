@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
-import 'package:fnf_buy/view/custom_drawer.dart';
+import 'package:fnf_buy/view/common_page/custom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../controller/home_controller.dart';
-import 'controller/product_details_controller.dart';
+import '../../controller/product_details_controller.dart';
 
 
 class ProductDetailsePageScreen extends StatelessWidget {
@@ -66,9 +66,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      // ...
+                     Get.back();
                     },
                   ),
+                  SizedBox(width: 5,),
                   Expanded(child: Text(
                       "Product Details",
                     style: TextStyle(color: Colors.white,

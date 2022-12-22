@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'home_page/product_list.dart';
-import 'home_page1.dart';
+
+import '../common_page/product_list.dart';
+
+
 
 class CartPage extends StatelessWidget {
 

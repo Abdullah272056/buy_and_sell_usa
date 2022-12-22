@@ -9,9 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../controller/home_controller.dart';
-import '../../product_details.dart';
-import '../custom_drawer.dart';
+import '../../../controller/home_controller.dart';
+
+import '../common_page/product_details.dart';
+import '../common_page/custom_drawer.dart';
 
 
 
@@ -308,21 +309,24 @@ class HomePageScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Text(
+
+              Obx(() => Text(
                 response.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color:Colors.black,
                     fontSize: 14,
                     fontWeight:homeController.subCategoriesButtonColorStatus== index? FontWeight.w700:FontWeight.w500),
-              ),
+              ),),
+
               Container(height: 7,),
-              Container(
-                height: 3.5,
-              width: 50,
-              color: homeController.subCategoriesButtonColorStatus== index?Colors.blue:Colors.transparent,
-              // color: Colors.blue,
-              )
+              Obx(() => Container(
+                  height: 3.5,
+                  width: 50,
+                  color: homeController.subCategoriesButtonColorStatus== index?Colors.blue:Colors.transparent,
+                  // color: Colors.blue,
+                  ))
+
             ],
           )
         ),

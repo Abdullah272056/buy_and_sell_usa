@@ -2,17 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/product_details.dart';
-import 'package:fnf_buy/view/cart_page.dart';
-import 'package:fnf_buy/view/dash_board_page.dart';
-import 'package:fnf_buy/view/home_page/home_page.dart';
-import 'package:fnf_buy/view/home_page1.dart';
-import 'package:fnf_buy/view/home_page/product_list.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:fnf_buy/view/common_page/dash_board_page.dart';
+ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'controller/all_product_list_controller.dart';
-
 
 void main() {
   GetStorage.init();

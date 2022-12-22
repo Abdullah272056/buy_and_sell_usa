@@ -8,8 +8,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/all_product_list_controller.dart';
-import '../../controller/product_details_controller.dart';
+
+
 import '../../static/Colors.dart';
+import 'product_details.dart';
 
 class ProductListPage extends StatelessWidget {
   final allProductListPageController = Get.put(AllProductListPageController());
@@ -53,7 +55,7 @@ class ProductListPage extends StatelessWidget {
   }) {
     return InkWell(
       onTap: (){
-        Get.to(ProductDetailsController());
+        Get.to(ProductDetailsePageScreen());
       },
       child:Column(
         mainAxisAlignment: MainAxisAlignment.start,

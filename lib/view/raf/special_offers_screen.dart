@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fnf_buy/special_offer_widget.dart';
+import 'package:fnf_buy/view/raf/special_offer_widget.dart';
+
 
 
 class SpecialOfferScreen extends StatefulWidget {

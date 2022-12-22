@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../view/home_page/home_page.dart';
+import '../view/dash_board/home_page.dart';
 
 
 class DashBoardPageController extends GetxController {

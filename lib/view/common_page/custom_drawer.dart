@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../controller/custom_drawer_controller.dart';
-import '../static/Colors.dart';
-import 'auth/log_in_page.dart';
-import 'home_page/product_list.dart';
+import '../../controller/custom_drawer_controller.dart';
+import '../../static/Colors.dart';
+import '../auth/log_in_page.dart';
+import 'product_list.dart';
 
 
 class CustomDrawer extends StatelessWidget {

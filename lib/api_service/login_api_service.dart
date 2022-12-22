@@ -7,7 +7,7 @@ import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
- import '../view/dash_board_page.dart';
+import '../view/common_page/dash_board_page.dart';
 import 'api_service.dart';
 
 class LogInApiService {

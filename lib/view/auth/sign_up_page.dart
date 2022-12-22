@@ -9,8 +9,8 @@ import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../../controller/sign_up_page_controller.dart';
 import '../../static/Colors.dart';
-import '../dash_board_page.dart';
 
+import '../common_page/dash_board_page.dart';
 import 'log_in_page.dart';
 
 

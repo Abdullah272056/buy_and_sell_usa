@@ -2,8 +2,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/sale_widget.dart';
 import 'package:fnf_buy/static/Colors.dart';
+
+import 'sale_widget.dart';
+
 
 
 
