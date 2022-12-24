@@ -15,6 +15,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/product_details_controller.dart';
+import '../../data_base/note.dart';
+import '../../data_base/notes_database.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import 'CartProvider.dart';
@@ -84,19 +86,25 @@ class ProductDetailsePageScreen extends StatelessWidget {
                     ),
                   )),
                   Badge(
-                    badgeContent: Text(
-                      '4',
+                    badgeContent: Obx(()=>Text(
+                      homeController.cartCount.value.toString(),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
                           fontWeight: FontWeight.w500
                       ),
-                    ),
+                    )),
                     badgeColor: fnf_color,
-                    child: Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 25,
-                      color: Colors.white,
+                    child: InkWell(
+                      onTap: (){
+
+                        Get.to(CartPage());
+                      },
+                      child: Icon(
+                        Icons.shopping_cart_outlined,
+                        size: 25,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(width: 20,),
@@ -154,24 +162,35 @@ class ProductDetailsePageScreen extends StatelessWidget {
                        Container(
                          margin: EdgeInsets.only(left: 0,right: 30),
                          child:  Badge(
-                           badgeContent: Text(
-                             '4',
+                           badgeContent:Obx(()=> Text(
+                             homeController.cartCount.value.toString(),
                              style: TextStyle(
                                  color: Colors.white,
                                  fontSize: 11,
                                  fontWeight: FontWeight.w500
                              ),
-                           ),
+                           )),
                            badgeColor: Colors.blue,
-                           child: Icon(
-                             Icons.shopping_cart_outlined,
-                             size: 30,
-                             color: Colors.blue,
+                           child:  InkWell(
+                             onTap: (){
+
+                               // _showToast("ddd")
+                               Get.to(CartPage());
+                             },
+                             child: Icon(
+                               Icons.shopping_cart_outlined,
+                               size: 30,
+                               color: Colors.blue,
+                             ),
                            ),
+
+
                          ),
                        ),
 
                         Expanded(child: _buildAddToCartButton()),
+
+
 
                       ],
                     ),
@@ -195,7 +214,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
   Widget _buildAddToCartButton() {
     return ElevatedButton(
       onPressed: () {
-        openBottomSheet("dfghj");
+        openBottomSheet("abcd");
       },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -1463,7 +1482,18 @@ class ProductDetailsePageScreen extends StatelessWidget {
   Widget _buildAddToCartButton1() {
     return ElevatedButton(
       onPressed: () {
-       // openBottomSheet("dfghj");
+        Get.back();
+        CartNote cartNote= CartNote(
+            productId: '12',
+            productName: 'Test',
+            productRegularPrice: '120',
+            productDiscountedPrice: '100',
+            productPhoto: 'https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg',
+            productQuantity: '2'
+          // id: 1,
+        );
+        homeController.insertData(cartNote);
+
       },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -1703,5 +1733,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
+
 
 }

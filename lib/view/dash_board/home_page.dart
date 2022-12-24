@@ -1,6 +1,7 @@
 
 
 
+import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_details.dart';
 import '../common_page/custom_drawer.dart';
+import 'cart_page.dart';
 
 
 
@@ -140,12 +142,28 @@ class HomePageScreen extends StatelessWidget {
                   child: InkWell(
 
                     onTap: () {
+
+                      Get.to(CartPage());
                     },
-                    child:  Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
-                      size: 25.0,
+                    child: Badge(
+                      badgeContent:Obx(()=> Text(
+                        homeController.cartCount.value.toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500
+                        ),
+                      )),
+                      badgeColor:fnf_color,
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
                     ),
+
+
+
                   ),
                 ),
               ],

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../data_base/notes_database.dart';
+
 class HomeController extends GetxController {
   TextEditingController? searchController = TextEditingController();
 
@@ -17,6 +19,8 @@ class HomeController extends GetxController {
   var selectedTabIndex=0.obs;
   var selectedPageIndex=1.obs;
   var abcd="0".obs;
+  var notesList=[].obs;
+  var cartCount=0.obs;
 
   // dynamic argumentData = Get.arguments;
   @override
@@ -24,13 +28,19 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+    refreshNotes();
     super.onInit();
 
 
   }
 
 
-
+  Future refreshNotes() async {
+    NotesDataBase.instance;
+    notesList(await NotesDataBase.instance.readAllNotes());
+    cartCount(notesList.length);
+    //_showToast("Local length= "+notesList.length.toString());
+  }
 
   //toast create
   _showToast(String message) {

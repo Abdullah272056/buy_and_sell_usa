@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../data_base/note.dart';
+import '../data_base/notes_database.dart';
+
 class ProductDetailsController extends GetxController {
   TextEditingController? searchController = TextEditingController();
 
@@ -18,14 +21,19 @@ class ProductDetailsController extends GetxController {
   var selectedSizeIndex=0.obs;
   var selectedTypeIndex=0.obs;
 
+  var cartCount=0.obs;
+
 
   var productQuantity=1.obs;
   var totalPrice=0.00.obs;
-  var productRegularPrice=5000.obs;
-  var productDiscountedPrice=4500.obs;
+  var productRegularPrice=5000.0.obs;
+  var productDiscountedPrice=4500.0.obs;
 
 
   var abcd="0".obs;
+
+  // List<CartNote> notesList=[].obs;
+  var notesList=[].obs;
 
   // dynamic argumentData = Get.arguments;
   @override
@@ -33,6 +41,7 @@ class ProductDetailsController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+    refreshNotes();
     super.onInit();
   }
 
@@ -77,6 +86,34 @@ class ProductDetailsController extends GetxController {
       // selectedPage= SearchPage( );
       return;
     }
+  }
+
+
+  Future refreshNotes() async {
+    NotesDataBase.instance;
+    notesList(await NotesDataBase.instance.readAllNotes());
+    cartCount(notesList.length);
+   // _showToast("Local length= "+notesList.length.toString());
+  }
+  void insertData(CartNote cartNote){
+
+    // CartNote abc= CartNote(
+    //     productId: '12',
+    //     productName: 'Test',
+    //     productRegularPrice: '120',
+    //     productDiscountedPrice: '100',
+    //     productPhoto: 'https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg',
+    //     productQuantity: '2'
+    //
+    //   // id: 1,
+    //
+    // );
+
+
+    NotesDataBase.instance.create( cartNote);
+    // NotesDataBase.instance.create( abc);
+
+    refreshNotes();
   }
 
 }
