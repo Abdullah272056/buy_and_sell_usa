@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/notes_database.dart';
 
 class HomeController extends GetxController {
@@ -22,12 +24,16 @@ class HomeController extends GetxController {
   var notesList=[].obs;
   var cartCount=0.obs;
 
+  var userName="".obs;
+  var userToken="".obs;
+
   // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+    RetriveUserInfo();
     refreshNotes();
     super.onInit();
 
@@ -40,6 +46,21 @@ class HomeController extends GetxController {
     notesList(await NotesDataBase.instance.readAllNotes());
     cartCount(notesList.length);
     //_showToast("Local length= "+notesList.length.toString());
+  }
+
+  ///get user data from share pref
+  void RetriveUserInfo() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name)??"");
+      userToken(storage.read(pref_user_token)??"");
+      _showToast(storage.read(pref_user_name).toString());
+
+
+    }catch(e){
+
+    }
+
   }
 
   //toast create

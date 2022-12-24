@@ -128,7 +128,13 @@ class HomePageScreen extends StatelessWidget {
                   child: InkWell(
 
                     onTap: () {
-                      showLoadingDialog();
+                      if(homeController.userToken.isEmpty){
+                        showLoadingDialog();
+                      }
+                      else{
+                        _showToast("go whishlist");
+                      }
+
                     },
                     child:  Icon(
                       Icons.favorite_border,
@@ -655,8 +661,6 @@ class HomePageScreen extends StatelessWidget {
     required double width,
     required String imageLink
   }) {
-
-
     return InkWell(
       onTap: (){
         Get.to(ProductDetailsePageScreen());
@@ -706,8 +710,13 @@ class HomePageScreen extends StatelessWidget {
                         top: 5,
                         child: InkWell(
                           onTap: (){
-
-                            showLoadingDialog( );
+                            if(homeController.userToken.isEmpty){
+                              showLoadingDialog();
+                            }
+                            else{
+                              _showToast("add wishlist");
+                            }
+                           // showLoadingDialog( );
 
                           },
                           child: Icon(Icons.favorite_outline,

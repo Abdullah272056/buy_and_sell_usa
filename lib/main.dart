@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/auth/log_in_page.dart';
 import 'package:fnf_buy/view/common_page/dash_board_page.dart';
  import 'package:fnf_buy/view/common_page/product_details.dart';
 import 'package:fnf_buy/view/dash_board/cart_page.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:DashBoardPageScreen(),
+        body:LogInScreen(),
         // body: CartPage(),
        // body:ProductDetailsePageScreen(),
       ),
