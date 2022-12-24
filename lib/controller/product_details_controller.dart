@@ -11,14 +11,18 @@ class ProductDetailsController extends GetxController {
   var isDrawerOpen = false.obs;
 
   var subCategoriesButtonColorStatus=0.obs;
-
   var searchBoxVisible=0.obs;
-
   var selectedTabIndex=0.obs;
   var selectedPageIndex=1.obs;
-
   var selectedColorIndex=0.obs;
   var selectedSizeIndex=0.obs;
+  var selectedTypeIndex=0.obs;
+
+
+  var productQuantity=1.obs;
+  var totalPrice=0.00.obs;
+  var productRegularPrice=5000.obs;
+  var productDiscountedPrice=4500.obs;
 
 
   var abcd="0".obs;
@@ -30,12 +34,7 @@ class ProductDetailsController extends GetxController {
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
     super.onInit();
-
-
   }
-
-
-
 
   //toast create
   _showToast(String message) {
@@ -49,46 +48,35 @@ class ProductDetailsController extends GetxController {
         fontSize: 16.0);
   }
 
-
-
   updateSelectedTabIndex(int index){
     selectedTabIndex(index);
-
   }
-
 
 // Widget
   void onItemTapped(int index) {
-
     selectedTabIndex(index) ;
     // _selectedPageIndex = index;
     if(index==0){
       // selectedPage(HomePage( ));
       return;
     }
-
     if(index==1){
       //  selectedPage(HomePage( ));
       // selectedPage= ShopPage( );
       return;
     }
-
     if(index==2){
       // selectedPage= AccountPage( );
       return;
     }
-
     if(index==3){
       // selectedPage= CartPage( );
       return;
     }
-
     if(index==4){
       // selectedPage= SearchPage( );
       return;
     }
-
-
   }
 
 }

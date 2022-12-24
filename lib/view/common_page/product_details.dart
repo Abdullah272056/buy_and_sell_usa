@@ -230,6 +230,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
   void openBottomSheet(String text) {
     Get.bottomSheet(
+
       Column(
         children: [
           const SizedBox(height: 20),
@@ -363,11 +364,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   ),
                 ),
                 Expanded(child:  Row(
-                  children: [
-                    Text(
-                      "\$5000.0",
+                  children:  [
+                    Obx(() => Text(
+                      "\$${homeController.productRegularPrice.value}",
                       overflow: TextOverflow.ellipsis,
-
                       style:  TextStyle(
                           color: Colors.red,
                           fontSize: 13,
@@ -375,18 +375,19 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           fontWeight: FontWeight.normal),
                       softWrap: false,
                       maxLines: 1,
-                    ),
-                    SizedBox(height: 10,),
+                    ),),
+                    SizedBox(width: 10,),
 
-                    Text(
-                      "\$4500.0",                                overflow: TextOverflow.ellipsis,
-                      style:  TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                      softWrap: false,
-                      maxLines: 1,
-                    )
+                   Obx(() =>  Text(
+                     "\$${homeController.productDiscountedPrice.value}",
+                     overflow: TextOverflow.ellipsis,
+                     style:  TextStyle(
+                         color: Colors.blue,
+                         fontSize: 16,
+                         fontWeight: FontWeight.w600),
+                     softWrap: false,
+                     maxLines: 1,
+                   ))
                   ],
                 ))
               ],
@@ -535,17 +536,219 @@ class ProductDetailsePageScreen extends StatelessWidget {
             ) ,
           ),
 
-           Center(
-            child: Text(text,
-              style: TextStyle(fontSize: 18),
-            ),
+          //type
+          Container(
+            margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+            height: 25,
+            child: Row(
+              children: [
+                Text(
+                  "Available Type: ",
+                  overflow: TextOverflow.ellipsis,
+                  style:  TextStyle(
+                      color: text_color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal),
+                  softWrap: false,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10,),
+                Expanded(child: ListView.builder(
+                  //  shrinkWrap: true,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                  itemCount:5,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                        onTap: (){
+                          homeController.selectedTypeIndex(index);
+                        },
+
+                        child: Obx(()=>Container(
+                          margin: EdgeInsets.only(right: 5),
+                          height: 27,
+                          width:35,
+                          decoration: BoxDecoration(
+                            color:Colors.white,
+                            // color:Colors.white,
+                            border: Border.all(
+                              color: homeController.selectedTypeIndex.value==index?Colors.blue:
+                              Colors.white,
+                              width: .5, //                   <--- border width here
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5.0),
+
+                            ),
+
+                          ),
+                          child:  Center(
+                            child: Text(
+                              "a",
+                              overflow: TextOverflow.ellipsis,
+                              style:  TextStyle(
+                                  color: text_color,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.normal),
+                              softWrap: false,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ),));
+
+                  },
+                  scrollDirection: Axis.horizontal,
+                ))
+
+
+              ],
+            ) ,
           ),
-          OutlinedButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: const Text('Close'),
+
+
+          //Quantity
+          Container(
+            margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+            height: 25,
+            child: Row(
+              children: [
+                Text(
+                  "Quantity: ",
+                  overflow: TextOverflow.ellipsis,
+                  style:  TextStyle(
+                      color: text_color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
+                  softWrap: false,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10,),
+
+
+               Container(
+                 margin: EdgeInsets.only(right: 10),
+                 child: InkWell(
+                   onTap: (){
+                     if(homeController.productQuantity>1){
+                       homeController.productQuantity--;
+
+                     }
+
+                   },
+                   child:  Container(
+
+                       height: 30,
+                       width: 30,
+                       decoration: BoxDecoration(
+                         color:Colors.white,
+                         // color:Colors.white,
+                         border: Border.all(
+                           color: Colors.blue,
+                           width: .5, //                   <--- border width here
+                         ),
+                         borderRadius: const BorderRadius.all(
+                           Radius.circular(15.0),
+
+                         ),
+
+                       ),
+                       child: Center(
+                         child: Text("−",
+                           style: TextStyle(fontWeight: FontWeight.w500,
+                               color: text_color,
+                               fontSize: 16
+                           ),
+                         ),
+                       )
+                   ),
+                 ),
+               ),
+                Obx(() => Text(homeController.productQuantity.value.toString(),
+                  style: TextStyle(fontWeight: FontWeight.w600,
+                      color: text_color,
+                      fontSize: 15
+                  ),
+                ),),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: InkWell(
+                    onTap: (){
+                      homeController.productQuantity++;
+
+                    },
+                    child:  Container(
+
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          // color:Colors.white,
+                          border: Border.all(
+                            color: Colors.blue,
+                            width: .5, //                   <--- border width here
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15.0),
+
+                          ),
+
+                        ),
+                        child: Center(
+                          child: Text("+",
+                            style: TextStyle(fontWeight: FontWeight.w500,
+                                color: text_color,
+                                fontSize: 16
+                            ),
+                          ),
+                        )
+                    ),
+                  ),
+                )
+
+
+
+              ],
+            ) ,
           ),
+
+
+          SizedBox(height: 20,),
+          ///total price
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Total Price: ",
+                style: TextStyle(fontWeight: FontWeight.w600,
+                    color: text_color,
+                    fontSize: 15
+                ),
+              ),
+              Obx(() => Text(
+                "\$${homeController.productDiscountedPrice.value*homeController.productQuantity.value}",
+                style: TextStyle(fontWeight: FontWeight.w600,
+                    color: Colors.blue,
+                    fontSize: 15
+                ),
+              ),),
+
+            ],
+          ),
+          SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(width: 10,),
+              Expanded(child:  _buildAddToCartButton1(),),
+
+              SizedBox(width: 10,),
+              Expanded(child: _buildBuyNowButton(),),
+
+              SizedBox(width: 10,),
+
+            ],
+          ),
+
+
         ],
       ),
       backgroundColor: Colors.white,
@@ -553,6 +756,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
+      // isScrollControlled: true,
     );
   }
 
@@ -1249,6 +1453,79 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   )
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildAddToCartButton1() {
+    return ElevatedButton(
+      onPressed: () {
+       // openBottomSheet("dfghj");
+      },
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [Colors.blue,Colors.blue],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Add to cart",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBuyNowButton() {
+    return ElevatedButton(
+      onPressed: () {
+     ///   openBottomSheet("dfghj");
+      },
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Buy now",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
