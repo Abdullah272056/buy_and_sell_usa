@@ -33,7 +33,7 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-    RetriveUserInfo();
+   // RetriveUserInfo();
     refreshNotes();
     super.onInit();
 

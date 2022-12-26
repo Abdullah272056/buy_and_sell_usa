@@ -55,7 +55,15 @@ class ProductListPage extends StatelessWidget {
   }) {
     return InkWell(
       onTap: (){
-        Get.to(ProductDetailsePageScreen());
+
+       /// _showToast(allProductListPageController.filterProductList[index].id.toString());
+        Get.to(() => ProductDetailsePageScreen(), arguments: [
+          {"productId": allProductListPageController.filterProductList[index].id.toString()},
+          {"second": 'Second data'}
+        ]);
+
+        // Get.to(ProductDetailsePageScreen());
+
       },
       child:Column(
         mainAxisAlignment: MainAxisAlignment.start,

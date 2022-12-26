@@ -14,11 +14,8 @@ class NotesDataBase{
   static final NotesDataBase instance=NotesDataBase._init();
   static Database ?_database;
   NotesDataBase._init();
-
   Future<Database> get database async {
-
    if(_database !=null) return _database!;
-
    _database =await _initDB('notes.db');
    return _database!;
 
@@ -26,19 +23,16 @@ class NotesDataBase{
 
 
   Future<Database> _initDB(String filePath) async {
-
    final dbPath =await getDatabasesPath();
    final path =join( dbPath, filePath);
-
-   return await openDatabase(path, version: 2, onCreate: _createDB);
-
+   return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
 
   Future _createDB(Database db, int version) async{
-
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final textType = 'TEXT NOT NULL';
+    // final textType = 'TEXT NOT NULL';
+    final textType = 'TEXT';
     // final boolType = 'BOOLEAN NOT NULL';
     // final integerType = 'INTEGER NOT NULL';
 
@@ -50,11 +44,33 @@ class NotesDataBase{
       ${CartNoteFields.productRegularPrice} $textType,
       ${CartNoteFields.productDiscountedPrice} $textType,
       ${CartNoteFields.productPhoto} $textType,
-      ${CartNoteFields.productQuantity} $textType
+      ${CartNoteFields.productQuantity} $textType,
+      
+      
+      ${CartNoteFields.weight} $textType,
+      ${CartNoteFields.seller} $textType,
+      ${CartNoteFields.sellerName} $textType,
+      ${CartNoteFields.slug} $textType,
+      ${CartNoteFields.colorImage} $textType,
+      ${CartNoteFields.size} $textType,
+      ${CartNoteFields.color} $textType,
+      ${CartNoteFields.sizeId} $textType,
+      ${CartNoteFields.colorId} $textType,
+      ${CartNoteFields.grocery} $textType,
+      
+      ${CartNoteFields.tax} $textType,
+      ${CartNoteFields.shipping} $textType,
+      ${CartNoteFields.width} $textType,
+      ${CartNoteFields.height} $textType,
+      ${CartNoteFields.depth} $textType,
+      ${CartNoteFields.weightOption} $textType,
+      ${CartNoteFields.commission} $textType,
+      ${CartNoteFields.commissionType} $textType
       )
       '''
     );
   }
+
 
   Future<CartNote> create(CartNote note) async{
     final db = await instance.database;

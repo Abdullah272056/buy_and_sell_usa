@@ -13,6 +13,7 @@ import 'package:fnf_buy/view/dash_board/cart_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import '../../api_service/api_service.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
@@ -25,7 +26,7 @@ import 'CartProvider.dart';
 class ProductDetailsePageScreen extends StatelessWidget {
   // HomePageScreen({Key? key}) : super(key: key);
 
-  final homeController = Get.put(ProductDetailsController());
+  final productDetailsController = Get.put(ProductDetailsController());
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
 
   //   @override
@@ -87,7 +88,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   )),
                   Badge(
                     badgeContent: Obx(()=>Text(
-                      homeController.cartCount.value.toString(),
+                      productDetailsController.cartCount.value.toString(),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
@@ -163,7 +164,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                          margin: EdgeInsets.only(left: 0,right: 30),
                          child:  Badge(
                            badgeContent:Obx(()=> Text(
-                             homeController.cartCount.value.toString(),
+                             productDetailsController.cartCount.value.toString(),
                              style: TextStyle(
                                  color: Colors.white,
                                  fontSize: 11,
@@ -295,7 +296,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       children: [
                         SizedBox(width: 15,),
                         Expanded(child: Text(
-                          "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
+                          "product_name",
+                          // productDetailsController.productDetailsData[1]["product"]["product_name"].toString()??"",
+                          // "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: text_color,
@@ -385,7 +388,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 Expanded(child:  Row(
                   children:  [
                     Obx(() => Text(
-                      "\$${homeController.productRegularPrice.value}",
+                      "\$${productDetailsController.productRegularPrice.value}",
                       overflow: TextOverflow.ellipsis,
                       style:  TextStyle(
                           color: Colors.red,
@@ -398,7 +401,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                     SizedBox(width: 10,),
 
                    Obx(() =>  Text(
-                     "\$${homeController.productDiscountedPrice.value}",
+                     "\$${productDetailsController.productDiscountedPrice.value}",
                      overflow: TextOverflow.ellipsis,
                      style:  TextStyle(
                          color: Colors.blue,
@@ -438,7 +441,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: (){
-                        homeController.selectedColorIndex(index);
+                        productDetailsController.selectedColorIndex(index);
                       },
                       child: Obx(()=>Container(
                         height: 30,
@@ -449,7 +452,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           color:Colors.white,
                           // color:Colors.white,
                           border: Border.all(
-                            color: homeController.selectedColorIndex.value==index?Colors.blue:
+                            color: productDetailsController.selectedColorIndex.value==index?Colors.blue:
                             Colors.white,
                             width: .5, //                   <--- border width here
                           ),
@@ -511,7 +514,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: (){
-                        homeController.selectedSizeIndex(index);
+                        productDetailsController.selectedSizeIndex(index);
                       },
 
                       child: Obx(()=>Container(
@@ -522,7 +525,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           color:Colors.white,
                           // color:Colors.white,
                           border: Border.all(
-                            color: homeController.selectedSizeIndex.value==index?Colors.blue:
+                            color: productDetailsController.selectedSizeIndex.value==index?Colors.blue:
                             Colors.white,
                             width: .5, //                   <--- border width here
                           ),
@@ -580,7 +583,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: (){
-                          homeController.selectedTypeIndex(index);
+                          productDetailsController.selectedTypeIndex(index);
                         },
 
                         child: Obx(()=>Container(
@@ -591,7 +594,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                             color:Colors.white,
                             // color:Colors.white,
                             border: Border.all(
-                              color: homeController.selectedTypeIndex.value==index?Colors.blue:
+                              color: productDetailsController.selectedTypeIndex.value==index?Colors.blue:
                               Colors.white,
                               width: .5, //                   <--- border width here
                             ),
@@ -648,8 +651,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
                  margin: EdgeInsets.only(right: 10),
                  child: InkWell(
                    onTap: (){
-                     if(homeController.productQuantity>1){
-                       homeController.productQuantity--;
+                     if(productDetailsController.productQuantity>1){
+                       productDetailsController.productQuantity--;
 
                      }
 
@@ -682,7 +685,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                    ),
                  ),
                ),
-                Obx(() => Text(homeController.productQuantity.value.toString(),
+                Obx(() => Text(productDetailsController.productQuantity.value.toString(),
                   style: TextStyle(fontWeight: FontWeight.w600,
                       color: text_color,
                       fontSize: 15
@@ -692,7 +695,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   margin: EdgeInsets.only(left: 10),
                   child: InkWell(
                     onTap: (){
-                      homeController.productQuantity++;
+                      productDetailsController.productQuantity++;
 
                     },
                     child:  Container(
@@ -743,7 +746,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 ),
               ),
               Obx(() => Text(
-                "\$${homeController.productDiscountedPrice.value*homeController.productQuantity.value}",
+                "\$${productDetailsController.productDiscountedPrice.value*productDetailsController.productQuantity.value}",
                 style: TextStyle(fontWeight: FontWeight.w600,
                     color: Colors.blue,
                     fontSize: 15
@@ -820,8 +823,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       SizedBox(height: 10,),
                       Row(
                         children: [
-                          Expanded(child: Text(
-                            "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
+                          Expanded(child: Obx(()=>Text(
+                            productDetailsController.productName.toString(),
+                            // "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: text_color,
@@ -829,35 +833,36 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500),
                             softWrap: false,
                             maxLines: 2,
-                          ),),
+                          )),),
 
                          Container(
                            margin: EdgeInsets.only(left: 15),
                            child:  Column(
                              children: [
-                               Text(
-                                 "\$5000.0",
-                                 overflow: TextOverflow.ellipsis,
+                              Obx(() =>  Text(
+                                "\$ "+productDetailsController.productPrice.value ,
+                                overflow: TextOverflow.ellipsis,
 
-                                 style:  TextStyle(
-                                     color: hint_color,
-                                     fontSize: 13,
-                                     decoration: TextDecoration.lineThrough,
-                                     fontWeight: FontWeight.normal),
-                                 softWrap: false,
-                                 maxLines: 1,
-                               ),
+                                style:  TextStyle(
+                                    color: hint_color,
+                                    fontSize: 13,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontWeight: FontWeight.normal),
+                                softWrap: false,
+                                maxLines: 1,
+                              ),),
                                SizedBox(height: 3,),
 
-                               Text(
-                                 "\$4500.0",                                overflow: TextOverflow.ellipsis,
-                                 style:  TextStyle(
-                                     color: fnf_color,
-                                     fontSize: 17,
-                                     fontWeight: FontWeight.w700),
-                                 softWrap: false,
-                                 maxLines: 1,
-                               )
+                              Obx(() =>  Text(
+                                "\$ "+productDetailsController.productDiscountPrice.value ,
+                                overflow: TextOverflow.ellipsis,
+                                style:  TextStyle(
+                                    color: fnf_color,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700),
+                                softWrap: false,
+                                maxLines: 1,
+                              ))
                              ],
                            ),
                          )
@@ -870,8 +875,11 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                       Row(
                         children: [
-                          Expanded(child: Text(
-                            "1 review | 7orders | 0 wish",
+                          Expanded(child: Obx(()=>Text(
+
+                            productDetailsController.productReviewCount.value+ " review" ,
+
+                            // "1 review | 7orders | 0 wish",
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: fnf_small_text_color,
@@ -879,13 +887,26 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 fontWeight: FontWeight.normal),
                             softWrap: false,
                             maxLines: 2,
-                          ),),
+                          )),),
+                          // Expanded(child: Obx(()=>Text(
+                          //
+                          //   productDetailsController.productReviewCount+ " review" ,
+                          //
+                          //    // "1 review | 7orders | 0 wish",
+                          //   overflow: TextOverflow.ellipsis,
+                          //   style:  TextStyle(
+                          //       color: fnf_small_text_color,
+                          //       fontSize: 15,
+                          //       fontWeight: FontWeight.normal),
+                          //   softWrap: false,
+                          //   maxLines: 2,
+                          // )),),
 
                          Container(
                            margin: EdgeInsets.only(left: 15),
-                           child:  RatingBarIndicator(
+                           child:  Obx(()=>RatingBarIndicator(
                              // rating:response["avg_rating"],
-                             rating:double.parse("4.5"),
+                             rating:double.parse(productDetailsController.productReviewRating.value),
                              itemBuilder: (context, index) => const Icon(
                                Icons.star,
                                color:Colors.orange,
@@ -893,7 +914,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                              itemCount: 5,
                              itemSize: 15.0,
                              direction: Axis.horizontal,
-                           ),
+                           )),
                          )
 
 
@@ -916,29 +937,50 @@ class ProductDetailsePageScreen extends StatelessWidget {
                             softWrap: false,
                             maxLines: 2,
                           ),
-                          Expanded(child: ListView.builder(
+                          Expanded(child:Obx(()=> ListView.builder(
                             //  shrinkWrap: true,
                             // physics: const NeverScrollableScrollPhysics(),
-                            //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                            itemCount:5,
+
+                            itemCount:productDetailsController.colorsList==null||
+                                productDetailsController.colorsList.length<=0?0:
+                            productDetailsController.colorsList.length,
                             itemBuilder: (context, index) {
-                              return Container(margin: EdgeInsets.only(right: 5),
+                              return Container(
+                                margin: EdgeInsets.only(right: 5),
+                                padding: EdgeInsets.only(right: 8,left: 8),
                                 height: 27,
-                                width:27,
+                                //  width:32,
                                 decoration: BoxDecoration(
-                                  color:color_demo,
+                                  color:Colors.white,
+                                  border: Border.all(
+                                    color: hint_color,
+                                    width: .5, //                   <--- border width here
+                                  ),
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(5.0),
 
                                   ),
 
                                 ),
-
+                                child:  Center(
+                                  child: Text(
+                                    "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                    //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
+                                    ,
+                                    overflow: TextOverflow.ellipsis,
+                                    style:  TextStyle(
+                                        color: text_color,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.normal),
+                                    softWrap: false,
+                                    maxLines: 2,
+                                  ),
+                                ),
                               );
 
                             },
                             scrollDirection: Axis.horizontal,
-                          ))
+                          )))
 
 
                         ],
@@ -961,16 +1003,20 @@ class ProductDetailsePageScreen extends StatelessWidget {
                               softWrap: false,
                               maxLines: 2,
                             ),
-                            Expanded(child: ListView.builder(
+                            Expanded(child: Obx(()=>ListView.builder(
                               //  shrinkWrap: true,
                               // physics: const NeverScrollableScrollPhysics(),
                               //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                              itemCount:5,
+                              itemCount:productDetailsController.sizeList==null||
+                                  productDetailsController.sizeList.length<=0?0:
+                              productDetailsController.sizeList.length,
+                              // itemCount:productDetailsController.productDetailsData[1]["product"]["sizes"].length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(left: 10,right: 10),
                                   height: 27,
-                                  width:32,
+                                  // width:32,
                                   decoration: BoxDecoration(
                                     color:Colors.white,
                                     border: Border.all(
@@ -984,8 +1030,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                                   ),
                                   child:  Center(
-                                    child: Text(
-                                      "L",
+                                    child: Obx(()=>Text(
+                                    "${productDetailsController.sizeList[index]["size"]["name"]}"??""
+                                      ,
                                       overflow: TextOverflow.ellipsis,
                                       style:  TextStyle(
                                           color: text_color,
@@ -993,13 +1040,13 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                           fontWeight: FontWeight.normal),
                                       softWrap: false,
                                       maxLines: 2,
-                                    ),
+                                    )),
                                   ),
                                 );
 
                               },
                               scrollDirection: Axis.horizontal,
-                            ))
+                            )))
 
 
                           ],
@@ -1008,8 +1055,23 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                       _buildDescriptionDesign(),
 
-                      GridView.builder(
-                          itemCount:5,
+                      Container(
+
+                        margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 20),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Related Product",
+                            style: TextStyle(
+                                color:text_color,
+
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Obx(()=>GridView.builder(
+                          itemCount:productDetailsController.filterProductList.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -1020,28 +1082,19 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index);
-                          })
+                          }))
 
                     ],
 
                   ),
                 )
 
-
-
-
-
-
-
-
-
-
               ],
             )));
   }
 
   //user name input field create
-  Widget productCardItemDesign({
+  Widget productCardItemDesign1({
     required double height,
     required double width,
     required int index,
@@ -1073,18 +1126,17 @@ class ProductDetailsePageScreen extends StatelessWidget {
                               // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
                                 padding: EdgeInsets.only(left: 0,right: 0,top: 0),
                                 // padding: EdgeInsets.all(16),
-                                child: FadeInImage.assetNetwork(
+                                child: Obx(()=>FadeInImage.assetNetwork(
                                   fit: BoxFit.fill,
                                   placeholder: 'assets/images/loading.png',
-                                  image:"https://fnfbuy.bizoytech.com/public/images/product/1669097419-637c67cbbabda.webp",
-                                  // image:BASE_URL_API_IMAGE+
-                                  //    allProductListPageController.filterProductList[index].coverImage??"",
+                                 //  image:"http://localhost/bijoytech_ecomerce/public/images/product/1672033114-63a9335aed848.webp",
+                                  image:BASE_URL_API_IMAGE+productDetailsController.productImage.value,
                                   imageErrorBuilder: (context, url, error) =>
                                       Image.asset(
                                         'assets/images/loading.png',
                                         fit: BoxFit.fill,
                                       ),
-                                )
+                                ))
 
                             )
                         ),
@@ -1196,6 +1248,172 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
+  //product item
+  Widget productCardItemDesign({
+    required double height,
+    required double width,
+    required int index,
+  }) {
+    return InkWell(
+      onTap: (){
+
+        /// _showToast(allProductListPageController.filterProductList[index].id.toString());
+        Get.off(() => ProductDetailsePageScreen(), arguments: [
+          {"productId": productDetailsController.filterProductList[index].id.toString()},
+          {"second": 'Second data'}
+        ]);
+
+        // Get.to(ProductDetailsePageScreen());
+
+      },
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          Container(
+            width:width/2 ,
+            // height:width/1.3
+            padding: EdgeInsets.only(left: 10,right: 10),
+            // color: Colors.white,
+            child:  Column(
+              // alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    // color:Colors.white,
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Stack(
+                    children: [
+                      AspectRatio(
+                          aspectRatio: 1,
+                          child:Padding(
+                            // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                              padding: EdgeInsets.only(left: 0,right: 0,top: 0),
+                              // padding: EdgeInsets.all(16),
+                              child: FadeInImage.assetNetwork(
+                                fit: BoxFit.fill,
+                                placeholder: 'assets/images/loading.png',
+                                // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
+                                image:BASE_URL_API_IMAGE+
+                                    productDetailsController.filterProductList[index].coverImage??"",
+                                imageErrorBuilder: (context, url, error) =>
+                                    Image.asset(
+                                      'assets/images/loading.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                              )
+
+                            // Image.asset(
+                            //     "assets/images/shirt.png"
+                            // ),
+                          )
+                      ),
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: InkWell(
+                          onTap: (){
+
+                          },
+                          child: Icon(Icons.favorite_outline,
+                            color: hint_color,
+                          ),
+
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child:  Text(
+                            productDetailsController.filterProductList[index].productName,
+                            //"Men Grey Classic Regular Fit Formal Shirt",
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal),
+                            softWrap: false,
+                            maxLines: 1,
+                          ),
+                        ),
+                        // 12.widthBox,
+                        // RatingWidget(rating: widget.product.rating),
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Wrap(
+                            children: [
+                              RatingBarIndicator(
+                                // rating:response["avg_rating"],
+                                rating:double.parse("4.5"),
+                                itemBuilder: (context, index) => const Icon(
+                                  Icons.star,
+                                  color:Colors.orange,
+                                ),
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                direction: Axis.horizontal,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                " 8 Review",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color:hint_color,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                maxLines: 2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child:  Text("\$ "+
+                              productDetailsController.filterProductList[index].price,
+                            overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: Colors.black.withOpacity(0.7),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
+                            softWrap: false,
+                            maxLines: 2,
+                          ),
+                        ),
+                        // 12.widthBox,
+                        // RatingWidget(rating: widget.product.rating),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ) ,
+    );
+  }
+
   //description
   Widget _buildDescriptionDesign() {
     return Column(
@@ -1221,13 +1439,14 @@ class ProductDetailsePageScreen extends StatelessWidget {
           margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 10),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-                "Per consequat adolescens ex, cu nibh commune temporibus vim, ad sumo viris eloquentiam sed. Mea appareat omittantur eloquentiam ad, nam ei quas oportere democritum.",
+            child: Obx(()=>Text(
+              "${productDetailsController.productDetails.value}",
+              // "Per consequat adolescens ex, cu nibh commune temporibus vim, ad sumo viris eloquentiam sed. Mea appareat omittantur eloquentiam ad, nam ei quas oportere democritum.",
               style: const TextStyle(
                   color:hint_color,
                   fontSize: 16,
                   fontWeight: FontWeight.normal),
-            ),
+            ),)
           ),
         ),
 
@@ -1409,17 +1628,16 @@ class ProductDetailsePageScreen extends StatelessWidget {
       width: double.infinity,
       //height: sizeHeight * 0.25,
 
-      child:FadeInImage.assetNetwork(
+      child:Obx(()=>FadeInImage.assetNetwork(
         fit: BoxFit.fill,
         placeholder: 'assets/images/loading.png',
-        // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
-        image:"https://images.othoba.com/images/thumbs/0491586_mens-stylish-long-sleeve-print-shirt_300.jpeg",
+        image:"$BASE_URL_API_IMAGE${productDetailsController.productImage.value}",
         imageErrorBuilder: (context, url, error) =>
             Image.asset(
               'assets/images/loading.png',
               fit: BoxFit.fill,
             ),
-      ) ,
+      ) ),
     );
   }
 
@@ -1489,10 +1707,30 @@ class ProductDetailsePageScreen extends StatelessWidget {
             productRegularPrice: '120',
             productDiscountedPrice: '100',
             productPhoto: 'https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg',
-            productQuantity: '2'
+            productQuantity: '2',
+            weight: '',
+            seller: '',
+            sellerName: '',
+            slug: '',
+            colorImage: '',
+            size: '',
+            color: '',
+            sizeId: '',
+            colorId: '',
+            grocery: '',
+            tax: '',
+            shipping: '',
+            width: '',
+            height: '',
+            depth: '',
+            weightOption: '',
+            commission: '',
+            commissionType: ''
+
+
           // id: 1,
         );
-        homeController.insertData(cartNote);
+        productDetailsController.insertData(cartNote);
 
       },
       style: ElevatedButton.styleFrom(

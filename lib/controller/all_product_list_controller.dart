@@ -177,7 +177,7 @@ class AllProductListPageController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
             brandsList(dataResponse["data"]);
-            _showToast("brandsList= "+brandsList.length.toString());
+           // _showToast("brandsList= "+brandsList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -235,7 +235,7 @@ class AllProductListPageController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
             innerCategoriesList(dataResponse["data"]);
-             _showToast("innerCategoriesList= "+innerCategoriesList.length.toString());
+          //   _showToast("innerCategoriesList= "+innerCategoriesList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -266,7 +266,9 @@ class AllProductListPageController extends GetxController {
 
         try {
           var response = await post(
-              Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
+
+              // Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
+              Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_PRODUCT_DATA_LIST}'),
 
               // Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
               headers : {

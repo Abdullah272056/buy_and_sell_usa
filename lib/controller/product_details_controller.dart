@@ -1,10 +1,16 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
+import '../api_service/api_service.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
+import '../model/FilterListDataModelClass.dart';
 
 class ProductDetailsController extends GetxController {
   TextEditingController? searchController = TextEditingController();
@@ -31,16 +37,38 @@ class ProductDetailsController extends GetxController {
 
 
   var abcd="0".obs;
+  var productId="".obs;
+
+  // var productDetailsData=[].obs;
 
   // List<CartNote> notesList=[].obs;
   var notesList=[].obs;
+ dynamic argumentData = Get.arguments;
 
-  // dynamic argumentData = Get.arguments;
+
+ var productName="".obs;
+ var productDetails ="".obs;
+ var productPrice="".obs;
+ var productDiscountPrice="".obs;
+ var productReviewCount="0".obs;
+ var productReviewRating="0.0".obs;
+ var productImage="".obs;
+ var colorsList=[].obs;
+ var sizeList=[].obs;
+ var relatedProductList=[].obs;
+  var filterProductList=[].obs;
+
+
+
+
   @override
   void onInit() {
-    // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+    productId(argumentData[0]['productId'].toString());
+    _showToast(argumentData[0]['productId'].toString());
+    getProductDetailsData(productId.value);
+
     refreshNotes();
     super.onInit();
   }
@@ -115,5 +143,141 @@ class ProductDetailsController extends GetxController {
 
     refreshNotes();
   }
+
+  void getProductDetailsData(String productId) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_INDIVIDUAL_PRODUCT_DETAILS}${productId}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+
+            // var responseData = response.body;
+            // FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
+            // filterProductList(filterListDataModelClass.data!.products!.data);
+
+
+            var dataResponse = jsonDecode(response.body);
+
+          //  productDetailsData(dataResponse);
+
+
+             productName(dataResponse[1]["product"]["product_name"].toString());
+             productDetails (dataResponse[1]["product"]["short_description"].toString());
+             productPrice(dataResponse[1]["product"]["price"].toString());
+             productDiscountPrice(dataResponse[1]["product"]["price"].toString());
+              productImage(dataResponse[1]["cover_image"].toString());
+            colorsList(dataResponse[1]["product"]["colors"]);
+            sizeList(dataResponse[1]["product"]["sizes"]);
+            _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
+             if(dataResponse[1]["reviews"]!=null){
+                productReviewRating(dataResponse[1]["product"]["price"].toString());
+               productReviewCount(dataResponse[1]["reviews"].length.toString());
+
+             }
+
+
+
+
+            getCategoriesProductsDataList(categoryId: dataResponse[1]["product"]["category_id"].toString(),
+                subcategoryId: "",
+                innerCategoryId: '', filterCategoryList: [],
+                filterSubCategoryList: [], filterInnerCategoryList: [],
+                brandName: '', minPrice: '', sortBy: '', search: '',
+                brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+
+
+
+
+
+
+            // productDetailsData = dataResponse[1];
+            // colorsList(dataResponse["data"]);
+          // _showToast("data = "+productDetailsData[1]["product"]["product_name"].toString());
+          // _showToast("data = "+productDetailsData[1]["product"]["product_name"].toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+  void getCategoriesProductsDataList({
+    required String categoryId,required String subcategoryId,
+    required String innerCategoryId,
+    required List filterCategoryList, required List filterSubCategoryList,required List filterInnerCategoryList,
+    required String brandName,required String minPrice,
+    required String maxPrice,
+    required String sortBy,required String search,
+    required List brandsList, required List sizesList,required List colorsList
+  }) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        try {
+          var response = await post(
+
+            // Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
+              Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_PRODUCT_DATA_LIST}'),
+
+              // Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
+              headers : {
+                'Content-Type': 'application/json'
+              },
+              body: json.encode({
+                "category": categoryId,
+                "subcategory": subcategoryId,
+                "innercategory": innerCategoryId,
+                "filetercategory": filterCategoryList,
+                "filtersubcategory": filterSubCategoryList,
+                "filterinnercategory": filterInnerCategoryList,
+                "brands": brandsList,
+                "brand_name": brandName,
+                "min_price":minPrice,
+                "max_price": maxPrice,
+                "sizes": sizesList,
+                "colors": colorsList,
+                "sort_by": sortBy,
+                "search": search
+              })
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+            var responseData = response.body;
+            FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
+            filterProductList(filterListDataModelClass.data!.products!.data);
+             _showToast("related="+filterProductList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+          _showToast(e.toString());
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
 
 }
