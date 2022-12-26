@@ -32,8 +32,8 @@ class ProductDetailsController extends GetxController {
 
   var productQuantity=1.obs;
   var totalPrice=0.00.obs;
-  var productRegularPrice=5000.0.obs;
-  var productDiscountedPrice=4500.0.obs;
+  var productRegularPrice=0.0.obs;
+  var productDiscountedPrice=0.0.obs;
 
 
   var abcd="0".obs;
@@ -57,6 +57,36 @@ class ProductDetailsController extends GetxController {
  var sizeList=[].obs;
  var relatedProductList=[].obs;
   var filterProductList=[].obs;
+
+  var productDetailsDataList=[].obs;
+
+
+
+  // var productId="".obs;
+  // var productName="".obs;
+  // var productRegularPrice="".obs;
+  // var productDiscountedPrice="".obs;
+  // var productQuantity="".obs;
+  var productPhoto="".obs;
+
+  var weight="".obs;
+  var seller="".obs;
+  var sellerName="".obs;
+  var slug="".obs;
+  var colorImage="".obs;
+  var  size="".obs;
+  var color="".obs;
+  var  sizeId="".obs;
+  var colorId="".obs;
+  var grocery="".obs;
+  var tax="".obs;
+  var shipping="".obs;
+  var width="".obs;
+  var height="".obs;
+  var depth="".obs;
+  var weightOption="".obs;
+  var commission="".obs;
+  var  commissionType="".obs;
 
 
 
@@ -163,14 +193,18 @@ class ProductDetailsController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
 
-          //  productDetailsData(dataResponse);
+            productDetailsDataList(dataResponse);
 
 
              productName(dataResponse[1]["product"]["product_name"].toString());
              productDetails (dataResponse[1]["product"]["short_description"].toString());
              productPrice(dataResponse[1]["product"]["price"].toString());
              productDiscountPrice(dataResponse[1]["product"]["price"].toString());
-              productImage(dataResponse[1]["cover_image"].toString());
+
+            productRegularPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
+             productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
+
+              productImage(dataResponse[1]["product"]["cover_image"].toString());
             colorsList(dataResponse[1]["product"]["colors"]);
             sizeList(dataResponse[1]["product"]["sizes"]);
             _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
@@ -183,6 +217,32 @@ class ProductDetailsController extends GetxController {
 
 
 
+             productPhoto(dataResponse[1]["product"]["cover_image"].toString());
+             weight(dataResponse[1]["product"]["weight"].toString());
+             width(dataResponse[1]["product"]["width"].toString());
+             height(dataResponse[1]["product"]["height"].toString());
+            depth(dataResponse[1]["product"]["depth"].toString());
+            grocery(dataResponse[1]["product"]["grocery"].toString());
+            commission(dataResponse[1]["product"]["commission"].toString());
+            commissionType(dataResponse[1]["product"]["commissionType"].toString());
+            tax(dataResponse[1]["product"]["tax_percent"].toString());
+            seller(dataResponse[1]["product"]["seller"]["id"].toString());
+            sellerName(dataResponse[1]["product"]["seller"]["nane"].toString());
+            slug(dataResponse[1]["product"]["slug"]["id"].toString());
+
+
+           sizeId(sizeList[0]["size"]["id"].toString());
+           size(sizeList[0]["size"]["name"].toString());
+           colorId(colorsList[0]["color"]["id"].toString());
+           color(colorsList[0]["color"]["name"].toString());
+
+
+            shipping("");
+            weightOption("");
+            colorImage("");
+
+
+
             getCategoriesProductsDataList(categoryId: dataResponse[1]["product"]["category_id"].toString(),
                 subcategoryId: "",
                 innerCategoryId: '', filterCategoryList: [],
@@ -191,14 +251,6 @@ class ProductDetailsController extends GetxController {
                 brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
 
 
-
-
-
-
-            // productDetailsData = dataResponse[1];
-            // colorsList(dataResponse["data"]);
-          // _showToast("data = "+productDetailsData[1]["product"]["product_name"].toString());
-          // _showToast("data = "+productDetailsData[1]["product"]["product_name"].toString());
           }
           else {
             // Fluttertoast.cancel();
