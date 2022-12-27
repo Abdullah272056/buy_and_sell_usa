@@ -449,7 +449,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                           )))
 
-
                         ],
                       ) ,
                       ),

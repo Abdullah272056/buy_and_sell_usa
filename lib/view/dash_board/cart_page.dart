@@ -7,6 +7,7 @@ import '../../controller/cart_page_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
 import '../common_page/product_list.dart';
+import 'cart_view_page.dart';
 
 
 
@@ -69,6 +70,9 @@ class CartPage extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return Column(
                                   children: [
+
+
+
                                     Obx(() =>   ListView.builder(
                                         padding: EdgeInsets.zero,
                                         itemCount: cartPageController.cartList.length,
@@ -388,6 +392,7 @@ class CartPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
+      Get.to(CartViewePage());
 
       },
 
