@@ -56,7 +56,7 @@ class ProductDetailsController extends GetxController {
  var colorsList=[].obs;
  var sizeList=[].obs;
  var relatedProductList=[].obs;
-  var filterProductList=[].obs;
+  // var filterProductList=[].obs;
 
   var productDetailsDataList=[].obs;
 
@@ -86,7 +86,7 @@ class ProductDetailsController extends GetxController {
   var depth="".obs;
   var weightOption="".obs;
   var commission="".obs;
-  var  commissionType="".obs;
+  var commissionType="".obs;
 
 
 
@@ -195,6 +195,10 @@ class ProductDetailsController extends GetxController {
 
             productDetailsDataList(dataResponse);
 
+            relatedProductList(dataResponse[1]["related_product"]);
+
+            _showToast(relatedProductList.length.toString());
+
 
              productName(dataResponse[1]["product"]["product_name"].toString());
              productDetails (dataResponse[1]["product"]["short_description"].toString());
@@ -202,12 +206,12 @@ class ProductDetailsController extends GetxController {
              productDiscountPrice(dataResponse[1]["product"]["price"].toString());
 
             productRegularPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
-             productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
+            productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
 
-              productImage(dataResponse[1]["product"]["cover_image"].toString());
+            productImage(dataResponse[1]["product"]["cover_image"].toString());
             colorsList(dataResponse[1]["product"]["colors"]);
             sizeList(dataResponse[1]["product"]["sizes"]);
-            _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
+           // _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
              if(dataResponse[1]["reviews"]!=null){
                 productReviewRating(dataResponse[1]["product"]["price"].toString());
                productReviewCount(dataResponse[1]["reviews"].length.toString());
@@ -243,12 +247,12 @@ class ProductDetailsController extends GetxController {
 
 
 
-            getCategoriesProductsDataList(categoryId: dataResponse[1]["product"]["category_id"].toString(),
-                subcategoryId: "",
-                innerCategoryId: '', filterCategoryList: [],
-                filterSubCategoryList: [], filterInnerCategoryList: [],
-                brandName: '', minPrice: '', sortBy: '', search: '',
-                brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+            // getCategoriesProductsDataList(categoryId: dataResponse[1]["product"]["category_id"].toString(),
+            //     subcategoryId: "",
+            //     innerCategoryId: '', filterCategoryList: [],
+            //     filterSubCategoryList: [], filterInnerCategoryList: [],
+            //     brandName: '', minPrice: '', sortBy: '', search: '',
+            //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
 
 
           }
@@ -311,8 +315,8 @@ class ProductDetailsController extends GetxController {
           if (response.statusCode == 200) {
             var responseData = response.body;
             FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
-            filterProductList(filterListDataModelClass.data!.products!.data);
-             _showToast("related="+filterProductList.length.toString());
+            relatedProductList(filterListDataModelClass.data!.products!.data);
+             _showToast("related="+relatedProductList.length.toString());
 
           }
           else {

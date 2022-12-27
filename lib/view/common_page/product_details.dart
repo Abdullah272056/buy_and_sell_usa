@@ -538,7 +538,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                         ),
                       ),
                       Obx(()=>GridView.builder(
-                          itemCount:productDetailsController.filterProductList.length,
+                          itemCount:productDetailsController.relatedProductList.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -1272,7 +1272,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
         /// _showToast(allProductListPageController.filterProductList[index].id.toString());
         Get.off(() => ProductDetailsePageScreen(), arguments: [
-          {"productId": productDetailsController.filterProductList[index].id.toString()},
+          {"productId": productDetailsController.relatedProductList[index]["id"].toString()},
           {"second": 'Second data'}
         ]);
 
@@ -1308,7 +1308,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 placeholder: 'assets/images/loading.png',
                                 // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
                                 image:BASE_URL_API_IMAGE+
-                                    productDetailsController.filterProductList[index].coverImage??"",
+                                    productDetailsController.relatedProductList[index]['cover_image'].toString()??"",
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                       'assets/images/loading.png',
@@ -1346,9 +1346,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child:  Text(
-                            productDetailsController.filterProductList[index].productName,
-                            //"Men Grey Classic Regular Fit Formal Shirt",
+                          child: Obx(()=> Text(
+                            // "product name",
+                            productDetailsController.relatedProductList[index]["product_name"],
+
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: Colors.black.withOpacity(0.5),
@@ -1356,7 +1357,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 fontWeight: FontWeight.normal),
                             softWrap: false,
                             maxLines: 1,
-                          ),
+                          )),
                         ),
                         // 12.widthBox,
                         // RatingWidget(rating: widget.product.rating),
@@ -1402,8 +1403,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child:  Text("\$ "+
-                              productDetailsController.filterProductList[index].price,
+                          child:  Obx(()=>Text("\$ "+
+                              // "product name",
+                              productDetailsController.relatedProductList[index]['price'].toString(),
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: Colors.black.withOpacity(0.7),
@@ -1411,7 +1413,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                             softWrap: false,
                             maxLines: 2,
-                          ),
+                          ),)
                         ),
                         // 12.widthBox,
                         // RatingWidget(rating: widget.product.rating),
