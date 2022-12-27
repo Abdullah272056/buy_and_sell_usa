@@ -83,9 +83,8 @@ class CartViewePage extends StatelessWidget {
                                                 children: [
                                                   Expanded(child: Container(
                                                     margin: EdgeInsets.only(bottom: 5),
-                                                    padding: EdgeInsets.only(left: 20),
-                                                    height: 50,
-                                                    // width: 120,//
+                                                    padding: EdgeInsets.only(left: 20,top: 15,bottom: 15),
+
                                                     color: Colors.blue,
                                                     child: Align(
                                                       alignment: Alignment.centerLeft,
@@ -106,35 +105,124 @@ class CartViewePage extends StatelessWidget {
                                                   shrinkWrap: true,
                                                   physics: const NeverScrollableScrollPhysics(),
                                                   itemBuilder: (BuildContext context, int index1) {
+                                                    double regularPrice=0.0;
+
+
+
                                                     if(cartViewPageController.sellerGroupList[index].seller.toString()==
                                                         cartViewPageController.cartList[index1].seller.toString()){
-                                                      return
-                                                      //   Container(
-                                                      //   margin: EdgeInsets.only(top: 5),
-                                                      //   height: 50,
-                                                      //   width: 100,
-                                                      //   color: Colors.red,
-                                                      // );
-
-                                                        cartItem(cartViewPageController.cartList[index1]);
+                                                      return cartItem(cartViewPageController.cartList[index1]);
                                                     }else{
                                                       return Container();
                                                     }
 
-                                                  }),)
+                                                  }),),
+
+                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(child: Container(
+                                                    height: 1,
+                                                    color:hint_color,
+                                                  ))
+                                                ],
+                                              ),
+                                              ),
+                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                              child: Row(
+                                                // mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child:  Text("Sub Total: ",
+                                                      style: TextStyle(fontWeight: FontWeight.w600,
+                                                          color: text_color,
+                                                          fontSize: 15
+                                                      ),
+                                                    ),),
+                                                  Expanded(child:   Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child:Obx(()=> Text(
+                                          "\$ "+ totalPriceCalculate(cartViewPageController.cartList,
+                                                               cartViewPageController.sellerGroupList[index].seller.toString()),
+                                                      // "\$ "+"${cartViewPageController.totalPrice}",
+                                                      // "\$ "+"${cartViewPageController.totalPrice}",
+                                                      style: TextStyle(fontWeight: FontWeight.w600,
+                                                          color: Colors.blue,
+                                                          fontSize: 16
+                                                      ),
+                                                    )),
+                                                  )),
+
+
+
+                                                ],
+                                              ) ,
+                                              ),
+                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                                child:Row(
+                                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child:  Text("Tax: ",
+                                                        style: TextStyle(fontWeight: FontWeight.w600,
+                                                            color: text_color,
+                                                            fontSize: 15
+                                                        ),
+                                                      ),),
+                                                    Expanded(child:   Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child:Obx(()=> Text(
+                                                        "\$ "+totalTaxCalculate(cartViewPageController.cartList,
+                                          cartViewPageController.sellerGroupList[index].seller.toString()),
+                                                        style: TextStyle(fontWeight: FontWeight.w600,
+                                                            color: Colors.blue,
+                                                            fontSize: 16
+                                                        ),
+                                                      )),
+                                                    )),
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                                child:  Row(
+                                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child:  Text("Total: ",
+                                                        style: TextStyle(fontWeight: FontWeight.w600,
+                                                            color: text_color,
+                                                            fontSize: 15
+                                                        ),
+                                                      ),),
+                                                    Expanded(child:   Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child:Obx(()=> Text(
+
+                                                        "\$ "+totalPriceWithTaxCalculate(cartViewPageController.cartList,
+                                                            cartViewPageController.sellerGroupList[index].seller.toString()),
+                                                        style: TextStyle(fontWeight: FontWeight.w600,
+                                                            color: Colors.blue,
+                                                            fontSize: 16
+                                                        ),
+                                                      )),
+                                                    )),
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+
+
+                                              Container(height: 20,)
 
                                             ],
                                           );
                                         }),),
 
-                                    // Obx(() =>   ListView.builder(
-                                    //     padding: EdgeInsets.zero,
-                                    //     itemCount: cartViewPageController.cartList.length,
-                                    //     shrinkWrap: true,
-                                    //     physics: const NeverScrollableScrollPhysics(),
-                                    //     itemBuilder: (BuildContext context, int index) {
-                                    //       return cartItem(cartViewPageController.cartList[index]);
-                                    //     }),)
 
                                   ]
 
@@ -184,6 +272,7 @@ class CartViewePage extends StatelessWidget {
                               Expanded(child:   Align(
                                 alignment: Alignment.centerRight,
                                 child:Obx(()=> Text(
+                                  // j
                                   "\$ "+"${cartViewPageController.totalPrice}",
                                   style: TextStyle(fontWeight: FontWeight.w600,
                                       color: Colors.blue,
@@ -200,10 +289,7 @@ class CartViewePage extends StatelessWidget {
                           Row(
                             children: [
 
-
-
                               Expanded(child: _buildCheckoutButton(),),
-
 
                             ],
                           ),
@@ -233,7 +319,7 @@ class CartViewePage extends StatelessWidget {
         _showToast("seller id "+response.id.toString());
         // _showToast("seller id "+response.seller);
       },
-      child:  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
+      child:  Padding(padding: const EdgeInsets.only(right:10,top: 10,left: 10,bottom: 20),
         child:  Flex(
           direction: Axis.horizontal,
           children: [
@@ -524,7 +610,15 @@ class CartViewePage extends StatelessWidget {
                                 color: fnf_color,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w400),
-                          )
+                          ),
+
+                          // Text("   \$"+ response.tax.toString(),
+                          //   textAlign: TextAlign.center,
+                          //   style: const TextStyle(
+                          //       color: fnf_color,
+                          //       fontSize: 13,
+                          //       fontWeight: FontWeight.w400),
+                          // )
 
                         ],
                       ) ,
@@ -567,7 +661,7 @@ class CartViewePage extends StatelessWidget {
             ),),
 
             IconButton(
-              iconSize: 25,
+              iconSize: 22,
               color: fnf_color,
               icon: const Icon(Icons.delete),
               onPressed: () {
@@ -621,6 +715,63 @@ class CartViewePage extends StatelessWidget {
     );
   }
 
+
+
+  String totalPriceCalculate(List cartList1, String sellerId){
+   // j
+    double subTotal=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      if(sellerId==cartList1[i].seller.toString()){
+        double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+        subTotal=(subTotal+oneItemPrice);
+      }
+    }
+
+    return subTotal.toString();
+  //  totalPrice(subTotal);
+
+  }
+
+
+  String totalTaxCalculate(List cartList1, String sellerId){
+   // j
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      if(sellerId==cartList1[i].seller.toString()){
+        double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+        double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+        totalTax=(totalTax+singleProductTax);
+      }
+    }
+
+    return totalTax.toString();
+  //  totalPrice(subTotal);
+
+  }
+
+  String totalPriceWithTaxCalculate(List cartList1, String sellerId){
+    double subTotal=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      if(sellerId==cartList1[i].seller.toString()){
+        double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+        subTotal=(subTotal+oneItemPrice);
+      }
+    }
+
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      if(sellerId==cartList1[i].seller.toString()){
+        double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+        double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+        totalTax=(totalTax+singleProductTax);
+      }
+    }
+
+    return (totalTax+subTotal).toString();
+
+  }
 
 
   //toast create

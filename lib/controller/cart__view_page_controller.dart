@@ -55,12 +55,24 @@ class CartViewPageController extends GetxController {
 
 
   void totalPriceCalculate(List cartList1){
+
+
     double subTotal=0.0;
     for(int i=0;i<cartList1.length;i++){
       double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
        subTotal=(subTotal+oneItemPrice);
     }
-    totalPrice(subTotal);
+
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+      double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+      totalTax=(totalTax+singleProductTax);
+    }
+
+    totalPrice(subTotal+totalTax);
+
 
   }
   
@@ -69,7 +81,7 @@ class CartViewPageController extends GetxController {
     var seen = Set<String>();
     List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
     sellerGroupList(uniqueList);
-    _showToast("remove="+uniqueList.length.toString());
+    //_showToast("remove="+uniqueList.length.toString());
   }
 
 

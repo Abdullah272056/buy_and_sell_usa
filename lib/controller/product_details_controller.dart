@@ -206,6 +206,9 @@ class ProductDetailsController extends GetxController {
              productDiscountPrice(dataResponse[1]["product"]["price"].toString());
 
             productRegularPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
+
+
+
             productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
 
             productImage(dataResponse[1]["product"]["cover_image"].toString());

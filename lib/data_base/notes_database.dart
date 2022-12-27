@@ -153,6 +153,18 @@ class NotesDataBase{
 
   }
 
+  Future<List<CartNote>> groupCount() async{
+    final db =await instance.database;
+
+    // final orderBy='${NoteFields.time} ASC';
+    /// final result =await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
+
+    final result =await db.query(tableNotes);
+
+    return result.map((json) => CartNote.fromJson(json)).toList();
+
+  }
+
 
   Future close() async{
   final db = await instance.database;
