@@ -1718,40 +1718,39 @@ class ProductDetailsePageScreen extends StatelessWidget {
         // _showToast(productDetailsController.sellerName.value.toString());
         // _showToast(productDetailsController.slug.value.toString());
 
-        _showToast(productDetailsController.size.value.toString());
-        _showToast(productDetailsController.color.value.toString());
 
-        // CartNote cartNote= CartNote(
-        //
-        //     productId: productDetailsController.productId.value.toString(),
-        //     productName: productDetailsController.productName.value.toString(),
-        //     productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-        //     productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
-        //     productPhoto:productDetailsController.productPhoto.value.toString(),
-        //     productQuantity: productDetailsController.productQuantity.value.toString(),
-        //     weight: productDetailsController.weight.value.toString(),
-        //     seller: productDetailsController.seller.value.toString(),
-        //     sellerName: productDetailsController.sellerName.value.toString(),
-        //     slug: productDetailsController.slug.value.toString(),
-        //     colorImage: productDetailsController.colorImage.value.toString(),
-        //     size: productDetailsController.size.value.toString(),
-        //     color: productDetailsController.color.value.toString(),
-        //     sizeId: productDetailsController.sizeId.value.toString(),
-        //     colorId: productDetailsController.colorId.value.toString(),
-        //     grocery: productDetailsController.grocery.value.toString(),
-        //     tax: productDetailsController.tax.value.toString(),
-        //     shipping: productDetailsController.shipping.value.toString(),
-        //     width:productDetailsController.width.value.toString(),
-        //     height: productDetailsController.height.value.toString(),
-        //     depth: productDetailsController.depth.value.toString(),
-        //     weightOption: productDetailsController.weightOption.value.toString(),
-        //     commission: productDetailsController.commission.value.toString(),
-        //     commissionType: productDetailsController.commissionType.value.toString()
-        //
-        //
-        //   // id: 1,
-        // );
-        // productDetailsController.insertData(cartNote);
+
+        CartNote cartNote= CartNote(
+
+            productId: productDetailsController.productId.value.toString(),
+            productName: productDetailsController.productName.value.toString(),
+            productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+            productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+            productPhoto:productDetailsController.productPhoto.value.toString(),
+            productQuantity: productDetailsController.productQuantity.value.toString(),
+            weight: productDetailsController.weight.value.toString(),
+            seller: productDetailsController.seller.value.toString(),
+            sellerName: productDetailsController.sellerName.value.toString(),
+            slug: productDetailsController.slug.value.toString(),
+            colorImage: productDetailsController.colorImage.value.toString(),
+            size: productDetailsController.size.value.toString(),
+            color: productDetailsController.color.value.toString(),
+            sizeId: productDetailsController.sizeId.value.toString(),
+            colorId: productDetailsController.colorId.value.toString(),
+            grocery: productDetailsController.grocery.value.toString(),
+            tax: productDetailsController.tax.value.toString(),
+            shipping: productDetailsController.shipping.value.toString(),
+            width:productDetailsController.width.value.toString(),
+            height: productDetailsController.height.value.toString(),
+            depth: productDetailsController.depth.value.toString(),
+            weightOption: productDetailsController.weightOption.value.toString(),
+            commission: productDetailsController.commission.value.toString(),
+            commissionType: productDetailsController.commissionType.value.toString()
+
+
+          // id: 1,
+        );
+        productDetailsController.insertData(cartNote);
 
         ///
 

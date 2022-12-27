@@ -227,7 +227,7 @@ class ProductDetailsController extends GetxController {
             commissionType(dataResponse[1]["product"]["commissionType"].toString());
             tax(dataResponse[1]["product"]["tax_percent"].toString());
             seller(dataResponse[1]["product"]["seller"]["id"].toString());
-            sellerName(dataResponse[1]["product"]["seller"]["nane"].toString());
+            sellerName(dataResponse[1]["product"]["seller"]["name"].toString());
             slug(dataResponse[1]["product"]["slug"]["id"].toString());
 
 

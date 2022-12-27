@@ -11,6 +11,7 @@ class CartPageController extends GetxController {
 
 
   // List<CartNote> notesList=[].obs;
+  var totalPrice=0.0.obs;
   var cartList=[].obs;
 
   // dynamic argumentData = Get.arguments;
@@ -39,6 +40,8 @@ class CartPageController extends GetxController {
   Future refreshNotes() async {
     NotesDataBase.instance;
     cartList(await NotesDataBase.instance.readAllNotes());
+
+    totalPriceCalculate(cartList);
    // _showToast("Local length= "+cartList.length.toString());
   }
 
@@ -46,6 +49,17 @@ class CartPageController extends GetxController {
     NotesDataBase.instance;
     NotesDataBase.instance.delete(id)  ;
     refreshNotes();
+
+  }
+
+
+  void totalPriceCalculate(List cartList){
+    double subTotal=0.0;
+    for(int i=0;i<cartList.length;i++){
+      double oneItemPrice=double.parse(cartList[i].productQuantity)*double.parse(cartList[i].productDiscountedPrice);
+       subTotal=(subTotal+oneItemPrice);
+    }
+    totalPrice(subTotal);
 
   }
 

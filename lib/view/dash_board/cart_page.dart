@@ -11,13 +11,11 @@ import '../common_page/product_list.dart';
 
 
 class CartPage extends StatelessWidget {
-
   final cartPageController = Get.put(CartPageController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-
       body:Container(
           decoration: BoxDecoration(
             color:fnf_title_bar_bg_color,
@@ -44,7 +42,7 @@ class CartPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "Cart",
+                    "SHOPPING CART",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -91,7 +89,7 @@ class CartPage extends StatelessWidget {
                     ),
                     /// add to cart button section
                     Container(
-                      height: 50,
+                    //  height: 50,
                       padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
 
                       decoration: BoxDecoration(
@@ -113,37 +111,49 @@ class CartPage extends StatelessWidget {
                           ),
                         )],
                       ),
-                      child: Row(
+                      child:Column(
                         children: [
-                          Expanded(child: Container(
-                            margin: EdgeInsets.only(left: 0,right: 30),
-                            child:   Row(
-                              // mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Total Price: ",
-                                  style: TextStyle(fontWeight: FontWeight.w600,
-                                      color: text_color,
-                                      fontSize: 15
-                                  ),
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child:  Text("Total Price: ",
+                                style: TextStyle(fontWeight: FontWeight.w600,
+                                    color: text_color,
+                                    fontSize: 16
                                 ),
-                                Text(
-                                  "\$ 5,590",
+                              ),),
+                              Expanded(child:   Align(
+                                alignment: Alignment.centerRight,
+                                child:Obx(()=> Text(
+                                  "\$ "+"${cartPageController.totalPrice}",
                                   style: TextStyle(fontWeight: FontWeight.w600,
                                       color: Colors.blue,
-                                      fontSize: 15
+                                      fontSize: 18
                                   ),
-                                )
+                                )),
+                              )),
 
-                              ],
-                            ),
-                          ),),
 
-                          Align(alignment: Alignment.centerRight,
-                            child: _buildCheckoutButton(),
-                          )
 
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+
+
+                              Expanded(child: _buildViewCartButton(),),
+                              SizedBox(width: 10,),
+                              Expanded(child: _buildCheckoutButton(),),
+
+
+                            ],
+                          ),
                         ],
-                      ),
+                      )
+
+
 
                     ),
                   ],
@@ -153,9 +163,7 @@ class CartPage extends StatelessWidget {
             ],
           )
 
-
       )
-
     );
 
 
@@ -171,7 +179,6 @@ class CartPage extends StatelessWidget {
           Container(
             width: 56,
             height: 56,
-
 
             margin:const EdgeInsets.only(left:0, top: 00, right: 22, bottom: 00),
             // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
@@ -338,17 +345,7 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
   Widget _buildCheckoutButton() {
     return ElevatedButton(
       onPressed: () {
@@ -362,7 +359,7 @@ class CartPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(5))),
       child: Ink(
         decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [Colors.blue,Colors.blue],
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -386,5 +383,57 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildViewCartButton() {
+    return ElevatedButton(
+      onPressed: () {
+
+
+      },
+
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [Colors.blue,Colors.blue],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "View Cart",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  //toast create
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:Colors.amber,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+
 }
 
