@@ -34,6 +34,7 @@ class ProductDetailsController extends GetxController {
   var totalPrice=0.00.obs;
   var productRegularPrice=0.0.obs;
   var productDiscountedPrice=0.0.obs;
+  var productDiscountedPercent=0.0.obs;
 
 
   var abcd="0".obs;
@@ -203,11 +204,20 @@ class ProductDetailsController extends GetxController {
              productName(dataResponse[1]["product"]["product_name"].toString());
              productDetails (dataResponse[1]["product"]["short_description"].toString());
              productPrice(dataResponse[1]["product"]["price"].toString());
-             productDiscountPrice(dataResponse[1]["product"]["price"].toString());
+
+
+
+
+             productDiscountPrice((double.parse(dataResponse[1]["product"]["price"].toString())+
+                 ((double.parse(dataResponse[1]["product"]["price"].toString())*
+                     double.parse(dataResponse[1]["product"]["discount_percent"].toString()))/100)).toString());
+
+
+            double.parse(dataResponse[1]["product"]["price"].toString());
+            double.parse(dataResponse[1]["product"]["discount_percent"].toString());
+
 
             productRegularPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
-
-
 
             productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
 
@@ -220,8 +230,6 @@ class ProductDetailsController extends GetxController {
                productReviewCount(dataResponse[1]["reviews"].length.toString());
 
              }
-
-
 
 
              productPhoto(dataResponse[1]["product"]["cover_image"].toString());
