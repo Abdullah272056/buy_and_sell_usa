@@ -1,9 +1,13 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 
+import '../api_service/api_service.dart';
 import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/notes_database.dart';
 
@@ -35,6 +39,7 @@ class HomeController extends GetxController {
     // print(argumentData[1]['second']);
    // RetriveUserInfo();
     refreshNotes();
+    getHomeData();
     super.onInit();
 
 
@@ -116,5 +121,42 @@ class HomeController extends GetxController {
 
 
   }
+
+
+  void getHomeData() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_HOME_DATA}'),
+          );
+          _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            // var dataResponse = jsonDecode(response.body);
+            //
+            // productDetailsDataList(dataResponse);
+            //
+            // relatedProductList(dataResponse[1]["related_product"]);
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+
 
 }
