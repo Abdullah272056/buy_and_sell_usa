@@ -16,7 +16,9 @@ import '../auth/sign_up_page.dart';
 import 'product_details.dart';
 
 class ProductListPage extends StatelessWidget {
+
   final allProductListPageController = Get.put(AllProductListPageController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

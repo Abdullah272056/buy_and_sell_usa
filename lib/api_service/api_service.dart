@@ -21,5 +21,10 @@ String SUB_URL_API_GET_COLOR_LIST = "api/colors";
 String SUB_URL_API_GET_SIZE_LIST = "api/sizes";
 String SUB_URL_API_GET_BRANDS_LIST = "api/vendors";
 
+String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
+String SUB_URL_API_GET_ALL_STATE_LIST = "api/state-list";
+
+String SUB_URL_API_GET_HOME_DATA = "api/home";
+
 
 

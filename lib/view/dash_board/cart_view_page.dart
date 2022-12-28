@@ -781,7 +781,6 @@ class CartViewePage extends StatelessWidget {
         fontSize: 16.0);
   }
 
-
   void showLoginWarning( ) {
 
     Get.defaultDialog(
