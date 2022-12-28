@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../model/CategoriesData.dart';
 import '../model/FilterListDataModelClass.dart';
 import '../model/FilterListDataModelClass2.dart';
@@ -36,13 +38,16 @@ class AllProductListPageController extends GetxController {
   var selectInnerCategoriesId="".obs;
   var innerCategoriesList = [].obs;
 
+  var userName="".obs;
+  var userToken="".obs;
+
   @override
   void onInit() {
     super.onInit();
 
     // _showToast(argumentData[0]['categoriesId']);
     // _showToast(argumentData[1]['subCategoriesId']);
-
+    loadUserIdFromSharePref();
 
     getColors();
     getProductSize();
@@ -313,6 +318,19 @@ class AllProductListPageController extends GetxController {
       Fluttertoast.cancel();
       // _showToast("No Internet Connection!");
     }
+  }
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+
+    } catch (e) {
+
+    }
+
   }
 
 }

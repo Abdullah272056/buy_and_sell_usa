@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 
@@ -12,9 +13,13 @@ class CartViewPageController extends GetxController {
   var cartList=[].obs;
   var sellerGroupList=[].obs;
 
+  var userName="".obs;
+  var userToken="".obs;
+
   @override
   void onInit() {
     readAllNotes();
+    loadUserIdFromSharePref();
     super.onInit();
   }
 
@@ -30,7 +35,6 @@ class CartViewPageController extends GetxController {
         fontSize: 16.0);
   }
 
-
   Future readAllNotes() async {
     NotesDataBase.instance;
     cartList(await NotesDataBase.instance.readAllNotes());
@@ -39,6 +43,7 @@ class CartViewPageController extends GetxController {
     totalSellerCountCalculate(cartList);
    // _showToast("Local length= "+cartList.length.toString());
   }
+
   Future updateNotes(CartNote cartNote) async {
     NotesDataBase.instance;
     NotesDataBase.instance.update(cartNote)  ;
@@ -52,7 +57,6 @@ class CartViewPageController extends GetxController {
     readAllNotes();
 
   }
-
 
   void totalPriceCalculate(List cartList1){
 
@@ -75,7 +79,6 @@ class CartViewPageController extends GetxController {
 
 
   }
-  
 
   void totalSellerCountCalculate(List cartList){
     var seen = Set<String>();
@@ -84,5 +87,32 @@ class CartViewPageController extends GetxController {
     //_showToast("remove="+uniqueList.length.toString());
   }
 
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+    } catch (e) {
+      //code
+    }
+  }
+
+
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+
+  //  _showToast(storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
+  }
 
 }

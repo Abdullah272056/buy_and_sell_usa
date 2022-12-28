@@ -5,9 +5,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 
 import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 import '../model/FilterListDataModelClass.dart';
@@ -90,7 +92,8 @@ class ProductDetailsController extends GetxController {
   var commissionType="".obs;
 
 
-
+  var userName="".obs;
+  var userToken="".obs;
 
   @override
   void onInit() {
@@ -98,6 +101,7 @@ class ProductDetailsController extends GetxController {
     // print(argumentData[1]['second']);
     productId(argumentData[0]['productId'].toString());
     _showToast(argumentData[0]['productId'].toString());
+    loadUserIdFromSharePref();
     getProductDetailsData(productId.value);
 
     refreshNotes();
@@ -344,6 +348,21 @@ class ProductDetailsController extends GetxController {
       Fluttertoast.cancel();
       // _showToast("No Internet Connection!");
     }
+  }
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+
+      //  _showToast(storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
   }
 
 

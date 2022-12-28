@@ -1325,7 +1325,13 @@ class ProductDetailsePageScreen extends StatelessWidget {
                         top: 5,
                         child: InkWell(
                           onTap: (){
+                            if(productDetailsController.userToken.isNotEmpty &&
+                                productDetailsController.userToken.value!=null){
+                              _showToast("add favourite");
 
+                            }else{
+                              showLoginWarning();
+                            }
                           },
                           child: Icon(Icons.favorite_outline,
                             color: hint_color,
@@ -1555,7 +1561,15 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 10,right: 15),
                         child: InkWell(
-                          onTap: (){},
+                          onTap: (){
+                            if(productDetailsController.userToken.isNotEmpty &&
+                                productDetailsController.userToken.value!=null){
+                              _showToast("add favourite");
+
+                            }else{
+                              showLoginWarning();
+                            }
+                          },
                           child: Container(
                             height: 36,
                             width:36,
@@ -1715,11 +1729,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         // Get.back();
-
         // _showToast(productDetailsController.sellerName.value.toString());
         // _showToast(productDetailsController.slug.value.toString());
-
-
 
         CartNote cartNote= CartNote(
 
