@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
-
+import 'package:http/http.dart' as http;
 import '../api_service/api_service.dart';
 import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/notes_database.dart';
@@ -166,6 +166,59 @@ class HomeController extends GetxController {
 
     }
 
+  }
+
+  addWishList(
+      {
+        required String token,
+        required String productId
+       }
+      ) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          _showToast("1");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
+
+              headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+              },
+              body: {
+                'product_id': productId,
+              },
+
+
+          );
+
+         // _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            _showToast("Wishlist added Successfully!");
+
+          }
+
+          else {
+            var data = jsonDecode(response.body);
+            _showToast(data['message']);
+          }
+          //   Get.back();
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
 

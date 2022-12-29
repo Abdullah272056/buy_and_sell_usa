@@ -26,5 +26,8 @@ String SUB_URL_API_GET_ALL_STATE_LIST = "api/state-list";
 
 String SUB_URL_API_GET_HOME_DATA = "api/home";
 
+//wishlist
+String SUB_URL_API_ADD_WISGLIST = "api/wishlist-add";
+
 
 

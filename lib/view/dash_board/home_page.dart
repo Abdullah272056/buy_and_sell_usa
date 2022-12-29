@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:delayed_widget/delayed_widget.dart';
@@ -632,8 +635,12 @@ class HomePageScreen extends StatelessWidget {
 
                             if(homeController.userToken.isNotEmpty &&
                                 homeController.userToken.value!=null){
-                              _showToast("add favourite");
-                              _showToast(homeController.userToken.toString());
+                             // _showToast("add favourite");
+                              // _showToast(response["id"].toString());
+
+                              homeController.addWishList(
+                                  token: homeController.userToken.toString(),
+                                  productId: response["id"].toString());
 
                             }else{
                               showLoginWarning();
@@ -758,6 +765,8 @@ class HomePageScreen extends StatelessWidget {
 
      ;
   }
+
+
 
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
