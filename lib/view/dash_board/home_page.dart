@@ -18,6 +18,7 @@ import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_details.dart';
 import '../common_page/custom_drawer.dart';
+import '../common_page/product_list.dart';
 import 'cart_page.dart';
 
 class HomePageScreen extends StatelessWidget {
@@ -395,9 +396,6 @@ class HomePageScreen extends StatelessWidget {
             child: Column(
               children: [
 
-
-
-
                 ///categories tab section
                 _buildTabButton(),
 
@@ -432,8 +430,8 @@ class HomePageScreen extends StatelessWidget {
                   height: 190,
                   // color: Colors.lime,
                   child: Center(
-                    child: GridView.builder(
-                        itemCount:homeController.categoryList.length,
+                    child: Obx(() => GridView.builder(
+                        itemCount:homeController.categoriesDataList.length,
                         padding: EdgeInsets.only(left: 10,right: 10),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -446,12 +444,11 @@ class HomePageScreen extends StatelessWidget {
 
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return  categoriesListItemDesign(response: homeController.categoryList[index]);
+                          return  categoriesListItemDesign(response: homeController.categoriesDataList[index]);
                           // return _buildRecentlyCourseItemForGrid(_recentlyAddedCourse[index]);
-                        }),
+                        }),)
                   ),
                 ),
-
 
                 ////////////////////////////////////
 
@@ -497,11 +494,18 @@ class HomePageScreen extends StatelessWidget {
 
                                           )),
                                         ),),
+
+
                                         Container(
                                           margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
                                           child: InkResponse(
                                             onTap: (){
-
+                                              Get.to(() => ProductListPage(), arguments: [
+                                                {"categoriesId": homeController.homeDataList[index]["category_id"].toString()},
+                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()}
+                                              ]);
+                                          //     _showToast(homeController.homeDataList[index]["category_id"].toString());
+                                          // _showToast(homeController.homeDataList[index]["sub_categories"][index1]["id"].toString());
                                               //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
 
                                             },
@@ -876,6 +880,7 @@ class HomePageScreen extends StatelessWidget {
                       fit: BoxFit.fill,
                       placeholder: 'assets/images/loading.png',
                       image:
+
                           "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
                       imageErrorBuilder: (context, url, error) =>
                           Image.asset(
@@ -888,7 +893,7 @@ class HomePageScreen extends StatelessWidget {
               Container(
                   margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 5),
                   child:  Text(
-                    response,
+                    response["name"].toString(),
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style:  TextStyle(

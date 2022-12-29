@@ -31,6 +31,7 @@ class HomeController extends GetxController {
 
 
   var homeDataList=[].obs;
+  var categoriesDataList=[].obs;
 
   var userName="".obs;
   var userToken="".obs;
@@ -48,6 +49,7 @@ class HomeController extends GetxController {
     //loadUserIdFromSharePref();
     refreshNotes();
     getHomeData();
+    getCategoriesDataList();
 
   }
 
@@ -152,6 +154,35 @@ class HomeController extends GetxController {
     }
   }
 
+  void getCategoriesDataList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ONLY_CATEGORIES_LIST}'),
+          );
+            _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+            var homeDataResponse = jsonDecode(response.body);
+            categoriesDataList(homeDataResponse["data"]);
+
+            _showToast("size  "+categoriesDataList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -174,47 +205,42 @@ class HomeController extends GetxController {
         required String productId
        }
       ) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-          _showToast("1");
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
+      try {
+        final result = await InternetAddress.lookup('example.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          try {
+            _showToast("1");
+            var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
+                headers: {
+                'Authorization': 'Bearer '+token,
+                //'Content-Type': 'application/json',
+                },
+                body: {
+                  'product_id': productId,
+                },
+            );
 
-              headers: {
-              'Authorization': 'Bearer '+token,
-              //'Content-Type': 'application/json',
-              },
-              body: {
-                'product_id': productId,
-              },
+           // _showToast(response.statusCode.toString());
 
+            if (response.statusCode == 200) {
+              _showToast("Wishlist added Successfully!");
+            }
+            else {
+              var data = jsonDecode(response.body);
+              _showToast(data['message']);
+            }
+            //   Get.back();
 
-          );
+          } catch (e) {
+            //  Navigator.of(context).pop();
+            //print(e.toString());
+          } finally {
+            //   Get.back();
 
-         // _showToast(response.statusCode.toString());
-
-          if (response.statusCode == 200) {
-            _showToast("Wishlist added Successfully!");
-
+            /// Navigator.of(context).pop();
           }
-
-          else {
-            var data = jsonDecode(response.body);
-            _showToast(data['message']);
-          }
-          //   Get.back();
-
-        } catch (e) {
-          //  Navigator.of(context).pop();
-          //print(e.toString());
-        } finally {
-          //   Get.back();
-
-          /// Navigator.of(context).pop();
         }
-      }
-    } on SocketException catch (_) {
+      } on SocketException catch (_) {
 
       Fluttertoast.cancel();
       _showToast("No Internet Connection!");
