@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
+import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../controller/home_controller.dart';
@@ -131,9 +132,9 @@ class HomePageScreen extends StatelessWidget {
                     onTap: () {
                       if(homeController.userToken.isNotEmpty &&
                           homeController.userToken.value!=null){
-                        _showToast(homeController.userToken.toString());
+                       // _showToast(homeController.userToken.toString());
                       //  _showToast("add favourite");
-
+                        Get.to(WishListPage());
                       }else{
                         showLoginWarning();
                       }

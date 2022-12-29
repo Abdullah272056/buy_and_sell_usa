@@ -162,12 +162,12 @@ class HomeController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ONLY_CATEGORIES_LIST}'),
           );
-            _showToast("status = ${response.statusCode}");
+         //   _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
             var homeDataResponse = jsonDecode(response.body);
             categoriesDataList(homeDataResponse["data"]);
 
-            _showToast("size  "+categoriesDataList.length.toString());
+
           }
           else {
             // Fluttertoast.cancel();

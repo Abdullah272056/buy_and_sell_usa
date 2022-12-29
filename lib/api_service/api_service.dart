@@ -29,6 +29,8 @@ String SUB_URL_API_GET_HOME_DATA = "api/home";
 
 //wishlist
 String SUB_URL_API_ADD_WISGLIST = "api/wishlist-add";
+String SUB_URL_API_GET_WIShLIST = "api/account/wishlist";
+String SUB_URL_API_DELETE_WISHLIST = "api/wishlist-delete";
 
 
 
