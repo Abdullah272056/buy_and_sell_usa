@@ -1,6 +1,4 @@
 
-
-
 import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:delayed_widget/delayed_widget.dart';
@@ -12,13 +10,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../controller/home_controller.dart';
 
+import '../../api_service/api_service.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_details.dart';
 import '../common_page/custom_drawer.dart';
 import 'cart_page.dart';
-
-
 
 class HomePageScreen extends StatelessWidget {
    // HomePageScreen({Key? key}) : super(key: key);
@@ -192,11 +189,14 @@ class HomePageScreen extends StatelessWidget {
 
 
             Expanded(
-              child:  SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _buildBottomSectionDesign(),
-                  ],
+              child:  Container(
+                color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildBottomSectionDesign(),
+                    ],
+                  ),
                 ),
               )
 
@@ -289,7 +289,6 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
   Widget _buildTabButton() {
     return Container(
       margin: const EdgeInsets.only(top: 20,bottom: 10),
@@ -318,7 +317,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildCategoriesTabItem(var response,int index,double marginLeft,double marginRight) {
     return  InkWell(
@@ -361,7 +359,6 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -378,7 +375,6 @@ class HomePageScreen extends StatelessWidget {
     double sizeWidth = Get.width;
     // Size size = MediaQuery.of(context).size;
     // Size size = MediaQuery.of(context).size;
-
     return Container(
         width: sizeWidth,
         decoration:  BoxDecoration(
@@ -393,6 +389,10 @@ class HomePageScreen extends StatelessWidget {
             const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
             child: Column(
               children: [
+
+
+
+
                 ///categories tab section
                 _buildTabButton(),
 
@@ -446,211 +446,122 @@ class HomePageScreen extends StatelessWidget {
                         }),
                   ),
                 ),
-                Container(
-                  margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                  child:  Flex(direction: Axis.horizontal,
-                    children: [
 
-                      Expanded(child: Align(
-                        alignment: Alignment.topLeft,
-                        child:  Text("Mens Fashion",
-                          style: TextStyle(
-                              color:text_color,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                          // textAlign: TextAlign.left,
 
-                        ),
-                      ),),
-                      Container(
-                        margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
-                        child: InkResponse(
-                          onTap: (){
+                ////////////////////////////////////
 
-                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
+                Obx(() =>   ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: homeController.homeDataList.isEmpty?0:homeController.homeDataList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Obx(() => ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: homeController.homeDataList[index]["sub_categories"].isNotEmpty||
+                              homeController.homeDataList[index]["sub_categories"].length>0?
+                          homeController.homeDataList[index]["sub_categories"].length:0,
 
-                          },
-                          child: Image.asset(
-                            "assets/images/arrow_right.png",
-                            color: fnf_small_color,
-                            width: 27,
-                            height: 27,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                          // cartViewPageController.cartList.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index1) {
+                            double regularPrice=0.0;
 
-                      )
 
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(top: 0),
-                    height:270.0,
 
-                    // child: _buildRecentlyAddedCourseItem(),
-                    child: ListView.builder(
-                      //  shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:9,
-                      itemBuilder: (context, index) {
-                        if(MediaQuery.of(context).size.width<450){
+                            return homeController.homeDataList[index]["sub_categories"].length>0? Column(
+                              children: [
+                                if(homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0)...{
+                                  Container(
+                                    margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
+                                    child:  Flex(direction: Axis.horizontal,
+                                      children: [
 
-                          return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                              imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg");
-                        }
+                                        Expanded(child: Align(
+                                          alignment: Alignment.topLeft,
+                                          child:  Obx(()=>Text(
+                                            homeController.homeDataList[index]["sub_categories"][index1]["subcategory_name"].toString(),
+                                            // homeController.homeDataList[index],
+                                            // "Mens Fashion",
+                                            style: TextStyle(
+                                                color:text_color,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                            // textAlign: TextAlign.left,
 
-                        else{
-                          return productCardDesign(height: 00, width: 420,
-                              imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg");
+                                          )),
+                                        ),),
+                                        Container(
+                                          margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
+                                          child: InkResponse(
+                                            onTap: (){
 
-                        }
+                                              //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
 
-                      },
-                      scrollDirection: Axis.horizontal,
-                    )
-                ),
+                                            },
+                                            child: Image.asset(
+                                              "assets/images/arrow_right.png",
+                                              color: fnf_small_color,
+                                              width: 27,
+                                              height: 27,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
 
-                Container(
-                  margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                  child:  Flex(direction: Axis.horizontal,
-                    children: [
+                                        )
 
-                      Expanded(child: Align(alignment: Alignment.topLeft,
-                        child:  Text("Womens Fashion",
-                          style: TextStyle(
-                              color:text_color,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                          // textAlign: TextAlign.left,
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      height:270.0,
 
-                        ),
-                      ),),
-                      Container(
-                        margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
-                        child: InkResponse(
-                          onTap: (){
+                                      // child: _buildRecentlyAddedCourseItem(),
+                                      child:Obx(()=>
+                                          ListView.builder(
+                                            //  shrinkWrap: true,
+                                            // physics: const NeverScrollableScrollPhysics(),
+                                            itemCount:homeController.homeDataList[index]["sub_categories"][index1]["products"].isNotEmpty||
+                                                homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0?
+                                            homeController.homeDataList[index]["sub_categories"][index1]["products"].length:0,
+                                            // itemCount:9,
+                                            itemBuilder: (context, index2) {
+                                              if(MediaQuery.of(context).size.width<450){
 
-                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
+                                                return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
+                                                    imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
+                                                  response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2],
 
-                          },
-                          child: Image.asset(
-                            "assets/images/arrow_right.png",
-                            color: fnf_small_color,
-                            width: 27,
-                            height: 27,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
 
-                      )
+                                                );
+                                              }
 
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(top: 0),
-                    height:270.0,
+                                              else{
+                                                return productCardDesign(height: 00, width: 420,
+                                                    imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
+                                                    response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2]
+                                                );
 
-                    // child: _buildRecentlyAddedCourseItem(),
-                    child: ListView.builder(
-                      //  shrinkWrap: true,
+                                              }
 
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:9,
-                      itemBuilder: (context, index) {
-                        if(MediaQuery.of(context).size.width<450){
+                                            },
+                                            scrollDirection: Axis.horizontal,
+                                          )
+                                      )
 
-                          return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                              imageLink: "https://www.glowme.com.bd/image/cachewebp/catalog/Ladies%20Dress%20GM0002-550x550.webp");
-                        }
 
-                        else{
-                          return productCardDesign(height: 00, width: 420,
-                              imageLink: "https://www.glowme.com.bd/image/cachewebp/catalog/Ladies%20Dress%20GM0002-550x550.webp");
+                                  ),
 
-                        }
+                                }
 
-                        // return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                        //     imageLink: "https://www.glowme.com.bd/image/cachewebp/catalog/Ladies%20Dress%20GM0002-550x550.webp");
-                        //
+                              ],
+                            ):Container();
 
-                      },
-                      scrollDirection: Axis.horizontal,
-                    )
-                ),
+                          }));
+                    }),),
 
-                Container(
-                  margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                  child:  Flex(direction: Axis.horizontal,
-                    children: [
-
-                      Expanded(child: Align(alignment: Alignment.topLeft,
-                        child:  Text("Kids Fashion",
-                          style: TextStyle(
-                              color:text_color,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                          // textAlign: TextAlign.left,
-
-                        ),
-                      ),),
-                      Container(
-                        margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
-                        child: InkResponse(
-                          onTap: (){
-
-                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
-
-                          },
-                          child: Image.asset(
-                            "assets/images/arrow_right.png",
-                            color: fnf_small_color,
-                            width: 27,
-                            height: 27,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-
-                      )
-
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(top: 0),
-                    height:270.0,
-
-                    // child: _buildRecentlyAddedCourseItem(),
-                    child: ListView.builder(
-                      //  shrinkWrap: true,
-
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:9,
-                      itemBuilder: (context, index) {
-
-                        if(MediaQuery.of(context).size.width<450){
-
-                          return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                              imageLink: "https://assets0.mirraw.com/images/10166899/White_Pink_Choli_Front_large_m.jpg");
-                        }
-
-                        else{
-                          return productCardDesign(height: 00, width: 420,
-                              imageLink: "https://assets0.mirraw.com/images/10166899/White_Pink_Choli_Front_large_m.jpg");
-
-                        }
-                        // return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                        //     imageLink: "https://assets0.mirraw.com/images/10166899/White_Pink_Choli_Front_large_m.jpg");
-                        //
-
-                      },
-                      scrollDirection: Axis.horizontal,
-                    )
-                ),
 
               ],
             )));
@@ -659,16 +570,22 @@ class HomePageScreen extends StatelessWidget {
   Widget productCardDesign({
     required double height,
     required double width,
-    required String imageLink
+    required String imageLink,
+    required var response,
+
   }) {
     return InkWell(
       onTap: (){
-        Get.to(ProductDetailsePageScreen());
+
+        // _showToast(message)
+        Get.to(() => ProductDetailsePageScreen(), arguments: [
+          {"productId": response["id"].toString()},
+          {"second": 'Second data'}
+        ]);
       },
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-
           Container(
             width:width/2 ,
             // height:width/1.3
@@ -693,7 +610,7 @@ class HomePageScreen extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
-                                image:imageLink,
+                                image:BASE_URL_API_IMAGE+response["cover_image"].toString(),
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                       'assets/images/loading.png',
@@ -737,7 +654,10 @@ class HomePageScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child:  Text("Men Grey Classic Regular Fit Formal Shirt",
+                          child:  Text(
+                            response["product_name"].toString(),
+
+                           // "Men Grey Classic Regular Fit Formal Shirt",
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: Colors.black.withOpacity(0.5),
@@ -789,23 +709,34 @@ class HomePageScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 5,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child:  Text("\$ 99.00",
-                            overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                                color: Colors.black.withOpacity(0.7),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700),
-                            softWrap: false,
-                            maxLines: 2,
+                        Text("\$ "+response["price"].toString(),
+                          //  overflow: TextOverflow.ellipsis,
+                          style:  TextStyle(
+                              color: hint_color,
+                              fontSize: 13,
+                              decoration: TextDecoration.lineThrough,
+                              fontWeight: FontWeight.w700),
+                          // softWrap: false,
+                          maxLines: 1,
 
-                          ),
+
                         ),
-                        // 12.widthBox,
-                        // RatingWidget(rating: widget.product.rating),
+                        SizedBox(width: 10,),
+                        Text("\$ "+response["price"].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style:  TextStyle(
+                              color: Colors.black.withOpacity(0.7),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700),
+                          softWrap: false,
+                          maxLines: 1,
+
+                        )
+
+
                       ],
                     ),
 
@@ -813,11 +744,6 @@ class HomePageScreen extends StatelessWidget {
 
                   ],
                 ),
-
-
-
-
-
 
               ],
             ),
@@ -915,12 +841,9 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-
-
 
 
       },
@@ -968,9 +891,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
   void showLoadingDialog( ) {
-
     Get.defaultDialog(
         contentPadding: EdgeInsets.zero,
 

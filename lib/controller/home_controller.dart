@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ class HomeController extends GetxController {
   var notesList=[].obs;
   var cartCount=0.obs;
 
+
+  var homeDataList=[].obs;
+
   var userName="".obs;
   var userToken="".obs;
 
@@ -37,14 +41,12 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-   // RetriveUserInfo();
+    // RetriveUserInfo();
     refreshNotes();
     getHomeData();
     super.onInit();
 
-
   }
-
 
   Future refreshNotes() async {
     NotesDataBase.instance;
@@ -60,8 +62,6 @@ class HomeController extends GetxController {
       userName(storage.read(pref_user_name)??"");
       userToken(storage.read(pref_user_token)??"");
       _showToast(storage.read(pref_user_name).toString());
-
-
     }catch(e){
 
     }
@@ -80,13 +80,9 @@ class HomeController extends GetxController {
         fontSize: 16.0);
   }
 
-
-
   updateSelectedTabIndex(int index){
     selectedTabIndex(index);
-
   }
-
 
 // Widget
   void onItemTapped(int index) {
@@ -133,13 +129,10 @@ class HomeController extends GetxController {
           );
           _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
+             var homeDataResponse = jsonDecode(response.body);
 
-            // var dataResponse = jsonDecode(response.body);
-            //
-            // productDetailsDataList(dataResponse);
-            //
-            // relatedProductList(dataResponse[1]["related_product"]);
-
+             homeDataList(homeDataResponse["data"]);
+             _showToast("size  "+homeDataList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
