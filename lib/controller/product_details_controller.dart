@@ -357,7 +357,7 @@ class ProductDetailsController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-      //  _showToast(storage.read(pref_user_token).toString());
+        _showToast("token g= "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 

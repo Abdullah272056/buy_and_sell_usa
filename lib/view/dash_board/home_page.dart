@@ -125,11 +125,13 @@ class HomePageScreen extends StatelessWidget {
                   child: InkWell(
 
                     onTap: () {
-                      if(homeController.userToken.isEmpty){
-                        showLoadingDialog();
-                      }
-                      else{
-                        _showToast("go whishlist");
+                      if(homeController.userToken.isNotEmpty &&
+                          homeController.userToken.value!=null){
+                        _showToast(homeController.userToken.toString());
+                      //  _showToast("add favourite");
+
+                      }else{
+                        showLoginWarning();
                       }
 
                     },
@@ -627,13 +629,15 @@ class HomePageScreen extends StatelessWidget {
                         top: 5,
                         child: InkWell(
                           onTap: (){
-                            if(homeController.userToken.isEmpty){
-                              showLoadingDialog();
+
+                            if(homeController.userToken.isNotEmpty &&
+                                homeController.userToken.value!=null){
+                              _showToast("add favourite");
+                              _showToast(homeController.userToken.toString());
+
+                            }else{
+                              showLoginWarning();
                             }
-                            else{
-                              _showToast("add wishlist");
-                            }
-                           // showLoadingDialog( );
 
                           },
                           child: Icon(Icons.favorite_outline,
@@ -891,7 +895,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  void showLoadingDialog( ) {
+  void showLoginWarning( ) {
     Get.defaultDialog(
         contentPadding: EdgeInsets.zero,
 

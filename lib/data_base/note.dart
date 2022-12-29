@@ -1,7 +1,7 @@
 
 
 
-final String tableNotes="cart_notes";
+final String tableNotes="fnf_cart_notes";
 
 class CartNoteFields{
   static final List<String> values =[

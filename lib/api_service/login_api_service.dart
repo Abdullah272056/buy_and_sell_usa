@@ -31,7 +31,7 @@ class LogInApiService {
           showLoadingDialog("Checking");
 
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
-          // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+
            body: {
             'email': email,
             'password': password,
@@ -84,6 +84,7 @@ class LogInApiService {
      var storage =GetStorage();
      storage.write(pref_user_name, userName);
      storage.write(pref_user_token, userToken);
+    // _showToast(userToken.toString());
     } catch (e) {
       //code
     }

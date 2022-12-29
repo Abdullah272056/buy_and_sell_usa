@@ -41,10 +41,13 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-    // RetriveUserInfo();
+
+    super.onInit();
+
+
+    //loadUserIdFromSharePref();
     refreshNotes();
     getHomeData();
-    super.onInit();
 
   }
 
@@ -52,16 +55,17 @@ class HomeController extends GetxController {
     NotesDataBase.instance;
     notesList(await NotesDataBase.instance.readAllNotes());
     cartCount(notesList.length);
+    retriveUserInfo();
     //_showToast("Local length= "+notesList.length.toString());
   }
 
   ///get user data from share pref
-  void RetriveUserInfo() async {
+  void retriveUserInfo() async {
     try {
       var storage =GetStorage();
-      userName(storage.read(pref_user_name)??"");
-      userToken(storage.read(pref_user_token)??"");
-      _showToast(storage.read(pref_user_name).toString());
+      userName(storage.read(pref_user_name).toString());
+      userToken(storage.read(pref_user_token).toString());
+     _showToast("Token= "+storage.read(pref_user_token).toString());
     }catch(e){
 
     }
@@ -127,12 +131,12 @@ class HomeController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_HOME_DATA}'),
           );
-          _showToast("status = ${response.statusCode}");
+        //  _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
              var homeDataResponse = jsonDecode(response.body);
-
              homeDataList(homeDataResponse["data"]);
-             _showToast("size  "+homeDataList.length.toString());
+           //  retriveUserInfo();
+            // _showToast("size  "+homeDataList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -149,7 +153,20 @@ class HomeController extends GetxController {
   }
 
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
 
+      _showToast("Token= "+storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
+  }
 
 
 }
