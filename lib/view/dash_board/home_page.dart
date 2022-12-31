@@ -11,7 +11,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
@@ -23,7 +22,7 @@ import '../common_page/product_list.dart';
 import 'cart_page.dart';
 
 class HomePageScreen extends StatelessWidget {
-   // HomePageScreen({Key? key}) : super(key: key);
+  // HomePageScreen({Key? key}) : super(key: key);
 
   final homeController = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();

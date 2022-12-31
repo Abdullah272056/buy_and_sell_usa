@@ -83,7 +83,7 @@ class ProductDetailsController extends GetxController {
   var colorId="".obs;
   var grocery="".obs;
   var tax="".obs;
-  var shipping="".obs;
+  var shipping="0.0".obs;
   var width="".obs;
   var height="".obs;
   var depth="".obs;
@@ -256,7 +256,7 @@ class ProductDetailsController extends GetxController {
            color(colorsList[0]["color"]["name"].toString());
 
 
-            shipping("");
+            shipping("0.0");
             weightOption("");
             colorImage("");
 

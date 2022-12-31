@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../controller/cart_page_controller.dart';
-import '../../controller/checkout_page_controller.dart';
-import '../../data_base/note.dart';
-import '../../static/Colors.dart';
-import '../common_page/product_details.dart';
-import '../common_page/product_list.dart';
-import 'cart_view_page.dart';
+import '../../../controller/cart_page_controller.dart';
+import '../../../controller/checkout_page_controller.dart';
+import '../../../data_base/note.dart';
+import '../../../static/Colors.dart';
+import '../../common_page/product_details.dart';
+import '../../common_page/product_list.dart';
+import '../cart_view_page.dart';
 
 
 
@@ -679,8 +679,8 @@ class CheckoutPage extends StatelessWidget {
     required bool obscureText,
     Widget? prefixedIcon,
     String? hintText,
-    String? labelText,
-  }) {
+    String? labelText
+  }){
     return Container(
       color:transparent,
       child: Focus(
