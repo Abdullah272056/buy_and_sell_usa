@@ -48,16 +48,33 @@ class CheckoutPageController extends GetxController {
   var totalTaxAmount=0.0.obs;
   var cartList=[].obs;
 
+
+  var userToken="18|55gHatBObrLJz3zR2XQ3ppLOGA7I6f4BAsfbr6m4";
+
+  var firstName="".obs;
+  var lastName="".obs;
+  var emailAddress="".obs;
+  var phoneNumber="".obs;
+  var address="".obs;
+  var townCity="".obs;
+  var zipCode="".obs;
+
+  var selectedState="".obs;
+  var selectedCountry="".obs;
+
   // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+
     refreshNotes();
     getCountryList();
     getStateList();
+    getUserBillingInfoList(userToken);
     super.onInit();
+
   }
 
   //toast create
@@ -71,7 +88,6 @@ class CheckoutPageController extends GetxController {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
   Future refreshNotes() async {
     NotesDataBase.instance;
@@ -113,8 +129,6 @@ class CheckoutPageController extends GetxController {
 
   }
 
-
-
   void getCountryList() async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -128,7 +142,6 @@ class CheckoutPageController extends GetxController {
 
             var dataResponse = jsonDecode(response.body);
             countryList(dataResponse["data"]);
-             _showToast("Colors= "+countryList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -173,4 +186,145 @@ class CheckoutPageController extends GetxController {
     }
   }
 
+  void getUserBillingInfoList(String token) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showToast(token);
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_BILLING_ADDRESS}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
+          );
+
+          _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            // var wishListResponse = jsonDecode(response.body);
+            // wishList(wishListResponse["data"]["data"]);
+
+            // _showToast("size  "+wishList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  void updateUserBillingInfoList(
+           {
+            required String token,
+            required String firstname,
+            required String lastName,
+            required String emailAddress,
+            required String phoneNumber,
+            required String address,
+            required String townCity,
+            required String zipCode,
+            required String stateId,
+            required String countryId
+          }
+      ) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+       // _showToast(token);
+        try {
+          showLoadingDialog("Checking");
+          var response = await post(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_ADD_USER_UPDATE_BILLING_ADDRESS}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
+            body: {
+              'first_name': firstname,
+              'last_name': lastName,
+              'email': emailAddress,
+              'phone': phoneNumber,
+              'address': address,
+              'city': townCity,
+              'country': countryId,
+              'state': stateId,
+              'zip': zipCode
+            }
+          );
+
+          Get.back();
+          _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            // var wishListResponse = jsonDecode(response.body);
+            // wishList(wishListResponse["data"]["data"]);
+
+            // _showToast("size  "+wishList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  void showLoadingDialog(String message) {
+
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
 }

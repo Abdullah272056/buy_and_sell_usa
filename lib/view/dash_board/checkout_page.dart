@@ -297,10 +297,12 @@ class CheckoutPage extends StatelessWidget {
 
 
 
+                      SizedBox(height: 20,),
+
+                      _buildPlaceOrderButton(),
 
 
-
-
+                      SizedBox(height: 10,)
 
 
 
@@ -551,12 +553,14 @@ class CheckoutPage extends StatelessWidget {
         onFocusChange: (hasFocus) {
           checkoutPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
+
         child: TextField(
           cursorColor: awsCursorColor,
           cursorWidth: 1.5,
+
+
           // maxLength: 13,
           // autofocus: false,
-
           focusNode:checkoutPageController.firstNameControllerFocusNode.value,
           onSubmitted:(_){
             checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
@@ -592,6 +596,7 @@ class CheckoutPage extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.text,
+
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -999,6 +1004,138 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
+
+  Widget _buildPlaceOrderButton() {
+    return ElevatedButton(
+      onPressed: () {
+        // String userEmailTxt = logInPageController.userEmailController.value.text;
+
+        String firstName=checkoutPageController.firstNameController.value.text;
+        String lastName=checkoutPageController.lastNameController.value.text;
+        String email=checkoutPageController.emailAddressController.value.text;
+        String phone=checkoutPageController.phoneController.value.text;
+        String address=checkoutPageController.addressController.value.text;
+        String townCity=checkoutPageController.townOrCityController.value.text;
+        String zipCode=checkoutPageController.zipCodeController.value.text;
+
+
+            // _showToast("state="+checkoutPageController.selectStateId.value);
+            // _showToast("country="+checkoutPageController.selectCountryId.value);
+
+        if (_inputValid(f_name: firstName, l_name: lastName, email: email, phone: phone,
+            address: address, town_city: townCity, zipCode: zipCode,
+            selectedState: checkoutPageController.selectStateId.value, selectedCountry: checkoutPageController.selectCountryId.value)== false) {
+          checkoutPageController.updateUserBillingInfoList(
+              token: checkoutPageController.userToken,
+              firstname: firstName,
+              lastName:lastName,
+              emailAddress: email,
+              phoneNumber: phone,
+              address: address,
+              townCity: townCity,
+              zipCode: zipCode,
+              stateId: checkoutPageController.selectStateId.value,
+              countryId: checkoutPageController.selectCountryId.value
+          );
+        }
+      },
+
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "PLACE ORDER",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  //input text validation check
+  _inputValid({required String f_name, required String l_name,
+    required String selectedState, required String selectedCountry,
+    required String email, required String phone,required String address,
+    required String town_city,required String zipCode}) {
+
+    if (f_name.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("First name can't empty!");
+      return;
+    }
+    if (l_name.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Last name can't empty!");
+      return;
+    }
+    if (email.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Email can't empty!");
+      return;
+    }
+    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    )
+        .hasMatch(email)) {
+      Fluttertoast.cancel();
+      _showToast("Enter valid email!");
+      return;
+    }
+
+    if (phone.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Phone can't empty!");
+      return;
+    }
+    if (address.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Address can't empty!");
+      return;
+    }
+    if (town_city.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Town or City can't empty!");
+      return;
+    }
+    if (selectedState.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Please select State!");
+      return;
+    }
+    if (selectedCountry.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Please select Country!");
+      return;
+    }
+    if (zipCode.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Zip code can't empty!");
+      return;
+    }
+
+
+
+    return false;
+  }
 
 
   //toast create

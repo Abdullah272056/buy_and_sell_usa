@@ -14,10 +14,6 @@ import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 
 class WishListPageController extends GetxController {
-
-
-
-
   var wishList=[].obs;
   var userName="".obs;
   var userToken="".obs;
@@ -144,7 +140,6 @@ class WishListPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
 
 
 }
