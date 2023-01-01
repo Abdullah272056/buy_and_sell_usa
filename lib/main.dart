@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/log_in_page.dart';
 
 import 'package:fnf_buy/view/common_page/dash_board_page.dart';
+import 'package:fnf_buy/view/dash_board/cart_view_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page_step2.dart';
 import 'package:fnf_buy/view/dash_board/home_page.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:DashBoardPageScreen(),
+       body:CheckoutPage(),
       //  body: CheckoutPageStep2Page(),
      // body:CheckoutPageStep2Page(),
       ),

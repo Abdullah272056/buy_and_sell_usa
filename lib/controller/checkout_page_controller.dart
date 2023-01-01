@@ -71,7 +71,7 @@ class CheckoutPageController extends GetxController {
 
     refreshNotes();
     getCountryList();
-    getStateList();
+    ///getStateList();
     getUserBillingInfoList(userToken);
     super.onInit();
 
@@ -137,11 +137,23 @@ class CheckoutPageController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_COUNTRY_LIST}'),
           );
-          // _showToast("status = ${response.statusCode}");
+           _showToast("country = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
-            countryList(dataResponse["data"]);
+
+            Country country=new Country(dataResponse["data"]["name"].toString(),dataResponse["data"]["id"].toString());
+            List<Country> c_list=[country];
+            countryList(c_list);
+
+
+            // countryList([dataResponse["data"]["name"].toString()]);
+            selectedCountry(dataResponse["data"]["name"].toString());
+            selectCountryId(dataResponse["data"]["id"].toString());
+            stateList(dataResponse["data"]["states"]);
+
+            _showToast("leng= "+stateList.length.toString());
+
           }
           else {
             // Fluttertoast.cancel();
@@ -190,7 +202,7 @@ class CheckoutPageController extends GetxController {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showToast(token);
+      //  _showToast(token);
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_BILLING_ADDRESS}'),
@@ -200,7 +212,7 @@ class CheckoutPageController extends GetxController {
             },
           );
 
-          _showToast(response.statusCode.toString());
+        //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
@@ -221,8 +233,7 @@ class CheckoutPageController extends GetxController {
     }
   }
 
-  void updateUserBillingInfoList(
-           {
+  void updateUserBillingInfoList({
             required String token,
             required String firstname,
             required String lastName,
@@ -327,4 +338,11 @@ class CheckoutPageController extends GetxController {
         barrierDismissible: false,
         radius: 10.0);
   }
+}
+
+class Country{
+  String c_name;
+  String c_id;
+
+  Country(this.c_name, this.c_id);
 }

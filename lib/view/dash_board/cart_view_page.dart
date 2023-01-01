@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../../controller/cart__view_page_controller.dart';
 import '../../controller/cart_page_controller.dart';
@@ -332,7 +333,7 @@ class CartViewePage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:response.productPhoto,
+                        image:BASE_URL_API_IMAGE_PRODUCT+response.productPhoto.toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',

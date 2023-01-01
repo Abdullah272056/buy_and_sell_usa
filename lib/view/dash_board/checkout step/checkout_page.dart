@@ -127,11 +127,12 @@ class CheckoutPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      userStateSelect(),
+                      userCountrySelect(),
+
                       const SizedBox(
                         height: 20,
                       ),
-                      userCountrySelect(),
+                      userStateSelect(),
 
                       const SizedBox(
                         height: 20,
@@ -506,7 +507,7 @@ class CheckoutPage extends StatelessWidget {
 
                       Expanded(child: Center(
                         child: Text(
-                            list["name"].toString(),
+                            list.c_name.toString(),
                             textAlign: TextAlign.center,
                             style:  TextStyle(
                                 color: text_color,
@@ -522,13 +523,13 @@ class CheckoutPage extends StatelessWidget {
                   ),
 
                   // Text(list["country_name"].toString()),
-                  value: list["id"].toString(),
+                  value: list.c_id.toString(),
                 );
 
               },
               ).toList(),
               onChanged:(String? value){
-                String data= checkoutPageController.selectCountryId(value.toString());
+              //  String data= checkoutPageController.selectCountryId(value.toString());
                 // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
               },
 
