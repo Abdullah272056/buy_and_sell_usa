@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:CheckoutPage(),
+       body:CheckoutPageStep2Page(),
       //  body: CheckoutPageStep2Page(),
      // body:CheckoutPageStep2Page(),
       ),

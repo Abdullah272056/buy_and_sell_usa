@@ -73,7 +73,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                                     Obx(() =>   ListView.builder(
                                         padding: EdgeInsets.zero,
-                                        itemCount: cartViewPageController.sellerGroupList.length,
+                                        itemCount: cartViewPageController.sellerGroupList.isNotEmpty?cartViewPageController.sellerGroupList.length:0,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index){
@@ -127,7 +127,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                               ),
                                               ),
 
-                                              userShippingSelect(),
+                                             Obx(()=> cartViewPageController.expressShippingCheckList!=null && cartViewPageController.expressShippingCheckList.length>0?
+                                          userShippingSelect(cartViewPageController.expressShippingCheckList[index]):Container(),),
 
                                               Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 15),
                                                 child:  Row(
@@ -697,7 +698,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
   }
 
-  Widget userShippingSelect() {
+  Widget userShippingSelect(List response) {
     return Column(
       children: [
         Container(
@@ -713,13 +714,13 @@ class CheckoutPageStep2Page extends StatelessWidget {
                   top: BorderSide(width: 1.0, color: hint_color),
                 ),
                 borderRadius: BorderRadius.circular(5)),
-            child: Obx(()=>DropdownButton2(
+            child: DropdownButton2(
               //  buttonHeight: 40,
               //   menuMaxHeight:55,
               itemPadding: EdgeInsets.only(left: 5,right: 0),
-              value: cartViewPageController.selectCountryId.value != null &&
-                  cartViewPageController.selectCountryId.value.isNotEmpty ?
-              cartViewPageController.selectCountryId.value : null,
+              // value: cartViewPageController.selectCountryId.value != null &&
+              //     cartViewPageController.selectCountryId.value.isNotEmpty ?
+              // cartViewPageController.selectCountryId.value : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
@@ -735,19 +736,19 @@ class CheckoutPageStep2Page extends StatelessWidget {
               /// icon: SizedBox.shrink(),
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-              items: cartViewPageController.countryList.map((list) {
+              items: response.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.center,
 
                   // Text(list["country_name"].toString()),
-                  value: list["id"].toString(),
+                  value: list["shipping_name"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
 
                       Expanded(child: Center(
                         child: Text(
-                            list["name"].toString(),
+                            list["shipping_name"].toString(),
                             textAlign: TextAlign.center,
                             style:  const TextStyle(
                                 color: text_color,
@@ -763,11 +764,11 @@ class CheckoutPageStep2Page extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
-               // String data= checkoutPageController.selectCountryId(value.toString());
+                // String data= checkoutPageController.selectCountryId(value.toString());
                 // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
               },
 
-            ))
+            )
         ),
 
       ],

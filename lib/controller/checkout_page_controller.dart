@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 import '../api_service/api_service.dart';
-import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 import '../static/Colors.dart';
 
@@ -338,11 +337,12 @@ class CheckoutPageController extends GetxController {
         barrierDismissible: false,
         radius: 10.0);
   }
+
+
 }
 
 class Country{
   String c_name;
   String c_id;
-
   Country(this.c_name, this.c_id);
 }

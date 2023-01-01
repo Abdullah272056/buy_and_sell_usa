@@ -111,37 +111,45 @@ class CheckoutPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+
                       _buildTextFieldUserAddress(
                         obscureText: false,
                         //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
                         labelText: "Address*",
                       ),
+
                       const SizedBox(
                         height: 20,
                       ),
+
                       _buildTextFieldUserTownOrCity(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.location_city, color: input_box_icon_color),
                         labelText: "Town/City*",
                       ),
+
                       const SizedBox(
                         height: 20,
                       ),
+
                       userCountrySelect(),
 
                       const SizedBox(
                         height: 20,
                       ),
+
                       userStateSelect(),
 
                       const SizedBox(
                         height: 20,
                       ),
+
                       _buildTextFieldUserZip(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
                         labelText: "Zip Code*",
                       ),
+
                       SizedBox(height: 30,),
                       Row(
                         children: [
@@ -193,7 +201,6 @@ class CheckoutPage extends StatelessWidget {
                           ))
                         ],
                       ),
-
 
                       Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
                         child: Row(
@@ -296,17 +303,11 @@ class CheckoutPage extends StatelessWidget {
                         ) ,
                       ),
 
-
-
                       SizedBox(height: 20,),
 
                       _buildPlaceOrderButton(),
 
-
                       SizedBox(height: 10,)
-
-
-
 
                     ],
                   ),

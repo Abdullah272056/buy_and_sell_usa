@@ -34,6 +34,7 @@ String SUB_URL_API_DELETE_WISHLIST = "api/wishlist-delete";
 
 String SUB_URL_API_GET_USER_BILLING_ADDRESS = "api/user/get-address";
 String SUB_URL_API_ADD_USER_UPDATE_BILLING_ADDRESS = "api/user/update-address";
+String SUB_URL_API_EXPRESS_SHIPPING_CHECK = "api/express-shipping-check";
 
 
 
