@@ -13,6 +13,7 @@ import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 import '../model/FilterListDataModelClass.dart';
+import 'package:http/http.dart' as http;
 
 class ProductDetailsController extends GetxController {
   TextEditingController? searchController = TextEditingController();
@@ -100,7 +101,7 @@ class ProductDetailsController extends GetxController {
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
     productId(argumentData[0]['productId'].toString());
-    _showToast(argumentData[0]['productId'].toString());
+   // _showToast(argumentData[0]['productId'].toString());
     loadUserIdFromSharePref();
     getProductDetailsData(productId.value);
 
@@ -202,7 +203,7 @@ class ProductDetailsController extends GetxController {
 
             relatedProductList(dataResponse[1]["related_product"]);
 
-            _showToast(relatedProductList.length.toString());
+           // _showToast(relatedProductList.length.toString());
 
 
              productName(dataResponse[1]["product"]["product_name"].toString());
@@ -350,6 +351,53 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+  addWishList({
+        required String token,
+        required String productId
+      }
+      ) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          //  _showToast("1");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
+            body: {
+              'product_id': productId,
+            },
+          );
+
+          // _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            _showToast("Wishlist added Successfully!");
+          }
+          else {
+            var data = jsonDecode(response.body);
+            _showToast(data['message']);
+          }
+          //   Get.back();
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
@@ -357,7 +405,7 @@ class ProductDetailsController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-        _showToast("token g= "+storage.read(pref_user_token).toString());
+      //  _showToast("token g= "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 

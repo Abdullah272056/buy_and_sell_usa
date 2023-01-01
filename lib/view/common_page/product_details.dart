@@ -1142,7 +1142,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                   fit: BoxFit.fill,
                                   placeholder: 'assets/images/loading.png',
                                  //  image:"http://localhost/bijoytech_ecomerce/public/images/product/1672033114-63a9335aed848.webp",
-                                  image:BASE_URL_API_IMAGE+productDetailsController.productImage.value,
+                                  image:BASE_URL_API_IMAGE_PRODUCT+productDetailsController.productImage.value,
                                   imageErrorBuilder: (context, url, error) =>
                                       Image.asset(
                                         'assets/images/loading.png',
@@ -1157,7 +1157,20 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           top: 5,
                           child: InkWell(
                             onTap: (){
-                              showLoginWarning();
+                              if(productDetailsController.userToken.isNotEmpty &&
+                                  productDetailsController.userToken.value!=null){
+                                 _showToast("add favourite");
+                                // _showToast(response["id"].toString());
+
+                                // productDetailsController.addWishList(
+                                //     token: homeController.userToken.toString(),
+                                //     productId: response["id"].toString());
+
+                              }else{
+                                showLoginWarning();
+                              }
+
+
 
                             },
                             child: Icon(Icons.favorite_outline,
@@ -1306,7 +1319,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
                                 // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
-                                image:BASE_URL_API_IMAGE+
+                                image:BASE_URL_API_IMAGE_PRODUCT+
                                     productDetailsController.relatedProductList[index]['cover_image'].toString()??"",
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
@@ -1325,9 +1338,12 @@ class ProductDetailsePageScreen extends StatelessWidget {
                         top: 5,
                         child: InkWell(
                           onTap: (){
+
                             if(productDetailsController.userToken.isNotEmpty &&
                                 productDetailsController.userToken.value!=null){
-                              _showToast("add favourite");
+                              productDetailsController.addWishList(
+                                  token: productDetailsController.userToken.toString(),
+                                  productId: productDetailsController.relatedProductList[index]["id"].toString());
 
                             }else{
                               showLoginWarning();
@@ -1564,7 +1580,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           onTap: (){
                             if(productDetailsController.userToken.isNotEmpty &&
                                 productDetailsController.userToken.value!=null){
-                              _showToast("add favourite");
+                              productDetailsController.addWishList(
+                                  token: productDetailsController.userToken.toString(),
+                                  productId: productDetailsController.productId.toString());
 
                             }else{
                               showLoginWarning();
@@ -1659,7 +1677,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
       child:Obx(()=>FadeInImage.assetNetwork(
         fit: BoxFit.fill,
         placeholder: 'assets/images/loading.png',
-        image:"$BASE_URL_API_IMAGE${productDetailsController.productImage.value}",
+        image:"$BASE_URL_API_IMAGE_PRODUCT${productDetailsController.productImage.value}",
         imageErrorBuilder: (context, url, error) =>
             Image.asset(
               'assets/images/loading.png',

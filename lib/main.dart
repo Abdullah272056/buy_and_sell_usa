@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-      // body:LogInScreen(),
+       body:DashBoardPageScreen(),
       //  body: CheckoutPageStep2Page(),
-      body:CheckoutPageStep2Page(),
+     // body:CheckoutPageStep2Page(),
       ),
     );
 

@@ -209,7 +209,7 @@ class HomeController extends GetxController {
         final result = await InternetAddress.lookup('example.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
           try {
-            _showToast("1");
+          //  _showToast("1");
             var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
                 headers: {
                 'Authorization': 'Bearer '+token,

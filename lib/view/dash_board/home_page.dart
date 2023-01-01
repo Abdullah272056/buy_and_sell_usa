@@ -599,12 +599,13 @@ class HomePageScreen extends StatelessWidget {
             width:width/2 ,
             // height:width/1.3
             padding: EdgeInsets.only(left: 10,right: 10),
-            margin: EdgeInsets.only(left: 10,right: 10),
+          //  margin: EdgeInsets.only(left: 10,right: 10),
             // color: Colors.white,
             child:  Column(
               // alignment: Alignment.bottomCenter,
               children: [
                 Container(
+
                   decoration: BoxDecoration(
                     // color:Colors.white,
                       borderRadius: BorderRadius.circular(24)),
@@ -619,7 +620,7 @@ class HomePageScreen extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
-                                image:BASE_URL_API_IMAGE+response["cover_image"].toString(),
+                                image:BASE_URL_API_IMAGE_PRODUCT+response["cover_image"].toString(),
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                       'assets/images/loading.png',
@@ -664,6 +665,7 @@ class HomePageScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(height: 5,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -879,9 +881,9 @@ class HomePageScreen extends StatelessWidget {
                     child: FadeInImage.assetNetwork(
                       fit: BoxFit.fill,
                       placeholder: 'assets/images/loading.png',
-                      image:
+                      image:BASE_URL_API_IMAGE_CATEGORIES+response["category_image"].toString(),
 
-                          "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
+                         // "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
                       imageErrorBuilder: (context, url, error) =>
                           Image.asset(
                             'assets/images/loading.png',
@@ -893,7 +895,7 @@ class HomePageScreen extends StatelessWidget {
               Container(
                   margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 5),
                   child:  Text(
-                    response["name"].toString(),
+                    response["category_name"].toString(),
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style:  TextStyle(

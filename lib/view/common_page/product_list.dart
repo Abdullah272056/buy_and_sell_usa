@@ -97,7 +97,7 @@ class ProductListPage extends StatelessWidget {
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
                                 // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
-                                image:BASE_URL_API_IMAGE+
+                                image:BASE_URL_API_IMAGE_PRODUCT+
                                     allProductListPageController.filterProductList[index].coverImage??"",
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(

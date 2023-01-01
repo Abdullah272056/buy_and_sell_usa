@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
 import '../../controller/wish_list_page_controller.dart';
 import '../../data_base/note.dart';
@@ -78,10 +79,7 @@ class WishListPage extends StatelessWidget {
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-                                          return
-
-
-                                          cartItem(wishListPageController.wishList[index]);
+                                          return cartItem(wishListPageController.wishList[index]);
                                         }))
                                   ]
 
@@ -138,7 +136,7 @@ class WishListPage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:response["product"]["cover_image"].toString(),
+                        image:BASE_URL_API_IMAGE_PRODUCT+response["product"]["cover_image"].toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',
@@ -280,16 +278,20 @@ class WishListPage extends StatelessWidget {
 
               ],
             ),),
+
             IconButton(
               iconSize: 25,
               color: fnf_color,
               icon: const Icon(Icons.delete),
               onPressed: () {
+                wishListPageController.deleteWishList(token: wishListPageController.userToken.value,
+                    id: response["id"].toString());
                 //_showToast( response.id.toString());
                 // response.id
               //  cartPageController.deleteNotes(int.parse(response.id.toString()));
               },
             ),
+
           ],
         ),
       ),

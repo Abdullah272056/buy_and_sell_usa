@@ -64,7 +64,7 @@ class WishListPageController extends GetxController {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showToast(token);
+      //  _showToast(token);
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_WIShLIST}'),
@@ -73,7 +73,7 @@ class WishListPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-
+         // _showToast("get"+response.statusCode.toString());
           if (response.statusCode == 200) {
            var wishListResponse = jsonDecode(response.body);
            wishList(wishListResponse["data"]["data"]);
@@ -94,11 +94,11 @@ class WishListPageController extends GetxController {
     }
   }
 
-  void deleteWishList(String token,String id) async{
+  void deleteWishList({required String token,required String id}) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showToast(token);
+       // _showToast(token);
         try {
           var response = await delete(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_DELETE_WISHLIST}'),
@@ -107,25 +107,12 @@ class WishListPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
             body: {
-              id:id
+              "id":id
             }
           );
-          _showToast("status = ${response.statusCode}");
+         // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
-
-
-           var wishListResponse = jsonDecode(response.body);
-           wishList(wishListResponse["data"]["data"]);
-            //
-            // _showToast("size  "+categoriesDataList.length.toString());
-            _showToast("ssss");
-            //
-            // var wishListDataResponse = jsonDecode(response.body);
-            // _showToast("1");
-            // wishList(wishListDataResponse["data"]["data"]);
-            // _showToast(wishListDataResponse["message"]);
-            //
-            _showToast("size  "+wishList.length.toString());
+           getWishList(token);
           }
           else {
             // Fluttertoast.cancel();

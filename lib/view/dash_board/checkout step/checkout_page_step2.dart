@@ -706,8 +706,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
              margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
             decoration: BoxDecoration(
                 color:Colors.white,
-                border: Border(
-
+                border: const Border(
                   left: BorderSide(width: 1.0, color: hint_color),
                   right: BorderSide(width:1.0, color: hint_color),
                   bottom: BorderSide(width: 1.0, color: hint_color),
@@ -739,6 +738,9 @@ class CheckoutPageStep2Page extends StatelessWidget {
               items: cartViewPageController.countryList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.center,
+
+                  // Text(list["country_name"].toString()),
+                  value: list["id"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -747,7 +749,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                         child: Text(
                             list["name"].toString(),
                             textAlign: TextAlign.center,
-                            style:  TextStyle(
+                            style:  const TextStyle(
                                 color: text_color,
                                 //color: intello_text_color,
                                 fontSize: 14,
@@ -756,9 +758,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                     ],
                   ),
-
-                  // Text(list["country_name"].toString()),
-                  value: list["id"].toString(),
                 );
 
               },
@@ -794,7 +793,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
 
         //  title: '',
-        titleStyle: TextStyle(fontSize: 0),
+        titleStyle: const TextStyle(fontSize: 0),
         // backgroundColor: Colors.white.withOpacity(.8),
         content: Wrap(
           children: [
@@ -809,7 +808,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                           Container(
 
-                            margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
+                            margin:const EdgeInsets.only(right:00.0,top: 0,left: 00,
                               bottom: 0,
                             ),
                             child:Image.asset(
@@ -821,9 +820,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
                               fit: BoxFit.fill,
                             ),
                           ),
+
                           Container(
-                            margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
-                            child:  Align(
+                            margin: const EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                            child:  const Align(
                               alignment: Alignment.topCenter,
                               child:   Text(
                                 "This section is Locked",

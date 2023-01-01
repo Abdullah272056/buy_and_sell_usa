@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
@@ -63,6 +64,7 @@ class CartPage extends StatelessWidget {
                     Expanded(
                         child: Container(
                           color: Colors.white,
+
                           child:  ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:1,
@@ -84,6 +86,8 @@ class CartPage extends StatelessWidget {
                                   ,
                                 );
                               }),
+
+
                         )
 
 
@@ -114,6 +118,7 @@ class CartPage extends StatelessWidget {
                       ),
                       child:Column(
                         children: [
+
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -139,7 +144,9 @@ class CartPage extends StatelessWidget {
 
                             ],
                           ),
+
                           SizedBox(height: 10,),
+
                           Row(
                             children: [
 
@@ -151,6 +158,7 @@ class CartPage extends StatelessWidget {
 
                             ],
                           ),
+
                         ],
                       )
 
@@ -201,7 +209,7 @@ class CartPage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:response.productPhoto,
+                        image:BASE_URL_API_IMAGE_PRODUCT+response.productPhoto,
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',
