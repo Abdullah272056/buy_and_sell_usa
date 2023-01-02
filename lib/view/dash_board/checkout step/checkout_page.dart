@@ -448,7 +448,7 @@ class CheckoutPage extends StatelessWidget {
               ).toList(),
               onChanged:(String? value){
                 String data= checkoutPageController.selectStateId(value.toString());
-                // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+               //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
               },
 
             ))

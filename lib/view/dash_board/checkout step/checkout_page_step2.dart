@@ -11,6 +11,7 @@ import '../../auth/log_in_page.dart';
 import '../../auth/sign_up_page.dart';
 
 
+
 class CheckoutPageStep2Page extends StatelessWidget {
 
   final cartViewPageController = Get.put(CheckoutPageStep2Controller());
@@ -71,6 +72,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                 return Column(
                                   children: [
 
+
+
                                     Obx(() =>   ListView.builder(
                                         padding: EdgeInsets.zero,
                                         itemCount: cartViewPageController.sellerGroupList.isNotEmpty?cartViewPageController.sellerGroupList.length:0,
@@ -100,7 +103,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                 ],
                                               ),
 
-                                              Obx(() =>ListView.builder(
+                                             Obx(() =>ListView.builder(
                                                   padding: EdgeInsets.zero,
                                                   itemCount: cartViewPageController.cartList.length,
                                                   shrinkWrap: true,
@@ -116,7 +119,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                                                   }),),
 
-                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                             Padding(padding: EdgeInsets.only(left: 10,right: 10,),
                                               child: Row(
                                                 children: [
                                                   Expanded(child: Container(
@@ -128,9 +131,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                               ),
 
                                              Obx(()=> cartViewPageController.expressShippingCheckList!=null && cartViewPageController.expressShippingCheckList.length>0?
-                                          userShippingSelect(cartViewPageController.expressShippingCheckList[index]):Container(),),
+                                              userShippingSelect(
+                                                  response: cartViewPageController.expressShippingCheckList[index], index: index, sellerId: cartViewPageController.sellerGroupList[index].seller.toString()):Container(),),
 
-                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 15),
+                                             Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 15),
                                                 child:  Row(
                                                   // mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
@@ -157,7 +161,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                 ),
                                               ),
 
-                                              Container(height: 20,)
+                                             Container(height: 20,)
 
                                             ],
                                           );
@@ -323,22 +327,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                         )
                     ),
 
-
-
-
-
-
-
-
                     SizedBox(height: 20,),
-
-
-
-
-
-
-
-
 
                     /// add to cart button section
                     Container(
@@ -698,7 +687,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
   }
 
-  Widget userShippingSelect(List response) {
+  Widget userShippingSelect({required List response,required int index, required String sellerId}) {
     return Column(
       children: [
         Container(
@@ -714,13 +703,12 @@ class CheckoutPageStep2Page extends StatelessWidget {
                   top: BorderSide(width: 1.0, color: hint_color),
                 ),
                 borderRadius: BorderRadius.circular(5)),
-            child: DropdownButton2(
+            child: Obx(()=>DropdownButton2(
               //  buttonHeight: 40,
               //   menuMaxHeight:55,
               itemPadding: EdgeInsets.only(left: 5,right: 0),
-              // value: cartViewPageController.selectCountryId.value != null &&
-              //     cartViewPageController.selectCountryId.value.isNotEmpty ?
-              // cartViewPageController.selectCountryId.value : null,
+              value: cartViewPageController.selectedShippingValueList[index].isNotEmpty ?
+              cartViewPageController.selectedShippingValueList[index].toString() : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
@@ -741,7 +729,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                   alignment: Alignment.center,
 
                   // Text(list["country_name"].toString()),
-                  value: list["shipping_name"].toString(),
+                  value: list["shipping_type"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -764,17 +752,57 @@ class CheckoutPageStep2Page extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
-                // String data= checkoutPageController.selectCountryId(value.toString());
-                // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+
+                cartViewPageController.selectedShippingValueList[index]=value.toString();
+              // _showToast("sellerid= "+sellerId);
+                List<Product> students = [];
+
+                for(int i=0;i<cartViewPageController.cartList.length;i++){
+                  if(sellerId==cartViewPageController.cartList[i].seller.toString()){
+                    students.add(Product(
+                        product_id: cartViewPageController.cartList[i].productId,
+                        weight:cartViewPageController.cartList[i].weight ));
+                  }
+                }
+
+              //  _showToast("abs= " +students.length.toString());
+
+
+                var indivitualSellerProductListJson = students.map((e){
+                  return {
+                    "product_id": e.product_id,
+                    "weight": e.weight
+                  };
+                }).toList();
+
+               // _showToast("abs= " +cartViewPageController.selectedShippingValueList[index]);
+
+                cartViewPageController.expressShippingCheck1(
+                  token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD',
+                  shippingType: cartViewPageController.selectedShippingValueList[index],
+                  shippingId: "null",
+                  sellerId: sellerId,
+                  totalPrice: totalPriceCalculate(cartViewPageController.cartList,
+                      sellerId).toString(),
+                  productJson: indivitualSellerProductListJson,
+
+                );
+
+
+
               },
 
-            )
+            ))
         ),
 
       ],
     )
     ;
   }
+
+
+
+
 
   //toast create
   _showToast(String message) {

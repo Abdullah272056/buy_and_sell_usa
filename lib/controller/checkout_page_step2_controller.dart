@@ -11,12 +11,14 @@ import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import 'package:http/http.dart' as http;
 import '../data_base/notes_database.dart';
+import '../view/dash_board/checkout step/productModel.dart';
 
 class CheckoutPageStep2Controller extends GetxController {
 
   var totalPrice=0.0.obs;
   var cartList=[].obs;
   var sellerGroupList=[].obs;
+  var selectedShippingValueList=[].obs;
 
   var userName="".obs;
   var userToken="".obs;
@@ -97,8 +99,23 @@ class CheckoutPageStep2Controller extends GetxController {
     var seen = Set<String>();
     List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
     sellerGroupList(uniqueList);
-    expressShippingCheck(sellerList: sellerGroupList, zipCode: '10001', token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD');
-    _showToast("group list="+sellerGroupList.length.toString());
+
+
+    List<String> sellerIdList=[];
+    for(int i=0;i<sellerGroupList.length;i++){
+
+      sellerIdList.add(sellerGroupList[i].seller.toString());
+     // _showToast("aqw= "+sellerGroupList[i].seller.toString());
+
+    }
+
+
+    expressShippingCheck(sellerList: sellerIdList, zipCode: '10001', token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD');
+
+
+    List<String> abc = List.generate(4, (index) => "");
+    selectedShippingValueList(abc);
+
   }
 
 
@@ -151,11 +168,12 @@ class CheckoutPageStep2Controller extends GetxController {
               body: json.encode({
                 "zipCode": zipCode,
                 "sellerId": sellerList
+                // "sellerId": sellerList
               })
 
           );
 
-         _showToast("check= "+response.statusCode.toString());
+        // _showToast("check= "+response.statusCode.toString());
 
 
           if (response.statusCode == 200) {
@@ -164,8 +182,9 @@ class CheckoutPageStep2Controller extends GetxController {
             var data = jsonDecode(response.body);
             expressShippingCheckList(data["data"]);
 
-            // _showToast(expressShippingCheckList[1].toString());
-            _showToast(expressShippingCheckList[0].length.toString());
+
+
+          //  _showToast(expressShippingCheckList[0].length.toString());
           }
 
           else {
@@ -190,4 +209,141 @@ class CheckoutPageStep2Controller extends GetxController {
     }
   }
 
+
+  expressShippingCheck1({
+    required String token,
+    required String shippingType,
+    required String shippingId,
+    required String sellerId,
+    required String totalPrice,
+    required var productJson
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          //_showToast("c 0");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_EXPRESS_SHIPPING_AMOUNT'),
+              headers: {
+                'Authorization': 'Bearer '+token,
+                'Content-Type': 'application/json',
+              },
+              body: json.encode({
+                "handleShipping": [{
+                  "shipping_type": shippingType,
+                  "shipping_id": "null",
+                  "seller_id": sellerId,
+                  "total_price": totalPrice,
+                  "products": productJson
+                }
+                ]
+              })
+
+          );
+
+        //   _showToast("check= "+response.statusCode.toString());
+
+
+          if (response.statusCode == 200) {
+
+
+             var data = jsonDecode(response.body);
+             _showToast(data["success"].toString());
+            // expressShippingCheckList(data["data"]);
+
+            // _showToast(expressShippingCheckList[1].toString());
+            //  _showToast(expressShippingCheckList[0].length.toString());
+          }
+
+          else {
+            var data = jsonDecode(response.body);
+            // _showToast(data['message']);
+          }
+          //   Get.back();
+
+        } catch (e) {
+          _showToast(e.toString());
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  expressShippingCheck2({
+    required String token,
+    required String shippingType,
+    required String shippingId,
+    required String sellerId,
+    required String totalPrice,
+    required var productJson
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var headers = {
+            'Authorization': 'Bearer '+token,
+            'Content-Type': 'application/json'
+          };
+          var request = http.Request('POST', Uri.parse(
+              '$BASE_URL_API$SUB_URL_API_EXPRESS_SHIPPING_AMOUNT'
+              // 'http://192.168.0.115/bijoytech_ecomerce/api/express-shipping-amount'
+          ));
+          request.body = json.encode({
+            "handleShipping": [{
+                "shipping_type": shippingType,
+                "shipping_id": "null",
+                "seller_id": sellerId,
+                "total_price": totalPrice,
+                "products": productJson
+              }
+            ]
+          });
+
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response = await request.send();
+          _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            print(await response.stream.bytesToString());
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+}
+
+class Product{  //modal class
+  String product_id, weight;
+
+  Product({
+    required this.product_id,
+    required this.weight
+  });
 }
