@@ -22,6 +22,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
+  var zipCode="'10001'".obs;
 
   // var selectCountryId="".obs;
   // var countryList = [].obs;
@@ -110,7 +111,7 @@ class CheckoutPageStep2Controller extends GetxController {
     }
 
 
-    expressShippingCheck(sellerList: sellerIdList, zipCode: '10001', token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD');
+    expressShippingCheck(sellerList: sellerIdList, zipCode:zipCode.value , token: userToken.value);
 
 
     List<String> abc = List.generate(4, (index) => "");
@@ -248,7 +249,62 @@ class CheckoutPageStep2Controller extends GetxController {
 
 
              var data = jsonDecode(response.body);
-             _showToast(data["success"].toString());
+             // _showToast(data["data"][0].length.toString());
+
+             for(int j=0;j<data["data"][0].length;j++){
+
+               for(int i=0;i<cartList.length;i++){
+
+                 if(cartList[i].productId==data["data"][0][j]["product_id"]){
+
+                   CartNote cartNote=CartNote(
+                       id:cartList[i].id ,
+                       productId: cartList[i].productId,
+                       productName: cartList[i].productName,
+                       productRegularPrice: cartList[i].productRegularPrice,
+                       productDiscountedPrice: cartList[i].productDiscountedPrice,
+                       productPhoto: cartList[i].productPhoto,
+                       productQuantity: cartList[i].productQuantity,
+                       weight: cartList[i].weight,
+                       seller: cartList[i].seller,
+                       sellerName: cartList[i].sellerName,
+                       slug: cartList[i].slug,
+                       colorImage: cartList[i].colorImage,
+                       size: cartList[i].size,
+                       color: cartList[i].color,
+                       // shipping: cartList[i].shipping,
+                       shipping: data["data"][0][j]["rate"].toString(),
+                       sizeId: cartList[i].sizeId,
+                       colorId: cartList[i].colorId,
+                       grocery: cartList[i].grocery,
+                       tax: cartList[i].tax,
+                       width: cartList[i].width,
+                       height: cartList[i].height,
+                       depth: cartList[i].depth,
+                       weightOption: cartList[i].weightOption,
+                       commission: cartList[i].commission,
+                       commissionType:cartList[i].commissionType
+                   );
+
+                   updateNotes(cartNote);
+
+                   _showToast("match");
+
+                 }
+
+               }
+
+             }
+
+
+
+             _showToast(cartList.length.toString());
+
+
+
+
+
+
             // expressShippingCheckList(data["data"]);
 
             // _showToast(expressShippingCheckList[1].toString());
@@ -277,6 +333,8 @@ class CheckoutPageStep2Controller extends GetxController {
       _showToast("No Internet Connection!");
     }
   }
+
+
 
   expressShippingCheck2({
     required String token,

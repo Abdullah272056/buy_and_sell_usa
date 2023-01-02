@@ -176,7 +176,7 @@ class CheckoutPageController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
           );
-          // _showToast("status = ${response.statusCode}");
+           _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
@@ -274,6 +274,10 @@ class CheckoutPageController extends GetxController {
           _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
+
+            // Get.to(CheckoutPageStep2Page( ))
+
+
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
 
