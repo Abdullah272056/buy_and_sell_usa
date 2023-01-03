@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import '../../../controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
+import '../../controller/product_details_controller.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_details.dart';
@@ -587,10 +588,16 @@ class HomePageScreen extends StatelessWidget {
       onTap: (){
 
         // _showToast(message)
+
         Get.to(() => ProductDetailsePageScreen(), arguments: [
           {"productId": response["id"].toString()},
           {"second": 'Second data'}
-        ]);
+        ])?.then((value) => Get.delete<ProductDetailsController>());
+
+        // Get.to(() => ProductDetailsePageScreen(), arguments: [
+        //   {"productId": response["id"].toString()},
+        //   {"second": 'Second data'}
+        // ]);
       },
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.start,

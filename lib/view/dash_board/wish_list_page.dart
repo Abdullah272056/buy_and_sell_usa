@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
+import '../../controller/product_details_controller.dart';
 import '../../controller/wish_list_page_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
@@ -113,7 +114,7 @@ class WishListPage extends StatelessWidget {
           Get.to(() => ProductDetailsePageScreen(), arguments: [
             {"productId": response["product"]["id"].toString()},
             {"second": 'Second data'}
-          ]);
+          ])?.then((value) => Get.delete<ProductDetailsController>());
         },
         child: Flex(
           direction: Axis.horizontal,

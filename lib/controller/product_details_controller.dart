@@ -47,7 +47,7 @@ class ProductDetailsController extends GetxController {
 
   // List<CartNote> notesList=[].obs;
   var notesList=[].obs;
- dynamic argumentData = Get.arguments;
+
 
 
  var productName="".obs;
@@ -95,7 +95,7 @@ class ProductDetailsController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
-
+  dynamic argumentData = Get.arguments;
   @override
   void onInit() {
     // print(argumentData[0]['first']);

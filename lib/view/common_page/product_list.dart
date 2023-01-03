@@ -10,6 +10,7 @@ import '../../api_service/api_service.dart';
 import '../../controller/all_product_list_controller.dart';
 
 
+import '../../controller/product_details_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
@@ -61,10 +62,15 @@ class ProductListPage extends StatelessWidget {
       onTap: (){
 
        /// _showToast(allProductListPageController.filterProductList[index].id.toString());
+       //  Get.to(() => ProductDetailsePageScreen(), arguments: [
+       //    {"productId": allProductListPageController.filterProductList[index].id.toString()},
+       //    {"second": 'Second data'}
+       //  ]);
+
         Get.to(() => ProductDetailsePageScreen(), arguments: [
           {"productId": allProductListPageController.filterProductList[index].id.toString()},
           {"second": 'Second data'}
-        ]);
+        ])?.then((value) => Get.delete<ProductDetailsController>());
 
         // Get.to(ProductDetailsePageScreen());
 

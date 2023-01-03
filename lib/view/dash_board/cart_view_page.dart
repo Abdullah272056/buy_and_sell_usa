@@ -13,6 +13,7 @@ import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_list.dart';
+import 'checkout step/checkout_page.dart';
 
 class CartViewePage extends StatelessWidget {
 
@@ -435,6 +436,7 @@ class CartViewePage extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
+
                 Row(
                   children: [
 
@@ -443,6 +445,7 @@ class CartViewePage extends StatelessWidget {
                       height: 25,
                       child: Row(
                         children: [
+
                           Text("\$"+
                               response.productDiscountedPrice,
                             textAlign: TextAlign.center,
@@ -451,8 +454,8 @@ class CartViewePage extends StatelessWidget {
                                 fontSize: 13,
                                 fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(width: 10,),
 
+                          SizedBox(width: 10,),
 
                           Container(
                             margin: EdgeInsets.only(right: 10),
@@ -524,6 +527,7 @@ class CartViewePage extends StatelessWidget {
                               ),
                             ),
                           ),
+
                           Text(
                             response.productQuantity.toString(),
                             style: TextStyle(fontWeight: FontWeight.w600,
@@ -531,6 +535,7 @@ class CartViewePage extends StatelessWidget {
                                 fontSize: 15
                             ),
                           ),
+
                           Container(
                             margin: EdgeInsets.only(left: 10),
                             child: InkWell(
@@ -595,7 +600,9 @@ class CartViewePage extends StatelessWidget {
                               ),
                             ),
                           ),
+
                           SizedBox(width: 10,),
+
                           Text("\$"+ (double.parse(response.productDiscountedPrice)* double.parse(response.productQuantity)).toString(),
                             textAlign: TextAlign.center,
                             style: const TextStyle(
@@ -617,6 +624,7 @@ class CartViewePage extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 // Row(
                 //   children: [
                 //
@@ -676,7 +684,9 @@ class CartViewePage extends StatelessWidget {
 
         if(cartViewPageController.userToken.isNotEmpty &&
             cartViewPageController.userToken.value!=null){
-          _showToast("go to checkout process");
+          Get.to(CheckoutPage());
+          //_showToast("go to checkout process");
+
 
         }else{
           showLoginWarning();

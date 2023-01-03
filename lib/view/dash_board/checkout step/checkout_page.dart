@@ -1028,7 +1028,7 @@ class CheckoutPage extends StatelessWidget {
             address: address, town_city: townCity, zipCode: zipCode,
             selectedState: checkoutPageController.selectStateId.value, selectedCountry: checkoutPageController.selectCountryId.value)== false) {
           checkoutPageController.updateUserBillingInfoList(
-              token: checkoutPageController.userToken,
+              token: checkoutPageController.userToken.value,
               firstname: firstName,
               lastName:lastName,
               emailAddress: email,

@@ -5,11 +5,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 
 import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/notes_database.dart';
 import '../static/Colors.dart';
+import '../view/dash_board/checkout step/checkout_page_step2.dart';
 
 class CheckoutPageController extends GetxController {
 
@@ -47,8 +50,9 @@ class CheckoutPageController extends GetxController {
   var totalTaxAmount=0.0.obs;
   var cartList=[].obs;
 
-
-  var userToken="18|55gHatBObrLJz3zR2XQ3ppLOGA7I6f4BAsfbr6m4";
+  var userName="".obs;
+  var userToken="".obs;
+ // var userToken="18|55gHatBObrLJz3zR2XQ3ppLOGA7I6f4BAsfbr6m4".obs;
 
   var firstName="".obs;
   var lastName="".obs;
@@ -67,15 +71,30 @@ class CheckoutPageController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-
+    loadUserIdFromSharePref();
     refreshNotes();
-    getCountryList();
+
     ///getStateList();
-    getUserBillingInfoList(userToken);
+    getUserBillingInfoList(userToken.value);
+    getCountryList(userToken.value);
     super.onInit();
 
   }
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+
+       _showToast("anbv=  "+storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
+  }
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -128,13 +147,17 @@ class CheckoutPageController extends GetxController {
 
   }
 
-  void getCountryList() async{
+  void getCountryList(String token) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_COUNTRY_LIST}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
           );
            _showToast("country = ${response.statusCode}");
           if (response.statusCode == 200) {
@@ -211,7 +234,7 @@ class CheckoutPageController extends GetxController {
             },
           );
 
-        //  _showToast(response.statusCode.toString());
+          _showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
@@ -275,8 +298,11 @@ class CheckoutPageController extends GetxController {
 
           if (response.statusCode == 200) {
 
-            // Get.to(CheckoutPageStep2Page( ))
 
+           Get.to(() => CheckoutPageStep2Page(), arguments: [
+             {"productId": ""},
+             {"zipCode": zipCode},
+           ]);
 
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);

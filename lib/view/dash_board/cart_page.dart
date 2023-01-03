@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
+import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
 import '../common_page/product_details.dart';
@@ -183,10 +184,16 @@ class CartPage extends StatelessWidget {
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
       child: InkWell(
         onTap: (){
+
           Get.to(() => ProductDetailsePageScreen(), arguments: [
             {"productId": response.productId.toString()},
             {"second": 'Second data'}
-          ]);
+          ])?.then((value) => Get.delete<ProductDetailsController>());
+
+          // Get.to(() => ProductDetailsePageScreen(), arguments: [
+          //   {"productId": response.productId.toString()},
+          //   {"second": 'Second data'}
+          // ]);
         },
         child: Flex(
           direction: Axis.horizontal,

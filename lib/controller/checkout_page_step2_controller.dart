@@ -22,7 +22,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
-  var zipCode="'10001'".obs;
+  var zipCode="".obs;
 
   // var selectCountryId="".obs;
   // var countryList = [].obs;
@@ -31,9 +31,12 @@ class CheckoutPageStep2Controller extends GetxController {
   var totalTaxAmount=0.0.obs;
 
 
-
+  dynamic argumentData = Get.arguments;
   @override
   void onInit() {
+
+    zipCode(argumentData[1]['zipCode'].toString());
+
     readAllNotes();
     loadUserIdFromSharePref();
     super.onInit();
