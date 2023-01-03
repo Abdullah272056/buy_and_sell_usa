@@ -28,22 +28,22 @@ class HomePageScreen extends StatelessWidget {
   final homeController = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
 
-//   @override
-//   State<HomePageScreen> createState() =>
-//       _HomePageScreenState();
-// }
-//
-// class _HomePageScreenState
-//     extends State<HomePageScreen> {
-//
-//   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
-//   @override
-//   @mustCallSuper
-//   void initState() {
-//     super.initState();
-//
-//
-//   }
+  //   @override
+  //   State<HomePageScreen> createState() =>
+  //       _HomePageScreenState();
+  // }
+  //
+  // class _HomePageScreenState
+  //     extends State<HomePageScreen> {
+  //
+  //   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+  //   @override
+  //   @mustCallSuper
+  //   void initState() {
+  //     super.initState();
+  //
+  //
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -296,6 +296,8 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildTabButton() {
     return Container(
       margin: const EdgeInsets.only(top: 20,bottom: 10),
@@ -303,20 +305,20 @@ class HomePageScreen extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child:Obx(()=> ListView.builder(
-              itemCount:homeController.categoryList.length,
+              itemCount:homeController.categoriesDataList.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 if(index==0){
-                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,15,0);
+                  return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,15,0);
                 }
-                else if(index==homeController.categoryList.length-1){
-                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,5,15);
+                else if(index==homeController.categoriesDataList.length-1){
+                  return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,5,15);
                 }
 
                 else{
-                  return  _buildCategoriesTabItem(homeController.categoryList[index].toUpperCase(),index,5,0);
+                  return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,5,0);
                 }
 
               })),)
@@ -328,7 +330,14 @@ class HomePageScreen extends StatelessWidget {
   Widget _buildCategoriesTabItem(var response,int index,double marginLeft,double marginRight) {
     return  InkWell(
       onTap: (){
+
         homeController.subCategoriesButtonColorStatus (index) ;
+        Get.to(() => ProductListPage(), arguments: [
+          {"categoriesId": response["id"].toString()},
+          {"subCategoriesId": ""}
+        ])?.then((value) => Get.delete<ProductDetailsController>());
+
+
       },
       child: Container(
         padding: const EdgeInsets.only(
@@ -343,7 +352,8 @@ class HomePageScreen extends StatelessWidget {
             children: [
 
               Obx(() => Text(
-                response.toUpperCase(),
+                response["category_name"].toString().toUpperCase(),
+              //  response.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color:Colors.black,
@@ -401,7 +411,7 @@ class HomePageScreen extends StatelessWidget {
                 _buildTabButton(),
 
                 ///slider section
-                Container(
+                SizedBox(
                   height: sizeHeight * 0.23,
                   child: Swiper(
                     itemCount: 7,
@@ -412,8 +422,6 @@ class HomePageScreen extends StatelessWidget {
                         },
                         child: _sliderCardDesign(),
                       ) ;
-
-
                     },
                     autoplay: true,
                     pagination: const SwiperPagination(
@@ -779,8 +787,6 @@ class HomePageScreen extends StatelessWidget {
      ;
   }
 
-
-
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
     double sizeHeight = Get.height;
@@ -870,8 +876,10 @@ class HomePageScreen extends StatelessWidget {
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-
-
+        Get.to(() => ProductListPage(), arguments: [
+          {"categoriesId": response["id"].toString()},
+          {"subCategoriesId": ""}
+        ])?.then((value) => Get.delete<ProductDetailsController>());
       },
       child:  Container(
         margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 00),
@@ -1087,5 +1095,6 @@ class HomePageScreen extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
 
 }

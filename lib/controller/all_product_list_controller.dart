@@ -38,8 +38,27 @@ class AllProductListPageController extends GetxController {
   var selectInnerCategoriesId="".obs;
   var innerCategoriesList = [].obs;
 
+
+  ////selected data
+  var categoryId="".obs;
+  var subCategoryId="".obs;
+  var selectedInnerCategoryId= ''.obs;
+  var selectedFilterCategoryList= [].obs;
+  var selectedFilterSubCategoryList= [].obs;
+  var selectedFilterInnerCategoryList= [].obs;
+  var selectedBrandName= ''.obs;
+  var selectedMinPrice= ''.obs;
+  var selectedSortBy= ''.obs;
+  var selectedSearch=''.obs;
+  var selectedBrandsList= [].obs;
+  var selectedSizesList= [].obs;
+  var selectedColorsList= [].obs;
+  var selectedMaxPrice= "".obs;
+
   var userName="".obs;
   var userToken="".obs;
+
+
 
   @override
   void onInit() {
@@ -54,20 +73,33 @@ class AllProductListPageController extends GetxController {
     getCategories();
     getBrands();
     getSubCategoriesList();
+    categoryId(argumentData[0]['categoriesId']);
+    subCategoryId(argumentData[1]['subCategoriesId']);
 
-    // getCategoriesProductsDataList(categoryId: "1",
-    //     subcategoryId: "6",
+    getCategoriesProductsDataList(
+        categoryId: categoryId.value,
+        subcategoryId: subCategoryId.value,
+        innerCategoryId: selectedInnerCategoryId.value,
+        filterCategoryList: selectedFilterCategoryList,
+        filterSubCategoryList:selectedFilterSubCategoryList,
+        filterInnerCategoryList: selectedFilterInnerCategoryList,
+        brandName: selectedBrandName.value,
+        minPrice: selectedMinPrice.value,
+        sortBy: selectedSortBy.value,
+        search: selectedSearch.value,
+        brandsList: selectedBrandsList,
+        sizesList: selectedSizesList,
+        colorsList: selectedColorsList,
+        maxPrice: selectedMaxPrice.value);
+
+
+
+    // getCategoriesProductsDataList(categoryId: argumentData[0]['categoriesId'],
+    //     subcategoryId: argumentData[1]['subCategoriesId'],
     //     innerCategoryId: '', filterCategoryList: [],
     //     filterSubCategoryList: [], filterInnerCategoryList: [],
     //     brandName: 'admin', minPrice: '', sortBy: '', search: '',
     //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
-
-    getCategoriesProductsDataList(categoryId: argumentData[0]['categoriesId'],
-        subcategoryId: argumentData[1]['subCategoriesId'],
-        innerCategoryId: '', filterCategoryList: [],
-        filterSubCategoryList: [], filterInnerCategoryList: [],
-        brandName: 'admin', minPrice: '', sortBy: '', search: '',
-        brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
 
   }
 
@@ -257,13 +289,20 @@ class AllProductListPageController extends GetxController {
   }
 
   void getCategoriesProductsDataList({
-    required String categoryId,required String subcategoryId,
+    required String categoryId,
+    required String subcategoryId,
     required String innerCategoryId,
-    required List filterCategoryList, required List filterSubCategoryList,required List filterInnerCategoryList,
-    required String brandName,required String minPrice,
+    required List filterCategoryList,
+    required List filterSubCategoryList,
+    required List filterInnerCategoryList,
+    required String brandName,
+    required String minPrice,
     required String maxPrice,
-    required String sortBy,required String search,
-    required List brandsList, required List sizesList,required List colorsList
+    required String sortBy,
+    required String search,
+    required List brandsList,
+    required List sizesList,
+    required List colorsList
   }) async{
     try {
       final result = await InternetAddress.lookup('example.com');

@@ -15,8 +15,8 @@ import '../data_base/notes_database.dart';
 class HomeController extends GetxController {
   TextEditingController? searchController = TextEditingController();
 
-  var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
-    "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"].obs;
+  // var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
+  //   "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"].obs;
   var isDrawerOpen = false.obs;
 
   var subCategoriesButtonColorStatus=0.obs;

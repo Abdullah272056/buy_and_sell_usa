@@ -22,13 +22,108 @@ class ProductListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return  Scaffold(
+        body:Container(
+            decoration: BoxDecoration(
+              color:fnf_title_bar_bg_color,
+            ),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 16,
+                  // height: 50,
+                ),
+
+                Flex(direction: Axis.horizontal,
+                  children: [
+                    SizedBox(width: 30,),
+
+                    SizedBox(width: 5,),
+                    Expanded(child: Text(
+                      "All Categories",
+                      style: TextStyle(color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17
+                      ),
+                    )),
+
+
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                  // height: 50,
+                ),
+
+                Expanded(child: Container(
+                    color: Colors.white,
+                  //  padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+
+                    child:Column(
+                      children: [
+                        userInputSelectTopic(),
+                        Expanded(child:
+                        Obx(()=>GridView.builder(
+                            itemCount:allProductListPageController.filterProductList.length,
+                            // shrinkWrap: true,
+                            // physics: const ClampingScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 7.0,
+                                mainAxisSpacing: 7.0,
+                                mainAxisExtent: 250
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index);
+                            }),
+                        ),)
+                      ],
+                    )
+
+
+                )),
+
+
+              ],
+            )
+
+        )
+    );
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Colors.backGroundColor,
+        backgroundColor: fnf_title_bar_bg_color,
+
         // key: _key,
         body:Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 16,
+              // height: 50,
+            ),
+
+            Flex(direction: Axis.horizontal,
+              children: [
+                SizedBox(width: 30,),
+
+                SizedBox(width: 5,),
+                Expanded(child: Text(
+                  "Categories name",
+                  style: TextStyle(color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17
+                  ),
+                )),
+
+
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 40,
+              // height: 50,
+            ),
             userInputSelectTopic(),
            Expanded(child:
            Obx(()=>GridView.builder(
@@ -310,6 +405,33 @@ class ProductListPage extends StatelessWidget {
                           onChanged: (String? value) {
 
                             String data= allProductListPageController.selectColorsId(value.toString());
+                            allProductListPageController.selectedColorsList([value.toString()]);
+
+                            allProductListPageController.getCategoriesProductsDataList(
+                                categoryId: allProductListPageController.categoryId.value,
+                                subcategoryId: allProductListPageController.subCategoryId.value,
+                                innerCategoryId: allProductListPageController.selectedInnerCategoryId.value,
+                                filterCategoryList: allProductListPageController.selectedFilterCategoryList,
+                                filterSubCategoryList:allProductListPageController.selectedFilterSubCategoryList,
+                                filterInnerCategoryList: allProductListPageController.selectedFilterInnerCategoryList,
+                                brandName: allProductListPageController.selectedBrandName.value,
+                                minPrice: allProductListPageController.selectedMinPrice.value,
+                                sortBy: allProductListPageController.selectedSortBy.value,
+                                search: allProductListPageController.selectedSearch.value,
+                                brandsList: allProductListPageController.selectedBrandsList,
+                                sizesList: allProductListPageController.selectedSizesList,
+                                colorsList: allProductListPageController.selectedColorsList,
+                                maxPrice: allProductListPageController.selectedMaxPrice.value);
+
+                            // getCategoriesProductsDataList(categoryId: argumentData[0]['categoriesId'],
+                            //     subcategoryId: argumentData[1]['subCategoriesId'],
+                            //     innerCategoryId: '', filterCategoryList: [],
+                            //     filterSubCategoryList: [], filterInnerCategoryList: [],
+                            //     brandName: 'admin', minPrice: '', sortBy: '', search: '',
+                            //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+
+
+
                             // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
                           },
 
@@ -371,8 +493,25 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectSizeId(value.toString());
-                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                             allProductListPageController.selectSizeId(value.toString());
+
+                            allProductListPageController.selectedSizesList([value.toString()]);
+
+                            allProductListPageController.getCategoriesProductsDataList(
+                                categoryId: allProductListPageController.categoryId.value,
+                                subcategoryId: allProductListPageController.subCategoryId.value,
+                                innerCategoryId: allProductListPageController.selectedInnerCategoryId.value,
+                                filterCategoryList: allProductListPageController.selectedFilterCategoryList,
+                                filterSubCategoryList:allProductListPageController.selectedFilterSubCategoryList,
+                                filterInnerCategoryList: allProductListPageController.selectedFilterInnerCategoryList,
+                                brandName: allProductListPageController.selectedBrandName.value,
+                                minPrice: allProductListPageController.selectedMinPrice.value,
+                                sortBy: allProductListPageController.selectedSortBy.value,
+                                search: allProductListPageController.selectedSearch.value,
+                                brandsList: allProductListPageController.selectedBrandsList,
+                                sizesList: allProductListPageController.selectedSizesList,
+                                colorsList: allProductListPageController.selectedColorsList,
+                                maxPrice: allProductListPageController.selectedMaxPrice.value);
                           },
 
                         ),)),
@@ -433,8 +572,27 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectBrandsId(value.toString());
-                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                          allProductListPageController.selectBrandsId(value.toString());
+
+                          allProductListPageController.selectedBrandsList([value.toString()]);
+
+                          allProductListPageController.getCategoriesProductsDataList(
+                          categoryId: allProductListPageController.categoryId.value,
+                          subcategoryId: allProductListPageController.subCategoryId.value,
+                          innerCategoryId: allProductListPageController.selectedInnerCategoryId.value,
+                          filterCategoryList: allProductListPageController.selectedFilterCategoryList,
+                          filterSubCategoryList:allProductListPageController.selectedFilterSubCategoryList,
+                          filterInnerCategoryList: allProductListPageController.selectedFilterInnerCategoryList,
+                          brandName: allProductListPageController.selectedBrandName.value,
+                          minPrice: allProductListPageController.selectedMinPrice.value,
+                          sortBy: allProductListPageController.selectedSortBy.value,
+                          search: allProductListPageController.selectedSearch.value,
+                          brandsList: allProductListPageController.selectedBrandsList,
+                          sizesList: allProductListPageController.selectedSizesList,
+                          colorsList: allProductListPageController.selectedColorsList,
+                          maxPrice: allProductListPageController.selectedMaxPrice.value);
+
+
                           },
 
                         ),)),
@@ -542,9 +700,26 @@ class ProductListPage extends StatelessWidget {
                           },
                           ).toList(),
                           onChanged: (String? value) {
+                            allProductListPageController.selectCategoriesId(value.toString());
 
-                            String data= allProductListPageController.selectCategoriesId(value.toString());
-                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                            allProductListPageController.categoryId(value.toString() );
+
+                            allProductListPageController.getCategoriesProductsDataList(
+                                categoryId: allProductListPageController.categoryId.value,
+                                subcategoryId: allProductListPageController.subCategoryId.value,
+                                innerCategoryId: allProductListPageController.selectedInnerCategoryId.value,
+                                filterCategoryList: allProductListPageController.selectedFilterCategoryList,
+                                filterSubCategoryList:allProductListPageController.selectedFilterSubCategoryList,
+                                filterInnerCategoryList: allProductListPageController.selectedFilterInnerCategoryList,
+                                brandName: allProductListPageController.selectedBrandName.value,
+                                minPrice: allProductListPageController.selectedMinPrice.value,
+                                sortBy: allProductListPageController.selectedSortBy.value,
+                                search: allProductListPageController.selectedSearch.value,
+                                brandsList: allProductListPageController.selectedBrandsList,
+                                sizesList: allProductListPageController.selectedSizesList,
+                                colorsList: allProductListPageController.selectedColorsList,
+                                maxPrice: allProductListPageController.selectedMaxPrice.value);
+
                           },
 
                         ),)),
@@ -605,8 +780,25 @@ class ProductListPage extends StatelessWidget {
                           ).toList(),
                           onChanged: (String? value) {
 
-                            String data= allProductListPageController.selectSubCategoriesId(value.toString());
-                            // _showToast("Id ="+submitAssignmentPageController.selectAssignmentId.value);
+                           allProductListPageController.selectSubCategoriesId(value.toString());
+
+                            allProductListPageController.subCategoryId(value.toString() );
+
+                            allProductListPageController.getCategoriesProductsDataList(
+                                categoryId: allProductListPageController.categoryId.value,
+                                subcategoryId: allProductListPageController.subCategoryId.value,
+                                innerCategoryId: allProductListPageController.selectedInnerCategoryId.value,
+                                filterCategoryList: allProductListPageController.selectedFilterCategoryList,
+                                filterSubCategoryList:allProductListPageController.selectedFilterSubCategoryList,
+                                filterInnerCategoryList: allProductListPageController.selectedFilterInnerCategoryList,
+                                brandName: allProductListPageController.selectedBrandName.value,
+                                minPrice: allProductListPageController.selectedMinPrice.value,
+                                sortBy: allProductListPageController.selectedSortBy.value,
+                                search: allProductListPageController.selectedSearch.value,
+                                brandsList: allProductListPageController.selectedBrandsList,
+                                sizesList: allProductListPageController.selectedSizesList,
+                                colorsList: allProductListPageController.selectedColorsList,
+                                maxPrice: allProductListPageController.selectedMaxPrice.value);
                           },
 
                         ),)),
