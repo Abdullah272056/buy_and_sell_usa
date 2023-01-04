@@ -9,6 +9,7 @@ import 'package:fnf_buy/view/dash_board/cart_view_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page_step2.dart';
 import 'package:fnf_buy/view/dash_board/home_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section_page.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 
  import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: DashBoardPageScreen(),
+       body: ProfileSectionPage(),
      // body:CheckoutPageStep2Page(),
       ),
     );

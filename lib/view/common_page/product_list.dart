@@ -335,7 +335,7 @@ class ProductListPage extends StatelessWidget {
 
             decoration: BoxDecoration(
                 color:Colors.white,
-                border: Border(
+                border: const Border(
 
                   left: BorderSide(width: 1.0, color: hint_color),
                   right: BorderSide(width:1.0, color: hint_color),
@@ -671,6 +671,9 @@ class ProductListPage extends StatelessWidget {
                           items: allProductListPageController.categoriesList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -680,7 +683,7 @@ class ProductListPage extends StatelessWidget {
                                     child: Text(
                                         list["category_name"].toString(),
                                         textAlign: TextAlign.center,
-                                        style:  TextStyle(
+                                        style:  const TextStyle(
                                             color: text_color,
                                             //color: intello_text_color,
                                             fontSize: 12,
@@ -692,9 +695,6 @@ class ProductListPage extends StatelessWidget {
 
                                 ],
                               ),
-
-                              // Text(list["country_name"].toString()),
-                              value: list["id"].toString(),
                             );
 
                           },
@@ -750,6 +750,9 @@ class ProductListPage extends StatelessWidget {
                           items: allProductListPageController.subCategoriesList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -759,7 +762,7 @@ class ProductListPage extends StatelessWidget {
                                     child: Text(
                                         list["subcategory_name"].toString(),
                                         textAlign: TextAlign.center,
-                                        style:  TextStyle(
+                                        style:  const TextStyle(
                                             color: text_color,
                                             //color: intello_text_color,
                                             fontSize: 12,
@@ -771,9 +774,6 @@ class ProductListPage extends StatelessWidget {
 
                                 ],
                               ),
-
-                              // Text(list["country_name"].toString()),
-                              value: list["id"].toString(),
                             );
 
                           },
@@ -829,6 +829,9 @@ class ProductListPage extends StatelessWidget {
                           items: allProductListPageController.innerCategoriesList.map((list) {
                             return DropdownMenuItem(
                               alignment: Alignment.center,
+
+                              // Text(list["country_name"].toString()),
+                              value: list["id"].toString(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -838,7 +841,7 @@ class ProductListPage extends StatelessWidget {
                                     child: Text(
                                         list["inner_category_name"].toString(),
                                         textAlign: TextAlign.center,
-                                        style:  TextStyle(
+                                        style:  const TextStyle(
                                             color: text_color,
                                             //color: intello_text_color,
                                             fontSize: 12,
@@ -850,9 +853,6 @@ class ProductListPage extends StatelessWidget {
 
                                 ],
                               ),
-
-                              // Text(list["country_name"].toString()),
-                              value: list["id"].toString(),
                             );
 
                           },

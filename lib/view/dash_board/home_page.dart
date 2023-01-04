@@ -1,7 +1,4 @@
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:delayed_widget/delayed_widget.dart';
@@ -24,7 +21,6 @@ import 'cart_page.dart';
 
 class HomePageScreen extends StatelessWidget {
   // HomePageScreen({Key? key}) : super(key: key);
-
   final homeController = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
 
@@ -295,8 +291,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildTabButton() {
     return Container(
@@ -590,7 +584,6 @@ class HomePageScreen extends StatelessWidget {
     required double width,
     required String imageLink,
     required var response,
-
   }) {
     return InkWell(
       onTap: (){
