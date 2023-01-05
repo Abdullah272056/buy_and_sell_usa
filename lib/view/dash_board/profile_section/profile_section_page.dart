@@ -4,17 +4,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 
-import '../../api_service/api_service.dart';
-import '../../controller/cart_page_controller.dart';
-import '../../controller/product_details_controller.dart';
-import '../../controller/profile_section_page_controller.dart';
-import '../../controller/wish_list_page_controller.dart';
-import '../../data_base/note.dart';
-import '../../static/Colors.dart';
-import '../auth/change_password_page.dart';
-import '../common_page/product_details.dart';
-import '../common_page/product_list.dart';
-import 'cart_view_page.dart';
+import '../../../api_service/api_service.dart';
+import '../../../controller/cart_page_controller.dart';
+import '../../../controller/product_details_controller.dart';
+import '../../../controller/profile_section_page_controller.dart';
+import '../../../controller/wish_list_page_controller.dart';
+import '../../../data_base/note.dart';
+import '../../../static/Colors.dart';
+import '../../auth/change_password_page.dart';
+import '../../common_page/product_details.dart';
+import '../../common_page/product_list.dart';
+import '../cart_view_page.dart';
 
 
 

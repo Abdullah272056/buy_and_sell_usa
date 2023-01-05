@@ -865,11 +865,8 @@ class ProductListPage extends StatelessWidget {
 
                         ),)),
 
-
-
                   ],
-                )
-                    :Container())
+                ) :Container())
               ],
             )
         ),

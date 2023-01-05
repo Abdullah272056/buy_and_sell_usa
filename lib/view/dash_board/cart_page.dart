@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -9,10 +8,7 @@ import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
 import '../common_page/product_details.dart';
-import '../common_page/product_list.dart';
 import 'cart_view_page.dart';
-
-
 
 class CartPage extends StatelessWidget {
   final cartPageController = Get.put(CartPageController());

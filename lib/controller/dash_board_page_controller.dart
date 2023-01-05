@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -9,13 +11,16 @@ class DashBoardPageController extends GetxController {
 var selectedTabIndex=0.obs;
 var selectedPageIndex=1.obs;
 
-  var selectedPage = <Widget>[
+var selectedPage = <Widget>[
     HomePageScreen()
 ].obs;
 
 
 @override
 void onInit() {
+
+  log('datasrs: Abdullah');
+
   super.onInit();
   // if(argumentData!=null){
   //
@@ -73,9 +78,6 @@ void onInit() {
   // loadUserIdFromSharePref();
 }
 
-
-
-
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -87,8 +89,6 @@ void onInit() {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
-
 
 updateSelectedTabIndex(int index){
   selectedTabIndex(index);

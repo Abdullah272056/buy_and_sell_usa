@@ -2,17 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/auth/log_in_page.dart';
+import 'package:fnf_buy/view/dash_board/cart_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/order_details_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/order_page.dart';
 
-import 'package:fnf_buy/view/common_page/dash_board_page.dart';
-import 'package:fnf_buy/view/dash_board/cart_view_page.dart';
-import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
-import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page_step2.dart';
-import 'package:fnf_buy/view/dash_board/home_page.dart';
-import 'package:fnf_buy/view/dash_board/profile_section_page.dart';
-import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
-
- import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'controller/dash_board_page_controller.dart';
@@ -37,7 +31,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: ProfileSectionPage(),
+       body: OrderDetailsPage(),
+
      // body:CheckoutPageStep2Page(),
       ),
     );
@@ -65,6 +60,5 @@ class MyApp extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
 }
