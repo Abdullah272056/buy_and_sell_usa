@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -5,13 +6,17 @@ import 'package:get/get.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
 import '../../controller/product_details_controller.dart';
+import '../../controller/wish_list_page_controller.dart';
 import '../../data_base/note.dart';
 import '../../static/Colors.dart';
 import '../common_page/product_details.dart';
+import '../common_page/product_list.dart';
 import 'cart_view_page.dart';
 
-class CartPage extends StatelessWidget {
-  final cartPageController = Get.put(CartPageController());
+
+
+class WishListPage extends StatelessWidget {
+  final wishListPageController = Get.put(WishListPageController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -42,7 +47,7 @@ class CartPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART",
+                    "WISH LIST",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -61,7 +66,6 @@ class CartPage extends StatelessWidget {
                     Expanded(
                         child: Container(
                           color: Colors.white,
-
                           child:  ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:1,
@@ -70,98 +74,25 @@ class CartPage extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return Column(
                                   children: [
-                                    Obx(() =>   ListView.builder(
+                                    Obx(() => ListView.builder(
                                         padding: EdgeInsets.zero,
-                                        itemCount: cartPageController.cartList.length,
+                                        itemCount: wishListPageController.wishList.length>0 ? wishListPageController.wishList.length:0,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-                                          return cartItem(cartPageController.cartList[index]);
-                                        }),)
+                                          return cartItem(wishListPageController.wishList[index]);
+                                        }))
                                   ]
 
                                   ,
                                 );
                               }),
-
-
                         )
 
 
                     ),
-                    /// add to cart button section
-                    Container(
-                    //  height: 50,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
-
-                      decoration: BoxDecoration(
-                        color:Colors.white,
-                        borderRadius:   BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0),
-                        ),
-                        boxShadow: [BoxShadow(
-
-                          color:Colors.grey.withOpacity(.5),
-                          //  blurRadius: 20.0, // soften the shadow
-                          blurRadius:.5, // soften the shadow
-                          spreadRadius: 0.0, //extend the shadow
-                          offset:Offset(
-                            1.0, // Move to right 10  horizontally
-                            0.0, // Move to bottom 10 Vertically
-                            // Move to bottom 10 Vertically
-                          ),
-                        )],
-                      ),
-                      child:Column(
-                        children: [
-
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child:  Text("Total Price: ",
-                                style: TextStyle(fontWeight: FontWeight.w600,
-                                    color: text_color,
-                                    fontSize: 16
-                                ),
-                              ),),
-                              Expanded(child:   Align(
-                                alignment: Alignment.centerRight,
-                                child:Obx(()=> Text(
-                                  "\$ "+"${cartPageController.totalPrice}",
-                                  style: TextStyle(fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                      fontSize: 18
-                                  ),
-                                )),
-                              )),
 
 
-
-                            ],
-                          ),
-
-                          SizedBox(height: 10,),
-
-                          Row(
-                            children: [
-
-
-                              Expanded(child: _buildViewCartButton(),),
-                              SizedBox(width: 10,),
-                              Expanded(child: _buildCheckoutButton(),),
-
-
-                            ],
-                          ),
-
-                        ],
-                      )
-
-
-
-                    ),
                   ],
                 ),
 
@@ -176,20 +107,14 @@ class CartPage extends StatelessWidget {
 
   }
 
-  Widget cartItem(CartNote response){
+  Widget cartItem(var response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
       child: InkWell(
         onTap: (){
-
           Get.to(() => ProductDetailsePageScreen(), arguments: [
-            {"productId": response.productId.toString()},
+            {"productId": response["product"]["id"].toString()},
             {"second": 'Second data'}
           ])?.then((value) => Get.delete<ProductDetailsController>());
-
-          // Get.to(() => ProductDetailsePageScreen(), arguments: [
-          //   {"productId": response.productId.toString()},
-          //   {"second": 'Second data'}
-          // ]);
         },
         child: Flex(
           direction: Axis.horizontal,
@@ -212,7 +137,7 @@ class CartPage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:BASE_URL_API_IMAGE_PRODUCT+response.productPhoto,
+                        image:BASE_URL_API_IMAGE_PRODUCT+response["product"]["cover_image"].toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',
@@ -229,7 +154,7 @@ class CartPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child:Text(
-                    response.productName,
+                    response["product"]["product_name"].toString(),
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     maxLines: 1,
@@ -320,26 +245,32 @@ class CartPage extends StatelessWidget {
                     const SizedBox(
                       width: 8,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        response.productQuantity+" X ",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: hint_color,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
+
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text("\$"+
-                          response.productDiscountedPrice,
+                          response["product"]["price"].toString(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: hint_color,
+                            fontSize: 15,
+                            decoration: TextDecoration.lineThrough,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("\$"+discountedPrice(mainPrice: response["product"]["price"].toString(),
+                        discountedPercent: response["product"]["discount_percent"].toString(),)
+                          ,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: fnf_color,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -354,9 +285,11 @@ class CartPage extends StatelessWidget {
               color: fnf_color,
               icon: const Icon(Icons.delete),
               onPressed: () {
+                wishListPageController.deleteWishList(token: wishListPageController.userToken.value,
+                    id: response["id"].toString());
                 //_showToast( response.id.toString());
                 // response.id
-                cartPageController.deleteNotes(int.parse(response.id.toString()));
+              //  cartPageController.deleteNotes(int.parse(response.id.toString()));
               },
             ),
 
@@ -366,81 +299,9 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckoutButton() {
-    return ElevatedButton(
-      onPressed: () {
-
-
-      },
-
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5))),
-      child: Ink(
-        decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(5.0)
-        ),
-        child: Container(
-          padding: EdgeInsets.only(left: 20,right: 20),
-          height: 40,
-          alignment: Alignment.center,
-          child:  const Text(
-            "Checkout",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildViewCartButton() {
-    return ElevatedButton(
-      onPressed: () {
-
-      Get.to(CartViewePage());
-
-      },
-
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5))),
-      child: Ink(
-        decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [Colors.blue,Colors.blue],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(5.0)
-        ),
-        child: Container(
-          padding: EdgeInsets.only(left: 20,right: 20),
-          height: 40,
-          alignment: Alignment.center,
-          child:  const Text(
-            "View Cart",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
+  String discountedPrice({required String mainPrice,required String discountedPercent}){
+    double discountedPrice=double.parse(mainPrice) -(double.parse(mainPrice) * double.parse(discountedPercent))/100;
+    return discountedPrice.toString();
   }
 
   //toast create

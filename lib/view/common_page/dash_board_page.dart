@@ -26,6 +26,8 @@ class DashBoardPageScreen extends StatelessWidget {
     return  Scaffold(
 
       body: Container(
+
+
         child: Obx(() =>dashBoardPageController.selectedPage[0]),
 
       ),
@@ -48,6 +50,8 @@ class DashBoardPageScreen extends StatelessWidget {
               dashBoardPageController.updateSelectedPage([CategoryPage()]);
               //  selectedPage(HomePage( ));
               // selectedPage= ShopPage( );
+
+
               return;
             }
 

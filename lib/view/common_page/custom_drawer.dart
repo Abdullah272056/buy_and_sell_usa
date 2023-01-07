@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../../controller/custom_drawer_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
@@ -433,7 +435,9 @@ class CustomDrawer extends StatelessWidget {
   void removeUserInfo() async {
     try {
 
-      //sharedPreferences.setString(pref_user_password, userInfo['email'].toString());
+      var storage =GetStorage();
+      storage.write(pref_user_name, "");
+      storage.write(pref_user_token, "");
 
     } catch (e) {
       //code

@@ -7,6 +7,8 @@ import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import '../view/auth/log_in_page.dart';
+import '../view/auth/sign_up_page.dart';
 import '../view/common_page/dash_board_page.dart';
 import 'api_service.dart';
 
@@ -29,7 +31,7 @@ class LogInApiService {
           showLoadingDialog("Checking");
 
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
-          // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+
            body: {
             'email': email,
             'password': password,
@@ -46,16 +48,13 @@ class LogInApiService {
             saveUserInfo(
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
-
             Get.to(DashBoardPageScreen());
            // Get.offAll(DashBoardPageScreen());
-
           }
           else if (response.statusCode == 401) {
             _showToast("User name or password not match!");
           }
           else {
-
             var data = jsonDecode(response.body);
            // _showToast(data['message']);
           }
@@ -85,10 +84,10 @@ class LogInApiService {
      var storage =GetStorage();
      storage.write(pref_user_name, userName);
      storage.write(pref_user_token, userToken);
+    // _showToast(userToken.toString());
     } catch (e) {
       //code
     }
-
   }
 
   void showLoadingDialog(String message) {
