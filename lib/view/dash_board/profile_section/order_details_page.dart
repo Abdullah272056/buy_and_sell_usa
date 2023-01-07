@@ -13,9 +13,6 @@ import '../../../static/Colors.dart';
 import '../../common_page/product_details.dart';
 import '../cart_view_page.dart';
 
-
-
-
 class OrderDetailsPage extends StatelessWidget {
 
   final cartPageController = Get.put(OrderPageController());
@@ -192,12 +189,7 @@ class OrderDetailsPage extends StatelessWidget {
 
       )
     );
-
-
-
   }
-
-
 
   Widget userInputSelectTopic({required String keyName, required String value}) {
     return Column(
@@ -242,7 +234,6 @@ class OrderDetailsPage extends StatelessWidget {
     ;
   }
 
-
   Widget cartItem(CartNote response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 10),
       child: InkWell(
@@ -269,8 +260,8 @@ class OrderDetailsPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Container(
-                      height: 56,
-                      width: 56,
+                      height: 60,
+                      width: 60,
                       color:hint_color,
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
@@ -452,7 +443,6 @@ class OrderDetailsPage extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
 }
 

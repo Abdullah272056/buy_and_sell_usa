@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/dash_board/cart_page.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
 import 'package:fnf_buy/view/dash_board/profile_section/order_details_page.dart';
 import 'package:fnf_buy/view/dash_board/profile_section/order_page.dart';
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: OrderDetailsPage(),
+       body: WebviewPage(),
 
      // body:CheckoutPageStep2Page(),
       ),
