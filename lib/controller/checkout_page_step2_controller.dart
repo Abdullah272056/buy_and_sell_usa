@@ -30,11 +30,18 @@ class CheckoutPageStep2Controller extends GetxController {
 
   var totalTaxAmount=0.0.obs;
 
+  /// final calculation
+  var allSubTotal="0.0".obs;
+  var allShippingAmount="0.0".obs;
+  var allTaxAmount="0.0".obs;
+  var allTotalAmountWithAllCost="0.0".obs;
+
 
   dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-
+    _showToast(argumentData[4]['totalAmountWithTax'].toString());
+    zipCode(argumentData[1]['zipCode'].toString());
     zipCode(argumentData[1]['zipCode'].toString());
 
     readAllNotes();
@@ -60,13 +67,29 @@ class CheckoutPageStep2Controller extends GetxController {
 
     totalPriceCalculate(cartList);
     totalSellerCountCalculate(cartList);
+
+     allSubTotal(allSubTotalCalculate(cartList));
+    allShippingAmount(allShippingPriceCalculate(cartList));
+     allTaxAmount(allTaxCalculate(cartList));
+
+    allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
+
    // _showToast("Local length= "+cartList.length.toString());
+  }
+  Future readAllNotes1() async {
+    NotesDataBase.instance;
+    cartList(await NotesDataBase.instance.readAllNotes());
+
+    totalPriceCalculate(cartList);
+   // totalSellerCountCalculate(cartList);
+    // _showToast("Local length= "+cartList.length.toString());
   }
 
   Future updateNotes(CartNote cartNote) async {
     NotesDataBase.instance;
     NotesDataBase.instance.update(cartNote)  ;
-    readAllNotes();
+    readAllNotes1();
+    // readAllNotes();
 
   }
 
@@ -120,6 +143,39 @@ class CheckoutPageStep2Controller extends GetxController {
     List<String> abc = List.generate(4, (index) => "");
     selectedShippingValueList(abc);
 
+  }
+
+
+  ///final calculation
+  String allSubTotalCalculate(List cartList1){
+    double subTotal=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+      subTotal=(subTotal+oneItemPrice);
+    }
+    return subTotal.toString();
+
+  }
+
+  String allTaxCalculate(List cartList1){
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+      double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+      totalTax=(totalTax+singleProductTax);
+    }
+    return totalTax.toString();
+
+  }
+
+  String allShippingPriceCalculate(List cartList1){
+    double shippingAmount=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      shippingAmount=(shippingAmount+double.parse(cartList1[i].shipping));
+    }
+
+    return double.parse((shippingAmount).toStringAsFixed(2)).toString();
   }
 
 
@@ -226,7 +282,7 @@ class CheckoutPageStep2Controller extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          //_showToast("c 0");
+
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_EXPRESS_SHIPPING_AMOUNT'),
               headers: {
                 'Authorization': 'Bearer '+token,
@@ -244,8 +300,8 @@ class CheckoutPageStep2Controller extends GetxController {
               })
 
           );
-
-        //   _showToast("check= "+response.statusCode.toString());
+          _showToast("shippingType="+shippingType);
+       //  _showToast("shippingType= "+shippingType.toString());
 
 
           if (response.statusCode == 200) {
@@ -260,6 +316,8 @@ class CheckoutPageStep2Controller extends GetxController {
 
                  if(cartList[i].productId==data["data"][0][j]["product_id"]){
 
+                   // _showToast("match");
+                   // _showToast(data["data"][0][j]["rate"].toString());
                    CartNote cartNote=CartNote(
                        id:cartList[i].id ,
                        productId: cartList[i].productId,
@@ -277,6 +335,7 @@ class CheckoutPageStep2Controller extends GetxController {
                        color: cartList[i].color,
                        // shipping: cartList[i].shipping,
                        shipping: data["data"][0][j]["rate"].toString(),
+                       // shipping: "0.00".toString(),
                        sizeId: cartList[i].sizeId,
                        colorId: cartList[i].colorId,
                        grocery: cartList[i].grocery,
@@ -291,7 +350,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
                    updateNotes(cartNote);
 
-                   _showToast("match");
+
 
                  }
 
@@ -336,8 +395,6 @@ class CheckoutPageStep2Controller extends GetxController {
       _showToast("No Internet Connection!");
     }
   }
-
-
 
   expressShippingCheck2({
     required String token,

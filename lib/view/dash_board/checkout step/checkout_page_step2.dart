@@ -83,7 +83,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                           return Column(
                                             children: [
 
-                                              Row(
+                                             Row(
                                                 children: [
                                                   Expanded(child: Container(
                                                     margin: EdgeInsets.only(bottom: 5),
@@ -149,7 +149,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                       alignment: Alignment.centerRight,
                                                       child:Obx(()=> Text(
 
-                                                        "\$ "+totalPriceWithTaxCalculate(cartViewPageController.cartList,
+                                                        "\$ "+totalShippingPriceCalculate(cartViewPageController.cartList,
                                                             cartViewPageController.sellerGroupList[index].seller.toString()),
                                                         style: TextStyle(fontWeight: FontWeight.w600,
                                                             color: Colors.blue,
@@ -234,8 +234,11 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                             ),),
                                           Expanded(child:   Align(
                                               alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "\$ "+"${cartViewPageController.totalPrice}",
+                                              child: Obx(()=> Text(
+                                                "\$ "+
+                                                    //   allTaxCalculate(cartViewPageController.cartList),
+
+                                                    "${cartViewPageController.allSubTotal.value}",
                                                 // totalPriceCalculate(cartViewPageController.cartList,
                                                 // cartViewPageController.sellerGroupList[index].seller.toString()),
 
@@ -243,17 +246,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                     color: Colors.blue,
                                                     fontSize: 16
                                                 ),
-                                              )
-                                            // child:Obx(()=> Text(
-                                            //   "\$ "+"10",
-                                            //   // totalPriceCalculate(cartViewPageController.cartList,
-                                            //   //     cartViewPageController.sellerGroupList[index].seller.toString()),
-                                            //   //
-                                            //   style: TextStyle(fontWeight: FontWeight.w600,
-                                            //       color: Colors.blue,
-                                            //       fontSize: 16
-                                            //   ),
-                                            // )),
+                                              )),
+
+
+
                                           )),
 
 
@@ -276,7 +272,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                             alignment: Alignment.centerRight,
 
                                             child:Obx(()=> Text(
-                                              "\$ "+"${cartViewPageController.totalTaxAmount}",
+                                              "\$ "+
+                                               //   allTaxCalculate(cartViewPageController.cartList),
+
+                                              "${cartViewPageController.allTaxAmount}",
                                               // totalPriceCalculate(cartViewPageController.cartList,
                                               // cartViewPageController.sellerGroupList[index].seller.toString()),
 
@@ -292,6 +291,42 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         ],
                                       ) ,
                                     ),
+
+                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                      child: Row(
+                                        // mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child:  Text("Shipping: ",
+                                              style: TextStyle(fontWeight: FontWeight.w600,
+                                                  color: text_color,
+                                                  fontSize: 15
+                                              ),
+                                            ),),
+                                          Expanded(child:   Align(
+                                            alignment: Alignment.centerRight,
+
+                                            child:Obx(()=> Text(
+                                              "\$ "+
+                                                  //   allTaxCalculate(cartViewPageController.cartList),
+
+                                                  "${cartViewPageController.allShippingAmount}",
+                                              // totalPriceCalculate(cartViewPageController.cartList,
+                                              // cartViewPageController.sellerGroupList[index].seller.toString()),
+
+                                              style: TextStyle(fontWeight: FontWeight.w600,
+                                                  color: Colors.blue,
+                                                  fontSize: 16
+                                              ),
+                                            )),
+                                          )),
+
+
+
+                                        ],
+                                      ) ,
+                                    ),
+
                                     Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -306,7 +341,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                           Expanded(child:   Align(
                                             alignment: Alignment.centerRight,
                                             child:Obx(()=> Text(
-                                              "\$ "+"${cartViewPageController.totalTaxAmount.value+cartViewPageController.totalPrice.value}",
+                                              "\$ "+
+                                                  "${cartViewPageController.allTotalAmountWithAllCost.value}",
 
                                               style: TextStyle(fontWeight: FontWeight.w600,
                                                   color: Colors.blue,
@@ -441,8 +477,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
         child:  Flex(
           direction: Axis.horizontal,
           children: [
-
-
 
             Expanded(child: Column(
               children: [
@@ -687,6 +721,38 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
   }
 
+  String allSubTotalCalculate(List cartList1){
+    double subTotal=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+      subTotal=(subTotal+oneItemPrice);
+    }
+    return subTotal.toString();
+
+  }
+
+  String allTaxCalculate(List cartList1){
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+      double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+      totalTax=(totalTax+singleProductTax);
+    }
+    return totalTax.toString();
+
+  }
+
+  String totalShippingPriceCalculate(List cartList1, String sellerId){
+    double shippingAmount=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      if(sellerId==cartList1[i].seller.toString()){
+        shippingAmount=(shippingAmount+double.parse(cartList1[i].shipping));
+      }
+    }
+    return shippingAmount.toString();
+  }
+
   Widget userShippingSelect({required List response,required int index, required String sellerId}) {
     return Column(
       children: [
@@ -759,6 +825,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                 for(int i=0;i<cartViewPageController.cartList.length;i++){
                   if(sellerId==cartViewPageController.cartList[i].seller.toString()){
+                    _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
                     students.add(Product(
                         product_id: cartViewPageController.cartList[i].productId,
                         weight:cartViewPageController.cartList[i].weight ));
@@ -778,7 +845,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                // _showToast("abs= " +cartViewPageController.selectedShippingValueList[index]);
 
                 cartViewPageController.expressShippingCheck1(
-                  token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD',
+                  token: cartViewPageController.userToken.value,
+                //  token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD',
                   shippingType: cartViewPageController.selectedShippingValueList[index],
                   shippingId: "null",
                   sellerId: sellerId,
@@ -799,10 +867,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
     )
     ;
   }
-
-
-
-
 
   //toast create
   _showToast(String message) {

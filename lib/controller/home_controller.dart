@@ -161,6 +161,7 @@ class HomeController extends GetxController {
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ONLY_CATEGORIES_LIST}'),
+
           );
          //   _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {

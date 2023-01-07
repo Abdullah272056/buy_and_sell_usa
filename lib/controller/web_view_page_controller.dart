@@ -9,7 +9,7 @@ import '../static/Colors.dart';
 class WebViewPageController extends GetxController {
 
   // var webLink="".obs;
-  var webLink="https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2".obs;
+  var webLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2".obs;
 
 
   WebViewController webController(String webLink){

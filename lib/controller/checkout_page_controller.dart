@@ -302,6 +302,10 @@ class CheckoutPageController extends GetxController {
            Get.to(() => CheckoutPageStep2Page(), arguments: [
              {"productId": ""},
              {"zipCode": zipCode},
+             {"surName": firstname},
+             {"mobileNumber": phoneNumber},
+             {"totalAmountWithTax": (totalTaxAmount.value+totalPrice.value).toString()},
+
            ]);
 
             // var wishListResponse = jsonDecode(response.body);
