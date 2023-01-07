@@ -67,10 +67,18 @@ class WebviewPage extends StatelessWidget {
                 ],
               ),
 
+              // Expanded(child: Obx(() => ),
+              // Expanded(child: Container(
+              //   color: Colors.white,
+              //   child:webViewPageController.webLink.value.isNotEmpty?webView(webViewPageController.webLink.value):Container() ,
+              // ) ),
               Expanded(child: Container(
                 color: Colors.white,
-                child: webView(webViewPageController.webLink.value),
-              )),
+                child:webView(webViewPageController.webLink.value) ,
+              ) ),
+
+
+
 
             ],
           )

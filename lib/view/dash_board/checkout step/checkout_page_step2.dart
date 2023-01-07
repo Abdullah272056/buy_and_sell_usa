@@ -2,6 +2,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/checkout_page_step2_controller.dart';
@@ -136,9 +137,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                                              Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 15),
                                                 child:  Row(
-                                                  // mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Expanded(
+                                                    const Expanded(
                                                       child:  Text("Total Shipping: ",
                                                         style: TextStyle(fontWeight: FontWeight.w600,
                                                             color: text_color,
@@ -148,10 +148,9 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                     Expanded(child:   Align(
                                                       alignment: Alignment.centerRight,
                                                       child:Obx(()=> Text(
-
-                                                        "\$ "+totalShippingPriceCalculate(cartViewPageController.cartList,
-                                                            cartViewPageController.sellerGroupList[index].seller.toString()),
-                                                        style: TextStyle(fontWeight: FontWeight.w600,
+                                                        "\$ ${totalShippingPriceCalculate(cartViewPageController.cartList,
+                                                            cartViewPageController.sellerGroupList[index].seller.toString())}",
+                                                        style: const TextStyle(fontWeight: FontWeight.w600,
                                                             color: Colors.blue,
                                                             fontSize: 16
                                                         ),
@@ -168,7 +167,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         }),),
 
 
-                                    SizedBox(height: 30,),
+                                    const SizedBox(height: 30,),
                                     Row(
                                       children: [
                                         Expanded(child: Align(
@@ -184,9 +183,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         ),),
                                       ],
                                     ),
-                                    SizedBox(height: 20,),
+                                    const SizedBox(height: 20,),
+
                                     Row(
-                                      children: [
+                                      children: const [
                                         Expanded(child: Align(
                                           alignment: Alignment.topLeft,
                                           child:  Text("Product",
@@ -201,15 +201,13 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ],
                                     ),
 
-                                    Obx(() =>   ListView.builder(
+                                    Obx(() =>ListView.builder(
                                         padding: EdgeInsets.zero,
                                         itemCount: cartViewPageController.cartList.length,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-
                                           return cartItem2(cartViewPageController.cartList[index]);
-
                                         }),),
 
                                     Row(
@@ -219,7 +217,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         ))
                                       ],
                                     ),
-
 
                                     Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
                                       child: Row(
@@ -235,13 +232,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                           Expanded(child:   Align(
                                               alignment: Alignment.centerRight,
                                               child: Obx(()=> Text(
-                                                "\$ "+
-                                                    //   allTaxCalculate(cartViewPageController.cartList),
-
-                                                    "${cartViewPageController.allSubTotal.value}",
-                                                // totalPriceCalculate(cartViewPageController.cartList,
-                                                // cartViewPageController.sellerGroupList[index].seller.toString()),
-
+                                                "\$ "+ "${cartViewPageController.allSubTotal.value}",
                                                 style: TextStyle(fontWeight: FontWeight.w600,
                                                     color: Colors.blue,
                                                     fontSize: 16
@@ -257,6 +248,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         ],
                                       ) ,
                                     ),
+
                                     Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -357,6 +349,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                         ],
                                       ) ,
                                     ),
+
+
                                   ],
                                 );
                               }),
@@ -390,22 +384,15 @@ class CheckoutPageStep2Page extends StatelessWidget {
                       ),
                       child:Column(
                         children: [
-
-
-
                           SizedBox(height: 10,),
-
                           Row(
                             children: [
-
                               Expanded(child: _buildPlaceOrderButton(),),
 
                             ],
                           ),
                         ],
                       )
-
-
 
                     ),
                   ],
@@ -622,16 +609,20 @@ class CheckoutPageStep2Page extends StatelessWidget {
   Widget _buildPlaceOrderButton() {
     return ElevatedButton(
       onPressed: () {
+        String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
+            "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
+     //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
+        Get.to(() => WebviewPage(), arguments: [
+          {"productId": ""},
+          {"zipCode": cartViewPageController.zipCode},
+          {"surName": cartViewPageController.surName},
+          {"mobileNumber": cartViewPageController.mobileNumber},
+          {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
+          {"emailAddress": cartViewPageController.emailAddress},
+          {"paymentLink": paymentLink},
 
-       // _showToast(cartViewPageController.userToken.value);
 
-        // if(cartViewPageController.userToken.isNotEmpty &&
-        //     cartViewPageController.userToken.value!=null){
-        //   _showToast("go to checkout process");
-        //
-        // }else{
-        //   showLoginWarning();
-        // }
+        ]);
 
       },
 
@@ -881,7 +872,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
   }
 
   void showLoginWarning( ) {
-
     Get.defaultDialog(
         contentPadding: EdgeInsets.zero,
 

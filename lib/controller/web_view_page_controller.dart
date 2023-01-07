@@ -8,11 +8,27 @@ import '../static/Colors.dart';
 
 class WebViewPageController extends GetxController {
 
-  // var webLink="".obs;
-  var webLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2".obs;
+   var webLink="".obs;
+  // var webLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2".obs;
 
 
-  WebViewController webController(String webLink){
+
+
+  dynamic argumentData = Get.arguments;
+
+  @override
+  void onInit() {
+
+
+     _showToast("link= "+argumentData[6]['paymentLink'].toString());
+    // zipCode(argumentData[1]['zipCode'].toString());
+    // surName(argumentData[2]['surName'].toString());
+    // mobileNumber(argumentData[3]['mobileNumber'].toString());
+    // totalAmountWithTax(argumentData[4]['totalAmountWithTax'].toString());
+   // webLink(argumentData[6]['emailAddress'].toString());
+    super.onInit();
+  }
+  WebViewController webController(String webLin){
     return WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       // ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -72,10 +88,22 @@ class WebViewPageController extends GetxController {
           },
         ),
       )
-      ..loadRequest(Uri.parse(webLink));
+      ..loadRequest(Uri.parse(Get.arguments[6]['paymentLink']));
 
   }
 
+
+   //toast create
+   _showToast(String message) {
+     Fluttertoast.showToast(
+         msg: message,
+         toastLength: Toast.LENGTH_SHORT,
+         gravity: ToastGravity.CENTER,
+         timeInSecForIosWeb: 1,
+         backgroundColor:Colors.amber,
+         textColor: Colors.white,
+         fontSize: 16.0);
+   }
 
 
 }

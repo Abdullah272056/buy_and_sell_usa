@@ -305,6 +305,7 @@ class CheckoutPageController extends GetxController {
              {"surName": firstname},
              {"mobileNumber": phoneNumber},
              {"totalAmountWithTax": (totalTaxAmount.value+totalPrice.value).toString()},
+             {"emailAddress": emailAddress},
 
            ]);
 

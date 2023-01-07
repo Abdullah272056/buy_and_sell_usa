@@ -20,15 +20,24 @@ class CheckoutPageStep2Controller extends GetxController {
   var sellerGroupList=[].obs;
   var selectedShippingValueList=[].obs;
 
-  var userName="".obs;
-  var userToken="".obs;
-  var zipCode="".obs;
+
 
   // var selectCountryId="".obs;
   // var countryList = [].obs;
   var expressShippingCheckList = [].obs;
-
   var totalTaxAmount=0.0.obs;
+
+
+  var userName="".obs;
+  var userToken="".obs;
+  var zipCode="".obs;
+  var surName="".obs;
+  var mobileNumber="".obs;
+  var totalAmountWithTax="".obs;
+  var emailAddress="".obs;
+
+
+
 
   /// final calculation
   var allSubTotal="0.0".obs;
@@ -40,9 +49,14 @@ class CheckoutPageStep2Controller extends GetxController {
   dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-    _showToast(argumentData[4]['totalAmountWithTax'].toString());
+
+
+   // _showToast(argumentData[4]['totalAmountWithTax'].toString());
     zipCode(argumentData[1]['zipCode'].toString());
-    zipCode(argumentData[1]['zipCode'].toString());
+    surName(argumentData[2]['surName'].toString());
+    mobileNumber(argumentData[3]['mobileNumber'].toString());
+    totalAmountWithTax(argumentData[4]['totalAmountWithTax'].toString());
+    emailAddress(argumentData[5]['emailAddress'].toString());
 
     readAllNotes();
     loadUserIdFromSharePref();
@@ -71,7 +85,6 @@ class CheckoutPageStep2Controller extends GetxController {
      allSubTotal(allSubTotalCalculate(cartList));
     allShippingAmount(allShippingPriceCalculate(cartList));
      allTaxAmount(allTaxCalculate(cartList));
-
     allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
 
    // _showToast("Local length= "+cartList.length.toString());
@@ -81,7 +94,14 @@ class CheckoutPageStep2Controller extends GetxController {
     cartList(await NotesDataBase.instance.readAllNotes());
 
     totalPriceCalculate(cartList);
-   // totalSellerCountCalculate(cartList);
+
+    allSubTotal(allSubTotalCalculate(cartList));
+    allShippingAmount(allShippingPriceCalculate(cartList));
+    allTaxAmount(allTaxCalculate(cartList));
+
+    allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
+
+    // totalSellerCountCalculate(cartList);
     // _showToast("Local length= "+cartList.length.toString());
   }
 
