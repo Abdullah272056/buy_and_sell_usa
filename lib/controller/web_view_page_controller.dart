@@ -11,14 +11,10 @@ class WebViewPageController extends GetxController {
    var webLink="".obs;
   // var webLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2".obs;
 
-
-
-
   dynamic argumentData = Get.arguments;
 
   @override
   void onInit() {
-
 
      _showToast("link= "+argumentData[6]['paymentLink'].toString());
     // zipCode(argumentData[1]['zipCode'].toString());
@@ -47,43 +43,55 @@ class WebViewPageController extends GetxController {
             // print(Uri.base.query);  // id=15&randomNumber=3.14
             // print(Uri.base.queryParameters['randomNumber']); // 3.14
 
-            Fluttertoast.showToast(
-                msg: url,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
+            // Fluttertoast.showToast(
+            //     msg: url,
+            //     toastLength: Toast.LENGTH_LONG,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0
+            // );
 
-            Fluttertoast.showToast(
-                msg: uri.queryParameters['paymentId'].toString(),
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
-            Fluttertoast.showToast(
-                msg: uri.queryParameters['PayerID'].toString(),
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
+            // Fluttertoast.showToast(
+            //     msg: uri.queryParameters['paymentId'].toString(),
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0
+            // );
+            // Fluttertoast.showToast(
+            //     msg: uri.queryParameters['PayerID'].toString(),
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0
+            // );
+
+
+
+            if(uri.queryParameters['paymentId'].toString()!="null" ){
+              _showToast("payment Success full!");
+            }
+
+
+            else{
+              _showToast("else");
+
+            }
 
           },
           onPageFinished: (String url) {
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            // if (request.url.startsWith("https://www.youtube.com/")) {
-            //   return NavigationDecision.prevent;
-            // }
+            if (request.url.startsWith(Get.arguments[6]['paymentLink'])) {
+              return NavigationDecision.prevent;
+            }
             return NavigationDecision.navigate;
           },
         ),

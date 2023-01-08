@@ -395,6 +395,41 @@ class CheckoutPageStep2Page extends StatelessWidget {
                       )
 
                     ),
+                    Container(
+                    //  height: 50,
+                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+
+                      decoration: BoxDecoration(
+                        color:Colors.white,
+                        borderRadius:   BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          topLeft: Radius.circular(10.0),
+                        ),
+                        boxShadow: [BoxShadow(
+                          color:Colors.grey.withOpacity(.5),
+                          //  blurRadius: 20.0, // soften the shadow
+                          blurRadius:.5, // soften the shadow
+                          spreadRadius: 0.0, //extend the shadow
+                          offset:Offset(
+                            1.0, // Move to right 10  horizontally
+                            0.0, // Move to bottom 10 Vertically
+                            // Move to bottom 10 Vertically
+                          ),
+                        )],
+                      ),
+                      child:Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(child: _buildPlaceOrderButton1(),),
+
+                            ],
+                          ),
+                        ],
+                      )
+
+                    ),
                   ],
                 ),
 
@@ -656,6 +691,45 @@ class CheckoutPageStep2Page extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildPlaceOrderButton1() {
+    return ElevatedButton(
+      onPressed: () {
+        cartViewPageController.test1();
+
+      },
+
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "PLACE ORDER test",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 
   String totalPriceCalculate(List cartList1, String sellerId){
    // j

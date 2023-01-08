@@ -5,6 +5,7 @@ import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../../controller/address_page_controller.dart';
 import '../../../controller/cart_page_controller.dart';
 import '../../../controller/product_details_controller.dart';
 import '../../../controller/profile_section_page_controller.dart';
@@ -15,6 +16,8 @@ import '../../auth/change_password_page.dart';
 import '../../common_page/product_details.dart';
 import '../../common_page/product_list.dart';
 import '../cart_view_page.dart';
+import 'address_page.dart';
+import 'order_page.dart';
 
 
 
@@ -157,17 +160,27 @@ class ProfileSectionPage extends StatelessWidget {
       onTap: (){
 
         if(onClick==1){
-          _showToast("1");
+          _showToast("orders");
+
+          Get.to(OrderPage());
 
           return;
         }
         if(onClick==2){
 
-          _showToast("2");
+          Get.to(() => AddressPage(),
+            //     arguments: [
+            //   {"productId": productDetailsController.relatedProductList[index]["id"].toString()},
+            //   {"second": 'Second data'}
+            // ]
+
+          )?.then((value) => Get.delete<AddressPageController>());
+
+          _showToast("address");
           return;
         }
         if(onClick==3){
-          _showToast("3");
+          _showToast("account details");
 
           return;
         }

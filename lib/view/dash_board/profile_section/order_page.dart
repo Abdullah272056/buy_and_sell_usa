@@ -12,6 +12,7 @@ import '../../../static/Colors.dart';
 
 import '../../common_page/product_details.dart';
 import '../cart_view_page.dart';
+import 'order_details_page.dart';
 
 
 
@@ -118,13 +119,14 @@ class OrderPage extends StatelessWidget {
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 0),
       child: InkWell(
         onTap: (){
-          _showToast("click");
-          _launchUrl();
-          //
-          // Get.to(() => ProductDetailsePageScreen(), arguments: [
-          //   {"productId": response.productId.toString()},
+
+          Get.to(() => OrderDetailsPage(),
+          //     arguments: [
+          //   {"productId": productDetailsController.relatedProductList[index]["id"].toString()},
           //   {"second": 'Second data'}
-          // ])?.then((value) => Get.delete<ProductDetailsController>());
+          // ]
+
+          )?.then((value) => Get.delete<OrderPageController>());
 
         },
         child: Column(

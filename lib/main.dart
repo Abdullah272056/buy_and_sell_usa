@@ -6,8 +6,10 @@ import 'package:fnf_buy/view/auth/log_in_page.dart';
 import 'package:fnf_buy/view/dash_board/cart_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/address_page.dart';
 import 'package:fnf_buy/view/dash_board/profile_section/order_details_page.dart';
 import 'package:fnf_buy/view/dash_board/profile_section/order_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/profile_section_page.dart';
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: LogInScreen(),
+       body: AddressPage(),
 
       // body:CheckoutPageStep2Page(),
 

@@ -416,6 +416,96 @@ class CheckoutPageStep2Controller extends GetxController {
     }
   }
 
+
+  test1(
+  //     {
+  //   required String token,
+  //   required String shippingType,
+  //   required String shippingId,
+  //   required String sellerId,
+  //   required String totalPrice,
+  //   required var productJson
+  // }
+  ) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          var headers = {
+            'Authorization': 'Bearer 36|1K9t0q8HkttMxbAYWVOTw5JkT3cKGigCRc6HLt0R',
+            'Content-Type': 'application/json',
+            'Cookie': 'laravel_session=eyJpdiI6ImI3WjBkZlZ4SnlvOTdLUFhHVjlWY2c9PSIsInZhbHVlIjoiNGNBNk52eURTQzdlRlNCZGNFd1NyUS9WdEVaVXBlcVU4K2FmU3NBZVNFVmRHb25LQ3VaYTllQ1YrSmk4MlpWSlJTVWp3MzFJQWYzcTgxZDZUU3NhQ0ZNYklwUTU2dUFGckZ3UUd3S2E1MEU5d3IrUGRUN1N4UWZieklZQ1NiNmMiLCJtYWMiOiIzYzE4YTRhYjBiMzIxMGQ2NTZhNDNhMWNhYWVlYWQ3OTJmODlkMTFkNWY3Yjc3ZGI3ZjIwNTBmNzJiMzFiM2RlIiwidGFnIjoiIn0%3D'
+          };
+          var request = http.Request('POST', Uri.parse('http://192.168.0.115/bijoytech_ecomerce/api/order-store'));
+          request.body = json.encode({
+            "payment_info": {
+              "coupon_code": null,
+              "coupon_amount": null,
+              "coupon_seller_id": null,
+              "payment_id": "lptvcv25698452",
+              "payer_id": "rony@gmail.com",
+              "payment_method": "paypal",
+              "shipping_name": "USPS Shipping in 2–5 Business Days"
+            },
+            "seller": [
+              {
+                "seller_id": 1,
+                "shipping_charge": 8.8,
+                "product": [
+                  {
+                    "product_id": 1,
+                    "qty": 4,
+                    "color_id": "1",
+                    "size_id": null
+                  }
+                ]
+              },
+              {
+                "seller_id": 3,
+                "shipping_charge": 8.8,
+                "product": [
+                  {
+                    "product_id": 2,
+                    "qty": 1,
+                    "color_id": null,
+                    "size_id": null
+                  }
+                ]
+              }
+            ]
+          });
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response = await request.send();
+
+
+          _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            print(await response.stream.bytesToString());
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+
+        } catch (e) {
+          _showToast(e.toString());
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
   expressShippingCheck2({
     required String token,
     required String shippingType,
