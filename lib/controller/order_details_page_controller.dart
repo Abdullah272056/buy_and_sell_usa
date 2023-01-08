@@ -10,14 +10,63 @@ class OrderDetailsPageController extends GetxController {
 
   // List<CartNote> notesList=[].obs;
   var totalPrice=0.0.obs;
+
+  var singleProductDataResponse=Get.arguments[0]['singleProductDetailsData'].toString().obs;
+
   var cartList=[].obs;
 
-  // dynamic argumentData = Get.arguments;
+   dynamic argumentData = Get.arguments;
+
+
+   var orderNo="".obs;
+   var shippingAmount="".obs;
+   var taxAmount="".obs;
+   var couponAmount="".obs;
+   var totalAmount="".obs;
+   var paymentId="".obs;
+   var paymentMethod="".obs;
+   var shippingName="".obs;
+
+   ///billing info
+  var name="".obs;
+  var phone="".obs;
+  var email="".obs;
+  var address="".obs;
+  var city="".obs;
+  var state="".obs;
+  var zip="".obs;
+  var country="".obs;
+
+
+
+
   @override
   void onInit() {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
+
+    argumentData[0]['singleProductDetailsData'].toString();
+
+    orderNo(argumentData[0]['singleProductDetailsData']["order_id"].toString());
+    shippingAmount(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
+    taxAmount(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
+    couponAmount(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+    totalAmount(argumentData[0]['singleProductDetailsData']["payable"].toString());
+    paymentId(argumentData[0]['singleProductDetailsData']["payment_id"].toString());
+    paymentMethod(argumentData[0]['singleProductDetailsData']["payment_method"].toString());
+    shippingName(argumentData[0]['singleProductDetailsData']["shipping_name"].toString());
+
+    //billing info
+    name(argumentData[0]['singleProductDetailsData']["billings"]["first_name"].toString());
+    phone(argumentData[0]['singleProductDetailsData']["billings"]["phone"].toString());
+    email(argumentData[0]['singleProductDetailsData']["billings"]["email"].toString());
+    address(argumentData[0]['singleProductDetailsData']["billings"]["address"].toString());
+    city(argumentData[0]['singleProductDetailsData']["billings"]["city"].toString());
+    state(argumentData[0]['singleProductDetailsData']["billings"]["state"].toString());
+    zip(argumentData[0]['singleProductDetailsData']["billings"]["zip"].toString());
+    country(argumentData[0]['singleProductDetailsData']["billings"]["country"].toString());
+
     refreshNotes();
     super.onInit();
   }

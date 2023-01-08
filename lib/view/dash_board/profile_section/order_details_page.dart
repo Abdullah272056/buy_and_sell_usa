@@ -16,8 +16,7 @@ import '../cart_view_page.dart';
 
 class OrderDetailsPage extends StatelessWidget {
 
-  final cartPageController = Get.put(OrderDetailsPageController());
-  final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=20');
+  final orderDetailsPageController = Get.put(OrderDetailsPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -90,14 +89,15 @@ class OrderDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
                         color: Colors.orange,
                       ),
-                      userInputSelectTopic(keyName: 'Order No:', value: '63b64d151cb7d'),
-                      userInputSelectTopic(keyName: 'Shipping Amount:', value: '\$0.00'),
-                      userInputSelectTopic(keyName: 'Tax Amount:', value: '\$0.00'),
-                      userInputSelectTopic(keyName: 'Coupon Amount:', value: '\$0.00'),
-                      userInputSelectTopic(keyName: 'Total Amount:', value: '\$138.10'),
-                      userInputSelectTopic(keyName: 'Payment Id:', value: '3JC88937BT645715R'),
-                      userInputSelectTopic(keyName: 'Payment method:', value: 'paypal'),
-                      userInputSelectTopic(keyName: 'Shipping:', value: 'Express shipping 8 - 10 days'),
+                      Obx(()=> userInputSelectTopic(keyName: 'Order No:', value: orderDetailsPageController.orderNo.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Shipping Amount:', value: orderDetailsPageController.shippingAmount.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Tax Amount:', value: orderDetailsPageController.taxAmount.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Coupon Amount:', value: orderDetailsPageController.couponAmount.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Total Amount:', value: orderDetailsPageController.totalAmount.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Payment Id:', value: orderDetailsPageController.paymentId.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Payment method:', value: orderDetailsPageController.paymentMethod.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Shipping:', value: orderDetailsPageController.shippingName.value),),
+
 
                       Container(
                         child: Row(
@@ -121,14 +121,24 @@ class OrderDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
                         color: Colors.orange,
                       ),
-                      userInputSelectTopic(keyName: 'Name No:', value: 'Abdullah al aman'),
-                      userInputSelectTopic(keyName: 'Phone:', value: '01994215664'),
-                      userInputSelectTopic(keyName: 'Email:', value: ' abdullah272056@gmail.com'),
-                      userInputSelectTopic(keyName: 'Address:', value: 'Dhaka'),
-                      userInputSelectTopic(keyName: 'City:', value: 'Dhaka'),
-                      userInputSelectTopic(keyName: 'State:', value: 'Arizona'),
-                      userInputSelectTopic(keyName: 'Zip:', value: '10001'),
-                      userInputSelectTopic(keyName: 'Country:', value: 'United States'),
+
+                      Obx(()=>  userInputSelectTopic(keyName: 'Name No:', value: orderDetailsPageController.name.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Phone:', value: orderDetailsPageController.phone.value),),
+                      Obx(()=>  userInputSelectTopic(keyName: 'Email:', value: orderDetailsPageController.email.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Address:', value: orderDetailsPageController.address.value),),
+                      Obx(()=>  userInputSelectTopic(keyName: 'City:', value: orderDetailsPageController.city.value),),
+
+                      Obx(()=>   userInputSelectTopic(keyName: 'State:', value: orderDetailsPageController.state.value),),
+                      Obx(()=>  userInputSelectTopic(keyName: 'Zip:', value: orderDetailsPageController.zip.value),),
+                      Obx(()=>   userInputSelectTopic(keyName: 'Country:', value:orderDetailsPageController.country.value),),
+
+
+
+
+
+
+
+
 
                       Container(
 
@@ -165,14 +175,14 @@ class OrderDetailsPage extends StatelessWidget {
                               children: [
                                 Obx(() =>   ListView.builder(
                                     padding: EdgeInsets.zero,
-                                    itemCount: cartPageController.cartList.length,
+                                    itemCount: orderDetailsPageController.cartList.length,
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (BuildContext context, int index) {
                                       return
                                         //Container();
 
-                                        cartItem(cartPageController.cartList[index]);
+                                        cartItem(orderDetailsPageController.cartList[index]);
                                     }),)
                               ]
 
@@ -426,12 +436,7 @@ class OrderDetailsPage extends StatelessWidget {
     );
   }
 
-  //join now url page redirect
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
-  }
+
 
   //toast create
   _showToast(String message) {
