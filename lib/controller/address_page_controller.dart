@@ -13,6 +13,7 @@ import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/notes_database.dart';
 import '../static/Colors.dart';
 import '../view/dash_board/checkout step/checkout_page_step2.dart';
+import 'address_page_controller.dart';
 
 class AddressPageController extends GetxController {
 
@@ -65,18 +66,14 @@ class AddressPageController extends GetxController {
   var selectedState="".obs;
   var selectedCountry="".obs;
 
-  // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-    // abcd(argumentData[0]['first']);
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
+
     loadUserIdFromSharePref();
-    refreshNotes();
 
     ///getStateList();
     getUserBillingInfoList(userToken.value);
-    getCountryList(userToken.value);
+
     super.onInit();
 
   }
@@ -88,7 +85,7 @@ class AddressPageController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-       _showToast("anbv=  "+storage.read(pref_user_token).toString());
+       //_showToast("anbv=  "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 
@@ -107,46 +104,6 @@ class AddressPageController extends GetxController {
         fontSize: 16.0);
   }
 
-  Future refreshNotes() async {
-    NotesDataBase.instance;
-    cartList(await NotesDataBase.instance.readAllNotes());
-
-    totalPriceCalculate(cartList);
-    totalTaxCalculation(cartList);
-    // _showToast("Local length= "+cartList.length.toString());
-  }
-
-  Future deleteNotes(int id) async {
-    NotesDataBase.instance;
-    NotesDataBase.instance.delete(id)  ;
-    refreshNotes();
-
-  }
-
-  void totalPriceCalculate(List cartList){
-    double subTotal=0.0;
-    for(int i=0;i<cartList.length;i++){
-      double oneItemPrice=double.parse(cartList[i].productQuantity)*double.parse(cartList[i].productDiscountedPrice);
-      subTotal=(subTotal+oneItemPrice);
-    }
-    totalPrice(subTotal);
-
-  }
-
-  totalTaxCalculation(List cartList){
-    double totalTax=0.0;
-    for(int i=0;i<cartList.length;i++){
-      double oneItemPrice=double.parse(cartList[i].productQuantity)*double.parse(cartList[i].productDiscountedPrice);
-
-      double singleProductTax=(double.parse(cartList[i].tax)*oneItemPrice)/100;
-      totalTax=(totalTax+singleProductTax);
-    }
-
-    totalTaxAmount(totalTax);
-    //  totalPrice(subTotal);
-
-  }
-
   void getCountryList(String token) async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -159,7 +116,7 @@ class AddressPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-           _showToast("country = ${response.statusCode}");
+         //  _showToast("country = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
@@ -172,9 +129,41 @@ class AddressPageController extends GetxController {
             // countryList([dataResponse["data"]["name"].toString()]);
             selectedCountry(dataResponse["data"]["name"].toString());
             selectCountryId(dataResponse["data"]["id"].toString());
-            stateList(dataResponse["data"]["states"]);
 
-            _showToast("leng= "+stateList.length.toString());
+
+           var stateListResponse=dataResponse["data"]["states"];
+            // stateList(dataResponse["data"]["states"]);
+
+
+          //  _showToast("leng= "+stateListResponse.length.toString());
+            List<StateData> tempStateList=[];
+
+            for(int i=0;i<stateListResponse.length;i++){
+             // _showToast("mill");
+
+
+              StateData stateData= StateData(
+                  stateId: stateListResponse[i]["id"].toString(),
+                  country_id:stateListResponse[i]["country_id"].toString(),
+                  stateName: stateListResponse[i]["name"].toString()
+              );
+
+
+              if(stateListResponse[i]["id"].toString()==selectStateId.value){
+                selectedState(stateListResponse[i]["name"].toString());
+              }
+
+
+
+              tempStateList.add(stateData);
+
+
+
+            }
+            stateList(tempStateList);
+
+
+         // _showToast("leng1= "+stateList.length.toString());
 
           }
           else {
@@ -191,34 +180,7 @@ class AddressPageController extends GetxController {
     }
   }
 
-  void getStateList() async{
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-          var response = await get(
-            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
-          );
-           _showToast("status = ${response.statusCode}");
-          if (response.statusCode == 200) {
 
-            var dataResponse = jsonDecode(response.body);
-            stateList(dataResponse["data"]);
-          //  _showToast("Colors= "+stateList.length.toString());
-          }
-          else {
-            // Fluttertoast.cancel();
-            _showToast("failed try again!");
-          }
-        } catch (e) {
-          // Fluttertoast.cancel();
-        }
-      }
-    } on SocketException {
-      Fluttertoast.cancel();
-      // _showToast("No Internet Connection!");
-    }
-  }
 
   void getUserBillingInfoList(String token) async{
     try {
@@ -234,12 +196,34 @@ class AddressPageController extends GetxController {
             },
           );
 
-          _showToast("billing= "+response.statusCode.toString());
+         //_showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
-            // var wishListResponse = jsonDecode(response.body);
-            // wishList(wishListResponse["data"]["data"]);
 
+
+
+
+            var addressResponseData = jsonDecode(response.body);
+            // wishList(wishListResponse["data"]["data"]);
             // _showToast("size  "+wishList.length.toString());
+
+
+             firstNameController.value.text =addressResponseData["data"]["first_name"] ;
+             lastNameController.value.text = addressResponseData["data"]["last_name"] ;
+             emailAddressController.value.text =addressResponseData["data"]["email"]  ;
+             phoneController.value.text = addressResponseData["data"]["phone"] ;
+             addressController.value.text =addressResponseData["data"]["address"]  ;
+             townOrCityController.value.text =addressResponseData["data"]["city"]  ;
+             // selectedState(addressResponseData["data"]["city"].toString());
+
+            selectStateId(addressResponseData["data"]["state"].toString());
+            _showToast(selectedState.value);
+             stateController.value.text = addressResponseData["data"]["first_name"] ;
+             countryController.value.text = addressResponseData["data"]["first_name"] ;
+             zipCodeController.value.text = addressResponseData["data"]["zip"] ;
+
+            getCountryList(userToken.value);
+
+
           }
           else {
             // Fluttertoast.cancel();
@@ -273,7 +257,7 @@ class AddressPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
        // _showToast(token);
         try {
-          showLoadingDialog("Checking");
+          showLoadingDialog("Saving...");
           var response = await post(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_ADD_USER_UPDATE_BILLING_ADDRESS}'),
             headers: {
@@ -294,25 +278,12 @@ class AddressPageController extends GetxController {
           );
 
           Get.back();
-          _showToast(response.statusCode.toString());
+        //  _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
+            _showToast("Address info update success!");
+            getUserBillingInfoList(userToken.value);
 
-
-           Get.to(() => CheckoutPageStep2Page(), arguments: [
-             {"productId": ""},
-             {"zipCode": zipCode},
-             {"surName": firstname},
-             {"mobileNumber": phoneNumber},
-             {"totalAmountWithTax": (totalTaxAmount.value+totalPrice.value).toString()},
-             {"emailAddress": emailAddress},
-
-           ]);
-
-            // var wishListResponse = jsonDecode(response.body);
-            // wishList(wishListResponse["data"]["data"]);
-
-            // _showToast("size  "+wishList.length.toString());
           }
           else {
             // Fluttertoast.cancel();
@@ -372,12 +343,52 @@ class AddressPageController extends GetxController {
         barrierDismissible: false,
         radius: 10.0);
   }
+  void getStateList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
+          );
+          _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
 
+            var dataResponse = jsonDecode(response.body);
+            stateList(dataResponse["data"]);
+            //  _showToast("Colors= "+stateList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
 
 }
+
+
 
 class Country{
   String c_name;
   String c_id;
   Country(this.c_name, this.c_id);
+}
+
+class StateData{
+  String stateId;
+  String country_id;
+  String stateName;
+  StateData(
+  { required this.stateId,
+    required this.country_id,
+    required this.stateName,}
+      );
 }

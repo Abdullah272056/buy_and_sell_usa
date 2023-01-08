@@ -234,7 +234,8 @@ class AddressPage extends StatelessWidget {
 
                       Expanded(child: Center(
                         child: Text(
-                            list["name"].toString(),
+                          list.stateName,
+                            // list["name"].toString(),
                             textAlign: TextAlign.center,
                             style:  TextStyle(
                                 color: text_color,
@@ -249,8 +250,9 @@ class AddressPage extends StatelessWidget {
                     ],
                   ),
 
-                  // Text(list["country_name"].toString()),
-                  value: list["id"].toString(),
+
+                  // value: list["id"].toString(),
+                  value: list.stateId.toString(),
                 );
 
               },
