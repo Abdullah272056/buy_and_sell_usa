@@ -73,8 +73,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     ///ratio 1:2.25
                     Image.asset(
                       "assets/images/change_password.png",
-                      width: 80,
-                      height: 80,
+                      width: 60,
+                      height: 60,
                       fit: BoxFit.fill,
                       color: forgotten_password_text_color,
                     )
@@ -193,7 +193,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 cursorColor:awsCursorColor,
                 cursorWidth: 1.5,
 
-                obscureText: changePasswordPageController.isObscurePassword.value,
+                obscureText: changePasswordPageController.isObscureOldPassword.value,
                 // obscuringCharacter: "*",
                 focusNode:changePasswordPageController.oldPasswordControllerFocusNode.value,
                 onSubmitted:(_){
@@ -210,12 +210,12 @@ class ChangePasswordScreen extends StatelessWidget {
                   suffixIcon: IconButton(
                       color: input_box_icon_color,
                       icon: Icon(
-                        changePasswordPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
+                        changePasswordPageController.isObscureOldPassword.value ? Icons.visibility_off : Icons.visibility,
                       ),
 
                       // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                       onPressed: () {
-                        changePasswordPageController.updateIsObscurePassword(!changePasswordPageController.isObscurePassword.value);
+                        changePasswordPageController.updateIsObscureOldPassword(!changePasswordPageController.isObscureOldPassword.value);
                       }),
 
                   // filled: true,
@@ -400,20 +400,24 @@ class ChangePasswordScreen extends StatelessWidget {
   Widget _buildSaveButton() {
     return ElevatedButton(
         onPressed: () {
+
           String oldPasswordTxt = changePasswordPageController.oldPasswordController.value.text;
           String passwordTxt = changePasswordPageController.passwordController.value.text;
           String confirmPasswordTxt = changePasswordPageController.confirmPasswordController.value.text;
+
+          // _showToast(changePasswordPageController.userToken.value);
 
           if (_inputValid(
               password: passwordTxt,
               confirmPassword: confirmPasswordTxt,
               oldPasswordTxt: oldPasswordTxt) == false){
-              newPassword(otp: changePasswordPageController.useOtp.value,
-              email: changePasswordPageController.userEmail.value,
-              password: confirmPasswordTxt);
+            changePasswordPageController.newPasswordSet(
+                userToken: changePasswordPageController.userToken.value,
+                oldPassword: oldPasswordTxt,
+                password: passwordTxt,
+                confirmPassword: confirmPasswordTxt
+            );
           }
-
-
         },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -529,103 +533,10 @@ class ChangePasswordScreen extends StatelessWidget {
   }
 
 
-  //loading dialog crete
-  void showLoadingDialog(String message) {
-
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
 
-  // new password set api call
-  newPassword({
-    required String otp,
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-
-          showLoadingDialog("Checking");
-
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SET_NEW_PASSWORD'),
-           // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
-              body: {
-                'otp': otp,
-                'email': email,
-                'password': password
-              }
-          );
-          Get.back();
-         // _showToast(response.statusCode.toString());
-          if (response.statusCode == 200) {
-            // _showToast("success");
-            var data = jsonDecode(response.body);
-            Get.to(LogInScreen());
-
-          }
-
-          else {
-
-            var data = jsonDecode(response.body);
-            _showToast(data['data']);
-          }
 
 
-        } catch (e) {
-          //  Navigator.of(context).pop();
-          //print(e.toString());
-        } finally {
-
-          /// Navigator.of(context).pop();
-        }
-      }
-    } on SocketException catch (_) {
-      Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
-    }
-  }
 
 }
 

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: AddressPage(),
+       body: ProfileSectionPage(),
 
       // body:CheckoutPageStep2Page(),
 
