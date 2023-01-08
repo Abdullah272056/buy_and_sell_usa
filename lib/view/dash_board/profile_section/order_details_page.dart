@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../../controller/order_details_page_controller.dart';
 import '../../../controller/order_page_controller.dart';
 import '../../../controller/product_details_controller.dart';
 import '../../../data_base/note.dart';
@@ -15,7 +16,7 @@ import '../cart_view_page.dart';
 
 class OrderDetailsPage extends StatelessWidget {
 
-  final cartPageController = Get.put(OrderPageController());
+  final cartPageController = Get.put(OrderDetailsPageController());
   final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=20');
 
   @override

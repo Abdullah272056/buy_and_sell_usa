@@ -1,8 +1,15 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 
+import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 
@@ -12,18 +19,20 @@ class OrderPageController extends GetxController {
 
   // List<CartNote> notesList=[].obs;
   var totalPrice=0.0.obs;
-  var cartList=[].obs;
+  var cartLis=[].obs;
+  var myOrderList=[].obs;
 
-  // dynamic argumentData = Get.arguments;
+  var userName="".obs;
+  var userToken="".obs;
+
+
   @override
   void onInit() {
-    // abcd(argumentData[0]['first']);
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
-    refreshNotes();
+    loadUserIdFromSharePref();
+
+    getMyOrdersList(userToken.value);
     super.onInit();
   }
-
 
 
   //toast create
@@ -38,21 +47,57 @@ class OrderPageController extends GetxController {
         fontSize: 16.0);
   }
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+    } catch (e) {
 
-  Future refreshNotes() async {
-    NotesDataBase.instance;
-    cartList(await NotesDataBase.instance.readAllNotes());
-
-    totalPriceCalculate(cartList);
-   // _showToast("Local length= "+cartList.length.toString());
-  }
-
-  Future deleteNotes(int id) async {
-    NotesDataBase.instance;
-    NotesDataBase.instance.delete(id)  ;
-    refreshNotes();
+    }
 
   }
+
+  void getMyOrdersList(String token) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          _showToast(token);
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_ORDERS_LIST}'),
+            headers: {
+               'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
+          );
+
+            _showToast("orders = "+response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            var orderResponseData = jsonDecode(response.body);
+            myOrderList(orderResponseData["data"]);
+
+            _showToast(myOrderList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
 
 
   void totalPriceCalculate(List cartList){

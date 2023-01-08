@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/account_details_page_controller.dart';
 import '../../../controller/address_page_controller.dart';
 import '../../../controller/cart_page_controller.dart';
 import '../../../controller/checkout_page_controller.dart';
@@ -15,9 +16,9 @@ import '../cart_view_page.dart';
 
 
 
-class AddressPage extends StatelessWidget {
+class AccountDetailsPage extends StatelessWidget {
 
-  final addressPageController = Get.put(AddressPageController());
+  final accountDetailsPageController = Get.put(AccountDetailsPageController());
   var width;
   var height;
 
@@ -56,7 +57,7 @@ class AddressPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "ADDRESS",
+                    "Account Details",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -81,17 +82,17 @@ class AddressPage extends StatelessWidget {
                       _buildTextFieldUserFirstName(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                        labelText: "First Name*",
+                        labelText: "Name",
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
 
-                      _buildTextFieldUserLastName(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                        labelText: "Last Name*",
-                      ),
+                      // _buildTextFieldUserLastName(
+                      //   obscureText: false,
+                      //   prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                      //   labelText: "Last Name",
+                      // ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -99,7 +100,7 @@ class AddressPage extends StatelessWidget {
                       _buildTextFieldUserEmail(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.email, color: input_box_icon_color),
-                        labelText: "Email Address*",
+                        labelText: "Email Address",
                       ),
                       const SizedBox(
                         height: 20,
@@ -108,7 +109,15 @@ class AddressPage extends StatelessWidget {
                       _buildTextFieldUserPhone(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.phone, color: input_box_icon_color),
-                        labelText: "Phone*",
+                        labelText: "Phone",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _buildTextFieldUserMobile(
+                        obscureText: false,
+                        prefixedIcon: const Icon(Icons.mobile_screen_share, color: input_box_icon_color),
+                        labelText: "Mobile",
                       ),
 
 
@@ -134,7 +143,7 @@ class AddressPage extends StatelessWidget {
                       _buildTextFieldUserTownOrCity(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.location_city, color: input_box_icon_color),
-                        labelText: "Town/City*",
+                        labelText: "Town/City",
                       ),
                       const SizedBox(
                         height: 20,
@@ -142,7 +151,7 @@ class AddressPage extends StatelessWidget {
                       _buildTextFieldUserZip(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
-                        labelText: "Zip Code*",
+                        labelText: "Zip Code",
                       ),
 
 
@@ -206,9 +215,9 @@ class AddressPage extends StatelessWidget {
               //  buttonHeight: 40,
               //   menuMaxHeight:55,
               itemPadding: EdgeInsets.only(left: 5,right: 0),
-              value: addressPageController.selectStateId.value != null &&
-                  addressPageController.selectStateId.value.isNotEmpty ?
-              addressPageController.selectStateId.value : null,
+              value: accountDetailsPageController.selectStateId.value != null &&
+                  accountDetailsPageController.selectStateId.value.isNotEmpty ?
+              accountDetailsPageController.selectStateId.value : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
@@ -224,7 +233,7 @@ class AddressPage extends StatelessWidget {
               /// icon: SizedBox.shrink(),
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-              items: addressPageController.stateList.map((list) {
+              items: accountDetailsPageController.stateList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.center,
                   child: Row(
@@ -258,7 +267,7 @@ class AddressPage extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
-                String data= addressPageController.selectStateId(value.toString());
+                String data= accountDetailsPageController.selectStateId(value.toString());
                //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
               },
 
@@ -291,9 +300,9 @@ class AddressPage extends StatelessWidget {
               //  buttonHeight: 40,
               //   menuMaxHeight:55,
               itemPadding: EdgeInsets.only(left: 5,right: 0),
-              value: addressPageController.selectCountryId.value != null &&
-                  addressPageController.selectCountryId.value.isNotEmpty ?
-              addressPageController.selectCountryId.value : null,
+              value: accountDetailsPageController.selectCountryId.value != null &&
+                  accountDetailsPageController.selectCountryId.value.isNotEmpty ?
+              accountDetailsPageController.selectCountryId.value : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
@@ -309,7 +318,7 @@ class AddressPage extends StatelessWidget {
               /// icon: SizedBox.shrink(),
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
-              items: addressPageController.countryList.map((list) {
+              items: accountDetailsPageController.countryList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.center,
                   child: Row(
@@ -364,7 +373,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
 
         child: TextField(
@@ -374,11 +383,11 @@ class AddressPage extends StatelessWidget {
 
           // maxLength: 13,
           // autofocus: false,
-          focusNode:addressPageController.firstNameControllerFocusNode.value,
+          focusNode:accountDetailsPageController.firstNameControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.lastNameControllerFocusNode.value.requestFocus();
+            accountDetailsPageController.lastNameControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.firstNameController.value,
+          controller: accountDetailsPageController.firstNameController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -399,7 +408,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -432,7 +441,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -440,11 +449,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.lastNameControllerFocusNode.value,
+          focusNode:accountDetailsPageController.lastNameControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.emailAddressControllerFocusNode.value.requestFocus();
+            accountDetailsPageController.emailAddressControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.lastNameController.value,
+          controller: accountDetailsPageController.lastNameController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -465,7 +474,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -498,7 +507,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -506,11 +515,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.emailAddressControllerFocusNode.value,
+          focusNode:accountDetailsPageController.emailAddressControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.phoneControllerFocusNode.value.requestFocus();
+            accountDetailsPageController.phoneControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.emailAddressController.value,
+          controller: accountDetailsPageController.emailAddressController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -531,7 +540,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -563,7 +572,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -571,11 +580,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.phoneControllerFocusNode.value,
+          focusNode:accountDetailsPageController.phoneControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.addressControllerFocusNode.value.requestFocus();
+            accountDetailsPageController.mobileControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.phoneController.value,
+          controller: accountDetailsPageController.phoneController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -596,7 +605,72 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
+            ),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              color: hint_color,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'PTSans',
+            ),
+          ),
+          keyboardType: TextInputType.text,
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
+          //   LengthLimitingTextInputFormatter(
+          //     13,
+          //   ),
+          // ],
+        ),
+      ),
+    );
+  }
+
+  //user Phone input field create
+  Widget _buildTextFieldUserMobile({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Container(
+      color:transparent,
+      child: Focus(
+        onFocusChange: (hasFocus) {
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        },
+        child: TextField(
+          cursorColor: awsCursorColor,
+          cursorWidth: 1.5,
+          // maxLength: 13,
+          // autofocus: false,
+
+          focusNode:accountDetailsPageController.mobileControllerFocusNode.value,
+          onSubmitted:(_){
+            accountDetailsPageController.addressControllerFocusNode.value.requestFocus();
+          },
+          controller: accountDetailsPageController.mobileController.value,
+          textInputAction: TextInputAction.next,
+          style: const TextStyle(color: Colors.black, fontSize: 18),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            labelText: labelText,
+            filled: true,
+            fillColor: Colors.white,
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
+            prefixIcon: prefixedIcon,
+            prefixIconColor: input_box_icon_color,
+
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+            ),
+            labelStyle: TextStyle(
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -628,7 +702,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -636,11 +710,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.addressControllerFocusNode.value,
+          focusNode:accountDetailsPageController.addressControllerFocusNode.value,
           onSubmitted:(_){
            // checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.addressController.value,
+          controller: accountDetailsPageController.addressController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -661,7 +735,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -696,7 +770,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -704,11 +778,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.townOrCityControllerFocusNode.value,
+          focusNode:accountDetailsPageController.townOrCityControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.zipCodeControllerFocusNode.value.requestFocus();
+            accountDetailsPageController.zipCodeControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.townOrCityController.value,
+          controller: accountDetailsPageController.townOrCityController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -729,7 +803,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -762,7 +836,7 @@ class AddressPage extends StatelessWidget {
       color:transparent,
       child: Focus(
         onFocusChange: (hasFocus) {
-          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          accountDetailsPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
         },
         child: TextField(
           cursorColor: awsCursorColor,
@@ -770,11 +844,11 @@ class AddressPage extends StatelessWidget {
           // maxLength: 13,
           // autofocus: false,
 
-          focusNode:addressPageController.zipCodeControllerFocusNode.value,
+          focusNode:accountDetailsPageController.zipCodeControllerFocusNode.value,
           onSubmitted:(_){
             // checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
           },
-          controller: addressPageController.zipCodeController.value,
+          controller: accountDetailsPageController.zipCodeController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -795,7 +869,7 @@ class AddressPage extends StatelessWidget {
               borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
             ),
             labelStyle: TextStyle(
-              color:addressPageController.inputLevelTextColor.value,
+              color:accountDetailsPageController.inputLevelTextColor.value,
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
@@ -823,32 +897,33 @@ class AddressPage extends StatelessWidget {
       onPressed: () {
         // String userEmailTxt = logInPageController.userEmailController.value.text;
 
-        String firstName=addressPageController.firstNameController.value.text;
-        String lastName=addressPageController.lastNameController.value.text;
-        String email=addressPageController.emailAddressController.value.text;
-        String phone=addressPageController.phoneController.value.text;
-        String address=addressPageController.addressController.value.text;
-        String townCity=addressPageController.townOrCityController.value.text;
-        String zipCode=addressPageController.zipCodeController.value.text;
+        String firstName=accountDetailsPageController.firstNameController.value.text;
+        String lastName=accountDetailsPageController.lastNameController.value.text;
+        String email=accountDetailsPageController.emailAddressController.value.text;
+        String phone=accountDetailsPageController.phoneController.value.text;
+        String address=accountDetailsPageController.addressController.value.text;
+        String townCity=accountDetailsPageController.townOrCityController.value.text;
+        String zipCode=accountDetailsPageController.zipCodeController.value.text;
+        String mobile=accountDetailsPageController.mobileController.value.text;
 
 
             // _showToast("state="+checkoutPageController.selectStateId.value);
             // _showToast("country="+checkoutPageController.selectCountryId.value);
 
-        if (_inputValid(f_name: firstName, l_name: lastName, email: email, phone: phone,
+        if (_inputValid(f_name: firstName,  email: email, phone: phone,
             address: address, town_city: townCity, zipCode: zipCode,
-            selectedState: addressPageController.selectStateId.value, selectedCountry: addressPageController.selectCountryId.value)== false) {
-          addressPageController.updateUserBillingInfoList(
-              token: addressPageController.userToken.value,
+            selectedState: accountDetailsPageController.selectStateId.value, selectedCountry: accountDetailsPageController.selectCountryId.value)== false) {
+          accountDetailsPageController.updateUserBillingInfoList(
+              token: accountDetailsPageController.userToken.value,
               firstname: firstName,
-              lastName:lastName,
               emailAddress: email,
               phoneNumber: phone,
               address: address,
               townCity: townCity,
               zipCode: zipCode,
-              stateId: addressPageController.selectStateId.value,
-              countryId: addressPageController.selectCountryId.value
+              stateId: accountDetailsPageController.selectStateId.value,
+              countryId: accountDetailsPageController.selectCountryId.value,
+              mobile: mobile
           );
         }
       },
@@ -885,7 +960,7 @@ class AddressPage extends StatelessWidget {
   }
 
   //input text validation check
-  _inputValid({required String f_name, required String l_name,
+  _inputValid({required String f_name ,
     required String selectedState, required String selectedCountry,
     required String email, required String phone,required String address,
     required String town_city,required String zipCode}) {
@@ -895,11 +970,7 @@ class AddressPage extends StatelessWidget {
       _showToast("First name can't empty!");
       return;
     }
-    if (l_name.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Last name can't empty!");
-      return;
-    }
+
     if (email.isEmpty) {
       Fluttertoast.cancel();
       _showToast("Email can't empty!");
@@ -919,7 +990,6 @@ class AddressPage extends StatelessWidget {
       _showToast("Phone can't empty!");
       return;
     }
-
 
     if (selectedState.isEmpty) {
       Fluttertoast.cancel();

@@ -15,13 +15,14 @@ import '../static/Colors.dart';
 import '../view/dash_board/checkout step/checkout_page_step2.dart';
 import 'address_page_controller.dart';
 
-class AddressPageController extends GetxController {
+class AccountDetailsPageController extends GetxController {
 
   ///controller
   final firstNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;
   final emailAddressController = TextEditingController().obs;
   final phoneController = TextEditingController().obs;
+  final mobileController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
   final townOrCityController = TextEditingController().obs;
   final stateController = TextEditingController().obs;
@@ -33,6 +34,7 @@ class AddressPageController extends GetxController {
   final lastNameControllerFocusNode = FocusNode().obs;
   final emailAddressControllerFocusNode = FocusNode().obs;
   final phoneControllerFocusNode = FocusNode().obs;
+  final mobileControllerFocusNode = FocusNode().obs;
   final addressControllerFocusNode = FocusNode().obs;
   final townOrCityControllerFocusNode = FocusNode().obs;
   final stateControllerFocusNode = FocusNode().obs;
@@ -177,8 +179,6 @@ class AddressPageController extends GetxController {
     }
   }
 
-
-
   void getUserBillingInfoList(String token) async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -186,37 +186,34 @@ class AddressPageController extends GetxController {
       //  _showToast(token);
         try {
           var response = await get(
-            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_BILLING_ADDRESS}'),
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ACCOUNT_DETAILS}'),
             headers: {
-              'Authorization': 'Bearer '+token,
+              // 'Authorization': 'Bearer '+token,
+              'Authorization': 'Bearer '+'38|8NS9lFUKzmHJux4R0JRO8hTuMP0Phwrequ5myJ6u',
               //'Content-Type': 'application/json',
             },
           );
 
-         //_showToast("billing= "+response.statusCode.toString());
+       //  _showToast("account info= "+response.statusCode.toString());
           if (response.statusCode == 200) {
-
-
-
 
             var addressResponseData = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
             // _showToast("size  "+wishList.length.toString());
 
-
-             firstNameController.value.text =addressResponseData["data"]["first_name"] ;
-             lastNameController.value.text = addressResponseData["data"]["last_name"] ;
-             emailAddressController.value.text =addressResponseData["data"]["email"]  ;
-             phoneController.value.text = addressResponseData["data"]["phone"] ;
-             addressController.value.text =addressResponseData["data"]["address"]  ;
-             townOrCityController.value.text =addressResponseData["data"]["city"]  ;
-             // selectedState(addressResponseData["data"]["city"].toString());
-
-            selectStateId(addressResponseData["data"]["state"].toString());
+             firstNameController.value.text =addressResponseData["data"]["name"].toString() ;
+             lastNameController.value.text = addressResponseData["data"]["name"].toString() ;
+             emailAddressController.value.text =addressResponseData["data"]["email"] .toString() ;
+             phoneController.value.text = addressResponseData["data"]["phone"].toString() ;
+             addressController.value.text =addressResponseData["data"]["address"].toString()  ;
+             townOrCityController.value.text =addressResponseData["data"]["city"].toString()  ;
+            //  // selectedState(addressResponseData["data"]["city"].toString());
+            //
+             selectStateId(addressResponseData["data"]["state_id"].toString());
             // _showToast(selectedState.value);
-             stateController.value.text = addressResponseData["data"]["first_name"] ;
-             countryController.value.text = addressResponseData["data"]["first_name"] ;
-             zipCodeController.value.text = addressResponseData["data"]["zip"] ;
+             stateController.value.text = addressResponseData["data"]["first_name"].toString() ;
+             countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
+             zipCodeController.value.text = addressResponseData["data"]["zip_code"].toString() ;
 
             getCountryList(userToken.value);
 
@@ -239,7 +236,7 @@ class AddressPageController extends GetxController {
   void updateUserBillingInfoList({
             required String token,
             required String firstname,
-            required String lastName,
+            required String mobile,
             required String emailAddress,
             required String phoneNumber,
             required String address,
@@ -256,29 +253,30 @@ class AddressPageController extends GetxController {
         try {
           showLoadingDialog("Saving...");
           var response = await post(
-            Uri.parse('${BASE_URL_API}${SUB_URL_API_ADD_USER_UPDATE_BILLING_ADDRESS}'),
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_ADD_USER_UPDATE_ACCOUNT_DETAILS}'),
             headers: {
               'Authorization': 'Bearer '+token,
               //'Content-Type': 'application/json',
             },
             body: {
-              'first_name': firstname,
-              'last_name': lastName,
-              'email': emailAddress,
+              'image': "",
+              'name': firstname,
               'phone': phoneNumber,
+              'mobile': mobile,
+              'email': emailAddress,
               'address': address,
               'city': townCity,
-              'country': countryId,
-              'state': stateId,
-              'zip': zipCode
+              'country_id': countryId,
+              'state_id': stateId,
+              'zip_code': zipCode,
             }
           );
 
           Get.back();
-        //  _showToast(response.statusCode.toString());
+         // _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
-            _showToast("Address info update successfully!");
+            _showToast("Account info update success!");
             getUserBillingInfoList(userToken.value);
 
           }

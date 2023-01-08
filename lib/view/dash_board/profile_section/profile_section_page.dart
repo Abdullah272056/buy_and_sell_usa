@@ -5,6 +5,7 @@ import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../../controller/account_details_page_controller.dart';
 import '../../../controller/address_page_controller.dart';
 import '../../../controller/cart_page_controller.dart';
 import '../../../controller/product_details_controller.dart';
@@ -16,6 +17,7 @@ import '../../auth/change_password_page.dart';
 import '../../common_page/product_details.dart';
 import '../../common_page/product_list.dart';
 import '../cart_view_page.dart';
+import 'account _details_page.dart';
 import 'address_page.dart';
 import 'order_page.dart';
 
@@ -180,8 +182,14 @@ class ProfileSectionPage extends StatelessWidget {
           return;
         }
         if(onClick==3){
-          _showToast("account details");
+       //   _showToast("account details");
+          Get.to(() => AccountDetailsPage(),
+            //     arguments: [
+            //   {"productId": productDetailsController.relatedProductList[index]["id"].toString()},
+            //   {"second": 'Second data'}
+            // ]
 
+          )?.then((value) => Get.delete<AccountDetailsPageController>());
           return;
         }
         if(onClick==4){

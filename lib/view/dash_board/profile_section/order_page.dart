@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../api_service/api_service.dart';
@@ -19,7 +20,7 @@ import 'order_details_page.dart';
 
 class OrderPage extends StatelessWidget {
 
-  final cartPageController = Get.put(OrderPageController());
+  final orderPageController = Get.put(OrderPageController());
   final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=20');
 
   @override
@@ -52,7 +53,7 @@ class OrderPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART",
+                    "MY ORDER",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -83,11 +84,11 @@ class OrderPage extends StatelessWidget {
                                   children: [
                                     Obx(() =>   ListView.builder(
                                         padding: EdgeInsets.zero,
-                                        itemCount: cartPageController.cartList.length,
+                                        itemCount: orderPageController.myOrderList.length,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-                                          return cartItem(cartPageController.cartList[index]);
+                                          return orderItem(orderPageController.myOrderList[index]);
                                         }),)
                                   ]
 
@@ -115,16 +116,15 @@ class OrderPage extends StatelessWidget {
 
   }
 
-  Widget cartItem(CartNote response){
+  Widget orderItem(var response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 0),
       child: InkWell(
         onTap: (){
 
           Get.to(() => OrderDetailsPage(),
-          //     arguments: [
-          //   {"productId": productDetailsController.relatedProductList[index]["id"].toString()},
-          //   {"second": 'Second data'}
-          // ]
+              arguments: [
+            {"singleProductDetailsData": response}
+          ]
 
           )?.then((value) => Get.delete<OrderPageController>());
 
@@ -154,7 +154,8 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "05-Jan-2023",
+                          dateFormat(response["created_at"].toString()),
+                          // "05-Jan-2023",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -182,7 +183,7 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "#63b64d151cb7d",
+                          response["order_id"].toString(),
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -210,7 +211,7 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "\$138.1 for 2 item",
+                          "\$"+response["payable"].toString()+" for "+response["ordered_products"][0]["qty"].toString()+" item",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -227,7 +228,7 @@ class OrderPage extends StatelessWidget {
 
                 Container(
                   child: Text(
-                    "Processing",
+                    response["status"].toString(),
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     maxLines: 1,
@@ -254,6 +255,18 @@ class OrderPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  String dateFormat(String dateString){
+
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
+    var inputDate = DateTime.parse(parseDate.toString());
+    var outputFormat = DateFormat('dd/MMM/yyyy');
+    // var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+    var outputDate = outputFormat.format(inputDate);
+
+    return outputDate.toString();
   }
 
   //join now url page redirect
