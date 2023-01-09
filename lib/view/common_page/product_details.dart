@@ -14,6 +14,7 @@ import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
+import '../dash_board/checkout step/checkout_page.dart';
 
 
 class ProductDetailsePageScreen extends StatelessWidget {
@@ -550,6 +551,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
             )));
   }
 
+
+
   void openBottomSheet(String text) {
     Get.bottomSheet(
       ListView(
@@ -894,7 +897,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       //  shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
                       //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:5,
+                      itemCount:0,
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: (){
@@ -1860,7 +1863,49 @@ class ProductDetailsePageScreen extends StatelessWidget {
   Widget _buildBuyNowButton() {
     return ElevatedButton(
       onPressed: () {
-     ///   openBottomSheet("dfghj");
+
+        CartNote cartNote= CartNote(
+
+            productId: productDetailsController.productId.value.toString(),
+            productName: productDetailsController.productName.value.toString(),
+            productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+            productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+            productPhoto:productDetailsController.productPhoto.value.toString(),
+            productQuantity: productDetailsController.productQuantity.value.toString(),
+            weight: productDetailsController.weight.value.toString(),
+            seller: productDetailsController.seller.value.toString(),
+            sellerName: productDetailsController.sellerName.value.toString(),
+            slug: productDetailsController.slug.value.toString(),
+            colorImage: productDetailsController.colorImage.value.toString(),
+            size: productDetailsController.size.value.toString(),
+            color: productDetailsController.color.value.toString(),
+            sizeId: productDetailsController.sizeId.value.toString(),
+            colorId: productDetailsController.colorId.value.toString(),
+            grocery: productDetailsController.grocery.value.toString(),
+            tax: productDetailsController.tax.value.toString(),
+            shipping: productDetailsController.shipping.value.toString(),
+            shippingName: "null",
+            width:productDetailsController.width.value.toString(),
+            height: productDetailsController.height.value.toString(),
+            depth: productDetailsController.depth.value.toString(),
+            weightOption: productDetailsController.weightOption.value.toString(),
+            commission: productDetailsController.commission.value.toString(),
+            commissionType: productDetailsController.commissionType.value.toString()
+
+
+          // id: 1,
+        );
+        productDetailsController.insertData1(cartNote);
+
+
+        if(productDetailsController.userToken.isNotEmpty &&
+            productDetailsController.userToken.value!=null){
+          Get.to(CheckoutPage());
+          //_showToast("go to checkout process");
+        }else{
+          showLoginWarning();
+        }
+
       },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,

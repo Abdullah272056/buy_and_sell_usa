@@ -90,7 +90,23 @@ class NotesDataBase{
 
     return note.copy(id:id);
   }
+  Future<CartNote> create1(CartNote note) async{
+    final db = await instance.database;
+    // _showToast("call");
+    // final json =note.toJson();
+    // final columns ='${NoteFields.title}, ${NoteFields.description}, ${NoteFields.time}';
+    // final values ='${json[NoteFields.title]}, ${json[NoteFields.description]},'
+    //     ' ${json[NoteFields.time]}';
+    //
+    // final id =await db.rawInsert( 'INSERT INTO table_name ($columns) VALUES ($values)');
 
+
+    final id=await db.insert(tableNotes, note.toJson());
+
+   // _showToast("Cart Added Successfully");
+
+    return note.copy(id:id);
+  }
   Future<CartNote> readNote(int id) async {
     final db =await instance.database;
 

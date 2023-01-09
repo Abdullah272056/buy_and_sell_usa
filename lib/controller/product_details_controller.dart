@@ -179,6 +179,10 @@ class ProductDetailsController extends GetxController {
 
     refreshNotes();
   }
+  void insertData1(CartNote cartNote){
+    NotesDataBase.instance.create1( cartNote);
+    refreshNotes();
+  }
 
   void getProductDetailsData(String productId) async{
     try {
