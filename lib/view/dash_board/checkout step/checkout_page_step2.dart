@@ -6,6 +6,7 @@ import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/checkout_page_step2_controller.dart';
+import '../../../controller/web_view_page_controller.dart';
 import '../../../data_base/note.dart';
 import '../../../static/Colors.dart';
 import '../../auth/log_in_page.dart';
@@ -629,7 +630,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
           {"emailAddress": cartViewPageController.emailAddress},
           {"paymentLink": paymentLink},
 
-        ]);
+        ])?.then((value) => Get.delete<WebViewPageController>());
 
       },
 

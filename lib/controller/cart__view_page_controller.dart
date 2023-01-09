@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
+import '../static/Colors.dart';
 
 class CartViewPageController extends GetxController {
 
@@ -15,7 +16,8 @@ class CartViewPageController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
-
+  var inputLevelTextColor = hint_color.obs;
+  final promoCodeController = TextEditingController().obs;
   @override
   void onInit() {
     readAllNotes();

@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import '../../../controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
+import '../../controller/cart_page_controller.dart';
 import '../../controller/product_details_controller.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
@@ -149,7 +150,7 @@ class HomePageScreen extends StatelessWidget {
 
                     onTap: () {
 
-                      Get.to(CartPage());
+                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
                     },
                     child: Badge(
                       badgeContent:Obx(()=> Text(

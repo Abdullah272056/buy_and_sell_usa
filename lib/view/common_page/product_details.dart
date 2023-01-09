@@ -9,6 +9,7 @@ import 'package:fnf_buy/view/common_page/custom_drawer.dart';
 import 'package:fnf_buy/view/dash_board/cart_page.dart';
 import 'package:get/get.dart';
 import '../../api_service/api_service.dart';
+import '../../controller/cart_page_controller.dart';
 import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
 import '../auth/log_in_page.dart';
@@ -91,7 +92,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: (){
 
-                        Get.to(CartPage());
+                        Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
                       },
                       child: Icon(
                         Icons.shopping_cart_outlined,
@@ -168,7 +169,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                              onTap: (){
 
                                // _showToast("ddd")
-                               Get.to(CartPage());
+                               Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
                              },
                              child: Icon(
                                Icons.shopping_cart_outlined,

@@ -236,10 +236,24 @@ class CheckoutPageController extends GetxController {
 
          // _showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
-            // var wishListResponse = jsonDecode(response.body);
+            var addressResponseData = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
-
             // _showToast("size  "+wishList.length.toString());
+
+
+            firstNameController.value.text =addressResponseData["data"]["first_name"] ;
+            lastNameController.value.text = addressResponseData["data"]["last_name"] ;
+            emailAddressController.value.text =addressResponseData["data"]["email"]  ;
+            phoneController.value.text = addressResponseData["data"]["phone"] ;
+            addressController.value.text =addressResponseData["data"]["address"]  ;
+            townOrCityController.value.text =addressResponseData["data"]["city"]  ;
+            // selectedState(addressResponseData["data"]["city"].toString());
+
+            selectStateId(addressResponseData["data"]["state"].toString());
+            // _showToast(selectedState.value);
+            stateController.value.text = addressResponseData["data"]["first_name"] ;
+            countryController.value.text = addressResponseData["data"]["first_name"] ;
+            zipCodeController.value.text = addressResponseData["data"]["zip"] ;
           }
           else {
             // Fluttertoast.cancel();

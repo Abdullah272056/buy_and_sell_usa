@@ -9,6 +9,8 @@ import '../dash_board/account_page.dart';
 import '../dash_board/cart_page.dart';
 import '../dash_board/category_page.dart';
 import '../dash_board/home_page.dart';
+import '../dash_board/profile_section/profile_section_page.dart';
+import 'custom_drawer.dart';
 
 
 
@@ -56,7 +58,7 @@ class DashBoardPageScreen extends StatelessWidget {
             }
 
             if(index==2){
-              dashBoardPageController.updateSelectedPage([AccountPage()]);
+              dashBoardPageController.updateSelectedPage([ProfileSectionPage()]);
               // selectedPage= AccountPage( );
               return;
             }
@@ -68,7 +70,7 @@ class DashBoardPageScreen extends StatelessWidget {
             }
 
             if(index==4){
-              dashBoardPageController.updateSelectedPage([MorePage()]);
+              dashBoardPageController.updateSelectedPage([CustomDrawer()]);
               // selectedPage= SearchPage( );
               return;
             }

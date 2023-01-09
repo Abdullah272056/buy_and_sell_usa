@@ -18,10 +18,14 @@ import 'checkout step/checkout_page.dart';
 class CartViewePage extends StatelessWidget {
 
   final cartViewPageController = Get.put(CartViewPageController());
+  var width;
+  var height;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
     return Scaffold(
       body:Container(
           decoration: BoxDecoration(
@@ -251,7 +255,20 @@ class CartViewePage extends StatelessWidget {
                       ),
                       child:Column(
                         children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          _buildTextFieldPromoCode(
+                            obscureText: false,
+                           // prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                            labelText: "Promo Code",
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
 
+                          _buildApplyPromoCodeButton(),
+                          SizedBox(height: 20,),
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -279,7 +296,7 @@ class CartViewePage extends StatelessWidget {
                             ],
                           ),
 
-                          SizedBox(height: 10,),
+                          SizedBox(height: 20,),
 
                           Row(
                             children: [
@@ -679,6 +696,74 @@ class CartViewePage extends StatelessWidget {
     );
   }
 
+  //user name input field create
+  Widget _buildTextFieldPromoCode({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Container(
+      color:transparent,
+      child: Focus(
+        onFocusChange: (hasFocus) {
+          cartViewPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        },
+
+        child: TextField(
+          cursorColor: awsCursorColor,
+          cursorWidth: 1.5,
+
+
+          // maxLength: 13,
+          // autofocus: false,
+
+          onSubmitted:(_){
+
+          },
+          controller: cartViewPageController.promoCodeController.value,
+          textInputAction: TextInputAction.next,
+          style: const TextStyle(color: Colors.black, fontSize: 18),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            labelText: labelText,
+            filled: true,
+            fillColor: Colors.white,
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
+            prefixIcon: prefixedIcon,
+            prefixIconColor: input_box_icon_color,
+
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+            ),
+            labelStyle: TextStyle(
+              color:cartViewPageController.inputLevelTextColor.value,
+            ),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              color: hint_color,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'PTSans',
+            ),
+          ),
+          keyboardType: TextInputType.text,
+
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
+          //   LengthLimitingTextInputFormatter(
+          //     13,
+          //   ),
+          // ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildProceedToCheckoutButton() {
     return ElevatedButton(
       onPressed: () {
@@ -714,6 +799,54 @@ class CartViewePage extends StatelessWidget {
           alignment: Alignment.center,
           child:  const Text(
             "PROCEED TO CHECKOUT",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildApplyPromoCodeButton() {
+    return ElevatedButton(
+      onPressed: () {
+        // _showToast(cartViewPageController.userToken.value);
+
+        if(cartViewPageController.userToken.isNotEmpty &&
+            cartViewPageController.userToken.value!=null){
+        //  Get.to(CheckoutPage());
+          //_showToast("go to checkout process");
+
+
+        }else{
+          showLoginWarning();
+        }
+
+      },
+
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Apply Promo Code",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
