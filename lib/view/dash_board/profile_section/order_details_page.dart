@@ -48,7 +48,7 @@ class OrderDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART",
+                    "OODER DETAILS",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -133,13 +133,6 @@ class OrderDetailsPage extends StatelessWidget {
                       Obx(()=>   userInputSelectTopic(keyName: 'Country:', value:orderDetailsPageController.country.value),),
 
 
-
-
-
-
-
-
-
                       Container(
 
                         child: Row(
@@ -175,14 +168,14 @@ class OrderDetailsPage extends StatelessWidget {
                               children: [
                                 Obx(() =>   ListView.builder(
                                     padding: EdgeInsets.zero,
-                                    itemCount: orderDetailsPageController.cartList.length,
+                                    itemCount: orderDetailsPageController.orderProductDetailsList.length,
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (BuildContext context, int index) {
                                       return
                                         //Container();
 
-                                        cartItem(orderDetailsPageController.cartList[index]);
+                                        orderProductItem(orderDetailsPageController.orderProductDetailsList[index]);
                                     }),)
                               ]
 
@@ -245,7 +238,7 @@ class OrderDetailsPage extends StatelessWidget {
     ;
   }
 
-  Widget cartItem(CartNote response){
+  Widget orderProductItem(var response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 10),
       child: InkWell(
         onTap: (){
@@ -277,7 +270,9 @@ class OrderDetailsPage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:BASE_URL_API_IMAGE_PRODUCT+response.productPhoto,
+                        // image:response[""],
+                       image:BASE_URL_API_IMAGE_PRODUCT+
+                           response["product"]["cover_image"].toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',
@@ -294,7 +289,7 @@ class OrderDetailsPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child:Text(
-                    response.productName,
+                    response["product_name"].toString(),
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     maxLines: 1,
@@ -331,18 +326,23 @@ class OrderDetailsPage extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        response.productQuantity+" X ",
+                        response["qty"].toString()+
+                            " X ",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            color: text_color,
+                            color: hint_color,
                             fontSize: 13,
                             fontWeight: FontWeight.w400),
                       ),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("\$"+
-                          response.productDiscountedPrice,
+
+                      child: Text(" \$"+
+                          discountedPriceCalculate(mainPrice: response["product"]["price"].toString(),
+                              discountedPercent: response["product"]["discount_percent"].toString()),
+
+                         // response.productDiscountedPrice,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: hint_color,
@@ -372,8 +372,8 @@ class OrderDetailsPage extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("\$"+
-                          response.productDiscountedPrice,
+                      child: Text(" \$"+response["shipping"].toString(),
+                         // response.productDiscountedPrice,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: hint_color,
@@ -402,8 +402,8 @@ class OrderDetailsPage extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("\$"+
-                          response.productDiscountedPrice,
+                      child: Text(" \$"+response["tax"].toString(),
+                         // response.productDiscountedPrice,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: hint_color,
@@ -421,7 +421,7 @@ class OrderDetailsPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 10,right: 10,),
               child: Text(
-                "\$560.5",
+                " \$"+response["total"].toString(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     color: text_color,
@@ -436,6 +436,13 @@ class OrderDetailsPage extends StatelessWidget {
     );
   }
 
+
+  String discountedPriceCalculate({required String mainPrice, required String discountedPercent}){
+
+   double discountedPrice= double.parse(mainPrice)-((double.parse(discountedPercent)*double.parse(mainPrice))/100);
+
+    return discountedPrice.toString();
+  }
 
 
   //toast create

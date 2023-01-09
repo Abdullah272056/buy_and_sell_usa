@@ -15,19 +15,18 @@ class OrderDetailsPageController extends GetxController {
 
   var cartList=[].obs;
 
-   dynamic argumentData = Get.arguments;
+  dynamic argumentData = Get.arguments;
 
+  var orderNo="".obs;
+  var shippingAmount="".obs;
+  var taxAmount="".obs;
+  var couponAmount="".obs;
+  var totalAmount="".obs;
+  var paymentId="".obs;
+  var paymentMethod="".obs;
+  var shippingName="".obs;
 
-   var orderNo="".obs;
-   var shippingAmount="".obs;
-   var taxAmount="".obs;
-   var couponAmount="".obs;
-   var totalAmount="".obs;
-   var paymentId="".obs;
-   var paymentMethod="".obs;
-   var shippingName="".obs;
-
-   ///billing info
+  ///billing info
   var name="".obs;
   var phone="".obs;
   var email="".obs;
@@ -37,8 +36,8 @@ class OrderDetailsPageController extends GetxController {
   var zip="".obs;
   var country="".obs;
 
-
-
+  ///product list
+  var orderProductDetailsList=[].obs;
 
   @override
   void onInit() {
@@ -52,7 +51,7 @@ class OrderDetailsPageController extends GetxController {
     shippingAmount(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
     taxAmount(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
     couponAmount(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
-    totalAmount(argumentData[0]['singleProductDetailsData']["payable"].toString());
+    totalAmount(argumentData[0]['singleProductDetailsData']["total"].toString());
     paymentId(argumentData[0]['singleProductDetailsData']["payment_id"].toString());
     paymentMethod(argumentData[0]['singleProductDetailsData']["payment_method"].toString());
     shippingName(argumentData[0]['singleProductDetailsData']["shipping_name"].toString());
@@ -67,11 +66,13 @@ class OrderDetailsPageController extends GetxController {
     zip(argumentData[0]['singleProductDetailsData']["billings"]["zip"].toString());
     country(argumentData[0]['singleProductDetailsData']["billings"]["country"].toString());
 
+    orderProductDetailsList(argumentData[0]['singleProductDetailsData']["ordered_products"]);
+
+   // _showToast("list= "+orderProductDetailsList.length.toString());
+
     refreshNotes();
     super.onInit();
   }
-
-
 
   //toast create
   _showToast(String message) {
@@ -84,7 +85,6 @@ class OrderDetailsPageController extends GetxController {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
   Future refreshNotes() async {
     NotesDataBase.instance;
@@ -101,7 +101,6 @@ class OrderDetailsPageController extends GetxController {
 
   }
 
-
   void totalPriceCalculate(List cartList){
     double subTotal=0.0;
     for(int i=0;i<cartList.length;i++){
@@ -111,6 +110,5 @@ class OrderDetailsPageController extends GetxController {
     totalPrice(subTotal);
 
   }
-
 
 }

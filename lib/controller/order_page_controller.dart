@@ -63,7 +63,7 @@ class OrderPageController extends GetxController {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          _showToast(token);
+          //_showToast(token);
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_ORDERS_LIST}'),
@@ -73,13 +73,13 @@ class OrderPageController extends GetxController {
             },
           );
 
-            _showToast("orders = "+response.statusCode.toString());
+         //   _showToast("orders = "+response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var orderResponseData = jsonDecode(response.body);
             myOrderList(orderResponseData["data"]);
 
-            _showToast(myOrderList.length.toString());
+          //  _showToast(myOrderList.length.toString());
 
           }
           else {

@@ -21,7 +21,6 @@ import 'order_details_page.dart';
 class OrderPage extends StatelessWidget {
 
   final orderPageController = Get.put(OrderPageController());
-  final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=20');
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +210,7 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "\$"+response["payable"].toString()+" for "+response["ordered_products"][0]["qty"].toString()+" item",
+                          "\$"+response["total"].toString()+" for "+response["ordered_products"][0]["qty"].toString()+" item",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -270,11 +269,7 @@ class OrderPage extends StatelessWidget {
   }
 
   //join now url page redirect
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
-  }
+
 
   //toast create
   _showToast(String message) {
