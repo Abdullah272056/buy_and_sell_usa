@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import '../data_base/notes_database.dart';
 
@@ -14,6 +16,9 @@ class CartPageController extends GetxController {
   var totalPrice=0.0.obs;
   var cartList=[].obs;
 
+  var userName="".obs;
+  var userToken="".obs;
+
   // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
@@ -21,6 +26,7 @@ class CartPageController extends GetxController {
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
     refreshNotes();
+    loadUserIdFromSharePref();
     super.onInit();
   }
 
@@ -63,5 +69,18 @@ class CartPageController extends GetxController {
 
   }
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
 
+      //  _showToast(storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
+  }
 }

@@ -18,8 +18,8 @@ class CheckoutPageStep2Controller extends GetxController {
   var totalPrice=0.0.obs;
   var cartList=[].obs;
   var sellerGroupList=[].obs;
+  var selectedShippingNameWithSellerIdList=[].obs;
   var selectedShippingValueList=[].obs;
-
 
 
   // var selectCountryId="".obs;
@@ -49,7 +49,6 @@ class CheckoutPageStep2Controller extends GetxController {
   dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-
 
    // _showToast(argumentData[4]['totalAmountWithTax'].toString());
     zipCode(argumentData[1]['zipCode'].toString());
@@ -85,7 +84,11 @@ class CheckoutPageStep2Controller extends GetxController {
      allSubTotal(allSubTotalCalculate(cartList));
     allShippingAmount(allShippingPriceCalculate(cartList));
      allTaxAmount(allTaxCalculate(cartList));
-    allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
+
+    double totalAmount = double.parse((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toStringAsFixed(2));
+    allTotalAmountWithAllCost(
+        totalAmount.toString()
+    );
 
    // _showToast("Local length= "+cartList.length.toString());
   }
@@ -99,7 +102,12 @@ class CheckoutPageStep2Controller extends GetxController {
     allShippingAmount(allShippingPriceCalculate(cartList));
     allTaxAmount(allTaxCalculate(cartList));
 
-    allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
+    double totalAmount = double.parse((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toStringAsFixed(2));
+    allTotalAmountWithAllCost(
+        totalAmount.toString()
+    );
+
+  //  allTotalAmountWithAllCost((double.parse(allSubTotal.value)+ double.parse(allShippingAmount.value)+ double.parse(allTaxAmount.value)).toString());
 
     // totalSellerCountCalculate(cartList);
     // _showToast("Local length= "+cartList.length.toString());
@@ -152,15 +160,21 @@ class CheckoutPageStep2Controller extends GetxController {
     for(int i=0;i<sellerGroupList.length;i++){
 
       sellerIdList.add(sellerGroupList[i].seller.toString());
+
+
+      selectedShippingNameWithSellerIdList.add(SelectedShippingNameWithSellerId(seller_id: sellerGroupList[i].seller.toString(), shipping_name: ''));
+
+
      // _showToast("aqw= "+sellerGroupList[i].seller.toString());
 
     }
 
 
     expressShippingCheck(sellerList: sellerIdList, zipCode:zipCode.value , token: userToken.value);
+   // _showToast("awe= "+selectedShippingNameWithSellerIdList.length.toString());
 
 
-    List<String> abc = List.generate(4, (index) => "");
+    List<String> abc = List.generate(sellerIdList.length, (index) => "");
     selectedShippingValueList(abc);
 
   }
@@ -320,7 +334,7 @@ class CheckoutPageStep2Controller extends GetxController {
               })
 
           );
-          _showToast("shippingType="+shippingType);
+          //_showToast("shippingType="+shippingType);
        //  _showToast("shippingType= "+shippingType.toString());
 
 
@@ -338,37 +352,80 @@ class CheckoutPageStep2Controller extends GetxController {
 
                    // _showToast("match");
                    // _showToast(data["data"][0][j]["rate"].toString());
-                   CartNote cartNote=CartNote(
-                       id:cartList[i].id ,
-                       productId: cartList[i].productId,
-                       productName: cartList[i].productName,
-                       productRegularPrice: cartList[i].productRegularPrice,
-                       productDiscountedPrice: cartList[i].productDiscountedPrice,
-                       productPhoto: cartList[i].productPhoto,
-                       productQuantity: cartList[i].productQuantity,
-                       weight: cartList[i].weight,
-                       seller: cartList[i].seller,
-                       sellerName: cartList[i].sellerName,
-                       slug: cartList[i].slug,
-                       colorImage: cartList[i].colorImage,
-                       size: cartList[i].size,
-                       color: cartList[i].color,
-                       // shipping: cartList[i].shipping,
-                       shipping: data["data"][0][j]["rate"].toString(),
-                       // shipping: "0.00".toString(),
-                       sizeId: cartList[i].sizeId,
-                       colorId: cartList[i].colorId,
-                       grocery: cartList[i].grocery,
-                       tax: cartList[i].tax,
-                       width: cartList[i].width,
-                       height: cartList[i].height,
-                       depth: cartList[i].depth,
-                       weightOption: cartList[i].weightOption,
-                       commission: cartList[i].commission,
-                       commissionType:cartList[i].commissionType
-                   );
 
-                   updateNotes(cartNote);
+
+                   if(shippingType=="1"){
+
+                     CartNote cartNote=CartNote(
+                         id:cartList[i].id ,
+                         productId: cartList[i].productId,
+                         productName: cartList[i].productName,
+                         productRegularPrice: cartList[i].productRegularPrice,
+                         productDiscountedPrice: cartList[i].productDiscountedPrice,
+                         productPhoto: cartList[i].productPhoto,
+                         productQuantity: cartList[i].productQuantity,
+                         weight: cartList[i].weight,
+                         seller: cartList[i].seller,
+                         sellerName: cartList[i].sellerName,
+                         slug: cartList[i].slug,
+                         colorImage: cartList[i].colorImage,
+                         size: cartList[i].size,
+                         color: cartList[i].color,
+                         // shipping: cartList[i].shipping,
+                         shipping: data["data"][0][j]["rate"].toString(),
+                         shippingName: "Express shipping 8-10 days",
+                         // shipping: "0.00".toString(),
+                         sizeId: cartList[i].sizeId,
+                         colorId: cartList[i].colorId,
+                         grocery: cartList[i].grocery,
+                         tax: cartList[i].tax,
+                         width: cartList[i].width,
+                         height: cartList[i].height,
+                         depth: cartList[i].depth,
+                         weightOption: cartList[i].weightOption,
+                         commission: cartList[i].commission,
+                         commissionType:cartList[i].commissionType
+                     );
+                     updateNotes(cartNote);
+                   }else{
+                     CartNote cartNote=CartNote(
+                         id:cartList[i].id ,
+                         productId: cartList[i].productId,
+                         productName: cartList[i].productName,
+                         productRegularPrice: cartList[i].productRegularPrice,
+                         productDiscountedPrice: cartList[i].productDiscountedPrice,
+                         productPhoto: cartList[i].productPhoto,
+                         productQuantity: cartList[i].productQuantity,
+                         weight: cartList[i].weight,
+                         seller: cartList[i].seller,
+                         sellerName: cartList[i].sellerName,
+                         slug: cartList[i].slug,
+                         colorImage: cartList[i].colorImage,
+                         size: cartList[i].size,
+                         color: cartList[i].color,
+                         // shipping: cartList[i].shipping,
+                         shipping: data["data"][0][j]["rate"].toString(),
+                         shippingName: "USPS Shipping 2-5  business days",
+                         // shipping: "0.00".toString(),
+                         sizeId: cartList[i].sizeId,
+                         colorId: cartList[i].colorId,
+                         grocery: cartList[i].grocery,
+                         tax: cartList[i].tax,
+                         width: cartList[i].width,
+                         height: cartList[i].height,
+                         depth: cartList[i].depth,
+                         weightOption: cartList[i].weightOption,
+                         commission: cartList[i].commission,
+                         commissionType:cartList[i].commissionType
+                     );
+                     updateNotes(cartNote);
+
+                   }
+
+
+
+
+
 
 
 
@@ -380,7 +437,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
 
 
-             _showToast(cartList.length.toString());
+             //_showToast(cartList.length.toString());
 
 
 
@@ -417,15 +474,17 @@ class CheckoutPageStep2Controller extends GetxController {
   }
 
 
-  test1(
-  //     {
-  //   required String token,
-  //   required String shippingType,
-  //   required String shippingId,
-  //   required String sellerId,
-  //   required String totalPrice,
-  //   required var productJson
-  // }
+  test1({
+    required String token,
+    required String coupon_code,
+    required String coupon_amount,
+    required String coupon_seller_id,
+    required String payment_id,
+    required String payer_id,
+    required String payment_method,
+    required String shipping_name,
+    required var productJson
+  }
   ) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -433,61 +492,34 @@ class CheckoutPageStep2Controller extends GetxController {
         try {
 
           var headers = {
-            'Authorization': 'Bearer 36|1K9t0q8HkttMxbAYWVOTw5JkT3cKGigCRc6HLt0R',
-            'Content-Type': 'application/json',
-            'Cookie': 'laravel_session=eyJpdiI6ImI3WjBkZlZ4SnlvOTdLUFhHVjlWY2c9PSIsInZhbHVlIjoiNGNBNk52eURTQzdlRlNCZGNFd1NyUS9WdEVaVXBlcVU4K2FmU3NBZVNFVmRHb25LQ3VaYTllQ1YrSmk4MlpWSlJTVWp3MzFJQWYzcTgxZDZUU3NhQ0ZNYklwUTU2dUFGckZ3UUd3S2E1MEU5d3IrUGRUN1N4UWZieklZQ1NiNmMiLCJtYWMiOiIzYzE4YTRhYjBiMzIxMGQ2NTZhNDNhMWNhYWVlYWQ3OTJmODlkMTFkNWY3Yjc3ZGI3ZjIwNTBmNzJiMzFiM2RlIiwidGFnIjoiIn0%3D'
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
           };
           var request = http.Request('POST', Uri.parse('http://192.168.0.115/bijoytech_ecomerce/api/order-store'));
           request.body = json.encode({
-            "payment_info": {
-              "coupon_code": null,
-              "coupon_amount": null,
-              "coupon_seller_id": null,
-              "payment_id": "lptvcv25698452",
-              "payer_id": "rony@gmail.com",
-              "payment_method": "paypal",
-              "shipping_name": "USPS Shipping in 2–5 Business Days"
+              "payment_info": {
+              "coupon_code": coupon_code,
+              "coupon_amount":coupon_amount,
+              "coupon_seller_id": coupon_seller_id,
+              "payment_id": payment_id,
+              "payer_id": payer_id,
+              "payment_method": payment_method,
+              "shipping_name": shipping_name
             },
-            "seller": [
-              {
-                "seller_id": 1,
-                "shipping_charge": 8.8,
-                "product": [
-                  {
-                    "product_id": 1,
-                    "qty": 4,
-                    "color_id": "1",
-                    "size_id": null
-                  }
-                ]
-              },
-              {
-                "seller_id": 3,
-                "shipping_charge": 8.8,
-                "product": [
-                  {
-                    "product_id": 2,
-                    "qty": 1,
-                    "color_id": null,
-                    "size_id": null
-                  }
-                ]
-              }
-            ]
+            "product": productJson
           });
           request.headers.addAll(headers);
 
           http.StreamedResponse response = await request.send();
 
-
           _showToast(response.statusCode.toString());
-
           if (response.statusCode == 200) {
             print(await response.stream.bytesToString());
           }
           else {
             print(response.reasonPhrase);
           }
+
 
         } catch (e) {
           _showToast(e.toString());
@@ -505,6 +537,11 @@ class CheckoutPageStep2Controller extends GetxController {
       _showToast("No Internet Connection!");
     }
   }
+
+
+
+
+
 
   expressShippingCheck2({
     required String token,
@@ -540,7 +577,7 @@ class CheckoutPageStep2Controller extends GetxController {
           request.headers.addAll(headers);
 
           http.StreamedResponse response = await request.send();
-          _showToast(response.statusCode.toString());
+          //_showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
             print(await response.stream.bytesToString());
@@ -573,5 +610,15 @@ class Product{  //modal class
   Product({
     required this.product_id,
     required this.weight
+  });
+}
+
+class SelectedShippingNameWithSellerId{  //modal class
+  String seller_id, shipping_name;
+
+  SelectedShippingNameWithSellerId({
+    required this.seller_id,
+    required this.shipping_name,
+
   });
 }

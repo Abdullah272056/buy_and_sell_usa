@@ -1778,6 +1778,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
             grocery: productDetailsController.grocery.value.toString(),
             tax: productDetailsController.tax.value.toString(),
             shipping: productDetailsController.shipping.value.toString(),
+            shippingName: "null",
             width:productDetailsController.width.value.toString(),
             height: productDetailsController.height.value.toString(),
             depth: productDetailsController.depth.value.toString(),

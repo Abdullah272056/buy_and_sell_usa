@@ -2,7 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:fnf_buy/view/auth/log_in_page.dart';
+import 'package:fnf_buy/view/common_page/dash_board_page.dart';
+import 'package:fnf_buy/view/dash_board/cart_page.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/checkout_page.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/account%20_details_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/address_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/order_details_page.dart';
+import 'package:fnf_buy/view/dash_board/profile_section/order_page.dart';
 import 'package:fnf_buy/view/dash_board/profile_section/profile_section_page.dart';
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -30,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:CheckoutPageStep2Page(),
-       body: ProfileSectionPage(),
+       body: DashBoardPageScreen(),
 
       // body:CheckoutPageStep2Page(),
 

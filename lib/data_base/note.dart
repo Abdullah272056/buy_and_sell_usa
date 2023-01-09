@@ -7,7 +7,7 @@ class CartNoteFields{
   static final List<String> values =[
     id, productId, productName, productRegularPrice, productDiscountedPrice, productPhoto,productQuantity,
     weight,seller,sellerName,slug,colorImage,size,color,sizeId,
-  colorId,grocery,tax,shipping,width,height,depth,weightOption,commission,commissionType
+  colorId,grocery,tax,shipping,shippingName,width,height,depth,weightOption,commission,commissionType
   ];
 
 
@@ -34,6 +34,7 @@ class CartNoteFields{
 
   static final String tax='tax';
   static final String shipping='shipping';
+  static final String shippingName='shippingName';
   static final String width='width';
   static final String height='height';
   static final String depth='depth';
@@ -70,6 +71,7 @@ class CartNote{
 
   final  String tax;
   final  String shipping;
+  final  String shippingName;
   final  String width;
   final  String height;
   final  String depth;
@@ -99,6 +101,7 @@ class CartNote{
     required this.grocery,
     required this.tax,
     required this.shipping,
+    required this.shippingName,
     required this.width,
     required this.height,
     required this.depth,
@@ -117,7 +120,6 @@ class CartNote{
   String? productPhoto,
   String? productQuantity,
 
-
     String? weight,
     String?seller,
     String? sellerName,
@@ -131,6 +133,7 @@ class CartNote{
 
     String? tax,
     String? shipping,
+    String? shippingName,
     String? width,
     String? height,
     String? depth,
@@ -163,6 +166,7 @@ class CartNote{
 
           tax: tax?? this.tax,
           shipping: shipping?? this.shipping,
+          shippingName: shippingName?? this.shippingName,
           width: width?? this.width,
           height: height?? this.height,
           depth: depth?? this.depth,
@@ -198,6 +202,7 @@ static CartNote fromJson(Map<String, Object?> json)=> CartNote(
 
   tax:  json[CartNoteFields.tax] as String,
   shipping:  json[CartNoteFields.shipping] as String,
+  shippingName:  json[CartNoteFields.shippingName] as String,
   width:  json[CartNoteFields.width] as String,
   height:  json[CartNoteFields.height] as String,
   depth:  json[CartNoteFields.depth] as String,
@@ -232,6 +237,7 @@ static CartNote fromJson(Map<String, Object?> json)=> CartNote(
 
     CartNoteFields.tax:tax,
     CartNoteFields.shipping:shipping,
+    CartNoteFields.shippingName:shippingName,
     CartNoteFields.width:width,
     CartNoteFields.height:height,
     CartNoteFields.depth:depth,

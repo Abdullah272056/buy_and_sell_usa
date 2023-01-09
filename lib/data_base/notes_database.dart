@@ -60,6 +60,7 @@ class NotesDataBase{
       
       ${CartNoteFields.tax} $textType,
       ${CartNoteFields.shipping} $textType,
+      ${CartNoteFields.shippingName} $textType,
       ${CartNoteFields.width} $textType,
       ${CartNoteFields.height} $textType,
       ${CartNoteFields.depth} $textType,

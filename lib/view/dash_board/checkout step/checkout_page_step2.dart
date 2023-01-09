@@ -47,7 +47,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART Edit",
+                    "CHECKOUT ORDER",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -362,7 +362,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                     /// add to cart button section
                     Container(
                     //  height: 50,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 15),
 
                       decoration: BoxDecoration(
                         color:Colors.white,
@@ -395,41 +395,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                       )
 
                     ),
-                    Container(
-                    //  height: 50,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
 
-                      decoration: BoxDecoration(
-                        color:Colors.white,
-                        borderRadius:   BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0),
-                        ),
-                        boxShadow: [BoxShadow(
-                          color:Colors.grey.withOpacity(.5),
-                          //  blurRadius: 20.0, // soften the shadow
-                          blurRadius:.5, // soften the shadow
-                          spreadRadius: 0.0, //extend the shadow
-                          offset:Offset(
-                            1.0, // Move to right 10  horizontally
-                            0.0, // Move to bottom 10 Vertically
-                            // Move to bottom 10 Vertically
-                          ),
-                        )],
-                      ),
-                      child:Column(
-                        children: [
-                          SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Expanded(child: _buildPlaceOrderButton1(),),
-
-                            ],
-                          ),
-                        ],
-                      )
-
-                    ),
                   ],
                 ),
 
@@ -644,10 +610,17 @@ class CheckoutPageStep2Page extends StatelessWidget {
   Widget _buildPlaceOrderButton() {
     return ElevatedButton(
       onPressed: () {
+
+        _showToast(cartViewPageController.selectedShippingValueList[0].toString());
+
+
+
         String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
      //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
+
         Get.to(() => WebviewPage(), arguments: [
+
           {"productId": ""},
           {"zipCode": cartViewPageController.zipCode},
           {"surName": cartViewPageController.surName},
@@ -655,7 +628,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
           {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
           {"emailAddress": cartViewPageController.emailAddress},
           {"paymentLink": paymentLink},
-
 
         ]);
 
@@ -692,43 +664,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
     );
   }
 
-  Widget _buildPlaceOrderButton1() {
-    return ElevatedButton(
-      onPressed: () {
-        cartViewPageController.test1();
 
-      },
-
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5))),
-      child: Ink(
-        decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(5.0)
-        ),
-        child: Container(
-          padding: EdgeInsets.only(left: 20,right: 20),
-          height: 40,
-          alignment: Alignment.center,
-          child:  const Text(
-            "PLACE ORDER test",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
 
   String totalPriceCalculate(List cartList1, String sellerId){
@@ -907,7 +843,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                   };
                 }).toList();
 
-               // _showToast("abs= " +cartViewPageController.selectedShippingValueList[index]);
+                // list["shipping_name"]
+            //   _showToast("abs= "  +value.toString());
 
                 cartViewPageController.expressShippingCheck1(
                   token: cartViewPageController.userToken.value,

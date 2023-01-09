@@ -334,8 +334,6 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-
-
   //join now asking
   Widget _buildSignUpQuestion() {
     return Row(
@@ -398,9 +396,6 @@ class LogInScreen extends StatelessWidget {
 
     return false;
   }
-
-
-
 
   //toast create
   _showToast(String message) {

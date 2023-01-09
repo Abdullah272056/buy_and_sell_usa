@@ -55,7 +55,7 @@ class CheckoutPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART",
+                    "BILLING ADDRESS",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17

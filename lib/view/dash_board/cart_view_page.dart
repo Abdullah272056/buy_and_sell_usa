@@ -49,7 +49,7 @@ class CartViewePage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "SHOPPING CART Edit",
+                    "SHOPPING CART",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -480,6 +480,7 @@ class CartViewePage extends StatelessWidget {
                                       size: response.size,
                                       color: response.color,
                                       shipping: response.shipping,
+                                      shippingName: response.shippingName,
                                       sizeId: response.sizeId,
                                       colorId: response.colorId,
                                       grocery: response.grocery,
@@ -558,6 +559,7 @@ class CartViewePage extends StatelessWidget {
                                     size: response.size,
                                     color: response.color,
                                     shipping: response.shipping,
+                                    shippingName: response.shippingName,
                                     sizeId: response.sizeId,
                                     colorId: response.colorId,
                                     grocery: response.grocery,

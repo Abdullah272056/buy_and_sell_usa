@@ -77,7 +77,6 @@ class LogInApiService {
   }
 
 
-
   ///user info with share pref
   void saveUserInfo({required String userName,required String userToken,}) async {
     try {

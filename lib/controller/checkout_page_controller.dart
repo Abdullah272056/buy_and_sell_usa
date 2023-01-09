@@ -88,7 +88,7 @@ class CheckoutPageController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-       _showToast("anbv=  "+storage.read(pref_user_token).toString());
+      // _showToast("anbv=  "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 
@@ -159,7 +159,7 @@ class CheckoutPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-           _showToast("country = ${response.statusCode}");
+         //  _showToast("country = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
@@ -174,7 +174,7 @@ class CheckoutPageController extends GetxController {
             selectCountryId(dataResponse["data"]["id"].toString());
             stateList(dataResponse["data"]["states"]);
 
-            _showToast("leng= "+stateList.length.toString());
+          //  _showToast("leng= "+stateList.length.toString());
 
           }
           else {
@@ -199,7 +199,7 @@ class CheckoutPageController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
           );
-           _showToast("status = ${response.statusCode}");
+         //  _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
@@ -234,7 +234,7 @@ class CheckoutPageController extends GetxController {
             },
           );
 
-          _showToast("billing= "+response.statusCode.toString());
+         // _showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
@@ -294,7 +294,7 @@ class CheckoutPageController extends GetxController {
           );
 
           Get.back();
-          _showToast(response.statusCode.toString());
+       //   _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
 
