@@ -87,7 +87,9 @@ class CategoryPage extends StatelessWidget{
       onTap: (){
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
-          {"subCategoriesId": ""}
+          {"subCategoriesId": ""},
+          {"searchValue": ""}
+
         ])?.then((value) => Get.delete<ProductDetailsController>());
       },
       child:  Column(

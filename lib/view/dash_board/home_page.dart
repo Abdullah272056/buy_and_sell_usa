@@ -180,7 +180,7 @@ class HomePageScreen extends StatelessWidget {
               delayDuration: const Duration(milliseconds: 10),// Not required
               animationDuration: const Duration(milliseconds: 500),// Not required
               animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-              child: userInputSearchField(homeController.searchController!, 'Search product', TextInputType.text),
+              child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),
             ),
 
             ),
@@ -216,7 +216,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputSearchField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 50,
       alignment: Alignment.center,
@@ -228,7 +228,7 @@ class HomePageScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextFormField(
-          controller: userInput,
+          controller: userInputController,
           textInputAction: TextInputAction.search,
           autofocus: true,
           cursorColor:fnf_color,
@@ -262,6 +262,20 @@ class HomePageScreen extends StatelessWidget {
                   size: 25,
                 ),
                 onPressed: () {
+
+                  String searchValue = homeController.searchController.value.text;
+
+                  if(searchValue.isNotEmpty){
+                    Get.to(() => ProductListPage(), arguments: [
+                      {"categoriesId": ""},
+                      {"subCategoriesId": ""},
+                      {"searchValue": searchValue},
+
+                    ])?.then((value) => Get.delete<ProductDetailsController>());
+                  }else{
+                    _showToast("Enter search value!");
+                  }
+
                  // homeController. searchBoxVisible(0);
 
                 }),
@@ -329,7 +343,8 @@ class HomePageScreen extends StatelessWidget {
         homeController.subCategoriesButtonColorStatus (index) ;
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
-          {"subCategoriesId": ""}
+          {"subCategoriesId": ""},
+          {"searchValue": ""},
         ])?.then((value) => Get.delete<ProductDetailsController>());
 
 
@@ -506,7 +521,8 @@ class HomePageScreen extends StatelessWidget {
                                             onTap: (){
                                               Get.to(() => ProductListPage(), arguments: [
                                                 {"categoriesId": homeController.homeDataList[index]["category_id"].toString()},
-                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()}
+                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()},
+                                                {"searchValue": ""},
                                               ]);
                                           //     _showToast(homeController.homeDataList[index]["category_id"].toString());
                                           // _showToast(homeController.homeDataList[index]["sub_categories"][index1]["id"].toString());
@@ -872,7 +888,8 @@ class HomePageScreen extends StatelessWidget {
       onTap: (){
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
-          {"subCategoriesId": ""}
+          {"subCategoriesId": ""},
+          {"searchValue": ""},
         ])?.then((value) => Get.delete<ProductDetailsController>());
       },
       child:  Container(

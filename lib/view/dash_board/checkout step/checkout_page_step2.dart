@@ -612,15 +612,23 @@ class CheckoutPageStep2Page extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
-        _showToast(cartViewPageController.selectedShippingValueList[0].toString());
 
+        // for(int i=0; i<cartViewPageController.selectedShippingNameWithSellerIdList.length-1;i++){
+        //   if(cartViewPageController.selectedShippingNameWithSellerIdList[i].shipping_name==""){
+        //     _showToast("Select all shipping");
+        //     return;
+        //   }
+        //
+        // }
+
+     //   _showToast(cartViewPageController.selectedShippingValueList[0].toString());
 
 
         String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
      //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
 
-        Get.to(() => WebviewPage(), arguments: [
+    Get.to(() => WebviewPage(), arguments: [
 
           {"productId": ""},
           {"zipCode": cartViewPageController.zipCode},
@@ -631,6 +639,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
           {"paymentLink": paymentLink},
 
         ])?.then((value) => Get.delete<WebViewPageController>());
+
 
       },
 
@@ -664,9 +673,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
       ),
     );
   }
-
-
-
 
   String totalPriceCalculate(List cartList1, String sellerId){
    // j

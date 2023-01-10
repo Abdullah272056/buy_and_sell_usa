@@ -1,10 +1,14 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
+import 'package:http/http.dart' as http;
 import '../data_base/notes_database.dart';
 import '../static/Colors.dart';
 
@@ -87,6 +91,68 @@ class CartViewPageController extends GetxController {
     List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
     sellerGroupList(uniqueList);
     //_showToast("remove="+uniqueList.length.toString());
+  }
+
+  couponCodeCheck({
+    required String token,
+    required String couponCode,
+    required var couponInfoJson
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var headers = {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
+          };
+          var request = http.Request('POST', Uri.parse(
+              // "$BASE_URL_API$SUB_URL_API_COUPON_CODE_CHECK"
+              'http://192.168.0.115/bijoytech_ecomerce/api/reset-otp-check'
+          ));
+          request.body = json.encode({
+            "coupon_code": couponCode,
+            "coupon_info":
+
+            [
+              {
+                "seller_id": 2,
+                "buyed_amount": 100
+              },
+              {
+                "seller_id": 2,
+                "buyed_amount": 100
+              }
+            ]
+          });
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response = await request.send();
+
+          _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            print(await response.stream.bytesToString());
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
   ///user info with share pref

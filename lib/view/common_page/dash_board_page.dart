@@ -28,10 +28,7 @@ class DashBoardPageScreen extends StatelessWidget {
     return  Scaffold(
 
       body: Container(
-
-
         child: Obx(() =>dashBoardPageController.selectedPage[0]),
-
       ),
 
       bottomNavigationBar: Obx(() =>  BottomNavigationBar(
@@ -52,8 +49,6 @@ class DashBoardPageScreen extends StatelessWidget {
               dashBoardPageController.updateSelectedPage([CategoryPage()]);
               //  selectedPage(HomePage( ));
               // selectedPage= ShopPage( );
-
-
               return;
             }
 
@@ -83,8 +78,6 @@ class DashBoardPageScreen extends StatelessWidget {
             _bottomNavigationBarItem(iconData: Icons.person, levelText: 'Account'),
             _bottomNavigationBarItem(iconData: Icons.add_shopping_cart, levelText: 'Cart'),
             _bottomNavigationBarItem(iconData: Icons.read_more, levelText: 'More'),
-
-
           ],
         ),),
 

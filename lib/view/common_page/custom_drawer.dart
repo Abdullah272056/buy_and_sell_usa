@@ -415,7 +415,8 @@ class CustomDrawer extends StatelessWidget {
                     onTap: (){
                       Get.to(() => ProductListPage(), arguments: [
                         {"categoriesId": customDrawerController.categoriesList[index].id.toString()},
-                        {"subCategoriesId": customDrawerController.categoriesList[index].subCategories[index2].id.toString()}
+                        {"subCategoriesId": customDrawerController.categoriesList[index].subCategories[index2].id.toString()},
+                        {"searchValue": ""},
                       ]);
                       // _showToast(customDrawerController.categoriesList[index].id.toString());
                       // _showToast(customDrawerController.categoriesList[index].subCategories[index2].id.toString());

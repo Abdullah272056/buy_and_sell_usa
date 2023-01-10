@@ -48,7 +48,7 @@ class Data {
     this.colorId,
     this.sortBy,
     this.search,
-    this.categoryName,
+    // this.categoryName,
     this.products,
   });
 
@@ -66,7 +66,7 @@ class Data {
   List<String> ? colorId;
   String ? sortBy;
   String ? search;
-  Category ? categoryName;
+  // Category ? categoryName;
   Products ? products;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -84,7 +84,7 @@ class Data {
     colorId: List<String>.from(json["color_id"].map((x) => x)),
     sortBy: json["sort_by"].toString(),
     search: json["search"].toString(),
-    categoryName: Category.fromJson(json["category_name"]),
+    // categoryName: Category.fromJson(json["category_name"]),
     products: Products.fromJson(json["products"]),
   );
 
@@ -103,7 +103,7 @@ class Data {
     "color_id": List<String>.from(colorId!.map((x) => x)),
     "sort_by": sortBy,
     "search": search,
-    "category_name": categoryName!.toJson(),
+    // "category_name": categoryName!.toJson(),
     "products": products!.toJson(),
   };
 }

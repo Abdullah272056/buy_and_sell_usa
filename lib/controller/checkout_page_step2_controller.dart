@@ -539,10 +539,6 @@ class CheckoutPageStep2Controller extends GetxController {
   }
 
 
-
-
-
-
   expressShippingCheck2({
     required String token,
     required String shippingType,
@@ -601,6 +597,10 @@ class CheckoutPageStep2Controller extends GetxController {
       _showToast("No Internet Connection!");
     }
   }
+
+
+
+
 
 }
 

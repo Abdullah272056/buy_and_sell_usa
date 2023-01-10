@@ -75,6 +75,7 @@ class AllProductListPageController extends GetxController {
     getSubCategoriesList();
     categoryId(argumentData[0]['categoriesId']);
     subCategoryId(argumentData[1]['subCategoriesId']);
+    selectedSearch(argumentData[2]['searchValue']);
 
     getCategoriesProductsDataList(
         categoryId: categoryId.value,
