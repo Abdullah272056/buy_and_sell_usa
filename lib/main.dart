@@ -42,10 +42,8 @@ class MyApp extends StatelessWidget {
 
       // body:CheckoutPageStep2Page(),
 
-
       ),
     );
-
 
   }
 

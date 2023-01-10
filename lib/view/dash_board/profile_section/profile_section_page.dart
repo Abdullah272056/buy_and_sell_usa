@@ -37,22 +37,22 @@ class ProfileSectionPage extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
+                height: MediaQuery.of(context).size.height / 16,
                 // height: 50,
               ),
               Flex(direction: Axis.horizontal,
                 children: [
-                  SizedBox(width: 5,),
-                  IconButton(
-                    iconSize: 20,
-                    icon:Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
+                  SizedBox(width: 15,),
+                  // IconButton(
+                  //   iconSize: 20,
+                  //   icon:Icon(
+                  //     Icons.arrow_back_ios_new,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onPressed: () {
+                  //     Get.back();
+                  //   },
+                  // ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
                     "PROFILE SECTION",
@@ -65,7 +65,11 @@ class ProfileSectionPage extends StatelessWidget {
 
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 35,
+                // height: 50,
+              ),
+              //SizedBox(height: 10,),
               Expanded(child: Container(
                 color: Colors.white,
 

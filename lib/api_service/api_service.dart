@@ -45,7 +45,7 @@ String SUB_URL_API_GET_ACCOUNT_DETAILS= "api/account/get-account-details";
 
 String SUB_URL_API_GET_MY_ORDERS_LIST= "api/account/orders";
 String SUB_URL_API_GET_MY_ORDERS_INFO_POST= "api/order-store";
-String SUB_URL_API_COUPON_CODE_CHECK= "api/reset-otp-check";
+String SUB_URL_API_COUPON_CODE_CHECK= "api/coupon-check";
 String SUB_URL_API_GROCERY_ZIP_CODE_CHECK= "api/grocery-zip-check";
 
 

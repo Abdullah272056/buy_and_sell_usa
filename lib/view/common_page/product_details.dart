@@ -1917,7 +1917,15 @@ class ProductDetailsePageScreen extends StatelessWidget {
               // id: 1,
             );
             productDetailsController.insertData1(cartNote);
-            Get.to(CheckoutPage());
+
+
+            Get.to(() => CheckoutPage(), arguments: [
+              {"couponCodes": ""},
+              {"couponAmount": ""},
+              {"couponSellerId": ""},
+            ])?.then((value) => Get.delete<ProductDetailsController>());
+
+            // Get.to(CheckoutPage());
             //_showToast("go to checkout process");
           }else{
             showLoginWarning();
@@ -2493,7 +2501,11 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 // id: 1,
               );
               productDetailsController.insertData1(cartNote);
-              Get.to(CheckoutPage());
+              Get.to(() => CheckoutPage(), arguments: [
+                {"couponCodes": ""},
+                {"couponAmount": ""},
+                {"couponSellerId": ""},
+              ])?.then((value) => Get.delete<ProductDetailsController>());
               //_showToast("go to checkout process");
             }else{
               showLoginWarning();

@@ -771,8 +771,17 @@ class CartViewePage extends StatelessWidget {
 
         if(cartViewPageController.userToken.isNotEmpty &&
             cartViewPageController.userToken.value!=null){
-          Get.to(CheckoutPage());
-          //_showToast("go to checkout process");
+
+
+          // Get.to(CheckoutPage());
+
+          Get.to(() => CheckoutPage(), arguments: [
+            {"couponCodes": cartViewPageController.couponCodes.value},
+            {"couponAmount": cartViewPageController.couponAmount.value},
+            {"couponSellerId": cartViewPageController.couponSellerId.value},
+          ])?.then((value) => Get.delete<CartViewPageController>());
+
+
 
 
         }else{
@@ -819,8 +828,30 @@ class CartViewePage extends StatelessWidget {
 
         if(cartViewPageController.userToken.isNotEmpty &&
             cartViewPageController.userToken.value!=null){
-        //  Get.to(CheckoutPage());
-          //_showToast("go to checkout process");
+          String couponCode=cartViewPageController.promoCodeController.value.text;
+          if(couponCode.isNotEmpty){
+            List<CheckPromoCode> checkPromoCodeDataList = [];
+            for(int i=0;i<cartViewPageController.sellerGroupList.length;i++){
+              checkPromoCodeDataList.add(CheckPromoCode(
+                  sellerId: cartViewPageController.sellerGroupList[i].seller.toString(),
+                  buyedAmount:totalPriceCalculate(cartViewPageController.cartList,
+                      cartViewPageController.sellerGroupList[i].seller.toString()).toString()
+              ) );
+            }
+            var checkPromoCodeDataListJson = checkPromoCodeDataList.map((e){
+              return {
+                "seller_id": e.sellerId,
+                "buyed_amount": e.buyedAmount
+              };
+            }).toList();
+            cartViewPageController.couponCodeCheck(
+                token: cartViewPageController.userToken.value,
+                couponCode: couponCode,
+                couponInfoJson: checkPromoCodeDataListJson);
+
+          }else{
+            _showToast("Please Enter Promo Code!");
+          }
 
 
         }else{
@@ -1099,4 +1130,18 @@ class CartViewePage extends StatelessWidget {
   }
 
 }
+
+class CheckPromoCode{
+String sellerId;
+String buyedAmount;
+CheckPromoCode({
+  required this.sellerId,
+  required this.buyedAmount,
+
+});
+}
+
+
+
+
 

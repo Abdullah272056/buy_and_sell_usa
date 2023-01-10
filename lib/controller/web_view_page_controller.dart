@@ -23,6 +23,11 @@ class WebViewPageController extends GetxController {
    var cartList=[].obs;
    var userName="".obs;
    var userToken="".obs;
+
+   var couponCodes= "".obs;
+   var couponAmount="".obs;
+   var couponSellerId="".obs;
+
   @override
   void onInit() {
 

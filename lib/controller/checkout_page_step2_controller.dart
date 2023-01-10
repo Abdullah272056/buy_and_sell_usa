@@ -45,8 +45,13 @@ class CheckoutPageStep2Controller extends GetxController {
   var allTaxAmount="0.0".obs;
   var allTotalAmountWithAllCost="0.0".obs;
 
+  var couponCodes= "".obs;
+  var couponAmount="".obs;
+  var couponSellerId="".obs;
 
   dynamic argumentData = Get.arguments;
+
+
   @override
   void onInit() {
 
@@ -56,6 +61,10 @@ class CheckoutPageStep2Controller extends GetxController {
     mobileNumber(argumentData[3]['mobileNumber'].toString());
     totalAmountWithTax(argumentData[4]['totalAmountWithTax'].toString());
     emailAddress(argumentData[5]['emailAddress'].toString());
+
+    couponCodes(argumentData[6]['couponCodes'].toString());
+    couponAmount(argumentData[7]['couponAmount'].toString());
+    couponSellerId(argumentData[8]['couponSellerId'].toString());
 
     readAllNotes();
     loadUserIdFromSharePref();

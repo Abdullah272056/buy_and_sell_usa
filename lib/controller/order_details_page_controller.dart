@@ -36,6 +36,11 @@ class OrderDetailsPageController extends GetxController {
   var zip="".obs;
   var country="".obs;
 
+  var totalShippingTotal="".obs;
+  var totalTaxTotal="".obs;
+  var couponAmountTotal="".obs;
+  var totalAmountTotal="".obs;
+
   ///product list
   var orderProductDetailsList=[].obs;
 
@@ -64,9 +69,18 @@ class OrderDetailsPageController extends GetxController {
     city(argumentData[0]['singleProductDetailsData']["billings"]["city"].toString());
     state(argumentData[0]['singleProductDetailsData']["billings"]["state"].toString());
     zip(argumentData[0]['singleProductDetailsData']["billings"]["zip"].toString());
-    country(argumentData[0]['singleProductDetailsData']["billings"]["country"].toString());
+    country(argumentData[0]['singleProductDetailsData']["billings"]["country_name"]["name"].toString());
+
+
+     totalShippingTotal(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
+     totalTaxTotal(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
+     couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+     totalAmountTotal(argumentData[0]['singleProductDetailsData']["total"].toString());
 
     orderProductDetailsList(argumentData[0]['singleProductDetailsData']["ordered_products"]);
+
+
+
 
    // _showToast("list= "+orderProductDetailsList.length.toString());
 

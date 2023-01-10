@@ -65,12 +65,20 @@ class CheckoutPageController extends GetxController {
   var selectedState="".obs;
   var selectedCountry="".obs;
 
-  // dynamic argumentData = Get.arguments;
+
+  var couponCodes= "".obs;
+  var couponAmount="".obs;
+  var couponSellerId="".obs;
+
+  dynamic argumentData = Get.arguments;
   @override
   void onInit() {
-    // abcd(argumentData[0]['first']);
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
+
+     couponCodes(argumentData[0]['couponCodes'].toString());
+     couponAmount(argumentData[1]['couponAmount'].toString());
+     couponSellerId(argumentData[2]['couponSellerId'].toString());
+
+
     loadUserIdFromSharePref();
     refreshNotes();
 
@@ -320,8 +328,13 @@ class CheckoutPageController extends GetxController {
              {"mobileNumber": phoneNumber},
              {"totalAmountWithTax": (totalTaxAmount.value+totalPrice.value).toString()},
              {"emailAddress": emailAddress},
+             {"couponCodes": couponCodes},
+             {"couponAmount":couponAmount},
+             {"couponSellerId": couponSellerId}
 
            ]);
+
+
 
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);

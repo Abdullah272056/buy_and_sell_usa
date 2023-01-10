@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../api_service/api_service.dart';
 import '../api_service/sharePreferenceDataSaveName.dart';
 import '../data_base/note.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,15 @@ class CartViewPageController extends GetxController {
   var userToken="".obs;
   var inputLevelTextColor = hint_color.obs;
   final promoCodeController = TextEditingController().obs;
+
+
+  var couponCodes= "".obs;
+  var couponAmount="".obs;
+  var couponSellerId="".obs;
+
+
+
+
   @override
   void onInit() {
     readAllNotes();
@@ -93,6 +103,62 @@ class CartViewPageController extends GetxController {
     //_showToast("remove="+uniqueList.length.toString());
   }
 
+  // couponCodeCheck1({
+  //   required String token,
+  //   required String couponCode,
+  //   required var couponInfoJson
+  // }) async {
+  //   try {
+  //     final result = await InternetAddress.lookup('example.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       try {
+  //         var headers = {
+  //           'Authorization': 'Bearer $token',
+  //           'Content-Type': 'application/json'
+  //         };
+  //         var request = http.Request('POST', Uri.parse(
+  //            "$BASE_URL_API$SUB_URL_API_COUPON_CODE_CHECK"
+  //             //'http://192.168.0.115/bijoytech_ecomerce/api/coupon-check'
+  //         ));
+  //         request.body = json.encode({
+  //           "coupon_code": couponCode,
+  //           "coupon_info":couponInfoJson
+  //         });
+  //         request.headers.addAll(headers);
+  //
+  //         http.StreamedResponse response = await request.send();
+  //
+  //         _showToast(response.statusCode.toString());
+  //
+  //         if (response.statusCode == 200) {
+  //           var homeDataResponse = jsonDecode(response.body);
+  //
+  //           _showToast(message)
+  //
+  //           print(await response.stream.bytesToString());
+  //         }
+  //         else {
+  //           _showToast("Invalid Promo Code!");
+  //           print(response.reasonPhrase);
+  //         }
+  //
+  //
+  //       } catch (e) {
+  //         //  Navigator.of(context).pop();
+  //         //print(e.toString());
+  //       } finally {
+  //         //   Get.back();
+  //
+  //         /// Navigator.of(context).pop();
+  //       }
+  //     }
+  //   } on SocketException catch (_) {
+  //
+  //     Fluttertoast.cancel();
+  //     _showToast("No Internet Connection!");
+  //   }
+  // }
+
   couponCodeCheck({
     required String token,
     required String couponCode,
@@ -102,42 +168,46 @@ class CartViewPageController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          var headers = {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json'
-          };
-          var request = http.Request('POST', Uri.parse(
-              // "$BASE_URL_API$SUB_URL_API_COUPON_CODE_CHECK"
-              'http://192.168.0.115/bijoytech_ecomerce/api/reset-otp-check'
-          ));
-          request.body = json.encode({
-            "coupon_code": couponCode,
-            "coupon_info":
 
-            [
-              {
-                "seller_id": 2,
-                "buyed_amount": 100
+        //  showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_COUPON_CODE_CHECK'),
+               headers : {
+              'Authorization': 'Bearer $token',
+              'Content-Type': 'application/json'
               },
-              {
-                "seller_id": 2,
-                "buyed_amount": 100
-              }
-            ]
-          });
-          request.headers.addAll(headers);
+              body: json.encode({
+                "coupon_code": couponCode,
+                "coupon_info":couponInfoJson
+              })
+          );
 
-          http.StreamedResponse response = await request.send();
+          // _showToast(response.statusCode.toString());
 
-          _showToast(response.statusCode.toString());
-
+        //  Get.back();
           if (response.statusCode == 200) {
-            print(await response.stream.bytesToString());
-          }
-          else {
-            print(response.reasonPhrase);
-          }
+            _showToast("success");
 
+
+            var couponCodeResponse = jsonDecode(response.body);
+
+
+            couponCodes(couponCodeResponse["data"]["coupon_info"]["code"].toString());
+             couponAmount(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
+             couponSellerId(couponCodeResponse["data"]["coupon_info"]["seller_id"].toString());
+
+
+           // _showToast(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
+
+            //_showToast(message)
+
+
+          }
+         
+          else {
+            _showToast("Invalid Promo Code!");
+          }
+          //   Get.back();
 
         } catch (e) {
           //  Navigator.of(context).pop();

@@ -637,6 +637,10 @@ class CheckoutPageStep2Page extends StatelessWidget {
           {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
           {"emailAddress": cartViewPageController.emailAddress},
           {"paymentLink": paymentLink},
+          {"couponCodes": cartViewPageController.couponCodes},
+          {"couponAmount":cartViewPageController.couponAmount},
+          {"couponSellerId": cartViewPageController.couponSellerId}
+
 
         ])?.then((value) => Get.delete<WebViewPageController>());
 

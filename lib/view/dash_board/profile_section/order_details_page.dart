@@ -48,7 +48,7 @@ class OrderDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "OODER DETAILS",
+                    "ORDER DETAILS",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -89,7 +89,7 @@ class OrderDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
                         color: Colors.orange,
                       ),
-                      Obx(()=> userInputSelectTopic(keyName: 'Order No:', value: orderDetailsPageController.orderNo.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Order No:', value: "#"+orderDetailsPageController.orderNo.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Shipping Amount:', value: orderDetailsPageController.shippingAmount.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Tax Amount:', value: orderDetailsPageController.taxAmount.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Coupon Amount:', value: orderDetailsPageController.couponAmount.value),),
@@ -182,6 +182,132 @@ class OrderDetailsPage extends StatelessWidget {
                               ,
                             );
                           }),
+
+
+                      SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Expanded(child: Container(
+                            height: 2,
+                            color: hint_color,
+                          ))
+                        ],
+                      ),
+
+
+                      Container(
+                        padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 20),
+                        child: Column(
+                          children: [
+
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child:  Text("Total Shpping: ",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: text_color,
+                                        fontSize: 16
+                                    ),
+                                  ),),
+                                Expanded(child:   Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Obx(()=> Text(
+                                    // j
+                                    "\$ "+orderDetailsPageController.totalShippingTotal.value,
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                                )),
+
+
+
+                              ],
+                            ),
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child:  Text("Total Tax: ",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: text_color,
+                                        fontSize: 16
+                                    ),
+                                  ),),
+                                Expanded(child:   Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Obx(()=> Text(
+                                    // j
+                                    "\$ "+orderDetailsPageController.totalTaxTotal.value,
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                                )),
+
+
+
+                              ],
+                            ),
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child:  Text("Coupon Amount: ",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: text_color,
+                                        fontSize: 16
+                                    ),
+                                  ),),
+                                Expanded(child:   Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Obx(()=> Text(
+                                    // j
+                                    "\$ "+orderDetailsPageController.couponAmountTotal.value,
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                                )),
+
+
+
+                              ],
+                            ),
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child:  Text("Total Amount: ",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: text_color,
+                                        fontSize: 16
+                                    ),
+                                  ),),
+                                Expanded(child:   Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Obx(()=> Text(
+                                    // j
+                                    "\$ "+orderDetailsPageController.totalAmountTotal.value,
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                        fontSize: 18
+                                    ),
+                                  )),
+                                )),
+
+
+
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+
 
                     ],
                   ),

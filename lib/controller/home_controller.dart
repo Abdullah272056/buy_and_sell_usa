@@ -192,7 +192,7 @@ class HomeController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-      _showToast("Token= "+storage.read(pref_user_token).toString());
+      //_showToast("Token= "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 

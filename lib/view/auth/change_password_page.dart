@@ -150,10 +150,10 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: 30,
               ),
 
-              _buildSignUpQuestion(),
-              const SizedBox(
-                height: 15,
-              ),
+              // _buildSignUpQuestion(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
             ],
           ),
         ),
