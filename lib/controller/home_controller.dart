@@ -46,7 +46,7 @@ class HomeController extends GetxController {
     super.onInit();
 
 
-    //loadUserIdFromSharePref();
+    loadUserIdFromSharePref();
     refreshNotes();
     getHomeData();
     getCategoriesDataList();

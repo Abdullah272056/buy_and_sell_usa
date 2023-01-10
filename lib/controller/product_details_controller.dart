@@ -15,11 +15,13 @@ import '../data_base/notes_database.dart';
 import '../model/FilterListDataModelClass.dart';
 import 'package:http/http.dart' as http;
 
-class ProductDetailsController extends GetxController {
-  TextEditingController? searchController = TextEditingController();
+import '../static/Colors.dart';
 
-  var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
-    "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"].obs;
+class ProductDetailsController extends GetxController {
+  // TextEditingController? searchController = TextEditingController();
+  final searchController = TextEditingController().obs;
+  // var categoryList=["Phone","Laptop","Book Book","Fresh Food","Fashion","Toys",
+  //   "Grocery","Jewellery","Software","Car","Shoee","Matrix","Furniture","Building"].obs;
   var isDrawerOpen = false.obs;
 
   var subCategoriesButtonColorStatus=0.obs;
@@ -80,7 +82,7 @@ class ProductDetailsController extends GetxController {
   var colorImage="".obs;
   var  size="".obs;
   var color="".obs;
-  var  sizeId="".obs;
+  var sizeId="".obs;
   var colorId="".obs;
   var grocery="".obs;
   var tax="".obs;
@@ -96,6 +98,7 @@ class ProductDetailsController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
   dynamic argumentData = Get.arguments;
+  var userEmailLevelTextColor = hint_color.obs;
   @override
   void onInit() {
     // print(argumentData[0]['first']);
@@ -358,8 +361,7 @@ class ProductDetailsController extends GetxController {
   addWishList({
         required String token,
         required String productId
-      }
-      ) async {
+      }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -402,6 +404,57 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+
+ Future<bool>  zipCodeCheck({
+    required String zipCode
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          //  _showToast("1");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_GROCERY_ZIP_CODE_CHECK'),
+
+            body: {
+              'zip_code': zipCode,
+            },
+          );
+
+          // _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+
+
+           // _showToast("Zip code match!");
+
+            return true;
+
+          }
+          else {
+            var data = jsonDecode(response.body);
+            _showToast("Zip code not match");
+          }
+
+          //   Get.back();
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+
+    }
+    return false;
+  }
+
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
@@ -409,7 +462,7 @@ class ProductDetailsController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-      //  _showToast("token g= "+storage.read(pref_user_token).toString());
+       _showToast("token g= "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 

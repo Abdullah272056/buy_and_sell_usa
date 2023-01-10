@@ -13,6 +13,7 @@ import '../../../controller/home_controller.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
 import '../../controller/product_details_controller.dart';
+import '../../controller/wish_list_page_controller.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../common_page/product_details.dart';
@@ -131,7 +132,7 @@ class HomePageScreen extends StatelessWidget {
                           homeController.userToken.value!=null){
                        // _showToast(homeController.userToken.toString());
                       //  _showToast("add favourite");
-                        Get.to(WishListPage());
+                        Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
                       }else{
                         showLoginWarning();
                       }
@@ -663,11 +664,9 @@ class HomePageScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: (){
 
+
                             if(homeController.userToken.isNotEmpty &&
                                 homeController.userToken.value!=null){
-                             // _showToast("add favourite");
-                              // _showToast(response["id"].toString());
-
                               homeController.addWishList(
                                   token: homeController.userToken.toString(),
                                   productId: response["id"].toString());
@@ -675,6 +674,19 @@ class HomePageScreen extends StatelessWidget {
                             }else{
                               showLoginWarning();
                             }
+
+                            // if(homeController.userToken.isNotEmpty &&
+                            //     homeController.userToken.value!=null){
+                            //  // _showToast("add favourite");
+                            //   // _showToast(response["id"].toString());
+                            //
+                            //   homeController.addWishList(
+                            //       token: homeController.userToken.toString(),
+                            //       productId: response["id"].toString());
+                            //
+                            // }else{
+                            //   showLoginWarning();
+                            // }
 
                           },
                           child: Icon(Icons.favorite_outline,
@@ -796,6 +808,7 @@ class HomePageScreen extends StatelessWidget {
 
      ;
   }
+
 
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;

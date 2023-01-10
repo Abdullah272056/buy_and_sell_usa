@@ -42,6 +42,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _drawerKey,
       drawer: CustomDrawer(),
@@ -1762,38 +1763,49 @@ class ProductDetailsePageScreen extends StatelessWidget {
         // _showToast(productDetailsController.sellerName.value.toString());
         // _showToast(productDetailsController.slug.value.toString());
 
-        CartNote cartNote= CartNote(
 
-            productId: productDetailsController.productId.value.toString(),
-            productName: productDetailsController.productName.value.toString(),
-            productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-            productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
-            productPhoto:productDetailsController.productPhoto.value.toString(),
-            productQuantity: productDetailsController.productQuantity.value.toString(),
-            weight: productDetailsController.weight.value.toString(),
-            seller: productDetailsController.seller.value.toString(),
-            sellerName: productDetailsController.sellerName.value.toString(),
-            slug: productDetailsController.slug.value.toString(),
-            colorImage: productDetailsController.colorImage.value.toString(),
-            size: productDetailsController.size.value.toString(),
-            color: productDetailsController.color.value.toString(),
-            sizeId: productDetailsController.sizeId.value.toString(),
-            colorId: productDetailsController.colorId.value.toString(),
-            grocery: productDetailsController.grocery.value.toString(),
-            tax: productDetailsController.tax.value.toString(),
-            shipping: productDetailsController.shipping.value.toString(),
-            shippingName: "null",
-            width:productDetailsController.width.value.toString(),
-            height: productDetailsController.height.value.toString(),
-            depth: productDetailsController.depth.value.toString(),
-            weightOption: productDetailsController.weightOption.value.toString(),
-            commission: productDetailsController.commission.value.toString(),
-            commissionType: productDetailsController.commissionType.value.toString()
+        if(productDetailsController.grocery=="1"){
+
+          showGroceryModal();
+
+        }else{
+          Get.back();
+
+          CartNote cartNote= CartNote(
+
+              productId: productDetailsController.productId.value.toString(),
+              productName: productDetailsController.productName.value.toString(),
+              productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+              productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+              productPhoto:productDetailsController.productPhoto.value.toString(),
+              productQuantity: productDetailsController.productQuantity.value.toString(),
+              weight: productDetailsController.weight.value.toString(),
+              seller: productDetailsController.seller.value.toString(),
+              sellerName: productDetailsController.sellerName.value.toString(),
+              slug: productDetailsController.slug.value.toString(),
+              colorImage: productDetailsController.colorImage.value.toString(),
+              size: productDetailsController.size.value.toString(),
+              color: productDetailsController.color.value.toString(),
+              sizeId: productDetailsController.sizeId.value.toString(),
+              colorId: productDetailsController.colorId.value.toString(),
+              grocery: productDetailsController.grocery.value.toString(),
+              tax: productDetailsController.tax.value.toString(),
+              shipping: productDetailsController.shipping.value.toString(),
+              shippingName: "null",
+              width:productDetailsController.width.value.toString(),
+              height: productDetailsController.height.value.toString(),
+              depth: productDetailsController.depth.value.toString(),
+              weightOption: productDetailsController.weightOption.value.toString(),
+              commission: productDetailsController.commission.value.toString(),
+              commissionType: productDetailsController.commissionType.value.toString()
 
 
-          // id: 1,
-        );
-        productDetailsController.insertData(cartNote);
+            // id: 1,
+          );
+          productDetailsController.insertData(cartNote);
+        }
+
+
 
         ///
 
@@ -1864,47 +1876,56 @@ class ProductDetailsePageScreen extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
-        CartNote cartNote= CartNote(
+        if(productDetailsController.grocery=="1"){
 
-            productId: productDetailsController.productId.value.toString(),
-            productName: productDetailsController.productName.value.toString(),
-            productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-            productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
-            productPhoto:productDetailsController.productPhoto.value.toString(),
-            productQuantity: productDetailsController.productQuantity.value.toString(),
-            weight: productDetailsController.weight.value.toString(),
-            seller: productDetailsController.seller.value.toString(),
-            sellerName: productDetailsController.sellerName.value.toString(),
-            slug: productDetailsController.slug.value.toString(),
-            colorImage: productDetailsController.colorImage.value.toString(),
-            size: productDetailsController.size.value.toString(),
-            color: productDetailsController.color.value.toString(),
-            sizeId: productDetailsController.sizeId.value.toString(),
-            colorId: productDetailsController.colorId.value.toString(),
-            grocery: productDetailsController.grocery.value.toString(),
-            tax: productDetailsController.tax.value.toString(),
-            shipping: productDetailsController.shipping.value.toString(),
-            shippingName: "null",
-            width:productDetailsController.width.value.toString(),
-            height: productDetailsController.height.value.toString(),
-            depth: productDetailsController.depth.value.toString(),
-            weightOption: productDetailsController.weightOption.value.toString(),
-            commission: productDetailsController.commission.value.toString(),
-            commissionType: productDetailsController.commissionType.value.toString()
+          showGroceryModalForBuyNow();
 
-
-          // id: 1,
-        );
-        productDetailsController.insertData1(cartNote);
-
-
-        if(productDetailsController.userToken.isNotEmpty &&
-            productDetailsController.userToken.value!=null){
-          Get.to(CheckoutPage());
-          //_showToast("go to checkout process");
         }else{
-          showLoginWarning();
+          Get.back();
+
+          if(productDetailsController.userToken.isNotEmpty &&
+              productDetailsController.userToken.value!=null){
+            CartNote cartNote= CartNote(
+
+                productId: productDetailsController.productId.value.toString(),
+                productName: productDetailsController.productName.value.toString(),
+                productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+                productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+                productPhoto:productDetailsController.productPhoto.value.toString(),
+                productQuantity: productDetailsController.productQuantity.value.toString(),
+                weight: productDetailsController.weight.value.toString(),
+                seller: productDetailsController.seller.value.toString(),
+                sellerName: productDetailsController.sellerName.value.toString(),
+                slug: productDetailsController.slug.value.toString(),
+                colorImage: productDetailsController.colorImage.value.toString(),
+                size: productDetailsController.size.value.toString(),
+                color: productDetailsController.color.value.toString(),
+                sizeId: productDetailsController.sizeId.value.toString(),
+                colorId: productDetailsController.colorId.value.toString(),
+                grocery: productDetailsController.grocery.value.toString(),
+                tax: productDetailsController.tax.value.toString(),
+                shipping: productDetailsController.shipping.value.toString(),
+                shippingName: "null",
+                width:productDetailsController.width.value.toString(),
+                height: productDetailsController.height.value.toString(),
+                depth: productDetailsController.depth.value.toString(),
+                weightOption: productDetailsController.weightOption.value.toString(),
+                commission: productDetailsController.commission.value.toString(),
+                commissionType: productDetailsController.commissionType.value.toString()
+
+
+              // id: 1,
+            );
+            productDetailsController.insertData1(cartNote);
+            Get.to(CheckoutPage());
+            //_showToast("go to checkout process");
+          }else{
+            showLoginWarning();
+          }
         }
+
+
+
 
       },
       style: ElevatedButton.styleFrom(
@@ -1942,7 +1963,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
     Get.defaultDialog(
         contentPadding: EdgeInsets.zero,
-
         //  title: '',
         titleStyle: TextStyle(fontSize: 0),
         // backgroundColor: Colors.white.withOpacity(.8),
@@ -2109,6 +2129,418 @@ class ProductDetailsePageScreen extends StatelessWidget {
         radius: 10.0);
   }
 
+  void showGroceryModal( ) {
 
+    Get.defaultDialog(
+        contentPadding: EdgeInsets.zero,
+        //  title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Column(
+          children: [
+
+            Stack(
+              children: [
+                Container(
+
+                    child:   Center(
+                      child: Column(
+                        children: [
+
+
+                          Container(
+                            margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                            child:  Align(
+                              alignment: Alignment.topCenter,
+                              child:   Text(
+                                "Need check zip code",
+                                textAlign: TextAlign.center,
+
+                                style: TextStyle(
+                                    color: text_color,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                            child: TextField(
+                              cursorColor: awsCursorColor,
+                              cursorWidth: 1.5,
+
+                              controller: productDetailsController.searchController.value,
+                              textInputAction: TextInputAction.next,
+                              style: const TextStyle(color: Colors.black, fontSize: 15),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                labelText: "Zip Code",
+                                filled: true,
+                                fillColor: Colors.white,
+
+                                contentPadding:  EdgeInsets.only(left: 15, right: 15,top: 10,bottom:10 ),
+
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+                                ),
+                                labelStyle: TextStyle(
+                                  color:productDetailsController.userEmailLevelTextColor.value,
+                                ),
+                                hintText: "Enter zip code",
+                                hintStyle: const TextStyle(
+                                  color: hint_color,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'PTSans',
+                                ),
+                              ),
+                              keyboardType: TextInputType.text,
+
+                            ),
+                          ),
+
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                            child: _buildCheckZipCodeButton(),
+                          ),
+
+
+                        ],
+                      ),
+                    )
+
+                ),
+                Align(alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+
+
+
+                    child: InkWell(
+                      onTap: (){
+                        Get.back();
+
+
+                      },
+                      child: Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.deepOrangeAccent,
+                        size: 22.0,
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
+            )
+
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
+
+  void showGroceryModalForBuyNow( ) {
+
+    Get.defaultDialog(
+        contentPadding: EdgeInsets.zero,
+        //  title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Column(
+          children: [
+
+            Stack(
+              children: [
+                Container(
+
+                    child:   Center(
+                      child: Column(
+                        children: [
+
+
+                          Container(
+                            margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                            child:  Align(
+                              alignment: Alignment.topCenter,
+                              child:   Text(
+                                "Need check zip code",
+                                textAlign: TextAlign.center,
+
+                                style: TextStyle(
+                                    color: text_color,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                            child: TextField(
+                              cursorColor: awsCursorColor,
+                              cursorWidth: 1.5,
+
+                              controller: productDetailsController.searchController.value,
+                              textInputAction: TextInputAction.next,
+                              style: const TextStyle(color: Colors.black, fontSize: 15),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                labelText: "Zip Code",
+                                filled: true,
+                                fillColor: Colors.white,
+
+                                contentPadding:  EdgeInsets.only(left: 15, right: 15,top: 10,bottom:10 ),
+
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+                                ),
+                                labelStyle: TextStyle(
+                                  color:productDetailsController.userEmailLevelTextColor.value,
+                                ),
+                                hintText: "Enter zip code",
+                                hintStyle: const TextStyle(
+                                  color: hint_color,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'PTSans',
+                                ),
+                              ),
+                              keyboardType: TextInputType.text,
+
+                            ),
+                          ),
+
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                            child: _buildCheckZipCodeButtonForBuyNow(),
+                          ),
+
+
+                        ],
+                      ),
+                    )
+
+                ),
+                Align(alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+
+
+
+                    child: InkWell(
+                      onTap: (){
+                        Get.back();
+
+
+                      },
+                      child: Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.deepOrangeAccent,
+                        size: 22.0,
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
+            )
+
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
+
+
+  Widget _buildCheckZipCodeButton() {
+    return ElevatedButton(
+      onPressed: () async {
+       String zipCode= productDetailsController.searchController.value.text;
+       if(zipCode.isNotEmpty){
+
+         if(await productDetailsController.zipCodeCheck( zipCode: zipCode,)){
+           Get.back();
+           Get.back();
+           CartNote cartNote= CartNote(
+
+               productId: productDetailsController.productId.value.toString(),
+               productName: productDetailsController.productName.value.toString(),
+               productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+               productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+               productPhoto:productDetailsController.productPhoto.value.toString(),
+               productQuantity: productDetailsController.productQuantity.value.toString(),
+               weight: productDetailsController.weight.value.toString(),
+               seller: productDetailsController.seller.value.toString(),
+               sellerName: productDetailsController.sellerName.value.toString(),
+               slug: productDetailsController.slug.value.toString(),
+               colorImage: productDetailsController.colorImage.value.toString(),
+               size: productDetailsController.size.value.toString(),
+               color: productDetailsController.color.value.toString(),
+               sizeId: productDetailsController.sizeId.value.toString(),
+               colorId: productDetailsController.colorId.value.toString(),
+               grocery: productDetailsController.grocery.value.toString(),
+               tax: productDetailsController.tax.value.toString(),
+               shipping: productDetailsController.shipping.value.toString(),
+               shippingName: "null",
+               width:productDetailsController.width.value.toString(),
+               height: productDetailsController.height.value.toString(),
+               depth: productDetailsController.depth.value.toString(),
+               weightOption: productDetailsController.weightOption.value.toString(),
+               commission: productDetailsController.commission.value.toString(),
+               commissionType: productDetailsController.commissionType.value.toString()
+
+
+             // id: 1,
+           );
+           productDetailsController.insertData(cartNote);
+
+         }else{
+           Get.back();
+         }
+
+
+        // _showToast(zipCode.toString());
+
+
+
+       }else{
+         _showToast("please Enter Zip code!");
+
+       }
+      },
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Check",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCheckZipCodeButtonForBuyNow() {
+    return ElevatedButton(
+      onPressed: () async {
+        String zipCode= productDetailsController.searchController.value.text;
+        if(zipCode.isNotEmpty){
+
+          if(await productDetailsController.zipCodeCheck( zipCode: zipCode,)){
+            Get.back();
+            Get.back();
+
+            if(productDetailsController.userToken.isNotEmpty &&
+                productDetailsController.userToken.value!=null){
+              CartNote cartNote= CartNote(
+
+                  productId: productDetailsController.productId.value.toString(),
+                  productName: productDetailsController.productName.value.toString(),
+                  productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
+                  productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+                  productPhoto:productDetailsController.productPhoto.value.toString(),
+                  productQuantity: productDetailsController.productQuantity.value.toString(),
+                  weight: productDetailsController.weight.value.toString(),
+                  seller: productDetailsController.seller.value.toString(),
+                  sellerName: productDetailsController.sellerName.value.toString(),
+                  slug: productDetailsController.slug.value.toString(),
+                  colorImage: productDetailsController.colorImage.value.toString(),
+                  size: productDetailsController.size.value.toString(),
+                  color: productDetailsController.color.value.toString(),
+                  sizeId: productDetailsController.sizeId.value.toString(),
+                  colorId: productDetailsController.colorId.value.toString(),
+                  grocery: productDetailsController.grocery.value.toString(),
+                  tax: productDetailsController.tax.value.toString(),
+                  shipping: productDetailsController.shipping.value.toString(),
+                  shippingName: "null",
+                  width:productDetailsController.width.value.toString(),
+                  height: productDetailsController.height.value.toString(),
+                  depth: productDetailsController.depth.value.toString(),
+                  weightOption: productDetailsController.weightOption.value.toString(),
+                  commission: productDetailsController.commission.value.toString(),
+                  commissionType: productDetailsController.commissionType.value.toString()
+
+
+                // id: 1,
+              );
+              productDetailsController.insertData1(cartNote);
+              Get.to(CheckoutPage());
+              //_showToast("go to checkout process");
+            }else{
+              showLoginWarning();
+            }
+          }else{
+            Get.back();
+          }
+
+
+          // _showToast(zipCode.toString());
+
+
+
+        }else{
+          _showToast("please Enter Zip code!");
+
+        }
+      },
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Check",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
 }
