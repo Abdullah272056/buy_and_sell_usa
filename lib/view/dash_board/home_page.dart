@@ -281,6 +281,7 @@ class HomePageScreen extends StatelessWidget {
 
                 }),
 
+
             hintText: hintTitle,
 
             hintStyle:  TextStyle(fontSize: 16,
@@ -295,11 +296,19 @@ class HomePageScreen extends StatelessWidget {
 
           },
           onFieldSubmitted: (value) {
-            if (value.isNotEmpty) {
-             // _search_courseList(value);
-              // _showToast(value);
-              /// Navigator.push(context,MaterialPageRoute(builder: (context)=>SearchResultFileScreen(inputValue: value,)));
+            String searchValue = homeController.searchController.value.text;
+
+            if(searchValue.isNotEmpty){
+              Get.to(() => ProductListPage(), arguments: [
+                {"categoriesId": ""},
+                {"subCategoriesId": ""},
+                {"searchValue": searchValue},
+
+              ])?.then((value) => Get.delete<ProductDetailsController>());
+            }else{
+            //  _showToast("Enter search value!");
             }
+
           },
 
           keyboardType: keyboardType,

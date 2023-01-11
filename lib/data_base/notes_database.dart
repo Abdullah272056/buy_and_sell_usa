@@ -137,6 +137,8 @@ class NotesDataBase{
   //   return result.map((json) => Note.fromJson(json)).toList();
   //
   // }
+
+
   Future<List<CartNote>> readAllNotes() async{
     final db =await instance.database;
 
@@ -166,6 +168,14 @@ class NotesDataBase{
         tableNotes,
       where: '${CartNoteFields.id}=?',
       whereArgs: [id],
+    );
+
+  }
+
+  Future<int> deleteAllData()async{
+    final db =await instance.database;
+    return await db.delete(
+      tableNotes,
     );
 
   }

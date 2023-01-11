@@ -2,6 +2,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/search_result.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
 import 'package:get/get.dart';
 
@@ -65,6 +66,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                     Expanded(
                         child: Container(
                           color: Colors.white,
+
                           child:  ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:1,
@@ -169,41 +171,48 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
 
                                     const SizedBox(height: 30,),
-                                    Row(
-                                      children: [
-                                        Expanded(child: Align(
-                                          alignment: Alignment.topLeft,
-                                          child:  Text("Your Orders",
-                                            style: TextStyle(
-                                                color:text_color,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                            // textAlign: TextAlign.left,
 
-                                          ),
-                                        ),),
-                                      ],
+                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 0),
+                                      child:  Row(
+                                        children: [
+                                          Expanded(child: Align(
+                                            alignment: Alignment.topLeft,
+                                            child:  Text("Your Orders",
+                                              style: TextStyle(
+                                                  color:text_color,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                              // textAlign: TextAlign.left,
+
+                                            ),
+                                          ),),
+                                        ],
+                                      ),
                                     ),
+
                                     const SizedBox(height: 20,),
 
-                                    Row(
-                                      children: const [
-                                        Expanded(child: Align(
-                                          alignment: Alignment.topLeft,
-                                          child:  Text("Product",
-                                            style: TextStyle(
-                                                color:text_color,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600),
-                                            // textAlign: TextAlign.left,
 
-                                          ),
-                                        ),),
-                                      ],
+                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 0),
+                                      child:  Row(
+                                        children: const [
+                                          Expanded(child: Align(
+                                            alignment: Alignment.topLeft,
+                                            child:  Text("Product",
+                                              style: TextStyle(
+                                                  color:text_color,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600),
+                                              // textAlign: TextAlign.left,
+
+                                            ),
+                                          ),),
+                                        ],
+                                      ) ,
                                     ),
 
                                     Obx(() =>ListView.builder(
-                                        padding: EdgeInsets.zero,
+                                        padding: EdgeInsets.only(left: 10),
                                         itemCount: cartViewPageController.cartList.length,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
@@ -219,7 +228,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ],
                                     ),
 
-                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                    Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -250,7 +259,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ) ,
                                     ),
 
-                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                    Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -285,7 +294,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ) ,
                                     ),
 
-                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                    Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -320,7 +329,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ) ,
                                     ),
 
-                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                                    Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -628,23 +637,42 @@ class CheckoutPageStep2Page extends StatelessWidget {
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
      //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
 
-    Get.to(() => WebviewPage(), arguments: [
+    // Get.to(() => WebviewPage(), arguments: [
+    //
+    //       {"productId": ""},
+    //       {"zipCode": cartViewPageController.zipCode},
+    //       {"surName": cartViewPageController.surName},
+    //       {"mobileNumber": cartViewPageController.mobileNumber},
+    //       {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
+    //       {"emailAddress": cartViewPageController.emailAddress},
+    //       {"paymentLink": paymentLink},
+    //       {"couponCodes": cartViewPageController.couponCodes},
+    //       {"couponAmount":cartViewPageController.couponAmount},
+    //       {"couponSellerId": cartViewPageController.couponSellerId}
+    //
+    //
+    //     ])?.then((value) => Get.delete<WebViewPageController>());
+    //
+    Get.to(()=>
 
-          {"productId": ""},
-          {"zipCode": cartViewPageController.zipCode},
-          {"surName": cartViewPageController.surName},
-          {"mobileNumber": cartViewPageController.mobileNumber},
-          {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
-          {"emailAddress": cartViewPageController.emailAddress},
-          {"paymentLink": paymentLink},
-          {"couponCodes": cartViewPageController.couponCodes},
-          {"couponAmount":cartViewPageController.couponAmount},
-          {"couponSellerId": cartViewPageController.couponSellerId}
+        SearchResultFileScreen(
+      inputValue: '12',
+      productId: '',
+      zipCode: cartViewPageController.zipCode.value,
+      surName: cartViewPageController.surName.value,
+      mobileNumber:cartViewPageController.mobileNumber.value,
+      totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+      emailAddress: cartViewPageController.emailAddress.value,
+      paymentLink: paymentLink,
+      couponCodes: cartViewPageController.couponCodes.value,
+      couponAmount: cartViewPageController.couponAmount.value,
+      couponSellerId: cartViewPageController.couponSellerId.value,
+    ));
 
-
-        ])?.then((value) => Get.delete<WebViewPageController>());
-
-
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const SecondRoute()),
+        // );
       },
 
       style: ElevatedButton.styleFrom(

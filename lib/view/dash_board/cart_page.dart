@@ -6,6 +6,7 @@ import '../../api_service/api_service.dart';
 import '../../controller/cart_page_controller.dart';
 import '../../controller/product_details_controller.dart';
 import '../../data_base/note.dart';
+import '../../data_base/notes_database.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
@@ -379,6 +380,8 @@ class CartPage extends StatelessWidget {
   Widget _buildCheckoutButton() {
     return ElevatedButton(
       onPressed: () {
+
+
         if(cartPageController.userToken.isNotEmpty &&
             cartPageController.userToken.value!=null){
           // Get.to(CheckoutPage());
@@ -424,6 +427,8 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
+
+
 
   Widget _buildViewCartButton() {
     return ElevatedButton(
