@@ -35,10 +35,10 @@ class MyApp extends StatelessWidget {
 
     return  GetMaterialApp(
       // color: Colors.lime,
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      // debugShowCheckedModeBanner: false,
+      home: DashBoardPageScreen(
        // body:CheckoutPageStep2Page(),
-       body: DashBoardPageScreen(),
+      // body: CartPage(),
 
       // body:CheckoutPageStep2Page(),
 

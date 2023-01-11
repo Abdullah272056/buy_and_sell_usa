@@ -83,6 +83,7 @@ class CartPage extends StatelessWidget {
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
+                                         // _showToast(cartPageController.cartList[index].productPhoto.toString());
                                           return cartItem(cartPageController.cartList[index]);
                                         }),)
                                   ]
@@ -219,7 +220,9 @@ class CartPage extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         fit: BoxFit.fill,
                         placeholder: 'assets/images/loading.png',
-                        image:BASE_URL_API_IMAGE_PRODUCT+response.productPhoto,
+                        image:
+                         BASE_URL_API_IMAGE_PRODUCT+
+                            response.productPhoto.toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',

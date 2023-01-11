@@ -646,7 +646,9 @@ class HomePageScreen extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
-                                image:BASE_URL_API_IMAGE_PRODUCT+response["cover_image"].toString(),
+                                image:BASE_URL_API_IMAGE_PRODUCT+
+
+                                    response["cover_image"].toString(),
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                       'assets/images/loading.png',

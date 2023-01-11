@@ -251,8 +251,6 @@ class CheckoutPageStep2Controller extends GetxController {
 
   }
 
-
-
   expressShippingCheck({
     required List sellerList,
     required String zipCode,
@@ -343,28 +341,18 @@ class CheckoutPageStep2Controller extends GetxController {
               })
 
           );
-          //_showToast("shippingType="+shippingType);
-       //  _showToast("shippingType= "+shippingType.toString());
 
 
           if (response.statusCode == 200) {
 
-
-             var data = jsonDecode(response.body);
-             // _showToast(data["data"][0].length.toString());
+            var data = jsonDecode(response.body);
 
              for(int j=0;j<data["data"][0].length;j++){
 
                for(int i=0;i<cartList.length;i++){
 
                  if(cartList[i].productId==data["data"][0][j]["product_id"]){
-
-                   // _showToast("match");
-                   // _showToast(data["data"][0][j]["rate"].toString());
-
-
                    if(shippingType=="1"){
-
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
                          productId: cartList[i].productId,
@@ -380,9 +368,8 @@ class CheckoutPageStep2Controller extends GetxController {
                          colorImage: cartList[i].colorImage,
                          size: cartList[i].size,
                          color: cartList[i].color,
-                         // shipping: cartList[i].shipping,
-                         shipping: data["data"][0][j]["rate"].toString(),
-                         shippingName: "Express shipping 8-10 days",
+                         shipping:data["data"][0][j]["rate"].toString(),
+                         shippingName: data["data"][0][j]["shipping_name"].toString(),
                          // shipping: "0.00".toString(),
                          sizeId: cartList[i].sizeId,
                          colorId: cartList[i].colorId,
@@ -397,6 +384,7 @@ class CheckoutPageStep2Controller extends GetxController {
                      );
                      updateNotes(cartNote);
                    }else{
+                    // _showToast("else");
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
                          productId: cartList[i].productId,
@@ -412,10 +400,8 @@ class CheckoutPageStep2Controller extends GetxController {
                          colorImage: cartList[i].colorImage,
                          size: cartList[i].size,
                          color: cartList[i].color,
-                         // shipping: cartList[i].shipping,
                          shipping: data["data"][0][j]["rate"].toString(),
-                         shippingName: "USPS Shipping 2-5  business days",
-                         // shipping: "0.00".toString(),
+                         shippingName: data["data"][0][j]["shipping_name"].toString(),
                          sizeId: cartList[i].sizeId,
                          colorId: cartList[i].colorId,
                          grocery: cartList[i].grocery,
@@ -432,31 +418,12 @@ class CheckoutPageStep2Controller extends GetxController {
                    }
 
 
-
-
-
-
-
-
                  }
 
                }
 
              }
 
-
-
-             //_showToast(cartList.length.toString());
-
-
-
-
-
-
-            // expressShippingCheckList(data["data"]);
-
-            // _showToast(expressShippingCheckList[1].toString());
-            //  _showToast(expressShippingCheckList[0].length.toString());
           }
 
           else {

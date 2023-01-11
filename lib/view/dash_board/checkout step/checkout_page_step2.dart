@@ -837,7 +837,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                 for(int i=0;i<cartViewPageController.cartList.length;i++){
                   if(sellerId==cartViewPageController.cartList[i].seller.toString()){
-                    _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
+                  //  _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
                     students.add(Product(
                         product_id: cartViewPageController.cartList[i].productId,
                         weight:cartViewPageController.cartList[i].weight ));
