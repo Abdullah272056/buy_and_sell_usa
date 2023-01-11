@@ -16,6 +16,9 @@ var selectedPage = <Widget>[
 ].obs;
 
 
+void ref(){
+  onInit();
+}
 @override
 void onInit() {
 

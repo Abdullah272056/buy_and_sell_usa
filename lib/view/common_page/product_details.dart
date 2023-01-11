@@ -1162,7 +1162,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           child: InkWell(
                             onTap: (){
                               if(productDetailsController.userToken.isNotEmpty &&
-                                  productDetailsController.userToken.value!=null){
+                                  productDetailsController.userToken.value!=null&&productDetailsController.userToken.value!="null"){
                                  _showToast("add favourite");
                                 // _showToast(response["id"].toString());
 

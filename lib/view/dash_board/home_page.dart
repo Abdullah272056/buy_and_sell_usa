@@ -129,6 +129,7 @@ class HomePageScreen extends StatelessWidget {
 
                     onTap: () {
                       if(homeController.userToken.isNotEmpty &&
+                          homeController.userToken.value!="null"&&
                           homeController.userToken.value!=null){
                        // _showToast(homeController.userToken.toString());
                       //  _showToast("add favourite");
@@ -677,6 +678,7 @@ class HomePageScreen extends StatelessWidget {
 
 
                             if(homeController.userToken.isNotEmpty &&
+                                homeController.userToken.value!="null"&&
                                 homeController.userToken.value!=null){
                               homeController.addWishList(
                                   token: homeController.userToken.toString(),

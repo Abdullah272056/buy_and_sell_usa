@@ -37,6 +37,10 @@ class HomeController extends GetxController {
   var userToken="".obs;
 
   // dynamic argumentData = Get.arguments;
+
+  void ref(){
+    onInit();
+  }
   @override
   void onInit() {
     // abcd(argumentData[0]['first']);

@@ -14,8 +14,8 @@ import '../../../controller/web_view_page_controller1.dart';
 import '../../../data_base/notes_database.dart';
 
 
-class SearchResultFileScreen extends StatefulWidget {
-  String inputValue;
+class WebviewPaymentScreen extends StatefulWidget {
+
   String productId;
   String zipCode;
   String surName;
@@ -26,8 +26,8 @@ class SearchResultFileScreen extends StatefulWidget {
   String couponCodes;
   String couponAmount;
   String couponSellerId;
-  SearchResultFileScreen({Key? key,
-    required this.inputValue,
+  WebviewPaymentScreen({Key? key,
+
     required this.productId,
     required this.zipCode,
     required this.surName,
@@ -41,8 +41,8 @@ class SearchResultFileScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SearchResultFileScreen> createState() => _SearchResultFileScreenState(
-     this.inputValue,
+  State<WebviewPaymentScreen> createState() => _WebviewPaymentScreenState(
+
      this.productId,
      this.zipCode,
      this.surName,
@@ -55,9 +55,9 @@ class SearchResultFileScreen extends StatefulWidget {
      this.couponSellerId,);
 }
 
-class _SearchResultFileScreenState extends State<SearchResultFileScreen>{
+class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
 
-  String inputValue;
+
   String productId;
   String zipCode;
   String surName;
@@ -69,8 +69,8 @@ class _SearchResultFileScreenState extends State<SearchResultFileScreen>{
   String couponAmount;
   String couponSellerId;
 
-  _SearchResultFileScreenState(
-     this.inputValue,
+  _WebviewPaymentScreenState(
+
      this.productId,
      this.zipCode,
      this.surName,

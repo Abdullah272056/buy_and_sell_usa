@@ -2,7 +2,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/dash_board/checkout%20step/search_result.dart';
+import 'package:fnf_buy/view/dash_board/checkout%20step/webview_page_payment.dart';
 import 'package:fnf_buy/view/dash_board/checkout%20step/web_view_page.dart';
 import 'package:get/get.dart';
 
@@ -654,19 +654,17 @@ class CheckoutPageStep2Page extends StatelessWidget {
     //     ])?.then((value) => Get.delete<WebViewPageController>());
     //
     Get.to(()=>
-
-        SearchResultFileScreen(
-      inputValue: '12',
-      productId: '',
-      zipCode: cartViewPageController.zipCode.value,
-      surName: cartViewPageController.surName.value,
-      mobileNumber:cartViewPageController.mobileNumber.value,
-      totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
-      emailAddress: cartViewPageController.emailAddress.value,
-      paymentLink: paymentLink,
-      couponCodes: cartViewPageController.couponCodes.value,
-      couponAmount: cartViewPageController.couponAmount.value,
-      couponSellerId: cartViewPageController.couponSellerId.value,
+        WebviewPaymentScreen(
+        productId: '',
+        zipCode: cartViewPageController.zipCode.value,
+        surName: cartViewPageController.surName.value,
+        mobileNumber:cartViewPageController.mobileNumber.value,
+        totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+        emailAddress: cartViewPageController.emailAddress.value,
+        paymentLink: paymentLink,
+        couponCodes: cartViewPageController.couponCodes.value,
+        couponAmount: cartViewPageController.couponAmount.value,
+        couponSellerId: cartViewPageController.couponSellerId.value,
     ));
 
         // Navigator.push(
@@ -858,6 +856,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
+
 
                 cartViewPageController.selectedShippingValueList[index]=value.toString();
               // _showToast("sellerid= "+sellerId);
