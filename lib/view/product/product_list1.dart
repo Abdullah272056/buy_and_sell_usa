@@ -17,7 +17,7 @@ import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import 'product_details.dart';
 
-class ProductListPage extends StatelessWidget {
+class ProductListPage1 extends StatelessWidget {
 
   final allProductListPageController = Get.put(AllProductListPageController());
 
@@ -99,123 +99,21 @@ class ProductListPage extends StatelessWidget {
                       children: [
                        // userInputSelectTopic(),
                         Expanded(child:
-                        Obx(() => allProductListPageController.isFirstLoadRunning==true? Center(
-                          child: CircularProgressIndicator(),
-                        ):
-                        Column(
-                          children: [
-                            Expanded(child:
-                            Obx(() =>
-                                GridView.builder(
-                                    itemCount:allProductListPageController.allProductList.length,
-                                    // shrinkWrap: true,
-                                    // physics: const ClampingScrollPhysics(),
-                                    controller: allProductListPageController.controller,
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 7.0,
-                                        mainAxisSpacing: 7.0,
-                                        mainAxisExtent: 250
-                                    ),
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index,
-                                          response: allProductListPageController.allProductList[index]);
-                                    }),
-
-
-                                // ListView.builder(
-                                //     itemCount: homePageController.todoList.length,
-                                //     controller:_controller,
-                                //
-                                //     itemBuilder: (_, index)=>InkWell(
-                                //       onTap: (){
-                                //
-                                //         Get.to(TodoDetailsPage("${homePageController.todoList[index].id}"));
-                                //         // Get.to(page)
-                                //       },
-                                //       child: Card(
-                                //           margin: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                                //
-                                //
-                                //           child: Container(
-                                //             padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                                //
-                                //             child: Column(
-                                //               children: [
-                                //
-                                //                 Row(
-                                //                   children: [
-                                //
-                                //                     Text("User Id: ${homePageController.todoList[index].userId}"),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   children: [
-                                //                     Text("Id: ${homePageController.todoList[index].id}"),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   mainAxisAlignment: MainAxisAlignment.start,
-                                //                   children: [
-                                //                     Flexible(
-                                //                       child: Text("Title: ${homePageController.todoList[index].title}"),
-                                //                     ),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   mainAxisAlignment: MainAxisAlignment.start,
-                                //                   children: [
-                                //                     Text("Completed:"),
-                                //                     SizedBox(
-                                //                       height: 30,
-                                //                       width: 30,
-                                //                       child: Checkbox(
-                                //                         value:homePageController.todoList[index].completed,
-                                //                         onChanged: ( value) {
-                                //
-                                //                         },
-                                //                       ),
-                                //                     )
-                                //
-                                //
-                                //                   ],
-                                //                 ),
-                                //
-                                //
-                                //
-                                //               ],
-                                //             ),
-                                //           )
-                                //
-                                //       ),
-                                //     )
-                                //
-                                // )
-                            )
+                        Obx(()=>GridView.builder(
+                            itemCount:allProductListPageController.allProductList.length,
+                            // shrinkWrap: true,
+                            // physics: const ClampingScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 7.0,
+                                mainAxisSpacing: 7.0,
+                                mainAxisExtent: 250
                             ),
-                            Obx(() =>
-                            allProductListPageController.isMoreLoadRunning==true?Padding(
-                              padding: EdgeInsets.only(top: 10,bottom: 20),
-                              child: Center(
-                                  child: LinearProgressIndicator()
-                              ),
-                            ):Container()
-
-                            )
-
-                          ],
-                        )
-
-                        )
-
-
-
-
-
-                        )
+                            itemBuilder: (BuildContext context, int index) {
+                              return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index,
+                                  response: allProductListPageController.allProductList[index]);
+                            }),
+                        ),)
                       ],
                     )
 
@@ -534,7 +432,6 @@ class ProductListPage extends StatelessWidget {
         allProductListPageController.selectedSizesList([]);
         allProductListPageController.selectBrandsId("");
         allProductListPageController.selectedBrandsList([]);
-        allProductListPageController.hasNextPage(true);
 
         Get.back();
 
@@ -608,7 +505,7 @@ class ProductListPage extends StatelessWidget {
         allProductListPageController.pageNo("1");
 
         Get.back();
-        allProductListPageController.hasNextPage(true);
+
         allProductListPageController.getCategoriesProductsDataList(
           categoryId: allProductListPageController.categoryId.value,
           subcategoryId: allProductListPageController.subCategoryId.value,

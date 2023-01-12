@@ -66,10 +66,17 @@ class AllProductListPageController extends GetxController {
 
 
   var pageNo="1".obs;
-  var perPage="12".obs;
+  var perPage="14".obs;
 
   var allProductList=[].obs;
 
+
+
+  var isFirstLoadRunning = true.obs;
+  var hasNextPage = true.obs;
+  var isMoreLoadRunning = false.obs;
+
+  ScrollController controller=ScrollController();
 
   @override
   void onInit() {
@@ -109,13 +116,45 @@ class AllProductListPageController extends GetxController {
     );
 
 
+    /// homePageController.firstLoad();
+    controller.addListener(() async{
+      if(controller.position.maxScrollExtent==controller.position.pixels){
 
-    // getCategoriesProductsDataList(categoryId: argumentData[0]['categoriesId'],
-    //     subcategoryId: argumentData[1]['subCategoriesId'],
-    //     innerCategoryId: '', filterCategoryList: [],
-    //     filterSubCategoryList: [], filterInnerCategoryList: [],
-    //     brandName: 'admin', minPrice: '', sortBy: '', search: '',
-    //     brandsList: [], sizesList: [], colorsList: [], maxPrice: '');
+        int pageNoInt=int.parse(pageNo.value.toString());
+        pageNoInt++;
+
+        pageNo(pageNoInt.toString());
+       // _showToast("page no= "+pageNoInt.toString());
+
+        if(hasNextPage ==true){
+
+          getCategoriesProductsDataList2(
+            categoryId: categoryId.value,
+            subcategoryId: subCategoryId.value,
+            innerCategoryId: selectedInnerCategoryId.value,
+            filterCategoryList: selectedFilterCategoryList,
+            filterSubCategoryList:selectedFilterSubCategoryList,
+            filterInnerCategoryList: selectedFilterInnerCategoryList,
+            brandName: selectedBrandName.value,
+            minPrice: selectedMinPrice.value,
+            sortBy: selectedSortBy.value,
+            search: selectedSearch.value,
+            brandsList: selectedBrandsList,
+            sizesList: selectedSizesList,
+            colorsList: selectedColorsList,
+            maxPrice: selectedMaxPrice.value,
+
+            pageNo: pageNoInt.toString(),
+            perPage: perPage.value,
+
+          );
+
+        }
+
+
+      }
+
+    });
 
   }
 
@@ -375,6 +414,7 @@ class AllProductListPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
         try {
+          isFirstLoadRunning(true);
           var response = await post(
 
               // Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
@@ -403,7 +443,8 @@ class AllProductListPageController extends GetxController {
                 "per_page": perPage,
               })
           );
-          // _showToast("status = ${response.statusCode}");
+          isFirstLoadRunning(false);
+           _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
             // var responseData = response.body;
             var responseData = jsonDecode(response.body);
@@ -432,6 +473,155 @@ class AllProductListPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
+
+  void getCategoriesProductsDataList2({
+    required String categoryId,
+    required String subcategoryId,
+    required String innerCategoryId,
+    required List filterCategoryList,
+    required List filterSubCategoryList,
+    required List filterInnerCategoryList,
+    required String brandName,
+    required String minPrice,
+    required String maxPrice,
+    required String sortBy,
+    required String search,
+    required List brandsList,
+    required List sizesList,
+    required List colorsList,
+    required String pageNo,
+    required String perPage
+  }) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        try {
+         isMoreLoadRunning(true);
+          var response = await post(
+
+            // Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/products'),
+              Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_PRODUCT_DATA_LIST}'),
+
+              // Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CATEGORIES}'),
+              headers : {
+                'Content-Type': 'application/json'
+              },
+              body: json.encode({
+                "category": categoryId,
+                "subcategory": subcategoryId,
+                "innercategory": innerCategoryId,
+                "filetercategory": filterCategoryList,
+                "filtersubcategory": filterSubCategoryList,
+                "filterinnercategory": filterInnerCategoryList,
+                "brands": brandsList,
+                "brand_name": brandName,
+                "min_price":minPrice,
+                "max_price": maxPrice,
+                "sizes": sizesList,
+                "colors": colorsList,
+                "sort_by": sortBy,
+                "search": search,
+                "page_no": pageNo,
+                "per_page": perPage,
+              })
+          );
+         isMoreLoadRunning(false);
+         // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+            var responseData = jsonDecode(response.body);
+
+            if(responseData["data"]["products"].length>0){
+              allProductList.addAll(responseData["data"]["products"]);
+            }else{
+
+              hasNextPage(false);
+
+            }
+
+
+
+           // allProductList(responseData["data"]["products"]);
+
+         //  _showToast("lent="+allProductList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+          _showToast(e.toString());
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+  //get next page data
+  // void nextPageHandle() async{
+  //   if(
+  //   hasNextPage ==true &&
+  //       isFirstLoadRunning==false &&
+  //       isMoreLoadRunning==false
+  //   ){
+  //
+  //     updateIsMoreLoadRunning(true);
+  //
+  //     updatePageNumber();
+  //     //page number increase
+  //
+  //     try {
+  //       final result = await InternetAddress.lookup('example.com');
+  //       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //
+  //
+  //         try {
+  //           var response = await get(
+  //             Uri.parse('https://jsonplaceholder.typicode.com/todos?_page=${pageNumber}&_limit=${ limitCount}'),
+  //
+  //           );
+  //           if (response.statusCode == 200) {
+  //             final List fetchData=json.decode(response.body);
+  //
+  //             if(fetchData.isNotEmpty){
+  //               var data = response.body;
+  //               updateTodoList(todoListModelFromJson(data));
+  //
+  //
+  //             }else{
+  //
+  //               updateHasNextPage(false);
+  //
+  //             }
+  //
+  //
+  //           }
+  //           else {
+  //             Fluttertoast.cancel();
+  //           }
+  //         } catch (e) {
+  //           // Fluttertoast.cancel();
+  //
+  //         }
+  //       }
+  //     } on SocketException catch (e) {
+  //       Fluttertoast.cancel();
+  //       // _showToast("No Internet Connection!");
+  //     }
+  //
+  //     updateIsMoreLoadRunning(false);
+  //
+  //   }
+  //
+  //
+  //
+  // }
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
