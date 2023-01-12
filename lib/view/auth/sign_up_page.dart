@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../api_service/api_service.dart';
-import '../../api_service/sharePreferenceDataSaveName.dart';
-import '../../controller/sign_up_page_controller.dart';
+import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../../controller/auth_controller/sign_up_page_controller.dart';
 import '../../static/Colors.dart';
 
-import '../common_page/dash_board_page.dart';
+import '../dash_board/dash_board_page.dart';
 import 'log_in_page.dart';
 
 

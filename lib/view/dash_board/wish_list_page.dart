@@ -4,14 +4,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
-import '../../controller/cart_page_controller.dart';
-import '../../controller/product_details_controller.dart';
-import '../../controller/wish_list_page_controller.dart';
-import '../../data_base/note.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/product_controller/product_details_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
+import '../../data_base/sqflite/note.dart';
 import '../../static/Colors.dart';
-import '../common_page/product_details.dart';
-import '../common_page/product_list.dart';
-import 'cart_view_page.dart';
+import '../product/product_details.dart';
+import '../product/product_list.dart';
+import '../cart/cart_view_page.dart';
 
 
 

@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../api_service/api_service.dart';
-import '../../controller/caregories_page_controller.dart';
-import '../../controller/product_details_controller.dart';
+import '../../controller/dash_board_controller/caregories_page_controller.dart';
+import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
-import '../common_page/product_list.dart';
+import '../product/product_list.dart';
 
 class CategoryPage extends StatelessWidget{
   final categoriesPageController = Get.put(CategoriesPageController());

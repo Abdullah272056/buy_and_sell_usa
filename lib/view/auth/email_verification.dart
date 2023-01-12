@@ -7,7 +7,7 @@ import 'package:fnf_buy/view/auth/password_set_page.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../api_service/api_service.dart';
-import '../../controller/email_verification_page_controller.dart';
+import '../../controller/auth_controller/email_verification_page_controller.dart';
 import '../../static/Colors.dart';
 
 

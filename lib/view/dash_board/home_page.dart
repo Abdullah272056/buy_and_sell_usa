@@ -8,18 +8,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
-import '../../../controller/home_controller.dart';
+import '../../controller/dash_board_controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
-import '../../controller/cart_page_controller.dart';
-import '../../controller/product_details_controller.dart';
-import '../../controller/wish_list_page_controller.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/product_controller/product_details_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
-import '../common_page/product_details.dart';
-import '../common_page/custom_drawer.dart';
-import '../common_page/product_list.dart';
-import 'cart_page.dart';
+import '../drawer/custom_drawer.dart';
+import '../product/product_details.dart';
+
+import '../product/product_list.dart';
+import '../cart/cart_page.dart';
 
 class HomePageScreen extends StatelessWidget {
   // HomePageScreen({Key? key}) : super(key: key);

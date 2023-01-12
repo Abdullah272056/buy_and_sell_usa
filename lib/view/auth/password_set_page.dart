@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../api_service/api_service.dart';
-import '../../controller/password_set_page_controller.dart';
+import '../../controller/auth_controller/password_set_page_controller.dart';
 import '../../static/Colors.dart';
 
 import 'log_in_page.dart';
