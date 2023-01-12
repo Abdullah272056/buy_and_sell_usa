@@ -1,8 +1,7 @@
 
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -10,14 +9,20 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
-import '../../model/CategoriesData.dart';
-import '../../model/FilterListDataModelClass.dart';
-import '../../model/FilterListDataModelClass2.dart';
 import '../../static/Colors.dart';
 
 class AllProductListPageController extends GetxController {
+
+
+  final minPriceController = TextEditingController().obs;
+  final maxPriceController = TextEditingController().obs;
+
+  final  minPriceFocusNode = FocusNode().obs;
+  final  maxPriceFocusNode = FocusNode().obs;
+  var userEmailLevelTextColor = hint_color.obs;
+
   dynamic argumentData = Get.arguments;
-  var filterProductList=[].obs;
+  var filterProductLis1=[].obs;
   var showFilterStatus=1.obs;
 
   var selectCategoriesId="".obs;
@@ -47,17 +52,23 @@ class AllProductListPageController extends GetxController {
   var selectedFilterSubCategoryList= [].obs;
   var selectedFilterInnerCategoryList= [].obs;
   var selectedBrandName= ''.obs;
-  var selectedMinPrice= ''.obs;
+
   var selectedSortBy= ''.obs;
   var selectedSearch=''.obs;
   var selectedBrandsList= [].obs;
   var selectedSizesList= [].obs;
   var selectedColorsList= [].obs;
+  var selectedMinPrice= ''.obs;
   var selectedMaxPrice= "".obs;
 
   var userName="".obs;
   var userToken="".obs;
 
+
+  var pageNo="1".obs;
+  var perPage="12".obs;
+
+  var allProductList=[].obs;
 
 
   @override
@@ -91,7 +102,11 @@ class AllProductListPageController extends GetxController {
         brandsList: selectedBrandsList,
         sizesList: selectedSizesList,
         colorsList: selectedColorsList,
-        maxPrice: selectedMaxPrice.value);
+        maxPrice: selectedMaxPrice.value,
+        pageNo: pageNo.value,
+        perPage: perPage.value,
+
+    );
 
 
 
@@ -114,6 +129,54 @@ class AllProductListPageController extends GetxController {
         backgroundColor:Colors.white,
         textColor: fnf_color,
         fontSize: 16.0);
+  }
+
+  addWishList(
+      {
+        required String token,
+        required String productId
+      }
+      ) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          //  _showToast("1");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_WISGLIST'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              //'Content-Type': 'application/json',
+            },
+            body: {
+              'product_id': productId,
+            },
+          );
+
+          // _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            _showToast("Wishlist added Successfully!");
+          }
+          else {
+            var data = jsonDecode(response.body);
+            _showToast(data['message']);
+          }
+          //   Get.back();
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
   void getCategories() async{
@@ -303,7 +366,9 @@ class AllProductListPageController extends GetxController {
     required String search,
     required List brandsList,
     required List sizesList,
-    required List colorsList
+    required List colorsList,
+    required String pageNo,
+    required String perPage
   }) async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -333,14 +398,22 @@ class AllProductListPageController extends GetxController {
                 "sizes": sizesList,
                 "colors": colorsList,
                 "sort_by": sortBy,
-                "search": search
+                "search": search,
+                "page_no": pageNo,
+                "per_page": perPage,
               })
           );
           // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
-            var responseData = response.body;
-            FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
-            filterProductList(filterListDataModelClass.data!.products!.data);
+            // var responseData = response.body;
+            var responseData = jsonDecode(response.body);
+
+            allProductList(responseData["data"]["products"]);
+
+          //  _showToast(allProductList.length.toString());
+
+            // FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
+            // filterProductList(filterListDataModelClass.data!.products!.data);
           //  _showToast(filterProductList.length.toString());
 
           }

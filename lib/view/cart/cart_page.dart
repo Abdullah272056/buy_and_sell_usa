@@ -61,7 +61,10 @@ class CartPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 35,
                 // height: 50,
               ),
-              Expanded(child: Container(
+              Obx(() => Expanded(
+                child:cartPageController.cartList.length>0?
+
+              Container(
                 color: Colors.white,
 
                 child: Column(
@@ -85,7 +88,7 @@ class CartPage extends StatelessWidget {
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-                                         // _showToast(cartPageController.cartList[index].productPhoto.toString());
+                                          // _showToast(cartPageController.cartList[index].productPhoto.toString());
                                           return cartItem(cartPageController.cartList[index]);
                                         }),)
                                   ]
@@ -101,73 +104,73 @@ class CartPage extends StatelessWidget {
                     ),
                     /// add to cart button section
                     Container(
-                    //  height: 50,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+                      //  height: 50,
+                        padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
 
-                      decoration: BoxDecoration(
-                        color:Colors.white,
-                        borderRadius:   BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0),
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          borderRadius:   BorderRadius.only(
+                            topRight: Radius.circular(10.0),
+                            topLeft: Radius.circular(10.0),
+                          ),
+                          boxShadow: [BoxShadow(
+
+                            color:Colors.grey.withOpacity(.5),
+                            //  blurRadius: 20.0, // soften the shadow
+                            blurRadius:.5, // soften the shadow
+                            spreadRadius: 0.0, //extend the shadow
+                            offset:Offset(
+                              1.0, // Move to right 10  horizontally
+                              0.0, // Move to bottom 10 Vertically
+                              // Move to bottom 10 Vertically
+                            ),
+                          )],
                         ),
-                        boxShadow: [BoxShadow(
+                        child:Column(
+                          children: [
 
-                          color:Colors.grey.withOpacity(.5),
-                          //  blurRadius: 20.0, // soften the shadow
-                          blurRadius:.5, // soften the shadow
-                          spreadRadius: 0.0, //extend the shadow
-                          offset:Offset(
-                            1.0, // Move to right 10  horizontally
-                            0.0, // Move to bottom 10 Vertically
-                            // Move to bottom 10 Vertically
-                          ),
-                        )],
-                      ),
-                      child:Column(
-                        children: [
-
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child:  Text("Total Price: ",
-                                style: TextStyle(fontWeight: FontWeight.w600,
-                                    color: text_color,
-                                    fontSize: 16
-                                ),
-                              ),),
-                              Expanded(child:   Align(
-                                alignment: Alignment.centerRight,
-                                child:Obx(()=> Text(
-                                  "\$ "+"${cartPageController.totalPrice}",
-                                  style: TextStyle(fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                      fontSize: 18
-                                  ),
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child:  Text("Total Price: ",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: text_color,
+                                        fontSize: 16
+                                    ),
+                                  ),),
+                                Expanded(child:   Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Obx(()=> Text(
+                                    "\$ "+"${cartPageController.totalPrice}",
+                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                        fontSize: 18
+                                    ),
+                                  )),
                                 )),
-                              )),
 
 
 
-                            ],
-                          ),
+                              ],
+                            ),
 
-                          SizedBox(height: 10,),
+                            SizedBox(height: 10,),
 
-                          Row(
-                            children: [
-
-
-                              Expanded(child: _buildViewCartButton(),),
-                              SizedBox(width: 10,),
-                              Expanded(child: _buildCheckoutButton(),),
+                            Row(
+                              children: [
 
 
-                            ],
-                          ),
+                                Expanded(child: _buildViewCartButton(),),
+                                SizedBox(width: 10,),
+                                Expanded(child: _buildCheckoutButton(),),
 
-                        ],
-                      )
+
+                              ],
+                            ),
+
+                          ],
+                        )
 
 
 
@@ -175,7 +178,36 @@ class CartPage extends StatelessWidget {
                   ],
                 ),
 
-              ))
+              ):
+                Container(color: Colors.white,
+                child: Center(child:
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/not_found.png",
+                      width: 180,
+                      height: 80,
+                    ),
+                    SizedBox(height: 20,),
+                    Text(
+                      "Cart not fount!",
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color:text_color,
+                          fontSize: 15,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.w500),
+                    )
+                  ],
+                )),
+                )
+
+      ,)
+
+              )
             ],
           )
 

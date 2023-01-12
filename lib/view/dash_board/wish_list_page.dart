@@ -63,34 +63,59 @@ class WishListPage extends StatelessWidget {
                 child: Column(
                   children: [
 
-                    Expanded(
-                        child: Container(
-                          color: Colors.white,
-                          child:  ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount:1,
-                              shrinkWrap: true,
-                              //physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    Obx(() => ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: wishListPageController.wishList.length>0 ? wishListPageController.wishList.length:0,
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return cartItem(wishListPageController.wishList[index]);
-                                        }))
-                                  ]
+                   Obx(() =>  Expanded(
+                       child:wishListPageController.wishList.length>0? Container(
+                         color: Colors.white,
+                         child:  ListView.builder(
+                             padding: EdgeInsets.zero,
+                             itemCount:1,
+                             shrinkWrap: true,
+                             //physics: const NeverScrollableScrollPhysics(),
+                             itemBuilder: (BuildContext context, int index) {
+                               return Column(
+                                 children: [
+                                   Obx(() => ListView.builder(
+                                       padding: EdgeInsets.zero,
+                                       itemCount: wishListPageController.wishList.length>0 ? wishListPageController.wishList.length:0,
+                                       shrinkWrap: true,
+                                       physics: const NeverScrollableScrollPhysics(),
+                                       itemBuilder: (BuildContext context, int index) {
+                                         return cartItem(wishListPageController.wishList[index]);
+                                       }))
+                                 ]
 
-                                  ,
-                                );
-                              }),
-                        )
+                                 ,
+                               );
+                             }),
+                       ):
+                       Center(child:
+                       Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           Image.asset(
+                             "assets/images/not_found.png",
+                             width: 180,
+                             height: 80,
+                           ),
+                           SizedBox(height: 20,),
+                           Text(
+                             "Wish list not fount!",
+                             overflow: TextOverflow.ellipsis,
+                             softWrap: false,
+                             maxLines: 1,
+                             style: TextStyle(
+                                 color:text_color,
+                                 fontSize: 15,
+                                 decoration: TextDecoration.none,
+                                 fontWeight: FontWeight.w500),
+                           )
+                         ],
+                       )
+
+                         ,)
 
 
-                    ),
+                   ),)
 
 
                   ],
