@@ -291,33 +291,33 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
 
-                          Container(
-                            margin: EdgeInsets.only(left: 20),
-                            child: ListTile(
-                              leading: Icon(Icons.login,
-                                color: sohojatri_color.withOpacity(.6),
-                                size: 20,
-                              ),
-                              title: Text("Seller Login"),
-                              onTap: (){
-                                //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
-                              },
-                            ),
-                          ),
-
-                          Container(
-                            margin: EdgeInsets.only(left: 20),
-                            child:   ListTile(
-                              leading: Icon(Icons.app_registration,
-                                color: sohojatri_color.withOpacity(.6),
-                                size: 20,
-                              ),
-                              title: Text("Seller Registation"),
-                              onTap: (){
-                                //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
-                              },
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(left: 20),
+                          //   child: ListTile(
+                          //     leading: Icon(Icons.login,
+                          //       color: sohojatri_color.withOpacity(.6),
+                          //       size: 20,
+                          //     ),
+                          //     title: Text("Seller Login"),
+                          //     onTap: (){
+                          //       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //     },
+                          //   ),
+                          // ),
+                          //
+                          // Container(
+                          //   margin: EdgeInsets.only(left: 20),
+                          //   child:   ListTile(
+                          //     leading: Icon(Icons.app_registration,
+                          //       color: sohojatri_color.withOpacity(.6),
+                          //       size: 20,
+                          //     ),
+                          //     title: Text("Seller Registation"),
+                          //     onTap: (){
+                          //       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //     },
+                          //   ),
+                          // ),
                           Container(
                             margin: EdgeInsets.only(left: 20),
                             child:   ListTile(
