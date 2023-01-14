@@ -1033,7 +1033,22 @@ class CheckoutPage extends StatelessWidget {
         if (_inputValid(f_name: firstName, l_name: lastName, email: email, phone: phone,
             address: address, town_city: townCity, zipCode: zipCode,
             selectedState: checkoutPageController.selectStateId.value, selectedCountry: checkoutPageController.selectCountryId.value)== false) {
-          checkoutPageController.updateUserBillingInfoList(
+
+          // checkoutPageController.updateUserBillingInfoList(
+          //     token: checkoutPageController.userToken.value,
+          //     firstname: firstName,
+          //     lastName:lastName,
+          //     emailAddress: email,
+          //     phoneNumber: phone,
+          //     address: address,
+          //     townCity: townCity,
+          //     zipCode: zipCode,
+          //     stateId: checkoutPageController.selectStateId.value,
+          //     countryId: checkoutPageController.selectCountryId.value
+          // );
+
+
+          checkoutPageController.checkGroceryProductZipList(
               token: checkoutPageController.userToken.value,
               firstname: firstName,
               lastName:lastName,
@@ -1043,7 +1058,8 @@ class CheckoutPage extends StatelessWidget {
               townCity: townCity,
               zipCode: zipCode,
               stateId: checkoutPageController.selectStateId.value,
-              countryId: checkoutPageController.selectCountryId.value
+              countryId: checkoutPageController.selectCountryId.value,
+              productList:checkoutPageController. allCartProductIdList
           );
         }
       },

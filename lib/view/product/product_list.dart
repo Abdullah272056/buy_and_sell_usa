@@ -458,7 +458,7 @@ class ProductListPage extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("0.0"),
+                                rating:double.parse(response["av_review"].toString()),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -471,7 +471,8 @@ class ProductListPage extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 0 Review",
+                                response["count_review"].toString()+
+                                    " Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -2071,9 +2072,9 @@ class ProductListPage extends StatelessWidget {
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 
-   return (double.parse(regularPrice)-
-        ((double.parse(regularPrice)*
-            double.parse(discountedPercent))/100)).toString();
+   return double.parse(((double.parse(regularPrice)-
+       ((double.parse(regularPrice)*
+           double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
 
   }
 }

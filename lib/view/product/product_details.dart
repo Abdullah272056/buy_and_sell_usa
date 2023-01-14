@@ -384,135 +384,142 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       ),
 
                       //color
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        height: 27,
-                      child: Row(
-                        children: [
-                          Text(
-                            "Available Color: ",
-                            overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                                color: text_color,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal),
-                            softWrap: false,
-                            maxLines: 2,
-                          ),
-                          Expanded(child:Obx(()=> ListView.builder(
-                            //  shrinkWrap: true,
-                            // physics: const NeverScrollableScrollPhysics(),
 
-                            itemCount:productDetailsController.colorsList==null||
-                                productDetailsController.colorsList.length<=0?0:
-                            productDetailsController.colorsList.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(right: 5),
-                                padding: EdgeInsets.only(right: 8,left: 8),
-                                height: 27,
-                                //  width:32,
-                                decoration: BoxDecoration(
-                                  color:Colors.white,
-                                  border: Border.all(
-                                    color: hint_color,
-                                    width: .5, //                   <--- border width here
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(5.0),
+                      Obx(() => Container(
+                        child: productDetailsController.sizeList.length>0?Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 27,
+                          child: Row(
+                            children: [
+                              Text(
+                                "Available Color: ",
+                                overflow: TextOverflow.ellipsis,
+                                style:  TextStyle(
+                                    color: text_color,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
+                                softWrap: false,
+                                maxLines: 2,
+                              ),
+                              Expanded(child:Obx(()=> ListView.builder(
+                                //  shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
 
-                                  ),
+                                itemCount:productDetailsController.colorsList==null||
+                                    productDetailsController.colorsList.length<=0?0:
+                                productDetailsController.colorsList.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(right: 8,left: 8),
+                                    height: 27,
+                                    //  width:32,
+                                    decoration: BoxDecoration(
+                                      color:Colors.white,
+                                      border: Border.all(
+                                        color: hint_color,
+                                        width: .5, //                   <--- border width here
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(5.0),
 
-                                ),
-                                child:  Center(
-                                  child: Text(
-                                    "${productDetailsController.colorsList[index]["color"]["name"]}"
-                                    //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
-                                    ,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:  TextStyle(
-                                        color: text_color,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.normal),
-                                    softWrap: false,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                              );
+                                      ),
 
-                            },
-                            scrollDirection: Axis.horizontal,
-                          )))
+                                    ),
+                                    child:  Center(
+                                      child: Text(
+                                        "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                        //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
+                                        ,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.normal),
+                                        softWrap: false,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  );
 
-                        ],
-                      ) ,
-                      ),
+                                },
+                                scrollDirection: Axis.horizontal,
+                              )))
+
+                            ],
+                          ) ,
+                        ):Container(),
+                      ),),
+
 
                       //size
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        height: 25,
-                        child: Row(
-                          children: [
-                            Text(
-                              "Available Size: ",
-                              overflow: TextOverflow.ellipsis,
-                              style:  TextStyle(
-                                  color: text_color,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal),
-                              softWrap: false,
-                              maxLines: 2,
-                            ),
-                            Expanded(child: Obx(()=>ListView.builder(
-                              //  shrinkWrap: true,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                              itemCount:productDetailsController.sizeList==null||
-                                  productDetailsController.sizeList.length<=0?0:
-                              productDetailsController.sizeList.length,
-                              // itemCount:productDetailsController.productDetailsData[1]["product"]["sizes"].length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(right: 5),
-                                  padding: EdgeInsets.only(left: 10,right: 10),
-                                  height: 27,
-                                  // width:32,
-                                  decoration: BoxDecoration(
-                                    color:Colors.white,
-                                    border: Border.all(
-                                      color: hint_color,
-                                      width: .5, //                   <--- border width here
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(5.0),
+                      Obx(() => Container(
+                        child: productDetailsController.sizeList.length>0? Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 25,
+                          child: Row(
+                            children: [
+                              Text(
+                                "Available Size: ",
+                                overflow: TextOverflow.ellipsis,
+                                style:  TextStyle(
+                                    color: text_color,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
+                                softWrap: false,
+                                maxLines: 2,
+                              ),
+                              Expanded(child: Obx(()=>ListView.builder(
+                                //  shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                                itemCount:productDetailsController.sizeList==null||
+                                    productDetailsController.sizeList.length<=0?0:
+                                productDetailsController.sizeList.length,
+                                // itemCount:productDetailsController.productDetailsData[1]["product"]["sizes"].length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(left: 10,right: 10),
+                                    height: 27,
+                                    // width:32,
+                                    decoration: BoxDecoration(
+                                      color:Colors.white,
+                                      border: Border.all(
+                                        color: hint_color,
+                                        width: .5, //                   <--- border width here
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(5.0),
+
+                                      ),
 
                                     ),
+                                    child:  Center(
+                                      child: Obx(()=>Text(
+                                        "${productDetailsController.sizeList[index]["size"]["name"]}"??""
+                                        ,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.normal),
+                                        softWrap: false,
+                                        maxLines: 2,
+                                      )),
+                                    ),
+                                  );
 
-                                  ),
-                                  child:  Center(
-                                    child: Obx(()=>Text(
-                                    "${productDetailsController.sizeList[index]["size"]["name"]}"??""
-                                      ,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:  TextStyle(
-                                          color: text_color,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.normal),
-                                      softWrap: false,
-                                      maxLines: 2,
-                                    )),
-                                  ),
-                                );
-
-                              },
-                              scrollDirection: Axis.horizontal,
-                            )))
+                                },
+                                scrollDirection: Axis.horizontal,
+                              )))
 
 
-                          ],
-                        ) ,
-                      ),
+                            ],
+                          ) ,
+                        ):Container(),
+                      ),),
+
 
                       _buildDescriptionDesign(),
 
@@ -639,7 +646,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                direction: Axis.horizontal,
                              ),),
                              Obx(() =>  Text(
+
                                productDetailsController.productReviewCount.value+ " review",
+
+
                                //  "(100 review)",
                                overflow: TextOverflow.ellipsis,
                                style:  TextStyle(
@@ -733,126 +743,50 @@ class ProductDetailsePageScreen extends StatelessWidget {
               ),
 
               //color
-              Container(
-                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                height: 30,
-                child: Row(
-                  children: [
-                    Text(
-                      "Available Color: ",
-                      overflow: TextOverflow.ellipsis,
-                      style:  TextStyle(
-                          color: text_color,
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal),
-                      softWrap: false,
-                      maxLines:1,
-                    ),
-                    SizedBox(width: 10,),
-                    Expanded(child: ListView.builder(
-                      //  shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:productDetailsController.colorsList==null||
-                          productDetailsController.colorsList.length<=0?0:
-                      productDetailsController.colorsList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: (){
-                            productDetailsController.selectedColorIndex(index);
-
-                            productDetailsController.colorId(productDetailsController.sizeList[index]["color"]["id"].toString());
-                            productDetailsController.color(productDetailsController.sizeList[index]["color"]["name"].toString());
-
-                          },
-                          child: Obx(()=>Container(
-                            height: 30,
-                            // width: 30,
-                            margin: EdgeInsets.only(right: 5),
-                            padding: EdgeInsets.only(right: 10,left: 10),
-
-                            decoration: BoxDecoration(
-                              color:Colors.white,
-                              // color:Colors.white,
-                              border: Border.all(
-                                color: productDetailsController.selectedColorIndex.value==index?Colors.blue:
-                                Colors.white,
-                                width: .5, //                   <--- border width here
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5.0),
-
-                              ),
-
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${productDetailsController.colorsList[index]["color"]["name"]}"
-                                //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
-                                ,
-                                overflow: TextOverflow.ellipsis,
-                                style:  TextStyle(
-                                    color: text_color,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal),
-                                softWrap: false,
-                                maxLines: 2,
-                              ),
-                            ),
-                          )),
-                        );
-
-                      },
-                      scrollDirection: Axis.horizontal,
-                    ))
-
-
-                  ],
-                ) ,
-              ),
-
-              //size
-              Container(
-                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                height: 25,
-                child: Row(
-                  children: [
-                    Text(
-                      "Available Size: ",
-                      overflow: TextOverflow.ellipsis,
-                      style:  TextStyle(
-                          color: text_color,
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal),
-                      softWrap: false,
-                      maxLines: 1,
-                    ),
-                    SizedBox(width: 10,),
-                    Expanded(child: Obx(()=>ListView.builder(
-                      //  shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:productDetailsController.sizeList==null||
-                          productDetailsController.sizeList.length<=0?0:
-                      productDetailsController.sizeList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
+              Obx(() => Container(
+                child: productDetailsController.colorsList.length>0?Container(
+                  margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                  height: 30,
+                  child: Row(
+                    children: [
+                      Text(
+                        "Available Color: ",
+                        overflow: TextOverflow.ellipsis,
+                        style:  TextStyle(
+                            color: text_color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                        softWrap: false,
+                        maxLines:1,
+                      ),
+                      SizedBox(width: 10,),
+                      Expanded(child: ListView.builder(
+                        //  shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                        itemCount:productDetailsController.colorsList==null||
+                            productDetailsController.colorsList.length<=0?0:
+                        productDetailsController.colorsList.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
                             onTap: (){
-                              productDetailsController.selectedSizeIndex(index);
-                              productDetailsController.sizeId(productDetailsController.sizeList[index]["size"]["id"].toString());
-                              productDetailsController.size(productDetailsController.sizeList[index]["size"]["name"].toString());
+                              productDetailsController.selectedColorIndex(index);
+
+                              productDetailsController.colorId(productDetailsController.sizeList[index]["color"]["id"].toString());
+                              productDetailsController.color(productDetailsController.sizeList[index]["color"]["name"].toString());
 
                             },
-
                             child: Obx(()=>Container(
+                              height: 30,
+                              // width: 30,
                               margin: EdgeInsets.only(right: 5),
-                              height: 27,
-                              width:35,
+                              padding: EdgeInsets.only(right: 10,left: 10),
+
                               decoration: BoxDecoration(
                                 color:Colors.white,
                                 // color:Colors.white,
                                 border: Border.all(
-                                  color: productDetailsController.selectedSizeIndex.value==index?Colors.blue:
+                                  color: productDetailsController.selectedColorIndex.value==index?Colors.blue:
                                   Colors.white,
                                   width: .5, //                   <--- border width here
                                 ),
@@ -862,78 +796,11 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 ),
 
                               ),
-                              child:  Center(
-                                  child: Obx(()=>Text(
-                                    "${productDetailsController.sizeList[index]["size"]["name"]}"??"",
-                                    // "L",
-                                    overflow: TextOverflow.ellipsis,
-                                    style:  TextStyle(
-                                        color: text_color,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.normal),
-                                    softWrap: false,
-                                    maxLines: 2,
-                                  ),)
-                              ),
-                            ),));
-
-                      },
-                      scrollDirection: Axis.horizontal,
-                    )))
-
-                  ],
-                ) ,
-              ),
-
-              //type
-              Container(
-                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                height: 25,
-                child: Row(
-                  children: [
-                    Text(
-                      "Available Type: ",
-                      overflow: TextOverflow.ellipsis,
-                      style:  TextStyle(
-                          color: text_color,
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal),
-                      softWrap: false,
-                      maxLines: 1,
-                    ),
-                    SizedBox(width: 10,),
-                    Expanded(child: ListView.builder(
-                      //  shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                      itemCount:0,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: (){
-                              productDetailsController.selectedTypeIndex(index);
-                            },
-
-                            child: Obx(()=>Container(
-                              margin: EdgeInsets.only(right: 5),
-                              height: 27,
-                              width:35,
-                              decoration: BoxDecoration(
-                                color:Colors.white,
-                                // color:Colors.white,
-                                border: Border.all(
-                                  color: productDetailsController.selectedTypeIndex.value==index?Colors.blue:
-                                  Colors.white,
-                                  width: .5, //                   <--- border width here
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5.0),
-
-                                ),
-
-                              ),
-                              child:  Center(
+                              child: Center(
                                 child: Text(
-                                  "a",
+                                  "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                  //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
+                                  ,
                                   overflow: TextOverflow.ellipsis,
                                   style:  TextStyle(
                                       color: text_color,
@@ -943,16 +810,170 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                   maxLines: 2,
                                 ),
                               ),
-                            ),));
+                            )),
+                          );
 
-                      },
-                      scrollDirection: Axis.horizontal,
-                    ))
+                        },
+                        scrollDirection: Axis.horizontal,
+                      ))
 
 
-                  ],
-                ) ,
-              ),
+                    ],
+                  ) ,
+                ):Container(),
+              ),),
+
+
+              //size
+              Obx(() => Container(
+                child: productDetailsController.sizeList.length>0?Container(
+                  margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                  height: 25,
+                  child: Row(
+                    children: [
+                      Text(
+                        "Available Size: ",
+                        overflow: TextOverflow.ellipsis,
+                        style:  TextStyle(
+                            color: text_color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                        softWrap: false,
+                        maxLines: 1,
+                      ),
+                      SizedBox(width: 10,),
+                      Expanded(child: Obx(()=>ListView.builder(
+                        //  shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                        itemCount:productDetailsController.sizeList==null||
+                            productDetailsController.sizeList.length<=0?0:
+                        productDetailsController.sizeList.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                              onTap: (){
+                                productDetailsController.selectedSizeIndex(index);
+                                productDetailsController.sizeId(productDetailsController.sizeList[index]["size"]["id"].toString());
+                                productDetailsController.size(productDetailsController.sizeList[index]["size"]["name"].toString());
+
+                              },
+
+                              child: Obx(()=>Container(
+                                margin: EdgeInsets.only(right: 5),
+                                height: 27,
+                                width:35,
+                                decoration: BoxDecoration(
+                                  color:Colors.white,
+                                  // color:Colors.white,
+                                  border: Border.all(
+                                    color: productDetailsController.selectedSizeIndex.value==index?Colors.blue:
+                                    Colors.white,
+                                    width: .5, //                   <--- border width here
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5.0),
+
+                                  ),
+
+                                ),
+                                child:  Center(
+                                    child: Obx(()=>Text(
+                                      "${productDetailsController.sizeList[index]["size"]["name"]}"??"",
+                                      // "L",
+                                      overflow: TextOverflow.ellipsis,
+                                      style:  TextStyle(
+                                          color: text_color,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.normal),
+                                      softWrap: false,
+                                      maxLines: 2,
+                                    ),)
+                                ),
+                              ),));
+
+                        },
+                        scrollDirection: Axis.horizontal,
+                      )))
+
+                    ],
+                  ) ,
+                ):Container(),
+              ),),
+
+
+
+              //type
+
+              // Obx(() => Container(
+              //   child: productDetailsController.sizeList.length>0?Container(
+              //     margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+              //     height: 25,
+              //     child: Row(
+              //       children: [
+              //         Text(
+              //           "Available Type: ",
+              //           overflow: TextOverflow.ellipsis,
+              //           style:  TextStyle(
+              //               color: text_color,
+              //               fontSize: 15,
+              //               fontWeight: FontWeight.normal),
+              //           softWrap: false,
+              //           maxLines: 1,
+              //         ),
+              //         SizedBox(width: 10,),
+              //         Expanded(child: ListView.builder(
+              //           //  shrinkWrap: true,
+              //           // physics: const NeverScrollableScrollPhysics(),
+              //           //itemCount: offerDataList == null ? 0 : offerDataList.length,
+              //           itemCount:0,
+              //           itemBuilder: (context, index) {
+              //             return InkWell(
+              //                 onTap: (){
+              //                   productDetailsController.selectedTypeIndex(index);
+              //                 },
+              //
+              //                 child: Obx(()=>Container(
+              //                   margin: EdgeInsets.only(right: 5),
+              //                   height: 27,
+              //                   width:35,
+              //                   decoration: BoxDecoration(
+              //                     color:Colors.white,
+              //                     // color:Colors.white,
+              //                     border: Border.all(
+              //                       color: productDetailsController.selectedTypeIndex.value==index?Colors.blue:
+              //                       Colors.white,
+              //                       width: .5, //                   <--- border width here
+              //                     ),
+              //                     borderRadius: const BorderRadius.all(
+              //                       Radius.circular(5.0),
+              //
+              //                     ),
+              //
+              //                   ),
+              //                   child:  Center(
+              //                     child: Text(
+              //                       "a",
+              //                       overflow: TextOverflow.ellipsis,
+              //                       style:  TextStyle(
+              //                           color: text_color,
+              //                           fontSize: 13,
+              //                           fontWeight: FontWeight.normal),
+              //                       softWrap: false,
+              //                       maxLines: 2,
+              //                     ),
+              //                   ),
+              //                 ),));
+              //
+              //           },
+              //           scrollDirection: Axis.horizontal,
+              //         ))
+              //
+              //
+              //       ],
+              //     ) ,
+              //   ):Container(),
+              // ),),
+
 
 
               //Quantity
@@ -1414,7 +1435,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("4.5"),
+                                // rating:double.parse("4.5"),
+                                rating:double.parse(productDetailsController.relatedProductList[index]["av_review"].toString()),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -1427,7 +1449,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 8 Review",
+                                productDetailsController.relatedProductList[index]["count_review"].toString()+
+                                    " Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -2584,9 +2607,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 
-    return (double.parse(regularPrice)-
+    return double.parse(((double.parse(regularPrice)-
         ((double.parse(regularPrice)*
-            double.parse(discountedPercent))/100)).toString();
+            double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
 
   }
 

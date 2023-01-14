@@ -50,6 +50,7 @@ class CheckoutPageController extends GetxController {
   var totalPrice=0.0.obs;
   var totalTaxAmount=0.0.obs;
   var cartList=[].obs;
+  var allCartProductIdList=[].obs;
 
   var userName="".obs;
   var userToken="".obs;
@@ -120,6 +121,12 @@ class CheckoutPageController extends GetxController {
     NotesDataBase.instance;
     cartList(await NotesDataBase.instance.readAllNotes());
 
+    List productIdList=[];
+    for(int i=0;i<cartList.length;i++){
+      productIdList.add(cartList[i].productId);
+    }
+
+    allCartProductIdList(productIdList);
     totalPriceCalculate(cartList);
     totalTaxCalculation(cartList);
     // _showToast("Local length= "+cartList.length.toString());
@@ -278,6 +285,75 @@ class CheckoutPageController extends GetxController {
     }
   }
 
+
+  void checkGroceryProductZipList({
+    required String token,
+    required String firstname,
+    required String lastName,
+    required String emailAddress,
+    required String phoneNumber,
+    required String address,
+    required String townCity,
+    required String zipCode,
+    required String stateId,
+    required String countryId,
+    required List productList
+  }
+      ) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // _showToast(token);
+        try {
+          showLoadingDialog("Checking");
+          var response = await post(
+              Uri.parse('${BASE_URL_API}${SUB_URL_API_CHECKGROCERYPRODUCTZIPLIST}'),
+              headers: {
+                'Authorization': 'Bearer '+token,
+                //'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: json.encode({
+                "zip_code": zipCode,
+                "productId":productList
+              })
+          );
+
+
+           //_showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+          updateUserBillingInfoList(
+                token:token,
+                firstname: firstname,
+                lastName:lastName,
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                address: address,
+                townCity: townCity,
+                zipCode: zipCode,
+                stateId: stateId,
+                countryId: countryId
+            );
+
+
+          }
+          else {
+            Get.back();
+            // Fluttertoast.cancel();
+            _showToast("Some product are not available for this zip Code!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
   void updateUserBillingInfoList({
             required String token,
             required String firstname,
@@ -296,7 +372,7 @@ class CheckoutPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
        // _showToast(token);
         try {
-          showLoadingDialog("Checking");
+         // showLoadingDialog("Checking");
           var response = await post(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_ADD_USER_UPDATE_BILLING_ADDRESS}'),
             headers: {
@@ -334,8 +410,6 @@ class CheckoutPageController extends GetxController {
              {"couponSellerId": couponSellerId}
 
            ]);
-
-
 
             // var wishListResponse = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);

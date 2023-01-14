@@ -748,7 +748,7 @@ class HomePageScreen extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("0"),
+                                rating:double.parse(response["av_review"].toString()),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -761,7 +761,8 @@ class HomePageScreen extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 0 Review",
+                                response["count_review"].toString()+
+                                " Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -781,8 +782,8 @@ class HomePageScreen extends StatelessWidget {
                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
-                              discountedPercent: response["discount_percent"].toString()),
+                          "\$ "+response["price"].toString(),
+
 
                           // "\$ "+response["price"].toString(),
                           //  overflow: TextOverflow.ellipsis,
@@ -790,14 +791,16 @@ class HomePageScreen extends StatelessWidget {
                               color: hint_color,
                               fontSize: 13,
                               decoration: TextDecoration.lineThrough,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w600),
                           // softWrap: false,
                           maxLines: 1,
 
 
                         ),
                         SizedBox(width: 10,),
-                        Text("\$ "+response["price"].toString(),
+                        Text(
+                          "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                              discountedPercent: response["discount_percent"].toString()),
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: Colors.black.withOpacity(0.7),
@@ -1141,9 +1144,9 @@ class HomePageScreen extends StatelessWidget {
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 
-    return (double.parse(regularPrice)-
+    return double.parse(((double.parse(regularPrice)-
         ((double.parse(regularPrice)*
-            double.parse(discountedPercent))/100)).toString();
+            double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
 
   }
 

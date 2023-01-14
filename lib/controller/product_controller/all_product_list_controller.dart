@@ -444,7 +444,7 @@ class AllProductListPageController extends GetxController {
               })
           );
           isFirstLoadRunning(false);
-           _showToast("status = ${response.statusCode}");
+          // _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
             // var responseData = response.body;
             var responseData = jsonDecode(response.body);

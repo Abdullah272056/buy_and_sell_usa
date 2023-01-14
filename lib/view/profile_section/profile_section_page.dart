@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
@@ -11,10 +12,12 @@ import '../../controller/product_controller/product_details_controller.dart';
 import '../../controller/profile_section_controllert/address_page_controller.dart';
 import '../../controller/profile_section_controllert/profile_section_page_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
+import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 
 import '../auth/change_password_page.dart';
+import '../auth/log_in_page.dart';
 import 'account _details_page.dart';
 import 'address_page.dart';
 import '../order/order_page.dart';
@@ -209,7 +212,11 @@ class ProfileSectionPage extends StatelessWidget {
           return;
         }
         if(onClick==6){
-
+          saveUserInfoRemove(
+              userName:"",
+              userToken:"");
+          Get.deleteAll();
+          Get.offAll(LogInScreen());
 
           return;
         }
@@ -285,6 +292,17 @@ class ProfileSectionPage extends StatelessWidget {
     );
   }
 
+  ///user info with share pref
+  void saveUserInfoRemove({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
+  }
 
   //toast create
   _showToast(String message) {

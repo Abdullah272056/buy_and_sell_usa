@@ -12,6 +12,7 @@ import '../../controller/cart_controller/cart__view_page_controller.dart';
 import '../../controller/checkout_step_controller/web_view_page_controller.dart';
 import '../../controller/checkout_step_controller/web_view_page_controller1.dart';
 import '../../data_base/sqflite/notes_database.dart';
+import '../../static/Colors.dart';
 
 
 class WebviewPaymentScreen extends StatefulWidget {
@@ -88,76 +89,115 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
   @protected
   @mustCallSuper
   void initState() {
-    _showToast("1");
-
-    _showToast("2");
+   // _showToast("1"); //
+   // _showToast("2");
   }
   final _key = UniqueKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.intello_bd_color_dark,
-      body: Container(
-        decoration: BoxDecoration(
-          color:Colors.white,
+     backgroundColor: fnf_title_bar_bg_color,
+      body:Container(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 22,
+              // height: 50,
+            ),
+
+            Flex(direction: Axis.horizontal,
+              children: [
+                SizedBox(width: 5,),
+                IconButton(
+                  iconSize: 20,
+                  icon:Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                SizedBox(width: 5,),
+                Expanded(child: Text(
+                  "PAYMENT",
+                  style: TextStyle(color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17
+                  ),
+                )),
+
+
+              ],
+            ),
+            SizedBox(height: 8,),
+            Expanded(child:   Container(
+              decoration: BoxDecoration(
+                color:Colors.white,
+              ),
+              child:WebView(
+                  key: _key,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  navigationDelegate: (NavigationRequest request) {
+
+
+                    //Any other url works
+                    return NavigationDecision.navigate;
+                  },
+                  onPageFinished: (url){
+
+                    // final uri = Uri.parse(url);
+                    // if(uri.queryParameters['paymentId'].toString()!="null" ){
+                    //   _showToast("payment Success full!");
+                    //
+                    // }else{
+                    //   _showToast("else!");
+                    //
+                    // }
+
+
+
+                    // if (url.toLowerCase().contains("google.com") && url.toLowerCase().contains("status")) {
+                    //   if (url.toLowerCase().contains("notok")) {
+                    //
+                    //     Fluttertoast.showToast(msg: "not successfull");
+                    //
+                    //   } else if (url.toLowerCase().contains("ok")) {
+                    //
+                    //     Fluttertoast.showToast(msg: "successful!");
+                    //
+                    //   }
+                    // }
+                  },
+                  onPageStarted: (url){
+                    final uri = Uri.parse(url);
+                    if(uri.queryParameters['paymentId'].toString()!="null" ){
+                      _showToast("payment Success full!");
+
+                      cartViewPageController.callOrderStoreApi(
+                          coupon_code: couponCodes,
+                          coupon_amount: couponAmount,
+                          coupon_seller_id: couponSellerId,
+                          payment_id: uri.queryParameters['paymentId'].toString(),
+                          payer_id: uri.queryParameters['PayerID'].toString(),
+                          payment_method: 'paypal'
+                      );
+
+                    }else{
+                      //  _showToast("else!");
+
+                    }
+                  },
+                  initialUrl: paymentLink),
+
+              /* add child content here */
+            ),)
+          ],
         ),
-        child:WebView(
-            key: _key,
-            javascriptMode: JavascriptMode.unrestricted,
-            navigationDelegate: (NavigationRequest request) {
-
-
-              //Any other url works
-              return NavigationDecision.navigate;
-            },
-            onPageFinished: (url){
-
-              // final uri = Uri.parse(url);
-              // if(uri.queryParameters['paymentId'].toString()!="null" ){
-              //   _showToast("payment Success full!");
-              //
-              // }else{
-              //   _showToast("else!");
-              //
-              // }
-
-
-
-              // if (url.toLowerCase().contains("google.com") && url.toLowerCase().contains("status")) {
-              //   if (url.toLowerCase().contains("notok")) {
-              //
-              //     Fluttertoast.showToast(msg: "not successfull");
-              //
-              //   } else if (url.toLowerCase().contains("ok")) {
-              //
-              //     Fluttertoast.showToast(msg: "successful!");
-              //
-              //   }
-              // }
-            },
-            onPageStarted: (url){
-              final uri = Uri.parse(url);
-              if(uri.queryParameters['paymentId'].toString()!="null" ){
-                _showToast("payment Success full!");
-
-              cartViewPageController.callOrderStoreApi(
-              coupon_code: couponCodes,
-              coupon_amount: couponAmount,
-              coupon_seller_id: couponSellerId,
-              payment_id: uri.queryParameters['paymentId'].toString(),
-              payer_id: uri.queryParameters['PayerID'].toString(),
-              payment_method: 'paypal'
-              );
-
-              }else{
-                _showToast("else!");
-
-              }
-            },
-            initialUrl: paymentLink),
-
-        /* add child content here */
-      ),
+      )
+      
+      
+    
     );
 
 

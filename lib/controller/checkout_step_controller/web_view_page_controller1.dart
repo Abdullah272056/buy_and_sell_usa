@@ -54,7 +54,7 @@ class WebViewPageController1 extends GetxController {
      NotesDataBase.instance;
      cartList(await NotesDataBase.instance.readAllNotes());
 
-     _showToast("cartList"+cartList.length.toString());
+  //   _showToast("cartList"+cartList.length.toString());
 
    }
 

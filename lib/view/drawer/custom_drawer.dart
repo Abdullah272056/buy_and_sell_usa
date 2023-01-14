@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../controller/drawer_controller/custom_drawer_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
+import '../auth/sign_up_page.dart';
+import '../cart/cart_page.dart';
 import '../product/product_list.dart';
 
 
@@ -130,6 +133,10 @@ class CustomDrawer extends StatelessWidget {
                           size: 22,
                         ),
                         title: Text("Home"),
+                        onTap: (){
+
+                          Navigator.pop(context);
+                        },
                         // onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardScreen())),
                       ),
                       ListTile(
@@ -231,6 +238,10 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         title: Text("Cart",
                         ),
+                        onTap: (){
+
+                          Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                        },
                       ),
                       ListTile(
                         leading: Icon(Icons.shopping_cart_checkout_outlined,
@@ -241,14 +252,7 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         //   onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AllCarListScreen())),
                       ),
-                      ListTile(
-                        leading: Icon(Icons.shopping_cart,
-                          color: sohojatri_color.withOpacity(.6),
-                          size: 22,
-                        ),
-                        title: Text("Cart",
-                        ),
-                      ),
+
                       ExpansionTile(
                         leading:Icon(Icons.account_box,
                           color: sohojatri_color.withOpacity(.6),
@@ -267,6 +271,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Customer Login"),
                               onTap: (){
+                                Get.to(LogInScreen());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -278,8 +283,9 @@ class CustomDrawer extends StatelessWidget {
                                 color: sohojatri_color.withOpacity(.6),
                                 size: 20,
                               ),
-                              title: Text("Registration"),
+                              title: Text("Customer Registration"),
                               onTap: (){
+                                Get.to(SignUpScreen());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
@@ -345,7 +351,8 @@ class CustomDrawer extends StatelessWidget {
                         onTap: (){
 
                           removeUserInfo();
-                          Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+                          Get.deleteAll();
+                          Get.offAll(LogInScreen());
 
                         },
 

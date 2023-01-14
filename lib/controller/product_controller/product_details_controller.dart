@@ -221,11 +221,9 @@ class ProductDetailsController extends GetxController {
              productPrice(dataResponse[1]["product"]["price"].toString());
 
 
-
-
-             productDiscountPrice((double.parse(dataResponse[1]["product"]["price"].toString())-
+             productDiscountPrice(double.parse(((double.parse(dataResponse[1]["product"]["price"].toString())-
                  ((double.parse(dataResponse[1]["product"]["price"].toString())*
-                     double.parse(dataResponse[1]["product"]["discount_percent"].toString()))/100)).toString());
+                     double.parse(dataResponse[1]["product"]["discount_percent"].toString()))/100))).toStringAsFixed(2)).toString());
 
 
             double.parse(dataResponse[1]["product"]["price"].toString());
@@ -240,11 +238,14 @@ class ProductDetailsController extends GetxController {
             colorsList(dataResponse[1]["product"]["colors"]);
             sizeList(dataResponse[1]["product"]["sizes"]);
            // _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
-             if(dataResponse[1]["reviews"]!=null){
-                productReviewRating(dataResponse[1]["reviews"].length.toString());
-               productReviewCount(dataResponse[1]["reviews"].length.toString());
+           //   if(dataResponse[1]["reviews"]!=null){
+           //      productReviewRating(dataResponse[1]["reviews"].length.toString());
+           //     productReviewCount(dataResponse[1]["reviews"].length.toString());
+           //
+           //   }
 
-             }
+            productReviewRating(dataResponse[1]["additional_info"]["av_review"].toString());
+            productReviewCount(dataResponse[1]["additional_info"]["count_review"].toString());
 
 
              productPhoto(dataResponse[1]["product"]["cover_image"].toString());
@@ -465,7 +466,7 @@ class ProductDetailsController extends GetxController {
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
-       _showToast("token g= "+storage.read(pref_user_token).toString());
+     //  _showToast("token g= "+storage.read(pref_user_token).toString());
 
     } catch (e) {
 

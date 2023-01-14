@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../api_service/api_service.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../controller/auth_controller/sign_up_page_controller.dart';
 import '../../static/Colors.dart';
@@ -680,8 +681,8 @@ class SignUpScreen extends StatelessWidget {
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
 
-            Get.to(DashBoardPageScreen());
-            // Get.offAll(DashBoardPageScreen());
+            Get.deleteAll();
+            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
 
           }
           else if (response.statusCode == 404) {
