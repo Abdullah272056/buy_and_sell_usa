@@ -15,49 +15,9 @@ import '../product/product_details.dart';
 
 
 
-class RefundPolicyPage extends StatelessWidget {
+class PrivacyPolicyPage extends StatelessWidget {
 
-  String policytext="Nihil exercitationem ea qui temporibus veritatis omnis."
-      " Doloremque qui ut labore dignissimos sed. Sit rerum iste aut inventore sit."
-      " Dolorem voluptatem dolor quidem aut aut. Aperiam cumque sint rerum placeat voluptates "
-      "asperiores odit. Corporis commodi magnam repellendus debitis facere voluptate. "
-      "Aut ipsa praesentium numquam fuga numquam. Inventore illum fugiat eum cumque eaque."
-      " Et voluptatem et laboriosam facere qui rerum eos. Voluptas non aspernatur autem."
-      " Sunt est ut id maxime autem dolores amet. Autem aut ut minima qui. "
-      "Aliquid non tempore mollitia consequatur quia et voluptas. Nihil laborum quasi velit "
-      "expedita reiciendis inventore. Distinctio temporibus facilis a enim praesentium. "
-      "Praesentium perferendis rem odit eos. Numquam architecto nulla modi saepe."
-      " Quia omnis iste et numquam est cum et. Temporibus quia doloremque qui consequatur magni. "
-      "Labore consequatur voluptatem voluptatem quasi eveniet sit. Sed eveniet repellendus "
-      "ipsum quia quidem minima. Quos ipsa quod cum necessitatibus itaque incidunt. "
-      "Reiciendis veritatis at mollitia asperiores hic laudantium. Maxime corrupti deserunt labore expedita "
-      "fugiat reiciendis cum neque. Ullam voluptas commodi iste perferendis dicta aut. In voluptatibus velit "
-      "et illum quo temporibus. Odit cum natus id voluptas laborum. Voluptatum rem ab qui veritatis quia cumque. "
-      "Dolores deleniti praesentium sequi autem ut iste. Repellat velit eos dolorem voluptas reiciendis neque. "
-      "Et harum est accusamus architecto ut quia fuga. Distinctio dignissimos corrupti consectetur facere. Molestiae "
-      "est ut inventore et dolorem eius omnis. Odio et voluptates enim consequatur voluptatem molestiae dolorem alias."
-      " Sequi est velit dolorem ad itaque sunt labore. Sunt ipsam omnis sequi itaque. Ipsa molestiae sint aspernatur"
-      " maxime illum sequi voluptas. Quia alias sed eum sit sed voluptates omnis. Sed aut blanditiis quia temporibus. "
-      "Maiores est voluptatibus molestias optio. Repellat reiciendis consequatur tenetur nobis temporibus. Officia et "
-      "quam consectetur quaerat quia maxime et. In et nisi molestias molestias numquam est. Perspiciatis sunt repudiandae "
-      "omnis fugit rem voluptates neque. Ab alias consequuntur magni in nesciunt omnis. Explicabo sed voluptas et aperiam"
-      " illum nobis velit. Voluptas deleniti ut illo ut. Sit voluptatem et commodi sequi omnis. Itaque amet sapiente"
-      " molestiae. Tempore quae hic eum asperiores. Illo non quia sit earum. Sit corrupti sint ratione necessitatibus "
-      "cumque et corporis. In et voluptas dicta dolor doloribus ut expedita. Omnis libero dicta cumque harum exercitationem. "
-      "Ut animi possimus ea id accusamus neque. Nam architecto non aut mollitia at. Sint quis dolor cumque. Non impedit"
-      " qui error quam maxime minima perferendis. Architecto soluta maxime a repellat a libero. Id dolor quo aliquid"
-      " temporibus nesciunt repudiandae dicta. Debitis illo temporibus saepe consequatur. Fugiat adipisci illum expedita id "
-      "facilis voluptatum. Fugiat sit rem itaque ratione. Et tempore ab nihil error dolore nemo veritatis deleniti. Et ea ab "
-      "vel molestiae ad odit. Eos sapiente molestiae sit quod sit. Eum et unde perferendis quibusdam magnam ad nam. Ipsum "
-      "aliquid quia minima id. Aut ullam dolores cum quia itaque blanditiis. Est ea tempora voluptatem praesentium ab eos. "
-      "Beatae voluptatem illo quae. Occaecati fugiat quo accusantium molestias necessitatibus porro dolorem. Aut molestiae "
-      "recusandae repellendus quibusdam. Praesentium fugiat delectus eveniet ipsam soluta. Possimus facilis quia quasi eius "
-      "molestias minus voluptatem. Adipisci est omnis facilis repellendus pariatur autem. Ex aut optio voluptatem molestiae ab."
-      " Reprehenderit a sint et totam ducimus maxime. Maiores sit distinctio ratione velit omnis voluptas cupiditate. Et laborum "
-      "consequatur ut doloribus accusamus molestiae voluptatem. Laudantium officia voluptatem non maiores nam beatae corrupti. "
-      "Minus repudiandae est voluptatem cumque quidem blanditiis. Libero voluptatem qui eaque quasi. Alias sit suscipit voluptatem"
-      " minus esse. Et nihil "
-      "ut animi quis. Et architecto voluptas aut nisi a repudiandae dolorum. Aliquam hic inventore voluptatem in sed.";
+  String policytext="Harum in itaque soluta. Cumque quos recusandae qui beatae quis saepe. Ut quasi fugiat voluptatem aut autem facere est. Ut sed natus sit beatae commodi consequuntur est ea. Aut reprehenderit sed minus enim asperiores corrupti ullam hic. Minus laboriosam iste et eveniet aut rerum asperiores. Voluptatibus aliquam aut quasi. Ut vel quibusdam dolorem deleniti. Ratione est minus quibusdam maiores vero. Aut omnis animi est neque tempore. Sit ad porro sint est tempore necessitatibus harum adipisci. Sed natus vel commodi aut modi fugit quis. Et blanditiis dicta voluptatem fugit. Omnis earum earum dolor inventore. Dolorem nulla beatae aut. Rerum architecto quos corrupti mollitia vero enim et. Hic accusamus sit quos eius exercitationem. Est doloremque natus omnis est voluptas est rem. Molestiae sapiente cupiditate suscipit quisquam autem. Ab sint est eum enim. Soluta consectetur culpa ex minima inventore ducimus. Ipsum nesciunt sapiente maiores enim. Ex fuga mollitia beatae suscipit non vitae aliquam tempore. Reiciendis velit unde quis sunt et consequatur omnis. Ut culpa doloribus error fugiat quis et labore qui. Temporibus optio nisi pariatur deserunt enim. Et recusandae voluptatem iure in et. Placeat provident architecto amet adipisci. Nostrum voluptatem ea et. Voluptatem qui atque voluptates aut iste ipsa vitae. Rerum expedita autem et sequi consequatur repudiandae et. Maiores vero ut repudiandae. Voluptates labore molestiae officia nisi. Maiores totam impedit aut odit sequi. Itaque quasi qui non vero praesentium quia. Aut odit eaque molestiae. Deleniti hic facilis rem labore id adipisci nemo. Tempore nulla vitae et cum dolore quis consectetur. Ut qui in provident vel. Alias commodi recusandae quibusdam sit cupiditate adipisci porro. Est non pariatur enim voluptatem dolor vero vel. Accusantium officiis asperiores autem mollitia. Est optio quae corporis corporis rerum est aliquam. Temporibus debitis est velit dolore. Ex unde quasi ullam ea voluptatem voluptas ut. Ut laudantium dicta asperiores eos eos laudantium. Est aperiam placeat sed libero quia qui sunt et. Delectus magnam quo dicta quis quos atque. Sapiente tenetur accusamus aperiam quam. Reprehenderit voluptatem nostrum ex quia sunt. Et maiores praesentium molestiae doloribus vel quia. Odio quasi eveniet in sed aut eos aut distinctio. Et in aut quia. Quaerat in velit sed eos facere. Et tenetur delectus ipsa recusandae quis in. Animi atque est ex qui laboriosam. Quaerat accusamus vero non quidem aliquam vel mollitia. Ut aut est voluptatem temporibus velit animi. Aperiam pariatur mollitia velit eveniet in necessitatibus harum non. Quos doloribus commodi quis minima. Provident ullam quo et voluptatem quos quia nihil. Sit doloribus libero cupiditate. Laborum velit nihil perferendis ea. Vel nam aliquid laboriosam et porro sit perferendis perferendis. Sint temporibus minus odit tempora beatae sequi. Quasi sit saepe iste sed et voluptatum. Libero quia quidem quisquam inventore et. Commodi occaecati perspiciatis debitis ex minima. Eveniet quas minima ex. Minus error eum harum unde commodi. Beatae ex placeat et dicta assumenda ratione. Unde accusantium recusandae est quidem at. Numquam aut recusandae labore non corrupti molestiae. Praesentium debitis doloremque consequuntur quo. Voluptate quasi omnis cum aut. Architecto suscipit atque consectetur vero. Placeat alias eligendi ut voluptatum voluptatem repellat velit quas. Eligendi eveniet ad et dolores. Dolorem praesentium nobis nisi assumenda autem neque ut eligendi. Corrupti aut qui sunt. Voluptatum explicabo mollitia ut a dolor. Laudantium provident iusto rem. Voluptas sit et quis omnis quae placeat. Qui dolorem officia corrupti laborum quae repellendus numquam ut. Sint voluptates assumenda recusandae ut voluptas. Accusamus cumque praesentium amet voluptas rerum saepe. Et dolorem quam tempora esse iure rerum aliquid. Sit aliquid recusandae in sint voluptas enim expedita. Eius incidunt minima illo dolorem. Neque qui error est rerum. Aut commodi perspiciatis perspiciatis aut ab eius provident. Ut ab eaque veniam at quas velit cupiditate. In voluptatibus nihil eum illo omnis culpa ducimus vel. Quibusdam quam quam nesciunt voluptatem. Enim nulla sint vel vero. Quidem soluta cupiditate quo. Qui in a distinctio sunt fugiat quo velit. Fugiat nemo beatae qui eius quisquam aut ducimus. Commodi et totam cum commodi. Quibusdam beatae ut provident cum labore. Quidem placeat distinctio incidunt quae eligendi molestias. Accusamus autem et animi qui. Deleniti laborum illum beatae temporibus aperiam commodi. Rerum adipisci quae amet voluptatibus. Aperiam reprehenderit blanditiis rerum distinctio. Eos sequi itaque minus maiores. Amet excepturi enim quis praesentium error consequatur. Sequi iste aliquid perspiciatis et. Officiis consequatur aperiam voluptas quam et voluptate ratione. Ab ipsum voluptate ut eius voluptas omnis odio aliquam. Iste quisquam et quis. Sapiente quaerat ex quia id sit blanditiis impedit pariatur. Ut dolorem enim ipsa nostrum et in ut. Est magnam beatae iusto provident. Ea aliquid aperiam animi provident recusandae. Doloremque error dolorem deserunt debitis est officiis. Velit magni enim aut voluptas. Nihil aut aspernatur minima magni. Vero eos est non eveniet earum saepe nisi. Culpa in incidunt ad non ut fuga qui. Ut et cum neque voluptatem quis. Perspiciatis omnis et sint quia commodi.";
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +49,7 @@ class RefundPolicyPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "REFUND POLICY",
+                    "PRIVACY POLICY",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -117,7 +77,7 @@ class RefundPolicyPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      "Refund & Return Policy",
+                                      "Privacy Policy",
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: false,
                                       maxLines: 1,

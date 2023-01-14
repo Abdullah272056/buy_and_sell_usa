@@ -1,16 +1,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/drawer/privacy_policy.dart';
+import 'package:fnf_buy/view/drawer/refund_policy.dart';
+import 'package:fnf_buy/view/drawer/terms_of_use.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../controller/drawer_controller/custom_drawer_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../cart/cart_page.dart';
+import '../checkout step/checkout_page.dart';
 import '../product/product_list.dart';
+import 'about_us.dart';
 
 
 class CustomDrawer extends StatelessWidget {
@@ -154,6 +160,7 @@ class CustomDrawer extends StatelessWidget {
                         ) ,
                         title: Text("Pages"),
                         children: [
+
                           Container(
                             margin: EdgeInsets.only(left: 20),
                             child: ListTile(
@@ -163,11 +170,12 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("About Us"),
                               onTap: (){
+
+                                Get.to(AboutUsPage());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
                           ),
-
 
                           Container(
                             margin: EdgeInsets.only(left: 20),
@@ -182,6 +190,7 @@ class CustomDrawer extends StatelessWidget {
                               },
                             ),
                           ),
+
                           Container(
                             margin: EdgeInsets.only(left: 20),
                             child:  ListTile(
@@ -191,6 +200,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Faq"),
                               onTap: (){
+
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
@@ -205,6 +215,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Privacy Policy"),
                               onTap: (){
+                                Get.to(PrivacyPolicyPage());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -219,12 +230,11 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Terms of Use"),
                               onTap: (){
+                                Get.to(TermsOfUsePage());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
                           ),
-
-
 
 
                         ],
@@ -250,6 +260,21 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         title: Text("Checkout",
                         ),
+                        onTap: (){
+
+                          if(customDrawerController.userToken.isNotEmpty &&
+                              customDrawerController.userToken.value!=null){
+
+                            Get.to(() => CheckoutPage(), arguments: [
+                              {"couponCodes": ""},
+                              {"couponAmount": ""},
+                              {"couponSellerId": ""},
+                            ])?.then((value) => Get.delete<ProductDetailsController>());
+
+                          }else{
+                            showLoginWarning();
+                          }
+                        },
                         //   onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AllCarListScreen())),
                       ),
 
@@ -329,6 +354,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Refund & Return"),
                               onTap: (){
+                                Get.to(RefundPolicyPage());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -383,7 +409,175 @@ class CustomDrawer extends StatelessWidget {
       )
     );
   }
+  void showLoginWarning( ) {
 
+    Get.defaultDialog(
+        contentPadding: EdgeInsets.zero,
+        //  title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+
+            Stack(
+              children: [
+                Container(
+
+                    child:   Center(
+                      child: Column(
+                        children: [
+
+                          Container(
+
+                            margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
+                              bottom: 0,
+                            ),
+                            child:Image.asset(
+                              "assets/images/fnf_logo.png",
+                              // color: sohojatri_color,
+                              // width: 81,
+                              height: 40,
+                              width: 90,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                            child:  Align(
+                              alignment: Alignment.topCenter,
+                              child:   Text(
+                                "This section is Locked",
+                                textAlign: TextAlign.center,
+
+                                style: TextStyle(
+                                    color: text_color,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
+                            child:  Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                "Go to login or Sign Up screen \nand try again ",
+                                textAlign: TextAlign.center,
+
+                                style: TextStyle(
+                                    color: text_color,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                                Get.to(SignUpScreen());
+
+                                //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
+
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7))),
+                              child: Ink(
+
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7.0)
+                                ),
+                                child: Container(
+
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  child:  Text(
+                                    "SIGN UP",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'PT-Sans',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
+                            child: InkWell(
+                              onTap: (){
+                                Get.back();
+                                Get.to(LogInScreen());
+                                //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(7.0)
+                                ),
+                                height: 40,
+                                alignment: Alignment.center,
+                                child:  Text(
+                                  "LOG IN",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'PT-Sans',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: sohojatri_color,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+
+                ),
+                Align(alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+
+
+
+                    child: InkWell(
+                      onTap: (){
+                        Get.back();
+
+
+                      },
+                      child: Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.deepOrangeAccent,
+                        size: 22.0,
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
+            )
+
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
   Widget categoriesItemDesign(int index){
     return Container(
 

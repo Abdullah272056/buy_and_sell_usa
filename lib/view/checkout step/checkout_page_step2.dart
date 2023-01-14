@@ -636,6 +636,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
         String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
+
+
      //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
 
     // Get.to(() => WebviewPage(), arguments: [
@@ -654,6 +656,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
     //
     //     ])?.then((value) => Get.delete<WebViewPageController>());
     //
+
+
     Get.to(()=>
         WebviewPaymentScreen(
         productId: '',

@@ -180,6 +180,7 @@ class CheckoutPageStep2Controller extends GetxController {
     }
 
 
+
     expressShippingCheck(sellerList: sellerIdList, zipCode:zipCode.value , token: userToken.value);
    // _showToast("awe= "+selectedShippingNameWithSellerIdList.length.toString());
 
@@ -277,7 +278,8 @@ class CheckoutPageStep2Controller extends GetxController {
 
           );
 
-        // _showToast("check= "+response.statusCode.toString());
+       // _showToast("zipCode= "+zipCode.toString());
+       // _showToast("sellerList = "+sellerList.length.toString());
 
 
           if (response.statusCode == 200) {
@@ -288,7 +290,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
 
 
-          //  _showToast(expressShippingCheckList[0].length.toString());
+        //   _showToast("abs="+expressShippingCheckList[0].length.toString());
           }
 
           else {
@@ -346,19 +348,24 @@ class CheckoutPageStep2Controller extends GetxController {
           );
 
             Get.back();
+          //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var data = jsonDecode(response.body);
 
+          //  _showToast(data["data"][0].length.toString());
+
              for(int j=0;j<data["data"][0].length;j++){
+
+
 
                for(int i=0;i<cartList.length;i++){
 
-                 if(cartList[i].productId==data["data"][0][j]["product_id"]){
-                   if(shippingType=="1"){
+                 if(cartList[i].productId.toString()==data["data"][0][j]["product_id"].toString()){
+                   if(shippingType.toString()=="1"){
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
-                         productId: cartList[i].productId,
+                         productId: cartList[i].productId.toString(),
                          productName: cartList[i].productName,
                          productRegularPrice: cartList[i].productRegularPrice,
                          productDiscountedPrice: cartList[i].productDiscountedPrice,
@@ -386,8 +393,10 @@ class CheckoutPageStep2Controller extends GetxController {
                          commissionType:cartList[i].commissionType
                      );
                      updateNotes(cartNote);
-                   }else{
-                    // _showToast("else");
+
+                   }
+                   else{
+
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
                          productId: cartList[i].productId,
@@ -419,8 +428,6 @@ class CheckoutPageStep2Controller extends GetxController {
                      updateNotes(cartNote);
 
                    }
-
-
                  }
 
                }

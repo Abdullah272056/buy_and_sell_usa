@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/log_in_page.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
 import 'package:fnf_buy/view/cart/cart_page.dart';
-import 'package:fnf_buy/view/drawer/refund_policy.dart';
 
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -31,15 +30,15 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      home: RefundPolicyPage()
+      home:
 
-      // DashBoardPageScreen(
-      //  // body:CheckoutPageStep2Page(),
-      // // body: RefundPolicyPage(),
-      //
-      // // body:CheckoutPageStep2Page(),
-      //
-      // ),
+      DashBoardPageScreen(
+       // body:CheckoutPageStep2Page(),
+      // body: RefundPolicyPage(),
+
+      // body:CheckoutPageStep2Page(),
+
+      ),
     );
 
   }
