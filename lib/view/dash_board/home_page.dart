@@ -748,7 +748,7 @@ class HomePageScreen extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("4.5"),
+                                rating:double.parse("0"),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -761,7 +761,7 @@ class HomePageScreen extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 8 Review",
+                                " 0 Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -780,7 +780,11 @@ class HomePageScreen extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("\$ "+response["price"].toString(),
+                        Text(
+                          "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                              discountedPercent: response["discount_percent"].toString()),
+
+                          // "\$ "+response["price"].toString(),
                           //  overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: hint_color,
@@ -1132,6 +1136,15 @@ class HomePageScreen extends StatelessWidget {
         ),
         barrierDismissible: false,
         radius: 10.0);
+  }
+
+
+  String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
+
+    return (double.parse(regularPrice)-
+        ((double.parse(regularPrice)*
+            double.parse(discountedPercent))/100)).toString();
+
   }
 
 

@@ -579,16 +579,16 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                           decoration: BoxDecoration(
                             // color:Colors.white,
-                              border: Border.all(
-                                  width: 1,
-                                  color: Colors.blue//                   <--- border width here
-                              ),
+                            //   border: Border.all(
+                            //       width: 1,
+                            //       color: Colors.blue//                   <--- border width here
+                            //   ),
                               borderRadius: BorderRadius.circular(24)),
                           child: FadeInImage.assetNetwork(
 
                             fit: BoxFit.fill,
                             placeholder: 'assets/images/loading.png',
-                            image:"https://fnfbuy.bizoytech.com/public/images/product/1669097419-637c67cbbabda.webp",
+                            image:"$BASE_URL_API_IMAGE_PRODUCT${productDetailsController.productImage.value}",
                             // image:BASE_URL_API_IMAGE+
                             //    allProductListPageController.filterProductList[index].coverImage??"",
                             imageErrorBuilder: (context, url, error) =>
@@ -605,8 +605,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
                         Row(
                           children: [
                             SizedBox(width: 15,),
-                            Expanded(child: Text(
-                              "product_name",
+                            
+                            Expanded(child: Obx(() => Text(
+                              // "product_name",
+                              productDetailsController.productName.value.toString(),
                               // productDetailsController.productDetailsData[1]["product"]["product_name"].toString()??"",
                               // "Men Grey Classic Regular Fit Formal Shirt Grey solid formal shirt, has a button-down collar, long sleeves, button placket, straight hem, and 1 patch pocket",
                               overflow: TextOverflow.ellipsis,
@@ -616,7 +618,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w500),
                               softWrap: false,
                               maxLines: 2,
-                            ))
+                            )))
                           ],
                         ),
 
@@ -624,27 +626,29 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           margin: EdgeInsets.only(left: 15,top: 10),
                           child:  Row(
                             children: [
-                              RatingBarIndicator(
-                                // rating:response["avg_rating"],
-                                rating:double.parse("4.5"),
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color:Colors.orange,
-                                ),
-                                itemCount: 5,
-                                itemSize: 15.0,
-                                direction: Axis.horizontal,
-                              ),
-                              Text(
-                                "(100 review)",
-                                overflow: TextOverflow.ellipsis,
-                                style:  TextStyle(
-                                    color: text_color,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500),
-                                softWrap: false,
-                                maxLines: 3,
-                              )
+                             Obx(() =>  RatingBarIndicator(
+                               // rating:response["avg_rating"],
+
+                               rating:double.parse(productDetailsController.productReviewRating.value),
+                               itemBuilder: (context, index) => const Icon(
+                                 Icons.star,
+                                 color:Colors.orange,
+                               ),
+                               itemCount: 5,
+                               itemSize: 15.0,
+                               direction: Axis.horizontal,
+                             ),),
+                             Obx(() =>  Text(
+                               productDetailsController.productReviewCount.value+ " review",
+                               //  "(100 review)",
+                               overflow: TextOverflow.ellipsis,
+                               style:  TextStyle(
+                                   color: text_color,
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.w500),
+                               softWrap: false,
+                               maxLines: 3,
+                             ))
 
                             ],
                           ),
@@ -665,14 +669,16 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       // height: 80,
                       width:80,
                       child: Center(
-                        child: Text(
-                          "10.0% OFF",
+                        child: Obx(() => Text(
+                          productDetailsController.discountPercent.value.toString()+"% OFF",
+
+                          // "10.0% OFF",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.normal
                           ),
-                        ),
+                        )),
                       ),
                       decoration: BoxDecoration(
                         color:Colors.blue,
@@ -711,7 +717,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                         SizedBox(width: 10,),
 
                         Obx(() =>  Text(
-                          "\$${productDetailsController.productDiscountedPrice.value}",
+                          "\$${productDetailsController.productDiscountPrice.value}",
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: Colors.blue,
@@ -1067,7 +1073,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
                     ),
                   ),
                   Obx(() => Text(
-                    "\$${productDetailsController.productDiscountedPrice.value*productDetailsController.productQuantity.value}",
+                    "\$${double.parse((double.parse(productDetailsController.productDiscountPrice.value)*productDetailsController.productQuantity.value).toStringAsFixed(2))}",
+
                     style: TextStyle(fontWeight: FontWeight.w600,
                         color: Colors.blue,
                         fontSize: 15
@@ -1434,22 +1441,39 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 5,),
+
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Obx(()=> Text(
+                          "\$ "+productDetailsController.relatedProductList[index]['price'].toString(),
+                          style:  TextStyle(
+                              color: hint_color,
+                              fontSize: 13,
+                              decoration: TextDecoration.lineThrough,
+                              fontWeight: FontWeight.normal),
+                          softWrap: false,
+                          maxLines: 1,
+                        ),),
+
+                        SizedBox(width: 10,),
                         Expanded(
-                          child:  Obx(()=>Text("\$ "+
-                              // "product name",
-                              productDetailsController.relatedProductList[index]['price'].toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                                color: Colors.black.withOpacity(0.7),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700),
-                            softWrap: false,
-                            maxLines: 2,
-                          ),)
+                            child: Obx(()=>Text(
+                              "\$ "+discountedPriceCalculate(regularPrice:productDetailsController.relatedProductList[index]['price'].toString(),
+                                  discountedPercent:productDetailsController.relatedProductList[index]['discount_percent'].toString()
+                                  //discountedPercent: response["discount_percent"].toString()
+                              ),
+
+                              //allProductListPageController.filterProductList[index].price,
+                              overflow: TextOverflow.ellipsis,
+                              style:  TextStyle(
+                                  color: Colors.black.withOpacity(0.7),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700),
+                              softWrap: false,
+                              maxLines: 2,
+                            )),
                         ),
                         // 12.widthBox,
                         // RatingWidget(rating: widget.product.rating),
@@ -1544,14 +1568,14 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           //  height: 36,
                           // width:36,
                           child: Center(
-                            child: Text(
-                              "10.0% OFF",
+                            child: Obx(()=>Text(
+                              productDetailsController.discountPercent.value.toString()+"% OFF",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
                                   fontWeight: FontWeight.normal
                               ),
-                            ),
+                            )),
                           ),
                           decoration: BoxDecoration(
                             color:Colors.blue,
@@ -1778,7 +1802,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
               productId: productDetailsController.productId.value.toString(),
               productName: productDetailsController.productName.value.toString(),
               productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-              productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+              productDiscountedPrice: productDetailsController.productDiscountPrice.value.toString(),
               productPhoto:productDetailsController.productPhoto.value.toString(),
               productQuantity: productDetailsController.productQuantity.value.toString(),
               weight: productDetailsController.weight.value.toString(),
@@ -1892,7 +1916,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 productId: productDetailsController.productId.value.toString(),
                 productName: productDetailsController.productName.value.toString(),
                 productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-                productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+                productDiscountedPrice: productDetailsController.productDiscountPrice.value.toString(),
                 productPhoto:productDetailsController.productPhoto.value.toString(),
                 productQuantity: productDetailsController.productQuantity.value.toString(),
                 weight: productDetailsController.weight.value.toString(),
@@ -2386,7 +2410,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                productId: productDetailsController.productId.value.toString(),
                productName: productDetailsController.productName.value.toString(),
                productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-               productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+               productDiscountedPrice: productDetailsController.productDiscountPrice.value.toString(),
                productPhoto:productDetailsController.productPhoto.value.toString(),
                productQuantity: productDetailsController.productQuantity.value.toString(),
                weight: productDetailsController.weight.value.toString(),
@@ -2476,7 +2500,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   productId: productDetailsController.productId.value.toString(),
                   productName: productDetailsController.productName.value.toString(),
                   productRegularPrice: productDetailsController.productRegularPrice.value.toString(),
-                  productDiscountedPrice: productDetailsController.productDiscountedPrice.value.toString(),
+                  productDiscountedPrice: productDetailsController.productDiscountPrice.value.toString(),
                   productPhoto:productDetailsController.productPhoto.value.toString(),
                   productQuantity: productDetailsController.productQuantity.value.toString(),
                   weight: productDetailsController.weight.value.toString(),
@@ -2555,6 +2579,15 @@ class ProductDetailsePageScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
+
+    return (double.parse(regularPrice)-
+        ((double.parse(regularPrice)*
+            double.parse(discountedPercent))/100)).toString();
+
   }
 
 }

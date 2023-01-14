@@ -38,7 +38,7 @@ class ProductDetailsController extends GetxController {
   var productQuantity=1.obs;
   var totalPrice=0.00.obs;
   var productRegularPrice=0.0.obs;
-  var productDiscountedPrice=0.0.obs;
+  //var productDiscountedPrice=0.0.obs;
   var productDiscountedPercent=0.0.obs;
 
 
@@ -93,6 +93,8 @@ class ProductDetailsController extends GetxController {
   var weightOption="".obs;
   var commission="".obs;
   var commissionType="".obs;
+
+  var discountPercent="".obs;
 
 
   var userName="".obs;
@@ -214,13 +216,14 @@ class ProductDetailsController extends GetxController {
 
 
              productName(dataResponse[1]["product"]["product_name"].toString());
+             discountPercent(dataResponse[1]["product"]["discount_percent"].toString());
              productDetails (dataResponse[1]["product"]["short_description"].toString());
              productPrice(dataResponse[1]["product"]["price"].toString());
 
 
 
 
-             productDiscountPrice((double.parse(dataResponse[1]["product"]["price"].toString())+
+             productDiscountPrice((double.parse(dataResponse[1]["product"]["price"].toString())-
                  ((double.parse(dataResponse[1]["product"]["price"].toString())*
                      double.parse(dataResponse[1]["product"]["discount_percent"].toString()))/100)).toString());
 
@@ -231,14 +234,14 @@ class ProductDetailsController extends GetxController {
 
             productRegularPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
 
-            productDiscountedPrice(double.parse(dataResponse[1]["product"]["price"].toString()));
+
 
             productImage(dataResponse[1]["product"]["cover_image"].toString());
             colorsList(dataResponse[1]["product"]["colors"]);
             sizeList(dataResponse[1]["product"]["sizes"]);
            // _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
              if(dataResponse[1]["reviews"]!=null){
-                productReviewRating(dataResponse[1]["product"]["price"].toString());
+                productReviewRating(dataResponse[1]["reviews"].length.toString());
                productReviewCount(dataResponse[1]["reviews"].length.toString());
 
              }

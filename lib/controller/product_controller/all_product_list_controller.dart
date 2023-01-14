@@ -126,7 +126,7 @@ class AllProductListPageController extends GetxController {
         pageNo(pageNoInt.toString());
        // _showToast("page no= "+pageNoInt.toString());
 
-        if(hasNextPage ==true){
+        if( hasNextPage == true ){
 
           getCategoriesProductsDataList2(
             categoryId: categoryId.value,

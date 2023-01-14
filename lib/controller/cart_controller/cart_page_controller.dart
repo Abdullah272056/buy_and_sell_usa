@@ -65,7 +65,8 @@ class CartPageController extends GetxController {
       double oneItemPrice=double.parse(cartList[i].productQuantity)*double.parse(cartList[i].productDiscountedPrice);
        subTotal=(subTotal+oneItemPrice);
     }
-    totalPrice(subTotal);
+    totalPrice(double.parse((subTotal).toStringAsFixed(2)));
+    // totalPrice(subTotal);
 
   }
 

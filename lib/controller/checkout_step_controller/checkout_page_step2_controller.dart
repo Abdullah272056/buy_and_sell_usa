@@ -197,7 +197,9 @@ class CheckoutPageStep2Controller extends GetxController {
       double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
       subTotal=(subTotal+oneItemPrice);
     }
-    return subTotal.toString();
+    return double.parse((subTotal).toStringAsFixed(2)).toString();
+
+    //  subTotal.toString();
 
   }
 
@@ -209,7 +211,7 @@ class CheckoutPageStep2Controller extends GetxController {
       double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
       totalTax=(totalTax+singleProductTax);
     }
-    return totalTax.toString();
+    return double.parse((totalTax).toStringAsFixed(2)).toString();
 
   }
 

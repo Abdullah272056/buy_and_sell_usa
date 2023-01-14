@@ -901,6 +901,7 @@ class CartViewePage extends StatelessWidget {
       }
     }
 
+    return double.parse((subTotal).toStringAsFixed(2)).toString();
     return subTotal.toString();
   //  totalPrice(subTotal);
 
@@ -917,8 +918,8 @@ class CartViewePage extends StatelessWidget {
         totalTax=(totalTax+singleProductTax);
       }
     }
-
-    return totalTax.toString();
+    return double.parse((totalTax).toStringAsFixed(2)).toString();
+    // return totalTax.toString();
   //  totalPrice(subTotal);
 
   }
@@ -942,7 +943,9 @@ class CartViewePage extends StatelessWidget {
       }
     }
 
-    return (totalTax+subTotal).toString();
+    return ( double.parse((totalTax).toStringAsFixed(2))+double.parse((subTotal).toStringAsFixed(2))).toString();
+
+      (totalTax+subTotal).toString();
 
   }
 

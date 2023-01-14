@@ -91,7 +91,7 @@ class CartViewPageController extends GetxController {
       totalTax=(totalTax+singleProductTax);
     }
 
-    totalPrice(subTotal+totalTax);
+    totalPrice((double.parse((subTotal).toStringAsFixed(2))+double.parse((totalTax).toStringAsFixed(2))));
 
 
   }

@@ -213,16 +213,19 @@ class CheckoutPage extends StatelessWidget {
                               ),),
                             Expanded(child:   Align(
                               alignment: Alignment.centerRight,
-                               child: Text(
-                                   "\$ "+"${checkoutPageController.totalPrice}",
-                                  // totalPriceCalculate(cartViewPageController.cartList,
-                                  // cartViewPageController.sellerGroupList[index].seller.toString()),
+                               child:Obx(()=> Text(
+                                 "\$ "+"${
 
-                                  style: TextStyle(fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                      fontSize: 16
-                                  ),
-                                )
+                                     double.parse(( checkoutPageController.totalPrice).toStringAsFixed(2))
+                                 }",
+                                 // totalPriceCalculate(cartViewPageController.cartList,
+                                 // cartViewPageController.sellerGroupList[index].seller.toString()),
+
+                                 style: TextStyle(fontWeight: FontWeight.w600,
+                                     color: Colors.blue,
+                                     fontSize: 16
+                                 ),
+                               ))
                               // child:Obx(()=> Text(
                               //   "\$ "+"10",
                               //   // totalPriceCalculate(cartViewPageController.cartList,
@@ -255,7 +258,9 @@ class CheckoutPage extends StatelessWidget {
                               alignment: Alignment.centerRight,
 
                               child:Obx(()=> Text(
-                            "\$ "+"${checkoutPageController.totalTaxAmount}",
+                            "\$ "+"${
+                                double.parse(( checkoutPageController.totalTaxAmount).toStringAsFixed(2))
+                            }",
                                     // totalPriceCalculate(cartViewPageController.cartList,
                                     // cartViewPageController.sellerGroupList[index].seller.toString()),
 
@@ -285,7 +290,10 @@ class CheckoutPage extends StatelessWidget {
                             Expanded(child:   Align(
                               alignment: Alignment.centerRight,
                               child:Obx(()=> Text(
-                                "\$ "+"${checkoutPageController.totalTaxAmount.value+checkoutPageController.totalPrice.value}",
+                                "\$ "+"${
+                                    double.parse(( checkoutPageController.totalTaxAmount.value).toStringAsFixed(2))+
+                                    double.parse((checkoutPageController.totalPrice.value).toStringAsFixed(2))
+                                }",
 
                                 style: TextStyle(fontWeight: FontWeight.w600,
                                     color: Colors.blue,

@@ -373,7 +373,7 @@ class ProductListPage extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
-                                // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
+
                                 image:BASE_URL_API_IMAGE_PRODUCT+response["cover_image"].toString(),
                                  //   allProductListPageController.filterProductList[index].coverImage??"",
                                 imageErrorBuilder: (context, url, error) =>
@@ -427,6 +427,7 @@ class ProductListPage extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(height: 5,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,7 +439,7 @@ class ProductListPage extends StatelessWidget {
                             //"Men Grey Classic Regular Fit Formal Shirt",
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.7),
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal),
                             softWrap: false,
@@ -457,7 +458,7 @@ class ProductListPage extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("4.5"),
+                                rating:double.parse("0.0"),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -470,7 +471,7 @@ class ProductListPage extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 8 Review",
+                                " 0 Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -485,13 +486,31 @@ class ProductListPage extends StatelessWidget {
                     ),
                     SizedBox(height: 5,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          "\$ "+ response["price"].toString(),
+
+
+                          // productDetailsController.productPrice.value ,
+                          //  overflow: TextOverflow.ellipsis,
+
+                          style:  TextStyle(
+                              color: hint_color,
+                              fontSize: 13,
+                              decoration: TextDecoration.lineThrough,
+                              fontWeight: FontWeight.normal),
+                          softWrap: false,
+                          maxLines: 1,
+                        ),
+                        SizedBox(width: 10,),
                         Expanded(
-                          child:  Text("\$ "+
-                              response["price"].toString(),
-                              //allProductListPageController.filterProductList[index].price,
+                          child: Text(
+                            "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                                discountedPercent: response["discount_percent"].toString()),
+
+                            //allProductListPageController.filterProductList[index].price,
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: Colors.black.withOpacity(0.7),
@@ -499,7 +518,7 @@ class ProductListPage extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                             softWrap: false,
                             maxLines: 2,
-                          ),
+                          )
                         ),
                         // 12.widthBox,
                         // RatingWidget(rating: widget.product.rating),
@@ -2047,6 +2066,15 @@ class ProductListPage extends StatelessWidget {
         ),
         barrierDismissible: false,
         radius: 10.0);
+  }
+
+
+  String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
+
+   return (double.parse(regularPrice)-
+        ((double.parse(regularPrice)*
+            double.parse(discountedPercent))/100)).toString();
+
   }
 }
 
