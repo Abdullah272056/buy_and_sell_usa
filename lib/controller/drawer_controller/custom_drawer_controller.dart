@@ -79,7 +79,7 @@ class CustomDrawerController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-      _showToast("qwer "+userToken.toString());
+   //   _showToast("qwer "+userToken.toString());
     } catch (e) {
 
     }
@@ -92,7 +92,7 @@ class CustomDrawerController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name).toString());
       userToken(storage.read(pref_user_token).toString());
-      _showToast("Tokenqw = "+storage.read(pref_user_token).toString());
+     // _showToast("Tokenqw = "+storage.read(pref_user_token).toString());
     }catch(e){
 
     }

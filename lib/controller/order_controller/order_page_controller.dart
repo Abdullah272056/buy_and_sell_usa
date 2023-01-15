@@ -12,10 +12,9 @@ import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../data_base/sqflite/notes_database.dart';
+import '../../static/Colors.dart';
 
 class OrderPageController extends GetxController {
-
-
 
   // List<CartNote> notesList=[].obs;
   var totalPrice=0.0.obs;
@@ -65,6 +64,7 @@ class OrderPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
           //_showToast(token);
         try {
+          showLoadingDialog("Loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_ORDERS_LIST}'),
             headers: {
@@ -72,7 +72,7 @@ class OrderPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-
+          Get.back();
          //   _showToast("orders = "+response.statusCode.toString());
           if (response.statusCode == 200) {
 
@@ -97,7 +97,50 @@ class OrderPageController extends GetxController {
   }
 
 
+  void showLoadingDialog(String message) {
 
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
 
 
   void totalPriceCalculate(List cartList){

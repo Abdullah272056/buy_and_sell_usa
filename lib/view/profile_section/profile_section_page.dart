@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../controller/order_controller/order_page_controller.dart';
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
  import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
@@ -169,7 +170,7 @@ class ProfileSectionPage extends StatelessWidget {
         if(onClick==1){
           _showToast("orders");
 
-          Get.to(OrderPage());
+          Get.to(OrderPage())?.then((value) => Get.delete<OrderPageController>());
 
           return;
         }

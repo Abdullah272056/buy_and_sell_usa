@@ -6,7 +6,15 @@ import 'package:fnf_buy/view/drawer/refund_policy.dart';
 import 'package:fnf_buy/view/drawer/terms_of_use.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../controller/auth_controller/log_in_page_controller.dart';
+import '../../controller/auth_controller/sign_up_page_controller.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/drawer_controller/about_us_controller.dart';
+import '../../controller/drawer_controller/contact_us_controller.dart';
+import '../../controller/drawer_controller/faq_controller.dart';
+import '../../controller/drawer_controller/privacy_policy_controller.dart';
+import '../../controller/drawer_controller/refund_policy_controller.dart';
+import '../../controller/drawer_controller/terms_of_use_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../controller/drawer_controller/custom_drawer_controller.dart';
@@ -17,6 +25,7 @@ import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../product/product_list.dart';
 import 'about_us.dart';
+import 'contact_us.dart';
 import 'faq.dart';
 
 
@@ -172,7 +181,7 @@ class CustomDrawer extends StatelessWidget {
                               title: Text("About Us"),
                               onTap: (){
 
-                                Get.to(AboutUsPage());
+                                Get.to(AboutUsPage())?.then((value) => Get.delete<AboutUsController>());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
@@ -187,6 +196,8 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Contact Us"),
                               onTap: (){
+
+                                Get.to(ContactUsPage())?.then((value) => Get.delete<ContactUsController>());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -201,7 +212,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Faq"),
                               onTap: (){
-                                Get.to(FaqPage());
+                                Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
@@ -216,7 +227,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Privacy Policy"),
                               onTap: (){
-                                Get.to(PrivacyPolicyPage());
+                                Get.to(PrivacyPolicyPage())?.then((value) => Get.delete<PrivacyPolicyController>());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -231,7 +242,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Terms of Use"),
                               onTap: (){
-                                Get.to(TermsOfUsePage());
+                                Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -254,31 +265,31 @@ class CustomDrawer extends StatelessWidget {
                           Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
                         },
                       ),
-                      ListTile(
-                        leading: Icon(Icons.shopping_cart_checkout_outlined,
-                          color: sohojatri_color.withOpacity(.6),
-                          size: 22,
-                        ),
-                        title: Text("Checkout",
-                        ),
-                        onTap: (){
-
-
-                          if(customDrawerController.userToken.isNotEmpty &&
-                              customDrawerController.userToken.value!=null && customDrawerController.userToken.value!="null"){
-
-                            Get.to(() => CheckoutPage(), arguments: [
-                              {"couponCodes": ""},
-                              {"couponAmount": ""},
-                              {"couponSellerId": ""},
-                            ])?.then((value) => Get.delete<ProductDetailsController>());
-
-                          }else{
-                            showLoginWarning();
-                          }
-                        },
-                        //   onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AllCarListScreen())),
-                      ),
+                      // ListTile(
+                      //   leading: Icon(Icons.shopping_cart_checkout_outlined,
+                      //     color: sohojatri_color.withOpacity(.6),
+                      //     size: 22,
+                      //   ),
+                      //   title: Text("Checkout",
+                      //   ),
+                      //   onTap: (){
+                      //
+                      //
+                      //     if(customDrawerController.userToken.isNotEmpty &&
+                      //         customDrawerController.userToken.value!=null && customDrawerController.userToken.value!="null"){
+                      //
+                      //       Get.to(() => CheckoutPage(), arguments: [
+                      //         {"couponCodes": ""},
+                      //         {"couponAmount": ""},
+                      //         {"couponSellerId": ""},
+                      //       ])?.then((value) => Get.delete<ProductDetailsController>());
+                      //
+                      //     }else{
+                      //       showLoginWarning();
+                      //     }
+                      //   },
+                      //   //   onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AllCarListScreen())),
+                      // ),
 
                       ExpansionTile(
                         leading:Icon(Icons.account_box,
@@ -298,7 +309,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Customer Login"),
                               onTap: (){
-                                Get.to(LogInScreen());
+                                Get.to(LogInScreen())?.then((value) => Get.delete<LogInPageController>());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
@@ -312,7 +323,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Customer Registration"),
                               onTap: (){
-                                Get.to(SignUpScreen());
+                                Get.to(SignUpScreen())?.then((value) => Get.delete<SignUpPageController>());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),
@@ -356,7 +367,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Refund & Return"),
                               onTap: (){
-                                Get.to(RefundPolicyPage());
+                                Get.to(RefundPolicyPage())?.then((value) => Get.delete<RefundPolicyController>());
                                 //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                               },
                             ),
