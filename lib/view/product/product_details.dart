@@ -1854,10 +1854,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
           productDetailsController.insertData(cartNote);
         }
 
-
-
         ///
-
         // CartNote cartNote= CartNote(
         //     productId: '12',
         //     productName: 'Test',
@@ -2425,7 +2422,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
        String zipCode= productDetailsController.searchController.value.text;
        if(zipCode.isNotEmpty){
 
-         if(await productDetailsController.zipCodeCheck( zipCode: zipCode,)){
+         if(await productDetailsController.zipCodeCheck( zipCode: zipCode, sellerId: productDetailsController.seller.value,)){
            Get.back();
            Get.back();
            CartNote cartNote= CartNote(
@@ -2512,7 +2509,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
         String zipCode= productDetailsController.searchController.value.text;
         if(zipCode.isNotEmpty){
 
-          if(await productDetailsController.zipCodeCheck( zipCode: zipCode,)){
+          if(await productDetailsController.zipCodeCheck( zipCode: zipCode,sellerId: productDetailsController.seller.value,)){
             Get.back();
             Get.back();
 

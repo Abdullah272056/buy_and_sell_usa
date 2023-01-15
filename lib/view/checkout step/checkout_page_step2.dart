@@ -596,11 +596,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                   fontWeight: FontWeight.w400),
                             ),
                           }
-
-
-
-
-
                         ],
                       ) ,
                     ),
@@ -609,8 +604,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
               ],
             ),),
-
-
 
           ],
         ),
@@ -638,7 +631,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
 
 
-     //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
+         //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
 
     // Get.to(() => WebviewPage(), arguments: [
     //
@@ -656,7 +649,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
     //
     //     ])?.then((value) => Get.delete<WebViewPageController>());
     //
-
 
     Get.to(()=>
         WebviewPaymentScreen(
@@ -865,21 +857,23 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
                 cartViewPageController.selectedShippingValueList[index]=value.toString();
               // _showToast("sellerid= "+sellerId);
-                List<Product> students = [];
+                List<Product> products = [];
 
                 for(int i=0;i<cartViewPageController.cartList.length;i++){
                   if(sellerId==cartViewPageController.cartList[i].seller.toString()){
                   //  _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
-                    students.add(Product(
+                    products.add(Product(
                         product_id: cartViewPageController.cartList[i].productId,
                         weight:cartViewPageController.cartList[i].weight ));
+                  //  _showToast("id= " +cartViewPageController.cartList[i].productId.toString());
+                  //  _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
                   }
                 }
 
-              //  _showToast("abs= " +students.length.toString());
+              // _showToast("abs= " +products.length.toString());
 
 
-                var indivitualSellerProductListJson = students.map((e){
+                var indivitualSellerProductListJson = products.map((e){
                   return {
                     "product_id": e.product_id,
                     "weight": e.weight
@@ -889,7 +883,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
                 // list["shipping_name"]
             //   _showToast("abs= "  +value.toString());
 
-                cartViewPageController.expressShippingCheck1(
+                cartViewPageController.expressShippingCheckAmount(
                   token: cartViewPageController.userToken.value,
                 //  token: '19|hrU6XnznlpR16wyNUF1b65puSi1Z55cqVvMcVcfD',
                   shippingType: cartViewPageController.selectedShippingValueList[index],

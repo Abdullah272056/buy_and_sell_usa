@@ -262,8 +262,9 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         onTap: (){
 
+
                           if(customDrawerController.userToken.isNotEmpty &&
-                              customDrawerController.userToken.value!=null){
+                              customDrawerController.userToken.value!=null && customDrawerController.userToken.value!="null"){
 
                             Get.to(() => CheckoutPage(), arguments: [
                               {"couponCodes": ""},

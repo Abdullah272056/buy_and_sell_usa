@@ -118,7 +118,7 @@ class ProductDetailsController extends GetxController {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:Colors.amber,
@@ -410,7 +410,8 @@ class ProductDetailsController extends GetxController {
 
 
  Future<bool>  zipCodeCheck({
-    required String zipCode
+    required String zipCode,
+    required String sellerId
   }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -420,7 +421,9 @@ class ProductDetailsController extends GetxController {
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_GROCERY_ZIP_CODE_CHECK'),
 
             body: {
-              'zip_code': zipCode,
+              "zip_code":zipCode.toString(),
+              "seller_id":sellerId.toString()
+              // 'zip_code': zipCode,
             },
           );
 
@@ -436,7 +439,7 @@ class ProductDetailsController extends GetxController {
           }
           else {
             var data = jsonDecode(response.body);
-            _showToast("Zip code not match");
+            _showToast("This product is not shipping to your area!");
           }
 
           //   Get.back();

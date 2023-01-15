@@ -316,7 +316,7 @@ class CheckoutPageStep2Controller extends GetxController {
   }
 
 
-  expressShippingCheck1({
+  expressShippingCheckAmount({
     required String token,
     required String shippingType,
     required String shippingId,
@@ -348,7 +348,7 @@ class CheckoutPageStep2Controller extends GetxController {
           );
 
             Get.back();
-          //  _showToast(response.statusCode.toString());
+            _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var data = jsonDecode(response.body);
@@ -363,6 +363,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
                  if(cartList[i].productId.toString()==data["data"][0][j]["product_id"].toString()){
                    if(shippingType.toString()=="1"){
+                   //  _showToast("rate="+data["data"][0][j]["rate"].toString());
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
                          productId: cartList[i].productId.toString(),
@@ -396,7 +397,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
                    }
                    else{
-
+                    // _showToast("rate="+data["data"][0][j]["rate"].toString());
                      CartNote cartNote=CartNote(
                          id:cartList[i].id ,
                          productId: cartList[i].productId,

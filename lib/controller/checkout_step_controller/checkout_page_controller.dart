@@ -109,7 +109,7 @@ class CheckoutPageController extends GetxController {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:Colors.amber,
@@ -314,7 +314,7 @@ class CheckoutPageController extends GetxController {
                 'Content-Type': 'application/json',
               },
               body: json.encode({
-                "zip_code": zipCode,
+                "zipCode": zipCode,
                 "productId":productList
               })
           );
@@ -341,7 +341,8 @@ class CheckoutPageController extends GetxController {
           else {
             Get.back();
             // Fluttertoast.cancel();
-            _showToast("Some product are not available for this zip Code!");
+            // _showToast("Some product are not available for this zip Code!");
+            _showToast("Some product is not shipping to your area");
           }
         } catch (e) {
           // Fluttertoast.cancel();

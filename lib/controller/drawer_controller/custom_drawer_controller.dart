@@ -12,14 +12,14 @@ import '../../static/Colors.dart';
 class CustomDrawerController extends GetxController {
   var drawerSelectedTab = 1.obs;
   var categoriesList=[].obs;
-
   var userName="".obs;
   var userToken="".obs;
 
   @override
   void onInit() {
     super.onInit();
-
+    loadUserIdFromSharePref();
+    retriveUserInfo();
     getCategories();
 
   }
@@ -28,9 +28,7 @@ class CustomDrawerController extends GetxController {
     drawerSelectedTab(value);
   }
 
-
   ///categories api call
-
   void getCategories() async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -63,7 +61,6 @@ class CustomDrawerController extends GetxController {
     }
   }
 
-
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -82,12 +79,24 @@ class CustomDrawerController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-
+      _showToast("qwer "+userToken.toString());
     } catch (e) {
 
     }
 
   }
 
+  ///get user data from share pref
+  void retriveUserInfo() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name).toString());
+      userToken(storage.read(pref_user_token).toString());
+      _showToast("Tokenqw = "+storage.read(pref_user_token).toString());
+    }catch(e){
+
+    }
+
+  }
 
 }

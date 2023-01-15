@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/drawer_controller/faq_controller.dart';
 import '../../controller/drawer_controller/privacy_policy_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
@@ -16,10 +17,10 @@ import '../product/product_details.dart';
 
 
 
-class PrivacyPolicyPage extends StatelessWidget {
+class FaqPage extends StatelessWidget {
 
 
-  final privacyPolicyController = Get.put(PrivacyPolicyController());
+  final faqController = Get.put(FaqController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -50,7 +51,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "PRIVACY POLICY",
+                    "Frequent Asked Questions",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -64,47 +65,46 @@ class PrivacyPolicyPage extends StatelessWidget {
                 height: 7
                 // height: 50,
               ),
+
+
               Expanded(
                   child:Container(
                     color: Colors.white,
                     padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(child: SingleChildScrollView(
-                            child:Column(
-                              children: [
-                                SizedBox(height: 10,),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Privacy Policy",
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          color:fnf_color,
-                                          fontSize: 22,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w700),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                               Obx(() =>  Text(
-                                 privacyPolicyController.privacyDataText.value,
-                                 style: TextStyle(
-                                     color:fnf_small_text_color,
-                                     fontSize: 14,
-                                     decoration: TextDecoration.none,
-                                     fontWeight: FontWeight.normal),
-                               ))
-                              ],
-                            )
-                        ))
-
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Frequent Asked Questions",
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color:fnf_color,
+                                    fontSize: 22,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 15,),
+                          ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: 10,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                // _showToast(cartPageController.cartList[index].productPhoto.toString());
+                                return faqListItem("edr");
+                              })
+                        ],
+                      ),
                     )
+
+
+
                   )
 
 
@@ -119,7 +119,94 @@ class PrivacyPolicyPage extends StatelessWidget {
 
   }
 
+  Widget faqListItem(var response){
+    return  InkWell(
+      onTap: (){
 
+        Get.to(() => ProductDetailsePageScreen(), arguments: [
+          {"productId": response.productId.toString()},
+          {"second": 'Second data'}
+        ])?.then((value) => Get.delete<ProductDetailsController>());
+
+        // Get.to(() => ProductDetailsePageScreen(), arguments: [
+        //   {"productId": response.productId.toString()},
+        //   {"second": 'Second data'}
+        // ]);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: hint_color.withOpacity(0.2),)
+        ),
+        margin:const EdgeInsets.only(left:0, top: 00, right: 0, bottom: 10   ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+
+          children: [
+
+            Row(
+              children: [
+                Expanded(child: Container(
+
+                  height: 40,
+                  color: hint_color.withOpacity(0.2),
+                  margin:const EdgeInsets.only(left:0, top: 00, right: 0, bottom: 5  ),
+                  // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 10,),
+
+                      Expanded(child: Text(
+                        "BILLINGS INFO",
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        maxLines: 1,
+                        style: TextStyle(
+                            color:text_color,
+                            fontSize: 15,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.bold),
+                      )),
+
+                      SizedBox(width: 10,),
+
+                      Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: Colors.black,
+                        size: 29.0,
+                      ),
+
+                      SizedBox(width: 10,)
+                    ],
+                  ),
+
+                ),),
+
+              ],
+            ),
+
+           Align(
+             alignment: Alignment.centerLeft,
+             child: Container(
+               margin: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 20),
+               //color: Colors.yellow,
+               child: Text(
+                 "BILLINGS INFO",
+                 textAlign: TextAlign.left,
+
+                 style: TextStyle(
+                     color:hint_color,
+                     fontSize: 14,
+                     decoration: TextDecoration.none,
+                     fontWeight: FontWeight.w500),
+               ),
+             ),
+           )
+
+          ],
+        ),
+      ),
+    );
+  }
 
   void showLoginWarning( ) {
 
