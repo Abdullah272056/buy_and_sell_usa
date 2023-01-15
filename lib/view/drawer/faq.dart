@@ -15,10 +15,7 @@ import '../auth/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../product/product_details.dart';
 
-
-
 class FaqPage extends StatelessWidget {
-
 
   final faqController = Get.put(FaqController());
   @override
@@ -32,10 +29,12 @@ class FaqPage extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
                 // height: 50,
               ),
+
               Flex(direction: Axis.horizontal,
                 children: [
                   SizedBox(width: 5,),
@@ -46,6 +45,10 @@ class FaqPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
+
+                   //   _showToast("back");
+
+
                       Get.back();
                     },
                   ),
@@ -54,13 +57,14 @@ class FaqPage extends StatelessWidget {
                     "Frequent Asked Questions",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 17
+                        fontSize: 15
                     ),
                   )),
 
 
                 ],
               ),
+
               SizedBox(
                 height: 7
                 // height: 50,
@@ -90,15 +94,17 @@ class FaqPage extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 15,),
-                          ListView.builder(
+
+                          Obx(() =>  ListView.builder(
                               padding: EdgeInsets.zero,
-                              itemCount: 10,
+                              itemCount: faqController.faqList.length,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 // _showToast(cartPageController.cartList[index].productPhoto.toString());
-                                return faqListItem("edr");
-                              })
+                                return Obx(() => faqListItem(faqController.faqList[index],faqController.faqListExpandedStatusList[index],index));
+                              }))
+                          
                         ],
                       ),
                     )
@@ -109,6 +115,7 @@ class FaqPage extends StatelessWidget {
 
 
               )
+
             ],
           )
 
@@ -119,19 +126,16 @@ class FaqPage extends StatelessWidget {
 
   }
 
-  Widget faqListItem(var response){
+  Widget faqListItem(var response,int expandedStatus,int index){
     return  InkWell(
       onTap: (){
+        if(expandedStatus==1){
+          faqController.faqListExpandedStatusList[index]=0;
+        }
+        else{
+          faqController.faqListExpandedStatusList[index]=1;
+        }
 
-        Get.to(() => ProductDetailsePageScreen(), arguments: [
-          {"productId": response.productId.toString()},
-          {"second": 'Second data'}
-        ])?.then((value) => Get.delete<ProductDetailsController>());
-
-        // Get.to(() => ProductDetailsePageScreen(), arguments: [
-        //   {"productId": response.productId.toString()},
-        //   {"second": 'Second data'}
-        // ]);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -146,20 +150,19 @@ class FaqPage extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: Container(
-
-                  height: 40,
                   color: hint_color.withOpacity(0.2),
                   margin:const EdgeInsets.only(left:0, top: 00, right: 0, bottom: 5  ),
+                  padding:const EdgeInsets.only(left:0, top: 10, right: 0, bottom: 10  ),
                   // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
                   child: Row(
                     children: [
                       SizedBox(width: 10,),
 
                       Expanded(child: Text(
-                        "BILLINGS INFO",
+                        response["title"].toString(),
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        maxLines: 1,
+                        maxLines: 2,
                         style: TextStyle(
                             color:text_color,
                             fontSize: 15,
@@ -169,11 +172,22 @@ class FaqPage extends StatelessWidget {
 
                       SizedBox(width: 10,),
 
-                      Icon(
-                        Icons.arrow_drop_down_sharp,
-                        color: Colors.black,
-                        size: 29.0,
-                      ),
+                      if(expandedStatus==1)...{
+                        Icon(
+                          Icons.arrow_drop_up,
+                          color: Colors.black,
+                          size: 29.0,
+                        ),
+                      }
+                      else...{
+                        Icon(
+                          Icons.arrow_drop_down_sharp,
+                          color: Colors.black,
+                          size: 29.0,
+                        ),
+
+                      },
+
 
                       SizedBox(width: 10,)
                     ],
@@ -184,23 +198,28 @@ class FaqPage extends StatelessWidget {
               ],
             ),
 
-           Align(
-             alignment: Alignment.centerLeft,
-             child: Container(
-               margin: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 20),
-               //color: Colors.yellow,
-               child: Text(
-                 "BILLINGS INFO",
-                 textAlign: TextAlign.left,
+           if(expandedStatus==1)...{
 
-                 style: TextStyle(
-                     color:hint_color,
-                     fontSize: 14,
-                     decoration: TextDecoration.none,
-                     fontWeight: FontWeight.w500),
+             Align(
+               alignment: Alignment.centerLeft,
+               child: Container(
+                 margin: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 20),
+                 //color: Colors.yellow,
+                 child: Text(
+                   response["description"].toString(),
+                   textAlign: TextAlign.left,
+
+                   style: TextStyle(
+                       color:hint_color,
+                       fontSize: 14,
+                       decoration: TextDecoration.none,
+                       fontWeight: FontWeight.w500),
+                 ),
                ),
-             ),
-           )
+             )
+
+           }
+
 
           ],
         ),
@@ -378,6 +397,8 @@ class FaqPage extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
+
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(

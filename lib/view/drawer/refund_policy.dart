@@ -75,17 +75,17 @@ class RefundPolicyPage extends StatelessWidget {
                                 SizedBox(height: 10,),
                                 Row(
                                   children: [
-                                    Text(
-                                      "Refund & Return Policy",
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          color:fnf_color,
-                                          fontSize: 22,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w700),
-                                    )
+                                Obx(() =>    Text(
+                                  refundPolicyController.refundDataTitle.value,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      color:fnf_color,
+                                      fontSize: 22,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.w700),
+                                ))
                                   ],
                                 ),
                                 SizedBox(height: 10,),

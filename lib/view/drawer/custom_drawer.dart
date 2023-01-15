@@ -17,6 +17,7 @@ import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../product/product_list.dart';
 import 'about_us.dart';
+import 'faq.dart';
 
 
 class CustomDrawer extends StatelessWidget {
@@ -200,7 +201,7 @@ class CustomDrawer extends StatelessWidget {
                               ),
                               title: Text("Faq"),
                               onTap: (){
-
+                                Get.to(FaqPage());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
                               },
                             ),

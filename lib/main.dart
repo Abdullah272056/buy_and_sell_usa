@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/log_in_page.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
 import 'package:fnf_buy/view/cart/cart_page.dart';
+import 'package:fnf_buy/view/drawer/contact_us.dart';
+import 'package:fnf_buy/view/drawer/custom_drawer.dart';
 import 'package:fnf_buy/view/drawer/faq.dart';
 
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      home:FaqPage(),
+      home:ContactUsPage(),
 
       // DashBoardPageScreen(
       //  // body:CheckoutPageStep2Page(),

@@ -77,8 +77,8 @@ class PrivacyPolicyPage extends StatelessWidget {
                                 SizedBox(height: 10,),
                                 Row(
                                   children: [
-                                    Text(
-                                      "Privacy Policy",
+                                    Obx(() => Text(
+                                      privacyPolicyController.privacyDataTitle.value,
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: false,
                                       maxLines: 1,
@@ -87,7 +87,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                                           fontSize: 22,
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeight.w700),
-                                    )
+                                    ))
                                   ],
                                 ),
                                 SizedBox(height: 10,),

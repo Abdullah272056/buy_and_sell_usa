@@ -77,17 +77,17 @@ class TermsOfUsePage extends StatelessWidget {
                                 SizedBox(height: 10,),
                                 Row(
                                   children: [
-                                    Text(
-                                      "Terms Of Use",
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          color:fnf_color,
-                                          fontSize: 22,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w700),
-                                    )
+                                   Obx(() =>  Text(
+                                     termsOfUseController.termsOfUseDataTitle.value,
+                                     overflow: TextOverflow.ellipsis,
+                                     softWrap: false,
+                                     maxLines: 1,
+                                     style: TextStyle(
+                                         color:fnf_color,
+                                         fontSize: 22,
+                                         decoration: TextDecoration.none,
+                                         fontWeight: FontWeight.w700),
+                                   ))
                                   ],
                                 ),
                                 SizedBox(height: 10,),
