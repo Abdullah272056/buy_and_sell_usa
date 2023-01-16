@@ -8,12 +8,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
-
+import 'package:http/http.dart' as http;
 
 class AccountDetailsPageController extends GetxController {
 
@@ -69,6 +69,9 @@ class AccountDetailsPageController extends GetxController {
   var selectedCountry="".obs;
 
 
+  var imageLink="".obs;
+
+
 
 
 
@@ -112,7 +115,7 @@ class AccountDetailsPageController extends GetxController {
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor:Colors.amber,
@@ -197,7 +200,7 @@ class AccountDetailsPageController extends GetxController {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-       _showToast(token);
+       //_showToast(token);
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ACCOUNT_DETAILS}'),
@@ -208,7 +211,7 @@ class AccountDetailsPageController extends GetxController {
             },
           );
 
-         _showToast("account info= "+response.statusCode.toString());
+        // _showToast("account info= "+response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var addressResponseData = jsonDecode(response.body);
@@ -222,6 +225,8 @@ class AccountDetailsPageController extends GetxController {
              phoneController.value.text = addressResponseData["data"]["phone"].toString() ;
              addressController.value.text =addressResponseData["data"]["address"].toString()  ;
              townOrCityController.value.text =addressResponseData["data"]["city"].toString()  ;
+
+
             //  // selectedState(addressResponseData["data"]["city"].toString());
             //
 
@@ -235,7 +240,9 @@ class AccountDetailsPageController extends GetxController {
              countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
              zipCodeController.value.text = addressResponseData["data"]["zip_code"].toString() ;
 
+            imageLink(addressResponseData["data"]["image"].toString());
 
+            _showToast(addressResponseData["data"]["image"].toString());
 
 
 
@@ -393,9 +400,6 @@ class AccountDetailsPageController extends GetxController {
     }
   }
 
-
-
-
   void openBottomSheet() {
     Get.bottomSheet(
         Container(
@@ -420,7 +424,7 @@ class AccountDetailsPageController extends GetxController {
                     onPressed: () {
                     //  Navigator.of(context).pop();
                       Get.back();
-                     // takeImage(ImageSource.camera);
+                      takeImage(ImageSource.camera);
                     },
                     icon: Icon(
                       Icons.camera,
@@ -438,7 +442,7 @@ class AccountDetailsPageController extends GetxController {
                     onPressed: () {
                      // Navigator.of(context).pop();
                       Get.back();
-                    //  takeImage(ImageSource.gallery);
+                     takeImage(ImageSource.gallery);
                     },
                     icon: Icon(
                       Icons.image,
@@ -539,17 +543,165 @@ class AccountDetailsPageController extends GetxController {
   // }
   void takeImage(ImageSource source)async{
     final pickedFile= await _fornt_picker.getImage(source: source);
-    // setState(() {
-    //   _fornt_imageFile=pickedFile!;
-    //   fornt_imageFile = File(pickedFile.path);
-    //   final bytes = File(_fornt_imageFile!.path).readAsBytesSync();
-    //   String img64 = base64Encode(bytes);
-    //
-    //   // _imageUpload(img64);
-    //
-    // });
+    _fornt_imageFile=pickedFile!;
+    fornt_imageFile = File(pickedFile.path);
+    final bytes = File(_fornt_imageFile!.path).readAsBytesSync();
+
+    String img64 = base64Encode(bytes);
+
+    _uploadImage(
+        fontImage: fornt_imageFile!,
+      token: userToken.value,
+    );
+
+
   }
 
+
+  ///nid card verify
+  _uploadImage({
+    required File fontImage,
+    required String token,
+  }) async {
+
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        try {
+          var headers = {
+            'Authorization': 'Bearer '+token,
+            // 'Authorization': 'Bearer 16|GcZjU2qXDUN2IIS6HDiDJvOPut6hOPT35HgN2qql',
+          };
+        //  _showToast(fontImage.path.toString());
+          var request = http.MultipartRequest('POST', Uri.parse('${BASE_URL_API}${SUB_URL_API_UPLOAD_PROFILE_IMAGE}'));
+          request.files.add(await http.MultipartFile.fromPath('image', fontImage.path));
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response = await request.send();
+
+           final res = await http.Response.fromStream(response);
+
+        //  _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            var data = jsonDecode(res.body);
+            _showToast("Image Saved Successfully!");
+            getUserBillingInfoList(token);
+
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+
+        } catch (e) {
+       //   Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+
+
+
+
+  }
+
+
+  void _nidCardVerify2() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          var response = await get(
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
+          );
+          // _showToast("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+            stateList(dataResponse["data"]);
+            //  _showToast("Colors= "+stateList.length.toString());
+          }
+          else {
+            // Fluttertoast.cancel();
+            _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  // _nidCardVerify({
+  //   required File fontImage,
+  //   required File backImage,
+  //   required String type,
+  //   required String nidNumber,
+  // }
+  //     ) async {
+  //
+  //   try {
+  //     final result = await InternetAddress.lookup('example.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //
+  //       try {
+  //         showLoadingDialog(context,"Checking...");
+  //         var headers = {
+  //           'Accept': 'application/json',
+  //           'Authorization': "Bearer $_accessToken"
+  //         };
+  //         var request = http.MultipartRequest(
+  //             'POST', Uri.parse('$BASE_URL_API$SUB_URL_API_DOCUMENT_VERIFY'));
+  //
+  //         request.fields['nid'] = nidNumber;
+  //         request.fields['type'] = type;
+  //
+  //
+  //         request.files.add(await http.MultipartFile.fromPath('nidImage1', fontImage.path));
+  //         request.files.add(await http.MultipartFile.fromPath('nidImage2', backImage.path));
+  //         request.headers.addAll(headers);
+  //
+  //
+  //         var response = await request.send();
+  //         final res = await http.Response.fromStream(response);
+  //         // _showToast(response.statusCode.toString());
+  //         Navigator.of(context).pop();
+  //         if (response.statusCode == 200) {
+  //           setState(() {
+  //             _showToast("Successfully Added");
+  //             // Navigator.of(context).pop();
+  //             var data = jsonDecode(res.body);
+  //
+  //           });
+  //
+  //         }
+  //         else {
+  //           // var data = jsonDecode(response.body.toString());
+  //           var data = jsonDecode(res.body);
+  //           _showToast("Failed try again!");
+  //           // print(data.toString());
+  //         }
+  //       } catch (e) {
+  //         Navigator.of(context).pop();
+  //         print(e.toString());
+  //       }
+  //     }
+  //   } on SocketException catch (_) {
+  //     Fluttertoast.cancel();
+  //     _showToast("No Internet Connection!");
+  //   }
+  //
+  //
+  //
+  //
+  // }
 
 
 

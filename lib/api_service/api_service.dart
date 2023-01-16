@@ -46,6 +46,7 @@ String SUB_URL_API_EXPRESS_SHIPPING_AMOUNT= "api/express-shipping-amount";
 
 String SUB_URL_API_ADD_USER_UPDATE_ACCOUNT_DETAILS = "api/account/account-details";
 String SUB_URL_API_GET_ACCOUNT_DETAILS= "api/account/get-account-details";
+String SUB_URL_API_UPLOAD_PROFILE_IMAGE= "api/profile-photo";
 
 
 String SUB_URL_API_GET_MY_ORDERS_LIST= "api/account/orders";

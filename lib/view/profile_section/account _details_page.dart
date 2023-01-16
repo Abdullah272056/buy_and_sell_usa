@@ -5,6 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
@@ -82,7 +83,7 @@ class AccountDetailsPage extends StatelessWidget {
                       ),
 
 
-                      _buildImageSection(context),
+                      _buildImageSection(),
 
 
 
@@ -202,7 +203,7 @@ class AccountDetailsPage extends StatelessWidget {
 
   }
 
-  Widget _buildImageSection(BuildContext context) {
+  Widget _buildImageSection() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -218,15 +219,17 @@ class AccountDetailsPage extends StatelessWidget {
                     height: 120,
                     width: 120,
                     color: Colors.black26,
-                    child: FadeInImage.assetNetwork(
+                    child:Obx(() => FadeInImage.assetNetwork(
                       fit: BoxFit.cover,
                       placeholder: 'assets/images/loading.png',
-                      image: 'https://en.wikipedia.org/wiki/File:Elon_Musk_Royal_Society_(crop2).jpg',
+                      image: "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value
+                      ,
+                      // accountDetailsPageController.imageLink.value,
                       imageErrorBuilder: (context, url, error) => Image.asset(
                         'assets/images/loading.png',
                         fit: BoxFit.cover,
                       ),
-                    )),
+                    ))),
               ),
               onTap: () {
                 // if (_imageLink.isNotEmpty) {
