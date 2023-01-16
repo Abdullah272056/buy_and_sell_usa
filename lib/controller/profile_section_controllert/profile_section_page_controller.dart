@@ -17,14 +17,25 @@ class ProfileSectionPageController extends GetxController {
 
   var homeDataList=[].obs;
   var categoriesDataList=[].obs;
-
+  var userName="".obs;
+  var userToken="".obs;
   @override
   void onInit() {
-
-
     super.onInit();
+    loadUserIdFromSharePref();
+  }
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
 
+      //  _showToast("token g= "+storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
 
   }
-
 }

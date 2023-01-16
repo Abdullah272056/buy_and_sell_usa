@@ -10,7 +10,7 @@
 
 
     <application
-        android:label="fnf_buy"
+        android:label="FnF Buy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
