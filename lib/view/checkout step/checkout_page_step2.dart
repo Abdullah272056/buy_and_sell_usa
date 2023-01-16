@@ -660,58 +660,35 @@ class CheckoutPageStep2Page extends StatelessWidget {
       onPressed: () {
 
 
-        // for(int i=0; i<cartViewPageController.selectedShippingNameWithSellerIdList.length-1;i++){
-        //   if(cartViewPageController.selectedShippingNameWithSellerIdList[i].shipping_name==""){
-        //     _showToast("Select all shipping");
-        //     return;
-        //   }
-        //
-        // }
+        for(int i=0; i<cartViewPageController.selectedShippingValueList.length;i++){
+          if(cartViewPageController.selectedShippingValueList[i]==""){
+            _showToast("Select all shipping!");
+           return;
+          }
 
-     //   _showToast(cartViewPageController.selectedShippingValueList[0].toString());
+        }
+
 
 
         String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
             "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
 
+        Get.to(()=>
+            WebviewPaymentScreen(
+            productId: '',
+            zipCode: cartViewPageController.zipCode.value,
+            surName: cartViewPageController.surName.value,
+            mobileNumber:cartViewPageController.mobileNumber.value,
+            totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+            emailAddress: cartViewPageController.emailAddress.value,
+            paymentLink: paymentLink,
+            couponCodes: cartViewPageController.couponCodes.value,
+            couponAmount: cartViewPageController.couponAmount.value,
+            couponSellerId: cartViewPageController.couponSellerId.value,
+        ));
 
-         //   String paymentLink= "https://fnfbuy.bizoytech.com/api/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=2";
 
-    // Get.to(() => WebviewPage(), arguments: [
-    //
-    //       {"productId": ""},
-    //       {"zipCode": cartViewPageController.zipCode},
-    //       {"surName": cartViewPageController.surName},
-    //       {"mobileNumber": cartViewPageController.mobileNumber},
-    //       {"totalAmountWithTax": cartViewPageController.totalAmountWithTax},
-    //       {"emailAddress": cartViewPageController.emailAddress},
-    //       {"paymentLink": paymentLink},
-    //       {"couponCodes": cartViewPageController.couponCodes},
-    //       {"couponAmount":cartViewPageController.couponAmount},
-    //       {"couponSellerId": cartViewPageController.couponSellerId}
-    //
-    //
-    //     ])?.then((value) => Get.delete<WebViewPageController>());
-    //
 
-    Get.to(()=>
-        WebviewPaymentScreen(
-        productId: '',
-        zipCode: cartViewPageController.zipCode.value,
-        surName: cartViewPageController.surName.value,
-        mobileNumber:cartViewPageController.mobileNumber.value,
-        totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
-        emailAddress: cartViewPageController.emailAddress.value,
-        paymentLink: paymentLink,
-        couponCodes: cartViewPageController.couponCodes.value,
-        couponAmount: cartViewPageController.couponAmount.value,
-        couponSellerId: cartViewPageController.couponSellerId.value,
-    ));
-
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const SecondRoute()),
-        // );
       },
 
       style: ElevatedButton.styleFrom(
