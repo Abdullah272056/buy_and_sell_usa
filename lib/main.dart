@@ -2,17 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/auth/log_in_page.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
-import 'package:fnf_buy/view/cart/cart_page.dart';
-import 'package:fnf_buy/view/drawer/custom_drawer.dart';
-import 'package:fnf_buy/view/drawer/faq.dart';
-
-
+import 'package:fnf_buy/view/profile_section/profile_section_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'controller/dash_board_controller/dash_board_page_controller.dart';
 
 void main() {
   GetStorage.init();
@@ -33,15 +26,15 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
       home:
-      //CustomDrawer(),
+      ProfileSectionPage(),
 
-      DashBoardPageScreen(
-       // body:CheckoutPageStep2Page(),
-      // body: RefundPolicyPage(),
-
-      // body:CheckoutPageStep2Page(),
-
-      ),
+      // DashBoardPageScreen(
+      //  // body:CheckoutPageStep2Page(),
+      // // body: RefundPolicyPage(),
+      //
+      // // body:CheckoutPageStep2Page(),
+      //
+      // ),
     );
 
   }

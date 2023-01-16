@@ -117,7 +117,7 @@ class AccountDetailsPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-         //  _showToast("country = ${response.statusCode}");
+          //  _showToast("country = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
@@ -131,13 +131,13 @@ class AccountDetailsPageController extends GetxController {
             selectCountryId(dataResponse["data"]["id"].toString());
 
 
-           var stateListResponse=dataResponse["data"]["states"];
+            var stateListResponse=dataResponse["data"]["states"];
             // stateList(dataResponse["data"]["states"]);
-          //  _showToast("leng= "+stateListResponse.length.toString());
+            //  _showToast("leng= "+stateListResponse.length.toString());
             List<StateData> tempStateList=[];
 
             for(int i=0;i<stateListResponse.length;i++){
-             // _showToast("mill");
+              // _showToast("mill");
 
 
               StateData stateData= StateData(
@@ -161,7 +161,7 @@ class AccountDetailsPageController extends GetxController {
             stateList(tempStateList);
 
 
-         // _showToast("leng1= "+stateList.length.toString());
+            // _showToast("leng1= "+stateList.length.toString());
 
           }
           else {
@@ -182,21 +182,22 @@ class AccountDetailsPageController extends GetxController {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //  _showToast(token);
+       _showToast(token);
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ACCOUNT_DETAILS}'),
             headers: {
-              // 'Authorization': 'Bearer '+token,
-              'Authorization': 'Bearer '+'38|8NS9lFUKzmHJux4R0JRO8hTuMP0Phwrequ5myJ6u',
+              'Authorization': 'Bearer '+token,
+              // 'Authorization': 'Bearer '+'38|8NS9lFUKzmHJux4R0JRO8hTuMP0Phwrequ5myJ6u',
               //'Content-Type': 'application/json',
             },
           );
 
-       //  _showToast("account info= "+response.statusCode.toString());
+         _showToast("account info= "+response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var addressResponseData = jsonDecode(response.body);
+
             // wishList(wishListResponse["data"]["data"]);
             // _showToast("size  "+wishList.length.toString());
 
@@ -208,13 +209,24 @@ class AccountDetailsPageController extends GetxController {
              townOrCityController.value.text =addressResponseData["data"]["city"].toString()  ;
             //  // selectedState(addressResponseData["data"]["city"].toString());
             //
-             selectStateId(addressResponseData["data"]["state_id"].toString());
+
+            if(selectStateId(addressResponseData["data"]["state_id"].toString())!="null"){
+              selectStateId(addressResponseData["data"]["state_id"].toString());
+            }
+
+
             // _showToast(selectedState.value);
              stateController.value.text = addressResponseData["data"]["first_name"].toString() ;
              countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
              zipCodeController.value.text = addressResponseData["data"]["zip_code"].toString() ;
 
-            getCountryList(userToken.value);
+
+
+
+
+
+
+            getCountryList(token);
 
 
           }

@@ -191,13 +191,97 @@ class AccountDetailsPage extends StatelessWidget {
 
   }
 
+  // Widget userStateSelect1() {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         // height: 50,
+  //           alignment: Alignment.center,
+  //          // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+  //           decoration: BoxDecoration(
+  //               color:Colors.white,
+  //               border: Border(
+  //
+  //                 left: BorderSide(width: 1.0, color: hint_color),
+  //                 right: BorderSide(width:1.0, color: hint_color),
+  //                 bottom: BorderSide(width: 1.0, color: hint_color),
+  //                 top: BorderSide(width: 1.0, color: hint_color),
+  //               ),
+  //               borderRadius: BorderRadius.circular(5)),
+  //           child: Obx(()=>DropdownButton2(
+  //             //  buttonHeight: 40,
+  //             //   menuMaxHeight:55,
+  //             itemPadding: EdgeInsets.only(left: 5,right: 0),
+  //             value: accountDetailsPageController.selectStateId.value != null &&
+  //                 accountDetailsPageController.selectStateId.value.isNotEmpty ?
+  //             accountDetailsPageController.selectStateId.value : null,
+  //             underline:const SizedBox.shrink(),
+  //             hint:Row(
+  //               children: const [
+  //                 SizedBox(width: 5,),
+  //                 Expanded(child: Center(child: Text("Selected State",
+  //                     style: TextStyle(
+  //                         color: text_color,
+  //                         fontSize: 15,
+  //                         fontWeight: FontWeight.normal)),))
+  //               ],
+  //             ),
+  //             isExpanded: true,
+  //             /// icon: SizedBox.shrink(),
+  //             buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+  //
+  //             items: accountDetailsPageController.stateList.map((list) {
+  //               return DropdownMenuItem(
+  //                 alignment: Alignment.center,
+  //                 child: Row(
+  //                   mainAxisSize: MainAxisSize.max,
+  //                   children: [
+  //
+  //
+  //                     Expanded(child: Center(
+  //                       child: Text(
+  //                         list.stateName,
+  //                           // list["name"].toString(),
+  //                           textAlign: TextAlign.center,
+  //                           style:  TextStyle(
+  //                               color: text_color,
+  //                               //color: intello_text_color,
+  //                               fontSize: 15,
+  //                               fontWeight: FontWeight.normal)),
+  //                     ),),
+  //
+  //
+  //
+  //
+  //                   ],
+  //                 ),
+  //
+  //
+  //                 // value: list["id"].toString(),
+  //                 value: list.stateId.toString(),
+  //               );
+  //
+  //             },
+  //             ).toList(),
+  //             onChanged:(String? value){
+  //               String data= accountDetailsPageController.selectStateId(value.toString());
+  //              //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
+  //             },
+  //
+  //           ))
+  //       ),
+  //
+  //     ],
+  //   )
+  //   ;
+  // }
   Widget userStateSelect() {
     return Column(
       children: [
         Container(
           // height: 50,
             alignment: Alignment.center,
-           // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+            // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
             decoration: BoxDecoration(
                 color:Colors.white,
                 border: Border(
@@ -240,7 +324,7 @@ class AccountDetailsPage extends StatelessWidget {
 
                       Expanded(child: Center(
                         child: Text(
-                          list.stateName,
+                            list.stateName,
                             // list["name"].toString(),
                             textAlign: TextAlign.center,
                             style:  TextStyle(
@@ -265,7 +349,7 @@ class AccountDetailsPage extends StatelessWidget {
               ).toList(),
               onChanged:(String? value){
                 String data= accountDetailsPageController.selectStateId(value.toString());
-               //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
+                //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
               },
 
             ))
@@ -275,7 +359,6 @@ class AccountDetailsPage extends StatelessWidget {
     )
     ;
   }
-
   Widget userCountrySelect() {
     return Column(
       children: [

@@ -28,6 +28,7 @@ class OrderDetailsPageController extends GetxController {
 
   ///billing info
   var name="".obs;
+  var lastLame="".obs;
   var phone="".obs;
   var email="".obs;
   var address="".obs;
@@ -63,11 +64,13 @@ class OrderDetailsPageController extends GetxController {
 
     //billing info
     name(argumentData[0]['singleProductDetailsData']["billings"]["first_name"].toString());
+    lastLame(argumentData[0]['singleProductDetailsData']["billings"]["last_name"].toString());
     phone(argumentData[0]['singleProductDetailsData']["billings"]["phone"].toString());
     email(argumentData[0]['singleProductDetailsData']["billings"]["email"].toString());
     address(argumentData[0]['singleProductDetailsData']["billings"]["address"].toString());
     city(argumentData[0]['singleProductDetailsData']["billings"]["city"].toString());
-    state(argumentData[0]['singleProductDetailsData']["billings"]["state"].toString());
+    state(argumentData[0]['singleProductDetailsData']["billings"]["state_name"]["name"].toString());
+    // state(argumentData[0]['singleProductDetailsData']["billings"]["state"].toString());
     zip(argumentData[0]['singleProductDetailsData']["billings"]["zip"].toString());
     country(argumentData[0]['singleProductDetailsData']["billings"]["country_name"]["name"].toString());
 

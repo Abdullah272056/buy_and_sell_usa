@@ -1,13 +1,9 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../api_service/api_service.dart';
-import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../controller/cart_controller/cart__view_page_controller.dart';
-import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../static/Colors.dart';
 import '../auth/log_in_page.dart';

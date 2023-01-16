@@ -169,7 +169,7 @@ class CartViewPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
 
-        //  showLoadingDialog("Checking");
+          showLoadingDialog("Checking...");
 
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_COUPON_CODE_CHECK'),
                headers : {
@@ -184,27 +184,23 @@ class CartViewPageController extends GetxController {
 
           // _showToast(response.statusCode.toString());
 
-        //  Get.back();
+          Get.back();
           if (response.statusCode == 200) {
             _showToast("success");
 
-
             var couponCodeResponse = jsonDecode(response.body);
-
-
             couponCodes(couponCodeResponse["data"]["coupon_info"]["code"].toString());
              couponAmount(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
              couponSellerId(couponCodeResponse["data"]["coupon_info"]["seller_id"].toString());
 
-
            // _showToast(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
-
             //_showToast(message)
 
 
           }
          
           else {
+            promoCodeController.value.text="";
             _showToast("Invalid Promo Code!");
           }
           //   Get.back();
@@ -223,6 +219,51 @@ class CartViewPageController extends GetxController {
       Fluttertoast.cancel();
       _showToast("No Internet Connection!");
     }
+  }
+
+  void showLoadingDialog(String message) {
+
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height:50,
+                    width: 50,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircularProgressIndicator(
+                      backgroundColor: awsStartColor,
+                      color: awsEndColor,
+                      strokeWidth: 6,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:Text(
+                      message,
+                      style: const TextStyle(fontSize: 25,),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
   }
 
   ///user info with share pref

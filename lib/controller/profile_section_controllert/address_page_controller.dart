@@ -197,8 +197,6 @@ class AddressPageController extends GetxController {
           if (response.statusCode == 200) {
 
 
-
-
             var addressResponseData = jsonDecode(response.body);
             // wishList(wishListResponse["data"]["data"]);
             // _showToast("size  "+wishList.length.toString());
@@ -212,7 +210,10 @@ class AddressPageController extends GetxController {
              townOrCityController.value.text =addressResponseData["data"]["city"]  ;
              // selectedState(addressResponseData["data"]["city"].toString());
 
-            selectStateId(addressResponseData["data"]["state"].toString());
+            if(selectStateId(addressResponseData["data"]["state"].toString())!="null"){
+              selectStateId(addressResponseData["data"]["state"].toString());
+            }
+
             // _showToast(selectedState.value);
              stateController.value.text = addressResponseData["data"]["first_name"] ;
              countryController.value.text = addressResponseData["data"]["first_name"] ;

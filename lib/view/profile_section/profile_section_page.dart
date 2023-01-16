@@ -168,7 +168,7 @@ class ProfileSectionPage extends StatelessWidget {
       onTap: (){
 
         if(onClick==1){
-          _showToast("orders");
+        //  _showToast("orders");
 
           Get.to(OrderPage())?.then((value) => Get.delete<OrderPageController>());
 
@@ -184,7 +184,7 @@ class ProfileSectionPage extends StatelessWidget {
 
           )?.then((value) => Get.delete<AddressPageController>());
 
-          _showToast("address");
+         // _showToast("address");
           return;
         }
         if(onClick==3){
