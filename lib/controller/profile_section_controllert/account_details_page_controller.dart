@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
@@ -66,6 +67,20 @@ class AccountDetailsPageController extends GetxController {
 
   var selectedState="".obs;
   var selectedCountry="".obs;
+
+
+
+
+
+
+
+  PickedFile? _fornt_imageFile;
+  final ImagePicker _fornt_picker=ImagePicker();
+  String _imageLink = "";
+  File? fornt_imageFile;
+
+
+
 
   @override
   void onInit() {
@@ -377,6 +392,167 @@ class AccountDetailsPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
+
+
+
+
+  void openBottomSheet() {
+    Get.bottomSheet(
+        Container(
+          height: 100,
+          width: Get.size.width,
+          margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+          child: Column(
+            children: [
+              Text("Choose",
+                  style: const TextStyle(
+                    fontFamily: 'PT-Sans',
+                    fontSize: 18,
+                    // color: Colors.black,
+                  )
+              ),
+              SizedBox(height: 20,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(child: TextButton.icon(     // <-- TextButton
+                    onPressed: () {
+                    //  Navigator.of(context).pop();
+                      Get.back();
+                     // takeImage(ImageSource.camera);
+                    },
+                    icon: Icon(
+                      Icons.camera,
+                      size: 30.0,
+                    ),
+                    label: Text('Camera',
+                        style: const TextStyle(
+                          fontFamily: 'PT-Sans',
+                          fontSize: 18,
+                          // color: Colors.black,
+                        )
+                    ),
+                  ),),
+                  Expanded(child: TextButton.icon(     // <-- TextButton
+                    onPressed: () {
+                     // Navigator.of(context).pop();
+                      Get.back();
+                    //  takeImage(ImageSource.gallery);
+                    },
+                    icon: Icon(
+                      Icons.image,
+                      size: 30.0,
+                    ),
+                    label: Text('Gallery',style: const TextStyle(
+                      fontFamily: 'PT-Sans',
+                      fontSize: 18,
+                      // color: Colors.black,
+                    ),),
+                  ),)
+
+
+
+
+                ],
+              )
+            ],
+          ),
+
+        ),
+
+
+        backgroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        isScrollControlled: true
+
+
+      //  resizeToAvoidBottomInset: false
+      // isScrollControlled: true,
+    );
+  }
+
+  // Widget _buildImageUploadBottomSheet() {
+  //   return Container(
+  //     height: 100,
+  //     width: MediaQuery.of(context).size.width,
+  //     margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+  //     child: Column(
+  //       children: [
+  //         Text("Choose",
+  //             style: const TextStyle(
+  //               fontFamily: 'PT-Sans',
+  //               fontSize: 18,
+  //               // color: Colors.black,
+  //             )
+  //         ),
+  //         SizedBox(height: 20,),
+  //
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Expanded(child: TextButton.icon(     // <-- TextButton
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //                 takeImage(ImageSource.camera);
+  //               },
+  //               icon: Icon(
+  //                 Icons.camera,
+  //                 size: 30.0,
+  //               ),
+  //               label: Text('Camera',
+  //                   style: const TextStyle(
+  //                     fontFamily: 'PT-Sans',
+  //                     fontSize: 18,
+  //                     // color: Colors.black,
+  //                   )
+  //               ),
+  //             ),),
+  //             Expanded(child: TextButton.icon(     // <-- TextButton
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //                 takeImage(ImageSource.gallery);
+  //               },
+  //               icon: Icon(
+  //                 Icons.image,
+  //                 size: 30.0,
+  //               ),
+  //               label: Text('Gallery',style: const TextStyle(
+  //                 fontFamily: 'PT-Sans',
+  //                 fontSize: 18,
+  //                 // color: Colors.black,
+  //               ),),
+  //             ),)
+  //
+  //
+  //
+  //
+  //           ],
+  //         )
+  //       ],
+  //     ),
+  //
+  //   );
+  // }
+  void takeImage(ImageSource source)async{
+    final pickedFile= await _fornt_picker.getImage(source: source);
+    // setState(() {
+    //   _fornt_imageFile=pickedFile!;
+    //   fornt_imageFile = File(pickedFile.path);
+    //   final bytes = File(_fornt_imageFile!.path).readAsBytesSync();
+    //   String img64 = base64Encode(bytes);
+    //
+    //   // _imageUpload(img64);
+    //
+    // });
+  }
+
+
+
+
 
 }
 

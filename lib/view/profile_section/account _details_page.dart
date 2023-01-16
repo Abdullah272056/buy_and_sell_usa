@@ -1,8 +1,11 @@
+
+
 import 'package:badges/badges.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
  import '../../controller/cart_controller/cart_page_controller.dart';
@@ -18,6 +21,8 @@ class AccountDetailsPage extends StatelessWidget {
   final accountDetailsPageController = Get.put(AccountDetailsPageController());
   var width;
   var height;
+
+
 
 
   @override
@@ -75,6 +80,12 @@ class AccountDetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+
+
+                      _buildImageSection(context),
+
+
+
                       //user name input
                       _buildTextFieldUserFirstName(
                         obscureText: false,
@@ -190,6 +201,86 @@ class AccountDetailsPage extends StatelessWidget {
 
 
   }
+
+  Widget _buildImageSection(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(
+          height: 20,
+        ),
+        Stack(
+          children: [
+            InkResponse(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child: Container(
+                    height: 120,
+                    width: 120,
+                    color: Colors.black26,
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.cover,
+                      placeholder: 'assets/images/loading.png',
+                      image: 'https://en.wikipedia.org/wiki/File:Elon_Musk_Royal_Society_(crop2).jpg',
+                      imageErrorBuilder: (context, url, error) => Image.asset(
+                        'assets/images/loading.png',
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+              ),
+              onTap: () {
+                // if (_imageLink.isNotEmpty) {
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) =>
+                //               ProfileFullScreenImage(_imageLink)));
+                // }
+              },
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 80,
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 80,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          accountDetailsPageController.openBottomSheet();
+                        //  showModalBottomSheet(context: context, builder: ( (builder) =>_buildImageUploadBottomSheet()));
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: fnf_color,
+                          size: 27,
+                        ))
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+        Text(
+          "Abdullah",
+          style: TextStyle(
+            fontSize: 22,
+            //fontSize: MediaQuery.of(context).size.height / 25,
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
+    );
+  }
+
 
   // Widget userStateSelect1() {
   //   return Column(
