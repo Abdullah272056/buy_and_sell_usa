@@ -16,6 +16,8 @@ import '../../static/Colors.dart';
 class CartViewPageController extends GetxController {
 
   var totalPrice=0.0.obs;
+  var totalSuTotalPrice=0.0.obs;
+  var totalTaxPrice=0.0.obs;
   var cartList=[].obs;
   var sellerGroupList=[].obs;
 
@@ -28,8 +30,6 @@ class CartViewPageController extends GetxController {
   var couponCodes= "".obs;
   var couponAmount="".obs;
   var couponSellerId="".obs;
-
-
 
 
   @override
@@ -56,7 +56,9 @@ class CartViewPageController extends GetxController {
     cartList(await NotesDataBase.instance.readAllNotes());
 
     totalPriceCalculate(cartList);
+    subTotalPriceCalculate(cartList);
     totalSellerCountCalculate(cartList);
+    totalTaxPriceCalculate(cartList);
    // _showToast("Local length= "+cartList.length.toString());
   }
 
@@ -94,6 +96,31 @@ class CartViewPageController extends GetxController {
     totalPrice((double.parse((subTotal).toStringAsFixed(2))+double.parse((totalTax).toStringAsFixed(2))));
 
 
+  }
+  void totalTaxPriceCalculate(List cartList1){
+
+
+
+
+    double totalTax=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+
+      double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
+      totalTax=(totalTax+singleProductTax);
+    }
+
+    totalTaxPrice(double.parse((totalTax).toStringAsFixed(2)));
+
+
+  }
+  void subTotalPriceCalculate(List cartList1){
+    double subTotal=0.0;
+    for(int i=0;i<cartList1.length;i++){
+      double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
+       subTotal=(subTotal+oneItemPrice);
+    }
+    totalSuTotalPrice(double.parse((subTotal).toStringAsFixed(2)));
   }
 
   void totalSellerCountCalculate(List cartList){
@@ -190,11 +217,14 @@ class CartViewPageController extends GetxController {
 
             var couponCodeResponse = jsonDecode(response.body);
             couponCodes(couponCodeResponse["data"]["coupon_info"]["code"].toString());
-             couponAmount(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
-             couponSellerId(couponCodeResponse["data"]["coupon_info"]["seller_id"].toString());
 
-           // _showToast(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
-            //_showToast(message)
+
+             couponAmount(couponCodeResponse["data"]["coupon_info"]["coupon_amount"].toString());
+
+
+            //  couponSellerId(couponCodeResponse["data"]["coupon_info"]["seller_id"].toString());
+            couponSellerId(double.parse(couponCodeResponse["data"]["coupon_info"]["seller_id"].toStringAsFixed(2)).toString());
+
 
 
           }

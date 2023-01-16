@@ -222,8 +222,7 @@ class AccountDetailsPage extends StatelessWidget {
                     child:Obx(() => FadeInImage.assetNetwork(
                       fit: BoxFit.cover,
                       placeholder: 'assets/images/loading.png',
-                      image: "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value
-                      ,
+                      image: "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value,
                       // accountDetailsPageController.imageLink.value,
                       imageErrorBuilder: (context, url, error) => Image.asset(
                         'assets/images/loading.png',

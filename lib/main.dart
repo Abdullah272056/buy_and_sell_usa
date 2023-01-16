@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
-import 'package:fnf_buy/view/profile_section/profile_section_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -26,15 +25,8 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
       home:
-      ProfileSectionPage(),
-
-      // DashBoardPageScreen(
-      //  // body:CheckoutPageStep2Page(),
-      // // body: RefundPolicyPage(),
-      //
-      // // body:CheckoutPageStep2Page(),
-      //
-      // ),
+      //ProfileSectionPage(),
+      DashBoardPageScreen(),
     );
 
   }

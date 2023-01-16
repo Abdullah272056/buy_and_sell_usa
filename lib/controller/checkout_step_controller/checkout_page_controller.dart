@@ -241,6 +241,8 @@ class CheckoutPageController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       //  _showToast(token);
+
+        showLoadingDialog("Loading...");
         try {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_BILLING_ADDRESS}'),
@@ -250,6 +252,7 @@ class CheckoutPageController extends GetxController {
             },
           );
 
+          Get.back();
          // _showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
             var addressResponseData = jsonDecode(response.body);

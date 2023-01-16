@@ -215,7 +215,6 @@ class CheckoutPage extends StatelessWidget {
                               alignment: Alignment.centerRight,
                                child:Obx(()=> Text(
                                  "\$ "+"${
-
                                      double.parse(( checkoutPageController.totalPrice).toStringAsFixed(2))
                                  }",
                                  // totalPriceCalculate(cartViewPageController.cartList,
@@ -276,6 +275,41 @@ class CheckoutPage extends StatelessWidget {
                           ],
                         ) ,
                       ),
+                      //promo
+                      Obx(() =>
+                          Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                            child:  Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if(checkoutPageController.couponAmount!="")...{
+
+                                  Expanded(
+                                    child:  Text("Promo Amount : ",
+                                      style: TextStyle(fontWeight: FontWeight.w600,
+                                          color: text_color,
+                                          fontSize: 16
+                                      ),
+                                    ),),
+                                  Expanded(child:   Align(
+                                    alignment: Alignment.centerRight,
+                                    child:Obx(()=> Text(
+                                      // j
+                                      "-\$ "+"${checkoutPageController.couponAmount}",
+                                      style: TextStyle(fontWeight: FontWeight.w600,
+                                          color: Colors.blue,
+                                          fontSize: 18
+                                      ),
+                                    )),
+                                  )),
+                                }
+
+
+
+
+                              ],
+                            ),
+                          ),
+                      ),
                       Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.center,
@@ -290,6 +324,12 @@ class CheckoutPage extends StatelessWidget {
                             Expanded(child:   Align(
                               alignment: Alignment.centerRight,
                               child:Obx(()=> Text(
+
+                                checkoutPageController.couponAmount!=""?
+                                "\$ "+"${(double.parse(( checkoutPageController.totalTaxAmount.value).toStringAsFixed(2))+
+                                    double.parse((checkoutPageController.totalPrice.value).toStringAsFixed(2))-
+                                    double.parse(checkoutPageController.couponAmount.toString())).toString()}":
+
                                 "\$ "+"${
                                     double.parse(( checkoutPageController.totalTaxAmount.value).toStringAsFixed(2))+
                                     double.parse((checkoutPageController.totalPrice.value).toStringAsFixed(2))

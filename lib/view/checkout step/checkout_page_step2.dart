@@ -295,6 +295,42 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                       ) ,
                                     ),
 
+                                    //promo
+                                    Obx(() =>
+                                        Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
+                                          child:  Row(
+                                            // mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              if(cartViewPageController.couponAmount!="")...{
+
+                                                Expanded(
+                                                  child:  Text("Promo Amount : ",
+                                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                                        color: text_color,
+                                                        fontSize: 16
+                                                    ),
+                                                  ),),
+                                                Expanded(child:   Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child:Obx(()=> Text(
+                                                    // j
+                                                    "-\$ "+"${cartViewPageController.couponAmount}",
+                                                    style: TextStyle(fontWeight: FontWeight.w600,
+                                                        color: Colors.blue,
+                                                        fontSize: 18
+                                                    ),
+                                                  )),
+                                                )),
+                                              }
+
+
+
+
+                                            ],
+                                          ),
+                                        ),
+                                    ),
+
                                     Padding(padding: EdgeInsets.only(left: 20,right: 10,top: 10),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -344,6 +380,12 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                           Expanded(child:   Align(
                                             alignment: Alignment.centerRight,
                                             child:Obx(()=> Text(
+
+                                              cartViewPageController.couponAmount!=""?
+                                              "\$ "+"${(
+                                                  double.parse((cartViewPageController.allTotalAmountWithAllCost.value))-
+                                                  double.parse(cartViewPageController.couponAmount.toString())).toString()}":
+
                                               "\$ "+
                                                   "${cartViewPageController.allTotalAmountWithAllCost.value}",
 
@@ -557,6 +599,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
                     ),
                   ],
                 ),
+
+
 
                 Row(
                   children: [

@@ -265,6 +265,93 @@ class CartViewePage extends StatelessWidget {
 
                           _buildApplyPromoCodeButton(),
                           SizedBox(height: 20,),
+
+
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child:  Text("Sub Total: ",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: text_color,
+                                      fontSize: 16
+                                  ),
+                                ),),
+                              Expanded(child:   Align(
+                                alignment: Alignment.centerRight,
+                                child:Obx(()=> Text(
+                                  // j
+                                  "\$ "+"${cartViewPageController.totalSuTotalPrice}",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                      fontSize: 18
+                                  ),
+                                )),
+                              )),
+
+
+
+                            ],
+                          ),
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child:  Text("Total Tax: ",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: text_color,
+                                      fontSize: 16
+                                  ),
+                                ),),
+                              Expanded(child:   Align(
+                                alignment: Alignment.centerRight,
+                                child:Obx(()=> Text(
+                                  // j
+                                  "\$ "+"${cartViewPageController.totalTaxPrice}",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                      fontSize: 18
+                                  ),
+                                )),
+                              )),
+
+
+
+                            ],
+                          ),
+
+                          //promo
+                             Obx(() =>   Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if(cartViewPageController.couponAmount!="")...{
+
+                              Expanded(
+                                child:  Text("Promo Amount : ",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: text_color,
+                                      fontSize: 16
+                                  ),
+                                ),),
+                              Expanded(child:   Align(
+                                alignment: Alignment.centerRight,
+                                child:Obx(()=> Text(
+                                  // j
+                                  "-\$ "+"${cartViewPageController.couponAmount}",
+                                  style: TextStyle(fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                      fontSize: 18
+                                  ),
+                                )),
+                              )),
+                            }
+
+
+
+
+                          ],
+                        ),),
+
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -278,8 +365,11 @@ class CartViewePage extends StatelessWidget {
                               Expanded(child:   Align(
                                 alignment: Alignment.centerRight,
                                 child:Obx(()=> Text(
-                                  // j
-                                  "\$ "+"${cartViewPageController.totalPrice}",
+                                    cartViewPageController.couponAmount!=""?
+                                    "\$ "+"${(double.parse(cartViewPageController.totalPrice.toString())-
+                                        double.parse(cartViewPageController.couponAmount.toString())).toString()}":
+                                    "\$ "+"${double.parse(cartViewPageController.totalPrice.toString())}"
+                                  ,
                                   style: TextStyle(fontWeight: FontWeight.w600,
                                       color: Colors.blue,
                                       fontSize: 18
@@ -291,6 +381,7 @@ class CartViewePage extends StatelessWidget {
 
                             ],
                           ),
+
 
                           SizedBox(height: 20,),
 

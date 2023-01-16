@@ -265,6 +265,7 @@ class CheckoutPageStep2Controller extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
           //_showToast("c 0");
+          showLoadingDialog("Loading...");
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_EXPRESS_SHIPPING_CHECK'),
               headers: {
                 'Authorization': 'Bearer '+token,
@@ -281,6 +282,7 @@ class CheckoutPageStep2Controller extends GetxController {
        // _showToast("zipCode= "+zipCode.toString());
        // _showToast("sellerList = "+sellerList.length.toString());
 
+          Get.back();
 
           if (response.statusCode == 200) {
 
@@ -348,7 +350,7 @@ class CheckoutPageStep2Controller extends GetxController {
           );
 
             Get.back();
-            _showToast(response.statusCode.toString());
+           // _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var data = jsonDecode(response.body);

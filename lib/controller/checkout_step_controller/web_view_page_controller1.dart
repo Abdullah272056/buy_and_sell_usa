@@ -38,9 +38,9 @@ class WebViewPageController1 extends GetxController {
     // totalAmountWithTax(argumentData[4]['totalAmountWithTax'].toString());
    // webLink(argumentData[6]['emailAddress'].toString());
 
-
      readAllNotes();
      loadUserIdFromSharePref();
+
     super.onInit();
   }
 
@@ -123,7 +123,7 @@ class WebViewPageController1 extends GetxController {
        final result = await InternetAddress.lookup('example.com');
        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
          try {
-
+           showLoadingDialog("Saving...");
            var headers = {
              'Authorization': 'Bearer $token',
              'Content-Type': 'application/json'
@@ -145,8 +145,10 @@ class WebViewPageController1 extends GetxController {
 
            http.StreamedResponse response = await request.send();
 
-           _showToast("response= "+response.statusCode.toString());
+           Get.back();
+           //_showToast("response= "+response.statusCode.toString());
            if (response.statusCode == 200) {
+             _showToast(  "Order Complete Successfully!");
              deleteNotes();
              print(await response.stream.bytesToString());
            }

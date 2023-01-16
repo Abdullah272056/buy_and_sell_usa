@@ -42,12 +42,10 @@ class AccountDetailsPageController extends GetxController {
   final zipCodeControllerFocusNode = FocusNode().obs;
   var inputLevelTextColor = hint_color.obs;
 
-
   var stateList = [].obs;
   var countryList = [].obs;
   var selectStateId="".obs;
   var selectCountryId="".obs;
-
 
   var totalPrice=0.0.obs;
   var totalTaxAmount=0.0.obs;
@@ -68,21 +66,12 @@ class AccountDetailsPageController extends GetxController {
   var selectedState="".obs;
   var selectedCountry="".obs;
 
-
   var imageLink="".obs;
-
-
-
-
-
-
 
   PickedFile? _fornt_imageFile;
   final ImagePicker _fornt_picker=ImagePicker();
   String _imageLink = "";
   File? fornt_imageFile;
-
-
 
 
   @override
@@ -202,7 +191,9 @@ class AccountDetailsPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
        //_showToast(token);
         try {
+          showLoadingDialog("Loading...");
           var response = await get(
+
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ACCOUNT_DETAILS}'),
             headers: {
               'Authorization': 'Bearer '+token,
@@ -212,6 +203,7 @@ class AccountDetailsPageController extends GetxController {
           );
 
         // _showToast("account info= "+response.statusCode.toString());
+          Get.back();
           if (response.statusCode == 200) {
 
             var addressResponseData = jsonDecode(response.body);
@@ -242,7 +234,7 @@ class AccountDetailsPageController extends GetxController {
 
             imageLink(addressResponseData["data"]["image"].toString());
 
-            _showToast(addressResponseData["data"]["image"].toString());
+         //   _showToast(addressResponseData["data"]["image"].toString());
 
 
 
@@ -265,6 +257,8 @@ class AccountDetailsPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
+
+
 
   void updateUserBillingInfoList({
             required String token,
@@ -569,6 +563,7 @@ class AccountDetailsPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
         try {
+          showLoadingDialog("Saving...");
           var headers = {
             'Authorization': 'Bearer '+token,
             // 'Authorization': 'Bearer 16|GcZjU2qXDUN2IIS6HDiDJvOPut6hOPT35HgN2qql',
@@ -582,6 +577,7 @@ class AccountDetailsPageController extends GetxController {
 
            final res = await http.Response.fromStream(response);
 
+           Get.back();
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
@@ -589,6 +585,11 @@ class AccountDetailsPageController extends GetxController {
             _showToast("Image Saved Successfully!");
             getUserBillingInfoList(token);
 
+          }
+          if (response.statusCode == 404) {
+            var data = jsonDecode(res.body);
+            _showToast(data["message"]["image"]["0"]);
+           // getUserBillingInfoList(token);
           }
           else {
             print(response.reasonPhrase);

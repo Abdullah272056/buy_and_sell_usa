@@ -91,7 +91,7 @@ class OrderDetailsPage extends StatelessWidget {
                       Obx(()=> userInputSelectTopic(keyName: 'Order No:', value: "#"+orderDetailsPageController.orderNo.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Shipping Amount:', value: "\$"+orderDetailsPageController.shippingAmount.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Tax Amount:', value: "\$"+orderDetailsPageController.taxAmount.value),),
-                      Obx(()=> userInputSelectTopic(keyName: 'Coupon Amount:', value: "\$"+orderDetailsPageController.couponAmount.value),),
+                      Obx(()=> userInputSelectTopic(keyName: 'Coupon Amount:', value: "-\$"+orderDetailsPageController.couponAmount.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Total Amount:', value: "\$"+orderDetailsPageController.totalAmount.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Payment Id:', value: orderDetailsPageController.paymentId.value),),
                       Obx(()=> userInputSelectTopic(keyName: 'Payment method:', value: orderDetailsPageController.paymentMethod.value),),
@@ -265,7 +265,7 @@ class OrderDetailsPage extends StatelessWidget {
                                   alignment: Alignment.centerRight,
                                   child:Obx(()=> Text(
                                     // j
-                                    "\$ "+orderDetailsPageController.couponAmountTotal.value,
+                                    "-\$ "+orderDetailsPageController.couponAmountTotal.value,
                                     style: TextStyle(fontWeight: FontWeight.w600,
                                         color: Colors.blue,
                                         fontSize: 18

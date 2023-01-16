@@ -6,13 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:http/http.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../controller/cart_controller/cart__view_page_controller.dart';
 import '../../controller/checkout_step_controller/web_view_page_controller.dart';
 import '../../controller/checkout_step_controller/web_view_page_controller1.dart';
+import '../../controller/order_controller/order_page_controller.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../order/order_page.dart';
 
 
 class WebviewPaymentScreen extends StatefulWidget {
@@ -168,11 +171,21 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
                     //
                     //   }
                     // }
+
+
                   },
                   onPageStarted: (url){
                     final uri = Uri.parse(url);
-                    if(uri.queryParameters['paymentId'].toString()!="null" ){
-                      _showToast("payment Success full!");
+                    if(uri.queryParameters['go_to_order'].toString()=="true"){
+                      Get.back();
+                      Get.back();
+                      Get.back();
+                      // Get.deleteAll();
+                      Get.to(OrderPage())?.then((value) => Get.delete<OrderPageController>());
+
+                    }
+                    else if(uri.queryParameters['paymentId'].toString()!="null" ){
+                   //   _showToast("payment Success full!");
 
                       cartViewPageController.callOrderStoreApi(
                           coupon_code: couponCodes,
@@ -183,7 +196,9 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
                           payment_method: 'paypal'
                       );
 
-                    }else{
+                    }
+
+                    else{
                       //  _showToast("else!");
 
                     }
