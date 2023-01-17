@@ -13,8 +13,8 @@ import '../../controller/product_controller/all_product_list_controller.dart';
 
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import 'product_details.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -24,208 +24,258 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        body:Container(
-            decoration: BoxDecoration(
-              color:fnf_title_bar_bg_color,
-            ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+        body:Column(
+          children: [
 
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 16,
-                  // height: 50,
+            Expanded(child:   Container(
+                decoration: BoxDecoration(
+                  color:fnf_title_bar_bg_color,
                 ),
-
-                Flex(direction: Axis.horizontal,
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 30,),
 
-                    SizedBox(width: 5,),
-                    Expanded(child: Text(
-                      "Product list",
-                      style: TextStyle(color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17
-                      ),
-                    )),
-
-
-                    InkResponse(
-                      onTap: (){
-                        openBottomSheet("df");
-                       // _showToast("filter");
-
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-
-                          SizedBox(width: 5,),
-
-                          Text("Filter",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.normal)
-                          ),
-
-                          SizedBox(width: 5,),
-
-                          Icon(
-                            Icons.filter_alt_outlined,
-                            color:  Colors.white,
-                            size: 20.0,
-                          ),
-
-                        ],
-                      ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 16,
+                      // height: 50,
                     ),
 
-                    SizedBox(width: 20,),
-                  ],
-                ),
-
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
-                  // height: 50,
-                ),
-
-                Expanded(child: Container(
-                    color: Colors.white,
-                  //  padding: EdgeInsets.only(left: 10,right: 10,top: 10),
-
-                    child:Column(
+                    Flex(direction: Axis.horizontal,
                       children: [
-                       // userInputSelectTopic(),
-                        Expanded(child:
-                        Obx(() => allProductListPageController.isFirstLoadRunning==true? Center(
-                          child: CircularProgressIndicator(),
-                        ):
-                        Column(
-                          children: [
-                            Expanded(child:
-                            Obx(() =>
-                                GridView.builder(
-                                    itemCount:allProductListPageController.allProductList.length,
-                                    // shrinkWrap: true,
-                                    // physics: const ClampingScrollPhysics(),
-                                    controller: allProductListPageController.controller,
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 7.0,
-                                        mainAxisSpacing: 7.0,
-                                        mainAxisExtent: 250
-                                    ),
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index,
-                                          response: allProductListPageController.allProductList[index]);
-                                    }),
+                        SizedBox(width: 30,),
+
+                        SizedBox(width: 5,),
+                        Expanded(child: Text(
+                          "Product list",
+                          style: TextStyle(color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17
+                          ),
+                        )),
 
 
-                                // ListView.builder(
-                                //     itemCount: homePageController.todoList.length,
-                                //     controller:_controller,
-                                //
-                                //     itemBuilder: (_, index)=>InkWell(
-                                //       onTap: (){
-                                //
-                                //         Get.to(TodoDetailsPage("${homePageController.todoList[index].id}"));
-                                //         // Get.to(page)
-                                //       },
-                                //       child: Card(
-                                //           margin: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                                //
-                                //
-                                //           child: Container(
-                                //             padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                                //
-                                //             child: Column(
-                                //               children: [
-                                //
-                                //                 Row(
-                                //                   children: [
-                                //
-                                //                     Text("User Id: ${homePageController.todoList[index].userId}"),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   children: [
-                                //                     Text("Id: ${homePageController.todoList[index].id}"),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   mainAxisAlignment: MainAxisAlignment.start,
-                                //                   children: [
-                                //                     Flexible(
-                                //                       child: Text("Title: ${homePageController.todoList[index].title}"),
-                                //                     ),
-                                //
-                                //                   ],
-                                //                 ),
-                                //                 Row(
-                                //                   mainAxisAlignment: MainAxisAlignment.start,
-                                //                   children: [
-                                //                     Text("Completed:"),
-                                //                     SizedBox(
-                                //                       height: 30,
-                                //                       width: 30,
-                                //                       child: Checkbox(
-                                //                         value:homePageController.todoList[index].completed,
-                                //                         onChanged: ( value) {
-                                //
-                                //                         },
-                                //                       ),
-                                //                     )
-                                //
-                                //
-                                //                   ],
-                                //                 ),
-                                //
-                                //
-                                //
-                                //               ],
-                                //             ),
-                                //           )
-                                //
-                                //       ),
-                                //     )
-                                //
-                                // )
-                            )
-                            ),
-                            Obx(() =>
-                            allProductListPageController.isMoreLoadRunning==true?Padding(
-                              padding: EdgeInsets.only(top: 10,bottom: 20),
-                              child: Center(
-                                  child: LinearProgressIndicator()
+                        InkResponse(
+                          onTap: (){
+                            openBottomSheet("df");
+                            // _showToast("filter");
+
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+
+                              SizedBox(width: 5,),
+
+                              Text("Filter",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal)
                               ),
-                            ):Container()
+
+                              SizedBox(width: 5,),
+
+                              Icon(
+                                Icons.filter_alt_outlined,
+                                color:  Colors.white,
+                                size: 20.0,
+                              ),
+
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(width: 20,),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 40,
+                      // height: 50,
+                    ),
+
+                    Obx(() =>  Expanded(child:allProductListPageController.allProductList.length>0? Container(
+                        color: Colors.white,
+                        //  padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+
+                        child:Column(
+                          children: [
+                            // userInputSelectTopic(),
+                            Expanded(child:
+                            Obx(() => allProductListPageController.isFirstLoadRunning==true? Center(
+                              child: CircularProgressIndicator(),
+                            ):
+                            Column(
+                              children: [
+                                Expanded(child:
+                                Obx(() =>
+                                    GridView.builder(
+                                        itemCount:allProductListPageController.allProductList.length,
+                                        // shrinkWrap: true,
+                                        // physics: const ClampingScrollPhysics(),
+                                        controller: allProductListPageController.controller,
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 7.0,
+                                            mainAxisSpacing: 7.0,
+                                            mainAxisExtent: 250
+                                        ),
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index,
+                                              response: allProductListPageController.allProductList[index]);
+                                        }),
+
+
+                                  // ListView.builder(
+                                  //     itemCount: homePageController.todoList.length,
+                                  //     controller:_controller,
+                                  //
+                                  //     itemBuilder: (_, index)=>InkWell(
+                                  //       onTap: (){
+                                  //
+                                  //         Get.to(TodoDetailsPage("${homePageController.todoList[index].id}"));
+                                  //         // Get.to(page)
+                                  //       },
+                                  //       child: Card(
+                                  //           margin: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                                  //
+                                  //
+                                  //           child: Container(
+                                  //             padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                                  //
+                                  //             child: Column(
+                                  //               children: [
+                                  //
+                                  //                 Row(
+                                  //                   children: [
+                                  //
+                                  //                     Text("User Id: ${homePageController.todoList[index].userId}"),
+                                  //
+                                  //                   ],
+                                  //                 ),
+                                  //                 Row(
+                                  //                   children: [
+                                  //                     Text("Id: ${homePageController.todoList[index].id}"),
+                                  //
+                                  //                   ],
+                                  //                 ),
+                                  //                 Row(
+                                  //                   mainAxisAlignment: MainAxisAlignment.start,
+                                  //                   children: [
+                                  //                     Flexible(
+                                  //                       child: Text("Title: ${homePageController.todoList[index].title}"),
+                                  //                     ),
+                                  //
+                                  //                   ],
+                                  //                 ),
+                                  //                 Row(
+                                  //                   mainAxisAlignment: MainAxisAlignment.start,
+                                  //                   children: [
+                                  //                     Text("Completed:"),
+                                  //                     SizedBox(
+                                  //                       height: 30,
+                                  //                       width: 30,
+                                  //                       child: Checkbox(
+                                  //                         value:homePageController.todoList[index].completed,
+                                  //                         onChanged: ( value) {
+                                  //
+                                  //                         },
+                                  //                       ),
+                                  //                     )
+                                  //
+                                  //
+                                  //                   ],
+                                  //                 ),
+                                  //
+                                  //
+                                  //
+                                  //               ],
+                                  //             ),
+                                  //           )
+                                  //
+                                  //       ),
+                                  //     )
+                                  //
+                                  // )
+                                )
+                                ),
+                                Obx(() =>
+                                allProductListPageController.isMoreLoadRunning==true?Padding(
+                                  padding: EdgeInsets.only(top: 10,bottom: 20),
+                                  child: Center(
+                                      child: LinearProgressIndicator()
+                                  ),
+                                ):Container()
+
+                                )
+
+                              ],
+                            )
 
                             )
 
+
+
+
+
+                            )
                           ],
                         )
 
-                        )
+
+                    ):
+
+                    Container(
+                      color: Colors.white,
+                      child:LayoutBuilder(
+                        builder: (context, constraints) => ListView(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(20.0),
+                              constraints: BoxConstraints(
+                                minHeight: constraints.maxHeight,
+                              ),
+                              child: Center(
+                                child:Column(
+
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/not_found.png",
+                                      width: 180,
+                                      height: 80,
+                                    ),
+                                    const SizedBox(height: 20,),
+                                    const Text(
+                                      "Product not found!",
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                          color:text_color,
+                                          fontSize: 15,
+                                          decoration: TextDecoration.none,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ) ,
+                    )),)
+
+                  ],
+                )
+
+            ),),
+
+          ],
+        ),
 
 
 
-
-
-                        )
-                      ],
-                    )
-
-
-                )),
-
-              ],
-            )
-
-        )
     );
     // return SafeArea(
     //   child: Scaffold(

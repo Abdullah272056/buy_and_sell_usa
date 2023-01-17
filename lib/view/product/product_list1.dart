@@ -13,8 +13,9 @@ import '../../controller/product_controller/all_product_list_controller.dart';
 
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import 'product_details.dart';
 
 class ProductListPage1 extends StatelessWidget {

@@ -1,16 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/auth/sign_up_page.dart';
+import 'package:fnf_buy/view/auth/user/sign_up_page.dart';
 import 'package:get/get.dart';
-import '../../api_service/login_api_service.dart';
-import '../../controller/auth_controller/log_in_page_controller.dart';
-import '../../static/Colors.dart';
-import 'fotget_password_page.dart';
+import '../../../api_service/login_api_service.dart';
+import '../../../controller/auth_controller/user_auth/log_in_page_controller.dart';
+import '../../../static/Colors.dart';
+import '../user/fotget_password_page.dart';
 
 
-
-class LogInScreen extends StatelessWidget {
+class VendorLogInScreen extends StatelessWidget {
 
   final logInPageController = Get.put(LogInPageController());
   var width;
@@ -48,7 +47,6 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
@@ -56,7 +54,6 @@ class LogInScreen extends StatelessWidget {
       _showToast("resumed");
     }
   }
-
 
   Widget _buildBodyDesign() {
     return Center(
@@ -75,12 +72,14 @@ class LogInScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+
                     ///ratio 1:2.25
                     Image.asset(
                       "assets/images/fnf_logo.png",
                       width: 180,
                       height: 80,
                     )
+
                   ],
                 ),
               ),
@@ -89,8 +88,25 @@ class LogInScreen extends StatelessWidget {
                 height: 20,
               ),
 
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
 
-
+                     Text(
+                       'SELLER/VENDOR\nLOGIN',
+                       textAlign: TextAlign.center,
+                       style: TextStyle(
+                         fontFamily: 'PT-Sans',
+                         fontSize: 22,
+                         fontWeight: FontWeight.bold,
+                         color:hint_color,
+                       ),
+                     )
+                   ],
+                 ),
+              const SizedBox(
+                height: 20,
+              ),
               //user email input
               _buildTextFieldUserEmail(
                 obscureText: false,
@@ -100,7 +116,6 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-
 
 
               //password input
@@ -213,7 +228,6 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-
 //password input field create
   Widget _buildTextFieldPassword({
     required bool obscureText,
@@ -285,8 +299,6 @@ class LogInScreen extends StatelessWidget {
 
     );
   }
-
-
 
   //login button create
   Widget _buildLoginButton() {
@@ -409,7 +421,6 @@ class LogInScreen extends StatelessWidget {
         fontSize: 16.0);
   }
 
-
   //loading dialog crete
   void showLoadingDialog(BuildContext context, String message) {
     showDialog(
@@ -450,7 +461,6 @@ class LogInScreen extends StatelessWidget {
       },
     );
   }
-
 
 }
 

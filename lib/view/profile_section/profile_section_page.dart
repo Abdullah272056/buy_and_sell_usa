@@ -17,9 +17,9 @@ import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 
-import '../auth/change_password_page.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/change_password_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import 'account _details_page.dart';
 import 'address_page.dart';
 import '../order/order_page.dart';

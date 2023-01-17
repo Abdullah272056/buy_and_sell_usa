@@ -14,8 +14,8 @@ import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import '../drawer/custom_drawer.dart';
 import '../product/product_details.dart';
 

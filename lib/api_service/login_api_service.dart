@@ -9,8 +9,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../controller/dash_board_controller/home_controller.dart';
-import '../view/auth/log_in_page.dart';
-import '../view/auth/sign_up_page.dart';
+import '../view/auth/user/log_in_page.dart';
+import '../view/auth/user/sign_up_page.dart';
 import '../view/dash_board/dash_board_page.dart';
 import 'api_service.dart';
 

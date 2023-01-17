@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../api_service/api_service.dart';
-import '../../controller/auth_controller/password_set_page_controller.dart';
-import '../../static/Colors.dart';
+import '../../../api_service/api_service.dart';
+import '../../../controller/auth_controller/user_auth/change_password_page_controller.dart';
+import '../../../controller/auth_controller/user_auth/password_set_page_controller.dart';
+import '../../../static/Colors.dart';
 
 import 'log_in_page.dart';
 
 
-class PasswordSetScreen extends StatelessWidget {
+class ChangePasswordScreen extends StatelessWidget {
 
-  final passwordSetPageController = Get.put(PasswordSetPageController());
+  final changePasswordPageController = Get.put(ChangePasswordPageController());
   var width;
   var height;
   @override
@@ -71,9 +72,9 @@ class PasswordSetScreen extends StatelessWidget {
                   children: [
                     ///ratio 1:2.25
                     Image.asset(
-                      "assets/images/icon_forgot.png",
-                      width: 80,
-                      height: 80,
+                      "assets/images/change_password.png",
+                      width: 60,
+                      height: 60,
                       fit: BoxFit.fill,
                       color: forgotten_password_text_color,
                     )
@@ -86,12 +87,12 @@ class PasswordSetScreen extends StatelessWidget {
                 margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                 child: const Align(alignment: Alignment.center,
                   child: Text(
-                    "Create Password",
+                    "Change Password",
                     textAlign: TextAlign.center,
 
                     style: TextStyle(
                         color:text_color,
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -100,7 +101,7 @@ class PasswordSetScreen extends StatelessWidget {
                 margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
                 child: const Align(alignment: Alignment.center,
                   child: Text(
-                    "Create a password for your account",
+                    "Change password for your account secure!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: hint_color,
@@ -114,11 +115,21 @@ class PasswordSetScreen extends StatelessWidget {
 
 
               //password input
+              _buildTextFieldOldPassword(
+                // hintText: 'Password',
+                obscureText: true,
+                prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
+                labelText: "Old password",
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              //password input
               _buildTextFieldPassword(
                 // hintText: 'Password',
                 obscureText: true,
                 prefixedIcon: const Icon(Icons.lock, color: input_box_icon_color),
-                labelText: "Password",
+                labelText: "New password",
               ),
               const SizedBox(
                 height: 25,
@@ -139,10 +150,10 @@ class PasswordSetScreen extends StatelessWidget {
                 height: 30,
               ),
 
-              _buildSignUpQuestion(),
-              const SizedBox(
-                height: 15,
-              ),
+              // _buildSignUpQuestion(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
             ],
           ),
         ),
@@ -159,6 +170,81 @@ class PasswordSetScreen extends StatelessWidget {
   }
 
 
+  //password input field create
+  Widget _buildTextFieldOldPassword({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Material(
+        color:transparent,
+        child:
+
+        Focus(
+          onFocusChange: (hasFocus) {
+            changePasswordPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+          },
+          child:  Obx(() =>
+
+
+              TextField(
+                controller: changePasswordPageController.oldPasswordController.value,
+                cursorColor:awsCursorColor,
+                cursorWidth: 1.5,
+
+                obscureText: changePasswordPageController.isObscureOldPassword.value,
+                // obscuringCharacter: "*",
+                focusNode:changePasswordPageController.oldPasswordControllerFocusNode.value,
+                onSubmitted:(_){
+                  changePasswordPageController.passwordControllerFocusNode.value.requestFocus();
+                },
+                style: const TextStyle(color: Colors.black, fontSize: 18),
+                decoration: InputDecoration(
+                  // border: InputBorder.none,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  // labelText: 'Password',
+                  // contentPadding: const EdgeInsets.all(17),
+                  contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
+                  suffixIcon: IconButton(
+                      color: input_box_icon_color,
+                      icon: Icon(
+                        changePasswordPageController.isObscureOldPassword.value ? Icons.visibility_off : Icons.visibility,
+                      ),
+
+                      // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        changePasswordPageController.updateIsObscureOldPassword(!changePasswordPageController.isObscureOldPassword.value);
+                      }),
+
+                  // filled: true,
+                  fillColor: Colors.white,
+                  prefixIcon: prefixedIcon,
+                  prefixIconColor: input_box_icon_color,
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    color: hint_color,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'PTSans',
+                  ),
+
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+                  ),
+                  labelText: labelText,
+                  labelStyle:  TextStyle(
+                    color: changePasswordPageController.passwordLevelTextColor.value,
+                  ),
+                ),
+              )),
+        )
+
+    );
+  }
 
 //password input field create
   Widget _buildTextFieldPassword({
@@ -173,21 +259,21 @@ class PasswordSetScreen extends StatelessWidget {
 
     Focus(
       onFocusChange: (hasFocus) {
-        passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        changePasswordPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
     },
     child:  Obx(() =>
 
 
         TextField(
-          controller: passwordSetPageController.passwordController.value,
+          controller: changePasswordPageController.passwordController.value,
           cursorColor:awsCursorColor,
           cursorWidth: 1.5,
 
-          obscureText: passwordSetPageController.isObscurePassword.value,
+          obscureText: changePasswordPageController.isObscurePassword.value,
           // obscuringCharacter: "*",
-          focusNode:passwordSetPageController.passwordControllerFocusNode.value,
+          focusNode:changePasswordPageController.passwordControllerFocusNode.value,
           onSubmitted:(_){
-            passwordSetPageController.confirmPasswordControllerFocusNode.value.requestFocus();
+            changePasswordPageController.confirmPasswordControllerFocusNode.value.requestFocus();
           },
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -200,12 +286,12 @@ class PasswordSetScreen extends StatelessWidget {
             suffixIcon: IconButton(
                 color: input_box_icon_color,
                 icon: Icon(
-                  passwordSetPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
+                  changePasswordPageController.isObscurePassword.value ? Icons.visibility_off : Icons.visibility,
                 ),
 
                 // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                 onPressed: () {
-                  passwordSetPageController.updateIsObscurePassword(!passwordSetPageController.isObscurePassword.value);
+                  changePasswordPageController.updateIsObscurePassword(!changePasswordPageController.isObscurePassword.value);
                 }),
 
             // filled: true,
@@ -227,7 +313,7 @@ class PasswordSetScreen extends StatelessWidget {
             ),
             labelText: labelText,
             labelStyle:  TextStyle(
-              color: passwordSetPageController.passwordLevelTextColor.value,
+              color: changePasswordPageController.passwordLevelTextColor.value,
             ),
           ),
         )),
@@ -249,19 +335,19 @@ class PasswordSetScreen extends StatelessWidget {
 
         Focus(
           onFocusChange: (hasFocus) {
-            passwordSetPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
+            changePasswordPageController.passwordLevelTextColor.value = hasFocus ? hint_color : hint_color;
           },
           child:  Obx(() =>
 
 
               TextField(
-                controller: passwordSetPageController.confirmPasswordController.value,
+                controller: changePasswordPageController.confirmPasswordController.value,
                 cursorColor:awsCursorColor,
                 cursorWidth: 1.5,
 
-                obscureText: passwordSetPageController.isObscureConfirmPassword.value,
+                obscureText: changePasswordPageController.isObscureConfirmPassword.value,
                 // obscuringCharacter: "*",
-                focusNode:passwordSetPageController.confirmPasswordControllerFocusNode.value,
+                focusNode:changePasswordPageController.confirmPasswordControllerFocusNode.value,
                 style: const TextStyle(color: Colors.black, fontSize: 18),
                 decoration: InputDecoration(
                   // border: InputBorder.none,
@@ -272,12 +358,12 @@ class PasswordSetScreen extends StatelessWidget {
                   suffixIcon: IconButton(
                       color: input_box_icon_color,
                       icon: Icon(
-                        passwordSetPageController.isObscureConfirmPassword.value ? Icons.visibility_off : Icons.visibility,
+                        changePasswordPageController.isObscureConfirmPassword.value ? Icons.visibility_off : Icons.visibility,
                       ),
 
                       // Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
                       onPressed: () {
-                        passwordSetPageController.updateIsObscureConfirmPassword(!passwordSetPageController.isObscureConfirmPassword.value);
+                        changePasswordPageController.updateIsObscureConfirmPassword(!changePasswordPageController.isObscureConfirmPassword.value);
                       }),
 
                   filled: true,
@@ -299,7 +385,7 @@ class PasswordSetScreen extends StatelessWidget {
                   ),
                   labelText: labelText,
                   labelStyle:  TextStyle(
-                    color: passwordSetPageController.passwordLevelTextColor.value,
+                    color: changePasswordPageController.passwordLevelTextColor.value,
                   ),
                 ),
               )),
@@ -315,17 +401,23 @@ class PasswordSetScreen extends StatelessWidget {
     return ElevatedButton(
         onPressed: () {
 
-          String passwordTxt = passwordSetPageController.passwordController.value.text;
-          String confirmPasswordTxt = passwordSetPageController.confirmPasswordController.value.text;
+          String oldPasswordTxt = changePasswordPageController.oldPasswordController.value.text;
+          String passwordTxt = changePasswordPageController.passwordController.value.text;
+          String confirmPasswordTxt = changePasswordPageController.confirmPasswordController.value.text;
 
-          if (_inputValid(password: passwordTxt, confirmPassword: confirmPasswordTxt)== false) {
-            newPassword(otp: passwordSetPageController.useOtp.value,
-                email: passwordSetPageController.userEmail.value,
-                password: confirmPasswordTxt);
+          // _showToast(changePasswordPageController.userToken.value);
 
+          if (_inputValid(
+              password: passwordTxt,
+              confirmPassword: confirmPasswordTxt,
+              oldPasswordTxt: oldPasswordTxt) == false){
+            changePasswordPageController.newPasswordSet(
+                userToken: changePasswordPageController.userToken.value,
+                oldPassword: oldPasswordTxt,
+                password: passwordTxt,
+                confirmPassword: confirmPasswordTxt
+            );
           }
-
-
         },
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -394,7 +486,18 @@ class PasswordSetScreen extends StatelessWidget {
   }
 
   //input text validation check
-  _inputValid({required String password, required String confirmPassword}) {
+  _inputValid({
+    required String oldPasswordTxt,
+    required String password,
+    required String confirmPassword,
+  }) {
+
+    if (oldPasswordTxt.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Old password can't empty!");
+      return;
+    }
+
 
     if (password.isEmpty) {
       Fluttertoast.cancel();
@@ -430,103 +533,10 @@ class PasswordSetScreen extends StatelessWidget {
   }
 
 
-  //loading dialog crete
-  void showLoadingDialog(String message) {
-
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
 
-  // new password set api call
-  newPassword({
-    required String otp,
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-
-          showLoadingDialog("Checking");
-
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SET_NEW_PASSWORD'),
-           // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/new-password'),
-              body: {
-                'otp': otp,
-                'email': email,
-                'password': password
-              }
-          );
-          Get.back();
-         // _showToast(response.statusCode.toString());
-          if (response.statusCode == 200) {
-            // _showToast("success");
-            var data = jsonDecode(response.body);
-            Get.to(LogInScreen());
-
-          }
-
-          else {
-
-            var data = jsonDecode(response.body);
-            _showToast(data['data']);
-          }
 
 
-        } catch (e) {
-          //  Navigator.of(context).pop();
-          //print(e.toString());
-        } finally {
-
-          /// Navigator.of(context).pop();
-        }
-      }
-    } on SocketException catch (_) {
-      Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
-    }
-  }
 
 }
 

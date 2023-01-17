@@ -12,8 +12,8 @@ import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 
 import '../checkout step/checkout_page.dart';
 import '../drawer/custom_drawer.dart';
@@ -582,8 +582,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
               ],
             )));
   }
-
-
 
   void openBottomSheet(String text) {
     Get.bottomSheet(
@@ -1574,6 +1572,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
+
   Widget sliderSectionDesign() {
     return Container(
         height: Get.height * 0.5,
@@ -1750,6 +1749,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
       );
   }
 
+
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
     double sizeHeight = Get.height;
@@ -1770,6 +1770,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
       ) ),
     );
   }
+
 
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
@@ -1940,6 +1941,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
+
   Widget _buildBuyNowButton() {
     return ElevatedButton(
       onPressed: () {
@@ -2034,6 +2036,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
       ),
     );
   }
+
 
   void showLoginWarning( ) {
 
@@ -2205,6 +2208,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
         radius: 10.0);
   }
 
+
   void showGroceryModal( ) {
 
     Get.defaultDialog(
@@ -2320,6 +2324,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
 
   void showGroceryModalForBuyNow( ) {
 
@@ -2525,6 +2530,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
+
   Widget _buildCheckZipCodeButtonForBuyNow() {
     return ElevatedButton(
       onPressed: () async {
@@ -2631,5 +2637,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
             double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
 
   }
+
+
 
 }

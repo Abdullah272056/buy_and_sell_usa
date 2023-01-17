@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/view/auth/password_set_page.dart';
+import 'package:fnf_buy/view/auth/user/password_set_page.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../api_service/api_service.dart';
-import '../../controller/auth_controller/email_verification_page_controller.dart';
-import '../../static/Colors.dart';
+import '../../../api_service/api_service.dart';
+import '../../../controller/auth_controller/user_auth/email_verification_page_controller.dart';
+import '../../../static/Colors.dart';
 
 
 

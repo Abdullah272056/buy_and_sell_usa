@@ -157,7 +157,6 @@ class ProductDetailsController extends GetxController {
     }
   }
 
-
   Future refreshNotes() async {
     NotesDataBase.instance;
     notesList(await NotesDataBase.instance.readAllNotes());
@@ -293,12 +292,15 @@ class ProductDetailsController extends GetxController {
           // Fluttertoast.cancel();
         }
       }
+      else{
+        _showToast("No Internet Connection!");
+
+      }
     } on SocketException {
       Fluttertoast.cancel();
       // _showToast("No Internet Connection!");
     }
   }
-
 
   void getCategoriesProductsDataList({
     required String categoryId,required String subcategoryId,
@@ -364,6 +366,7 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+
   addWishList({
         required String token,
         required String productId
@@ -410,7 +413,8 @@ class ProductDetailsController extends GetxController {
     }
   }
 
-  void showLoadingDialog(String message) {
+
+ void showLoadingDialog(String message) {
 
     Get.defaultDialog(
         title: '',
@@ -454,6 +458,8 @@ class ProductDetailsController extends GetxController {
         barrierDismissible: false,
         radius: 10.0);
   }
+
+
  Future<bool>  zipCodeCheck({
     required String zipCode,
     required String sellerId
@@ -506,6 +512,7 @@ class ProductDetailsController extends GetxController {
     }
     return false;
   }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {

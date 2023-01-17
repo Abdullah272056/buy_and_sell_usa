@@ -6,8 +6,8 @@ import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart__view_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../static/Colors.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
 
 

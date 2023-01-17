@@ -11,8 +11,8 @@ import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../product/product_details.dart';
 
