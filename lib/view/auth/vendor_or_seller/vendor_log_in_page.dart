@@ -5,13 +5,14 @@ import 'package:fnf_buy/view/auth/user/sign_up_page.dart';
 import 'package:get/get.dart';
 import '../../../api_service/login_api_service.dart';
 import '../../../controller/auth_controller/user_auth/log_in_page_controller.dart';
+import '../../../controller/auth_controller/vendor_auth/vendor_log_in_page_controller.dart';
 import '../../../static/Colors.dart';
 import '../user/fotget_password_page.dart';
 
 
 class VendorLogInScreen extends StatelessWidget {
 
-  final logInPageController = Get.put(LogInPageController());
+  final logInPageController = Get.put(VendorLogInPageController());
   var width;
   var height;
 
