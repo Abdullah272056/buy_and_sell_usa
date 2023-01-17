@@ -123,7 +123,7 @@ class WishListPage extends StatelessWidget {
                                             ),
                                             SizedBox(height: 20,),
                                             Text(
-                                              "Wish list not fount!",
+                                              "Wish list not found!",
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: false,
                                               maxLines: 1,
