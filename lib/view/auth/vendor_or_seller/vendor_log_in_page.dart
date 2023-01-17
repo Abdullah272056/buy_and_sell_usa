@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/user/sign_up_page.dart';
+import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_fotget_password_page.dart';
 import 'package:get/get.dart';
 import '../../../api_service/login_api_service.dart';
 import '../../../controller/auth_controller/user_auth/log_in_page_controller.dart';
@@ -145,7 +146,7 @@ class VendorLogInScreen extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Get.to(ForgetPasswordScreen());
+                  Get.to(VendorForgetPasswordScreen());
                 },
               ),
 
