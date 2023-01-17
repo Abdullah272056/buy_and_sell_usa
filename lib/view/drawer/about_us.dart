@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-import '../../api_service/api_service.dart';
-import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/drawer_controller/about_us_controller.dart';
-import '../../controller/product_controller/product_details_controller.dart';
-import '../../data_base/sqflite/note.dart';
-import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
-import '../checkout step/checkout_page.dart';
-import '../product/product_details.dart';
-
-
 
 class AboutUsPage extends StatelessWidget {
 
-  final aboutUsController = Get.put(AboutUsController());
+final aboutUsController = Get.put(AboutUsController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +21,12 @@ class AboutUsPage extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
                 // height: 50,
               ),
+
               Flex(direction: Axis.horizontal,
                 children: [
                   SizedBox(width: 5,),
@@ -60,10 +52,12 @@ class AboutUsPage extends StatelessWidget {
 
                 ],
               ),
+
               SizedBox(
                 height: 7
                 // height: 50,
               ),
+
               Expanded(
                   child:Container(
                     color: Colors.white,
@@ -109,6 +103,7 @@ class AboutUsPage extends StatelessWidget {
 
 
               )
+
             ],
           )
 
@@ -118,8 +113,6 @@ class AboutUsPage extends StatelessWidget {
 
 
   }
-
-
 
   void showLoginWarning( ) {
 
@@ -291,6 +284,7 @@ class AboutUsPage extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -302,7 +296,6 @@ class AboutUsPage extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
 }
 

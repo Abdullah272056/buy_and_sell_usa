@@ -259,7 +259,6 @@ class AccountDetailsPageController extends GetxController {
   }
 
 
-
   void updateUserBillingInfoList({
             required String token,
             required String firstname,

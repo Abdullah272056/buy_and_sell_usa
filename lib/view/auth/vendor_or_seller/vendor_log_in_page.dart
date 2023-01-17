@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/user/sign_up_page.dart';
 import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_fotget_password_page.dart';
+import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_sign_up_page.dart';
 import 'package:get/get.dart';
 import '../../../api_service/login_api_service.dart';
 import '../../../controller/auth_controller/user_auth/log_in_page_controller.dart';
@@ -49,13 +50,7 @@ class VendorLogInScreen extends StatelessWidget {
     );
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("AppLifecycleState changed: $state");
-    if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
-    }
-  }
+
 
   Widget _buildBodyDesign() {
     return Center(
@@ -310,9 +305,9 @@ class VendorLogInScreen extends StatelessWidget {
           String userEmailTxt = logInPageController.userEmailController.value.text;
           String passwordTxt = logInPageController.passwordController.value.text;
 
-          if (_inputValid(userEmailTxt, passwordTxt)== false) {
+          if (logInPageController.inputValid(userEmailTxt, passwordTxt)== false) {
 
-          LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+            logInPageController.vendorLogIn(email: userEmailTxt, password: passwordTxt);
 
           }
 
@@ -374,7 +369,7 @@ class VendorLogInScreen extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Get.to(SignUpScreen());
+            Get.to(VendorSignUpScreen());
 
           },
         ),
@@ -382,87 +377,6 @@ class VendorLogInScreen extends StatelessWidget {
     );
   }
 
-  //input text validation check
-  _inputValid(String userEmail, String password) {
-    if (userEmail.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Email can't empty!");
-      return;
-    }
-    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
-      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-    )
-        .hasMatch(userEmail)) {
-      Fluttertoast.cancel();
-      _showToast("Enter valid email!");
-      return;
-    }
-    if (password.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Password can't empty!");
-      return;
-    }
-    if (password.length < 8) {
-      Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
-      return;
-    }
-
-    return false;
-  }
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
-
-  //loading dialog crete
-  void showLoadingDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 20, bottom: 20),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: awsStartColor,
-                          color: awsEndColor,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          message,
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
 
 }
 
