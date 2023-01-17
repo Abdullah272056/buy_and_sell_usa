@@ -49,173 +49,196 @@ class HomePageScreen extends StatelessWidget {
     return Scaffold(
       key: _drawerKey,
       drawer: CustomDrawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          color:fnf_title_bar_bg_color,
-        ),
-        child: Flex(
-          direction: Axis.vertical,
+      body: RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        onRefresh: () async {
+
+          homeController.onInit();
+
+          await Future.delayed(const Duration(seconds: 1));
+          //updateDataAfterRefresh();
+        },
+        child:  Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 18,
-              // height: 50,
-            ),
 
-            ///title bar
-            Obx(() => homeController.searchBoxVisible==0?
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 30),
-                  child: InkResponse(
-                    onTap: () {
-
-                      if (_drawerKey.currentState!.isDrawerOpen) {
-                        homeController.isDrawerOpen(false);
-                        _drawerKey.currentState!.openEndDrawer();
-                        return;
-                      } else
-                        _drawerKey.currentState!.openDrawer();
-                      homeController.isDrawerOpen(true);
-                    },
-                    child: const Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
+            Expanded(child: Container(
+              decoration: BoxDecoration(
+                color:fnf_title_bar_bg_color,
+              ),
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 18,
+                    // height: 50,
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: InkWell(
 
-                    onTap: () {
-                      homeController. searchBoxVisible(1);
-                    },
-                    child:  Icon(
-                      Icons.search_rounded,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      child:  Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: InkWell(
+                  ///title bar
+                  Obx(() => homeController.searchBoxVisible==0?
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 30),
+                        child: InkResponse(
+                          onTap: () {
 
-                            onTap: () {
-                            },
-                            child: Image.asset(
-                              "assets/images/fnf_logo.png",
-                              // width: 25,
-                              fit: BoxFit.fill,
-                              height: 35,
-                            ),
+                            if (_drawerKey.currentState!.isDrawerOpen) {
+                              homeController.isDrawerOpen(false);
+                              _drawerKey.currentState!.openEndDrawer();
+                              return;
+                            } else
+                              _drawerKey.currentState!.openDrawer();
+                            homeController.isDrawerOpen(true);
+                          },
+                          child: const Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                            size: 25.0,
                           ),
                         ),
                       ),
-                    )),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        child: InkWell(
 
-
-
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: InkWell(
-
-                    onTap: () {
-                      if(homeController.userToken.isNotEmpty &&
-                          homeController.userToken.value!="null"&&
-                          homeController.userToken.value!=null){
-                       // _showToast(homeController.userToken.toString());
-                      //  _showToast("add favourite");
-                        Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
-                      }else{
-                        showLoginWarning();
-                      }
-
-                    },
-                    child:  Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 25),
-                  child: InkWell(
-
-                    onTap: () {
-
-                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                    },
-                    child: Badge(
-                      badgeContent:Obx(()=> Text(
-                        homeController.cartCount.value.toString(),
-                        style: TextStyle(
+                          onTap: () {
+                            homeController. searchBoxVisible(1);
+                          },
+                          child:  Icon(
+                            Icons.search_rounded,
                             color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500
+                            size: 25.0,
+                          ),
                         ),
-                      )),
-                      badgeColor:fnf_color,
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                        size: 25.0,
                       ),
-                    ),
+                      Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child:  Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 30),
+                                child: InkWell(
+
+                                  onTap: () {
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/fnf_logo.png",
+                                    // width: 25,
+                                    fit: BoxFit.fill,
+                                    height: 35,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )),
 
 
 
-                  ),
-                ),
-              ],
-            ):
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: InkWell(
 
-            DelayedWidget(
-              delayDuration: const Duration(milliseconds: 10),// Not required
-              animationDuration: const Duration(milliseconds: 500),// Not required
-              animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-              child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),
-            ),
+                          onTap: () {
+                            if(homeController.userToken.isNotEmpty &&
+                                homeController.userToken.value!="null"&&
+                                homeController.userToken.value!=null){
+                              // _showToast(homeController.userToken.toString());
+                              //  _showToast("add favourite");
+                              Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                            }else{
+                              showLoginWarning();
+                            }
 
-            ),
+                          },
+                          child:  Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 25),
+                        child: InkWell(
+
+                          onTap: () {
+
+                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                          },
+                          child: Badge(
+                            badgeContent:Obx(()=> Text(
+                              homeController.cartCount.value.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500
+                              ),
+                            )),
+                            badgeColor:fnf_color,
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
 
 
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 35,
-              // height: 30,
-            ),
 
-
-            Expanded(
-              child:  Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _buildBottomSectionDesign(),
+                        ),
+                      ),
                     ],
+                  ):
+
+                  DelayedWidget(
+                    delayDuration: const Duration(milliseconds: 10),// Not required
+                    animationDuration: const Duration(milliseconds: 500),// Not required
+                    animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
+                    child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),
                   ),
-                ),
-              )
+
+                  ),
 
 
-            ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 35,
+                    // height: 30,
+                  ),
 
+
+                  Expanded(
+                      child:  Container(
+                        color: Colors.white,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildBottomSectionDesign(),
+                            ],
+                          ),
+                        ),
+                      )
+
+
+                  ),
+
+
+                ],
+              ),
+
+              /* add child content here */
+            ),),
 
           ],
         ),
 
-        /* add child content here */
       ),
+
+
+
+
     );
   }
 
