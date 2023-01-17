@@ -21,111 +21,145 @@ class WishListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body:Container(
-          decoration: BoxDecoration(
-            color:fnf_title_bar_bg_color,
-          ),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
-                // height: 50,
-              ),
-              Flex(direction: Axis.horizontal,
-                children: [
-                  SizedBox(width: 5,),
-                  IconButton(
-                    iconSize: 20,
-                    icon:Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  SizedBox(width: 5,),
-                  Expanded(child: Text(
-                    "WISH LIST",
-                    style: TextStyle(color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 17
-                    ),
-                  )),
+      body:RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        onRefresh: () async {
 
+          wishListPageController.onInit();
 
-                ],
-              ),
-              Expanded(child: Container(
-                color: Colors.white,
+          await Future.delayed(const Duration(seconds: 1));
+          //updateDataAfterRefresh();
+        },
+        child:  Column(
+          children: [
 
-                child: Column(
-                  children: [
-
-                   Obx(() =>  Expanded(
-                       child:wishListPageController.wishList.length>0? Container(
-                         color: Colors.white,
-                         child:  ListView.builder(
-                             padding: EdgeInsets.zero,
-                             itemCount:1,
-                             shrinkWrap: true,
-                             //physics: const NeverScrollableScrollPhysics(),
-                             itemBuilder: (BuildContext context, int index) {
-                               return Column(
-                                 children: [
-                                   Obx(() => ListView.builder(
-                                       padding: EdgeInsets.zero,
-                                       itemCount: wishListPageController.wishList.length>0 ? wishListPageController.wishList.length:0,
-                                       shrinkWrap: true,
-                                       physics: const NeverScrollableScrollPhysics(),
-                                       itemBuilder: (BuildContext context, int index) {
-                                         return cartItem(wishListPageController.wishList[index]);
-                                       }))
-                                 ]
-
-                                 ,
-                               );
-                             }),
-                       ):
-                       Center(child:
-                       Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                           Image.asset(
-                             "assets/images/not_found.png",
-                             width: 180,
-                             height: 80,
-                           ),
-                           SizedBox(height: 20,),
-                           Text(
-                             "Wish list not fount!",
-                             overflow: TextOverflow.ellipsis,
-                             softWrap: false,
-                             maxLines: 1,
-                             style: TextStyle(
-                                 color:text_color,
-                                 fontSize: 15,
-                                 decoration: TextDecoration.none,
-                                 fontWeight: FontWeight.w500),
-                           )
-                         ],
-                       )
-
-                         ,)
-
-
-                   ),)
-
-
-                  ],
+            Expanded(child: Container(
+                decoration: BoxDecoration(
+                  color:fnf_title_bar_bg_color,
                 ),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 22,
+                      // height: 50,
+                    ),
+                    Flex(direction: Axis.horizontal,
+                      children: [
+                        SizedBox(width: 5,),
+                        IconButton(
+                          iconSize: 20,
+                          icon:Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        SizedBox(width: 5,),
+                        Expanded(child: Text(
+                          "WISH LIST",
+                          style: TextStyle(color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17
+                          ),
+                        )),
 
-              ))
-            ],
-          )
 
-      )
+                      ],
+                    ),
+                    Expanded(child: Container(
+                      color: Colors.white,
+
+                      child: Column(
+                        children: [
+
+                          Obx(() =>  Expanded(
+                              child:wishListPageController.wishList.length>0? Container(
+                                color: Colors.white,
+                                child:  ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount:1,
+                                    shrinkWrap: true,
+                                    //physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Column(
+                                        children: [
+                                          Obx(() => ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              itemCount: wishListPageController.wishList.length>0 ? wishListPageController.wishList.length:0,
+                                              shrinkWrap: true,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              itemBuilder: (BuildContext context, int index) {
+                                                return cartItem(wishListPageController.wishList[index]);
+                                              }))
+                                        ]
+
+                                        ,
+                                      );
+                                    }),
+                              ):
+
+                              LayoutBuilder(
+                                builder: (context, constraints) => ListView(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(20.0),
+                                      constraints: BoxConstraints(
+                                        minHeight: constraints.maxHeight,
+                                      ),
+                                      child: Center(
+                                        child:Column(
+
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/not_found.png",
+                                              width: 180,
+                                              height: 80,
+                                            ),
+                                            SizedBox(height: 20,),
+                                            Text(
+                                              "Wish list not fount!",
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: false,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color:text_color,
+                                                  fontSize: 15,
+                                                  decoration: TextDecoration.none,
+                                                  fontWeight: FontWeight.w500),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+
+                          ),)
+
+
+                        ],
+                      ),
+
+                    ))
+                  ],
+                )
+
+            )),
+
+          ],
+        ),
+
+      ),
+
+
+
     );
 
 
