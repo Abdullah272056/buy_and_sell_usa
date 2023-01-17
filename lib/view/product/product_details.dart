@@ -48,163 +48,185 @@ class ProductDetailsePageScreen extends StatelessWidget {
     return Scaffold(
       key: _drawerKey,
       drawer: CustomDrawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          color:fnf_title_bar_bg_color,
-        ),
-        child: Flex(
-          direction: Axis.vertical,
+      body: RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        onRefresh: () async {
+
+          productDetailsController.onInit();
+
+          await Future.delayed(const Duration(seconds: 1));
+          //updateDataAfterRefresh();
+        },
+        child:  Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 22,
-              // height: 50,
-            ),
-            Container(
-             // height: 50,
-              // color: fnf_title_bar_bg_color,//
-              child: Flex(direction: Axis.horizontal,
-                children: [
-                  SizedBox(width: 5,),
-                  IconButton(
-                    iconSize: 20,
-                    icon:Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                     Get.back();
-                    },
-                  ),
-                  SizedBox(width: 5,),
-                  Expanded(child: Text(
-                      "Product Details",
-                    style: TextStyle(color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                      fontSize: 17
-                    ),
-                  )),
-                  Badge(
-                    badgeContent: Obx(()=>Text(
-                      productDetailsController.cartCount.value.toString(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500
-                      ),
-                    )),
-                    badgeColor: fnf_color,
-                    child: InkWell(
-                      onTap: (){
 
-                        Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                      },
-                      child: Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20,),
-                ],
+            Expanded(child:  Container(
+              decoration: BoxDecoration(
+                color:fnf_title_bar_bg_color,
               ),
-            ),
-
-
-            Expanded(child: Container(
-              color: Colors.white,
-
-              child: Column(
+              child: Flex(
+                direction: Axis.vertical,
                 children: [
-                  Expanded(
-                      child: Container(
-                        color: Colors.white,
-                        child:  SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              _buildBottomSectionDesign(),
-                            ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 22,
+                    // height: 50,
+                  ),
+                  Container(
+                    // height: 50,
+                    // color: fnf_title_bar_bg_color,//
+                    child: Flex(direction: Axis.horizontal,
+                      children: [
+                        SizedBox(width: 5,),
+                        IconButton(
+                          iconSize: 20,
+                          icon:Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        SizedBox(width: 5,),
+                        Expanded(child: Text(
+                          "Product Details",
+                          style: TextStyle(color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17
+                          ),
+                        )),
+                        Badge(
+                          badgeContent: Obx(()=>Text(
+                            productDetailsController.cartCount.value.toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500
+                            ),
+                          )),
+                          badgeColor: fnf_color,
+                          child: InkWell(
+                            onTap: (){
+
+                              Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                            },
+                            child: Icon(
+                              Icons.shopping_cart_outlined,
+                              size: 25,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      )
-
-
+                        SizedBox(width: 20,),
+                      ],
+                    ),
                   ),
 
-                  //add to cart button section
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
 
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      borderRadius:   BorderRadius.only(
-                        topRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                      ),
-                      boxShadow: [BoxShadow(
+                  Expanded(child: Container(
+                    color: Colors.white,
 
-                        color:Colors.grey.withOpacity(.5),
-                        //  blurRadius: 20.0, // soften the shadow
-                        blurRadius:.5, // soften the shadow
-                        spreadRadius: 0.0, //extend the shadow
-                        offset:Offset(
-                          1.0, // Move to right 10  horizontally
-                          0.0, // Move to bottom 10 Vertically
-                          // Move to bottom 10 Vertically
-                        ),
-                      )],
-                    ),
-                    child: Row(
+                    child: Column(
                       children: [
-                       Container(
-                         margin: EdgeInsets.only(left: 0,right: 30),
-                         child:  Badge(
-                           badgeContent:Obx(()=> Text(
-                             productDetailsController.cartCount.value.toString(),
-                             style: TextStyle(
-                                 color: Colors.white,
-                                 fontSize: 11,
-                                 fontWeight: FontWeight.w500
-                             ),
-                           )),
-                           badgeColor: Colors.blue,
-                           child:  InkWell(
-                             onTap: (){
-
-                               // _showToast("ddd")
-                               Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                             },
-                             child: Icon(
-                               Icons.shopping_cart_outlined,
-                               size: 30,
-                               color: Colors.blue,
-                             ),
-                           ),
+                        Expanded(
+                            child: Container(
+                              color: Colors.white,
+                              child:  SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    _buildBottomSectionDesign(),
+                                  ],
+                                ),
+                              ),
+                            )
 
 
-                         ),
-                       ),
+                        ),
 
-                        Expanded(child: _buildAddToCartButton()),
+                        //add to cart button section
+                        Container(
+                          height: 50,
+                          padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+
+                          decoration: BoxDecoration(
+                            color:Colors.white,
+                            borderRadius:   BorderRadius.only(
+                              topRight: Radius.circular(10.0),
+                              topLeft: Radius.circular(10.0),
+                            ),
+                            boxShadow: [BoxShadow(
+
+                              color:Colors.grey.withOpacity(.5),
+                              //  blurRadius: 20.0, // soften the shadow
+                              blurRadius:.5, // soften the shadow
+                              spreadRadius: 0.0, //extend the shadow
+                              offset:Offset(
+                                1.0, // Move to right 10  horizontally
+                                0.0, // Move to bottom 10 Vertically
+                                // Move to bottom 10 Vertically
+                              ),
+                            )],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 0,right: 30),
+                                child:  Badge(
+                                  badgeContent:Obx(()=> Text(
+                                    productDetailsController.cartCount.value.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  )),
+                                  badgeColor: Colors.blue,
+                                  child:  InkWell(
+                                    onTap: (){
+
+                                      // _showToast("ddd")
+                                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                                    },
+                                    child: Icon(
+                                      Icons.shopping_cart_outlined,
+                                      size: 30,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+
+
+                                ),
+                              ),
+
+                              Expanded(child: _buildAddToCartButton()),
 
 
 
+                            ],
+                          ),
+
+                        ),
                       ],
                     ),
 
-                  ),
+                  ))
+
+
                 ],
               ),
 
-            ))
-
+              /* add child content here */
+            ),),
 
           ],
         ),
 
-        /* add child content here */
-      ),
+      )
+
+
+
     );
   }
 
