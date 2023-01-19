@@ -2,14 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fnf_buy/api_service/sharePreferenceDataSaveName.dart';
+import 'package:fnf_buy/data_base/share_pref/sharePreferenceDataSaveName.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import '../view/auth/log_in_page.dart';
-import '../view/auth/sign_up_page.dart';
-import '../view/common_page/dash_board_page.dart';
+import '../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../controller/dash_board_controller/home_controller.dart';
+import '../view/auth/user/log_in_page.dart';
+import '../view/auth/user/sign_up_page.dart';
+import '../view/dash_board/dash_board_page.dart';
 import 'api_service.dart';
 
 class LogInApiService {
@@ -28,7 +30,7 @@ class LogInApiService {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
 
-          showLoadingDialog("Checking");
+          showLoadingDialog("Checking...");
 
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
 
@@ -48,8 +50,10 @@ class LogInApiService {
             saveUserInfo(
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
-            Get.to(DashBoardPageScreen());
-           // Get.offAll(DashBoardPageScreen());
+
+            Get.deleteAll();
+            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+
           }
           else if (response.statusCode == 401) {
             _showToast("User name or password not match!");
@@ -75,7 +79,6 @@ class LogInApiService {
       _showToast("No Internet Connection!");
     }
   }
-
 
 
   ///user info with share pref

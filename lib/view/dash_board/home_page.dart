@@ -8,16 +8,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
-import '../../../controller/home_controller.dart';
+import '../../controller/dash_board_controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
-import '../../controller/product_details_controller.dart';
-import '../auth/log_in_page.dart';
-import '../auth/sign_up_page.dart';
-import '../common_page/product_details.dart';
-import '../common_page/custom_drawer.dart';
-import '../common_page/product_list.dart';
-import 'cart_page.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/product_controller/product_details_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
+import '../auth/user/log_in_page.dart';
+import '../auth/user/sign_up_page.dart';
+import '../drawer/custom_drawer.dart';
+import '../product/product_details.dart';
+
+import '../product/product_list.dart';
+import '../cart/cart_page.dart';
 
 class HomePageScreen extends StatelessWidget {
   // HomePageScreen({Key? key}) : super(key: key);
@@ -46,176 +49,200 @@ class HomePageScreen extends StatelessWidget {
     return Scaffold(
       key: _drawerKey,
       drawer: CustomDrawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          color:fnf_title_bar_bg_color,
-        ),
-        child: Flex(
-          direction: Axis.vertical,
+      body: RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        onRefresh: () async {
+
+          homeController.onInit();
+
+          await Future.delayed(const Duration(seconds: 1));
+          //updateDataAfterRefresh();
+        },
+        child:  Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 18,
-              // height: 50,
-            ),
 
-            ///title bar
-            Obx(() => homeController.searchBoxVisible==0?
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 30),
-                  child: InkResponse(
-                    onTap: () {
-
-                      if (_drawerKey.currentState!.isDrawerOpen) {
-                        homeController.isDrawerOpen(false);
-                        _drawerKey.currentState!.openEndDrawer();
-                        return;
-                      } else
-                        _drawerKey.currentState!.openDrawer();
-                      homeController.isDrawerOpen(true);
-                    },
-                    child: const Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
+            Expanded(child: Container(
+              decoration: BoxDecoration(
+                color:fnf_title_bar_bg_color,
+              ),
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 18,
+                    // height: 50,
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: InkWell(
 
-                    onTap: () {
-                      homeController. searchBoxVisible(1);
-                    },
-                    child:  Icon(
-                      Icons.search_rounded,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      child:  Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: InkWell(
+                  ///title bar
+                  Obx(() => homeController.searchBoxVisible==0?
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 30),
+                        child: InkResponse(
+                          onTap: () {
 
-                            onTap: () {
-                            },
-                            child: Image.asset(
-                              "assets/images/fnf_logo.png",
-                              // width: 25,
-                              fit: BoxFit.fill,
-                              height: 35,
-                            ),
+                            if (_drawerKey.currentState!.isDrawerOpen) {
+                              homeController.isDrawerOpen(false);
+                              _drawerKey.currentState!.openEndDrawer();
+                              return;
+                            } else
+                              _drawerKey.currentState!.openDrawer();
+                            homeController.isDrawerOpen(true);
+                          },
+                          child: const Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                            size: 25.0,
                           ),
                         ),
                       ),
-                    )),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        child: InkWell(
 
-
-
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: InkWell(
-
-                    onTap: () {
-                      if(homeController.userToken.isNotEmpty &&
-                          homeController.userToken.value!=null){
-                       // _showToast(homeController.userToken.toString());
-                      //  _showToast("add favourite");
-                        Get.to(WishListPage());
-                      }else{
-                        showLoginWarning();
-                      }
-
-                    },
-                    child:  Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 25),
-                  child: InkWell(
-
-                    onTap: () {
-
-                      Get.to(CartPage());
-                    },
-                    child: Badge(
-                      badgeContent:Obx(()=> Text(
-                        homeController.cartCount.value.toString(),
-                        style: TextStyle(
+                          onTap: () {
+                            homeController. searchBoxVisible(1);
+                          },
+                          child:  Icon(
+                            Icons.search_rounded,
                             color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500
+                            size: 25.0,
+                          ),
                         ),
-                      )),
-                      badgeColor:fnf_color,
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                        size: 25.0,
                       ),
-                    ),
+                      Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child:  Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 30),
+                                child: InkWell(
+
+                                  onTap: () {
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/fnf_logo.png",
+                                    // width: 25,
+                                    fit: BoxFit.fill,
+                                    height: 35,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )),
 
 
 
-                  ),
-                ),
-              ],
-            ):
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: InkWell(
 
-            DelayedWidget(
-              delayDuration: const Duration(milliseconds: 10),// Not required
-              animationDuration: const Duration(milliseconds: 500),// Not required
-              animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-              child: userInputSearchField(homeController.searchController!, 'Search product', TextInputType.text),
-            ),
+                          onTap: () {
+                            if(homeController.userToken.isNotEmpty &&
+                                homeController.userToken.value!="null"&&
+                                homeController.userToken.value!=null){
+                              // _showToast(homeController.userToken.toString());
+                              //  _showToast("add favourite");
+                              Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                            }else{
+                              showLoginWarning();
+                            }
 
-            ),
+                          },
+                          child:  Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 25),
+                        child: InkWell(
+
+                          onTap: () {
+
+                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                          },
+                          child: Badge(
+                            badgeContent:Obx(()=> Text(
+                              homeController.cartCount.value.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500
+                              ),
+                            )),
+                            badgeColor:fnf_color,
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
 
 
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 35,
-              // height: 30,
-            ),
 
-
-            Expanded(
-              child:  Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _buildBottomSectionDesign(),
+                        ),
+                      ),
                     ],
+                  ):
+
+                  DelayedWidget(
+                    delayDuration: const Duration(milliseconds: 10),// Not required
+                    animationDuration: const Duration(milliseconds: 500),// Not required
+                    animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
+                    child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),
                   ),
-                ),
-              )
+
+                  ),
 
 
-            ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 35,
+                    // height: 30,
+                  ),
 
+
+                  Expanded(
+                      child:  Container(
+                        color: Colors.white,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildBottomSectionDesign(),
+                            ],
+                          ),
+                        ),
+                      )
+
+
+                  ),
+
+
+                ],
+              ),
+
+              /* add child content here */
+            ),),
 
           ],
         ),
 
-        /* add child content here */
       ),
+
+
+
+
     );
   }
 
-  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputSearchField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 50,
       alignment: Alignment.center,
@@ -227,7 +254,7 @@ class HomePageScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextFormField(
-          controller: userInput,
+          controller: userInputController,
           textInputAction: TextInputAction.search,
           autofocus: true,
           cursorColor:fnf_color,
@@ -261,9 +288,24 @@ class HomePageScreen extends StatelessWidget {
                   size: 25,
                 ),
                 onPressed: () {
+
+                  String searchValue = homeController.searchController.value.text;
+
+                  if(searchValue.isNotEmpty){
+                    Get.to(() => ProductListPage(), arguments: [
+                      {"categoriesId": ""},
+                      {"subCategoriesId": ""},
+                      {"searchValue": searchValue},
+
+                    ])?.then((value) => Get.delete<ProductDetailsController>());
+                  }else{
+                    _showToast("Enter search value!");
+                  }
+
                  // homeController. searchBoxVisible(0);
 
                 }),
+
 
             hintText: hintTitle,
 
@@ -279,11 +321,19 @@ class HomePageScreen extends StatelessWidget {
 
           },
           onFieldSubmitted: (value) {
-            if (value.isNotEmpty) {
-             // _search_courseList(value);
-              // _showToast(value);
-              /// Navigator.push(context,MaterialPageRoute(builder: (context)=>SearchResultFileScreen(inputValue: value,)));
+            String searchValue = homeController.searchController.value.text;
+
+            if(searchValue.isNotEmpty){
+              Get.to(() => ProductListPage(), arguments: [
+                {"categoriesId": ""},
+                {"subCategoriesId": ""},
+                {"searchValue": searchValue},
+
+              ])?.then((value) => Get.delete<ProductDetailsController>());
+            }else{
+            //  _showToast("Enter search value!");
             }
+
           },
 
           keyboardType: keyboardType,
@@ -328,7 +378,8 @@ class HomePageScreen extends StatelessWidget {
         homeController.subCategoriesButtonColorStatus (index) ;
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
-          {"subCategoriesId": ""}
+          {"subCategoriesId": ""},
+          {"searchValue": ""},
         ])?.then((value) => Get.delete<ProductDetailsController>());
 
 
@@ -505,7 +556,8 @@ class HomePageScreen extends StatelessWidget {
                                             onTap: (){
                                               Get.to(() => ProductListPage(), arguments: [
                                                 {"categoriesId": homeController.homeDataList[index]["category_id"].toString()},
-                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()}
+                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()},
+                                                {"searchValue": ""},
                                               ]);
                                           //     _showToast(homeController.homeDataList[index]["category_id"].toString());
                                           // _showToast(homeController.homeDataList[index]["sub_categories"][index1]["id"].toString());
@@ -628,7 +680,9 @@ class HomePageScreen extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
                                 placeholder: 'assets/images/loading.png',
-                                image:BASE_URL_API_IMAGE_PRODUCT+response["cover_image"].toString(),
+                                image:BASE_URL_API_IMAGE_PRODUCT+
+
+                                    response["cover_image"].toString(),
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                       'assets/images/loading.png',
@@ -646,11 +700,10 @@ class HomePageScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: (){
 
-                            if(homeController.userToken.isNotEmpty &&
-                                homeController.userToken.value!=null){
-                             // _showToast("add favourite");
-                              // _showToast(response["id"].toString());
 
+                            if(homeController.userToken.isNotEmpty &&
+                                homeController.userToken.value!="null"&&
+                                homeController.userToken.value!=null){
                               homeController.addWishList(
                                   token: homeController.userToken.toString(),
                                   productId: response["id"].toString());
@@ -658,6 +711,19 @@ class HomePageScreen extends StatelessWidget {
                             }else{
                               showLoginWarning();
                             }
+
+                            // if(homeController.userToken.isNotEmpty &&
+                            //     homeController.userToken.value!=null){
+                            //  // _showToast("add favourite");
+                            //   // _showToast(response["id"].toString());
+                            //
+                            //   homeController.addWishList(
+                            //       token: homeController.userToken.toString(),
+                            //       productId: response["id"].toString());
+                            //
+                            // }else{
+                            //   showLoginWarning();
+                            // }
 
                           },
                           child: Icon(Icons.favorite_outline,
@@ -705,7 +771,7 @@ class HomePageScreen extends StatelessWidget {
                             children: [
                               RatingBarIndicator(
                                 // rating:response["avg_rating"],
-                                rating:double.parse("4.5"),
+                                rating:double.parse(response["av_review"].toString()),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color:Colors.orange,
@@ -718,7 +784,8 @@ class HomePageScreen extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                " 8 Review",
+                                response["count_review"].toString()+
+                                " Review",
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color:hint_color,
@@ -737,20 +804,26 @@ class HomePageScreen extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("\$ "+response["price"].toString(),
+                        Text(
+                          "\$ "+response["price"].toString(),
+
+
+                          // "\$ "+response["price"].toString(),
                           //  overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: hint_color,
                               fontSize: 13,
                               decoration: TextDecoration.lineThrough,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w600),
                           // softWrap: false,
                           maxLines: 1,
 
 
                         ),
                         SizedBox(width: 10,),
-                        Text("\$ "+response["price"].toString(),
+                        Text(
+                          "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                              discountedPercent: response["discount_percent"].toString()),
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
                               color: Colors.black.withOpacity(0.7),
@@ -779,6 +852,7 @@ class HomePageScreen extends StatelessWidget {
 
      ;
   }
+
 
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
@@ -871,7 +945,8 @@ class HomePageScreen extends StatelessWidget {
       onTap: (){
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
-          {"subCategoriesId": ""}
+          {"subCategoriesId": ""},
+          {"searchValue": ""},
         ])?.then((value) => Get.delete<ProductDetailsController>());
       },
       child:  Container(
@@ -1087,6 +1162,15 @@ class HomePageScreen extends StatelessWidget {
         ),
         barrierDismissible: false,
         radius: 10.0);
+  }
+
+
+  String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
+
+    return double.parse(((double.parse(regularPrice)-
+        ((double.parse(regularPrice)*
+            double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
+
   }
 
 
