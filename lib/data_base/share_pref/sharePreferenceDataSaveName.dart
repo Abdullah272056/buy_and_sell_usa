@@ -6,6 +6,3 @@ String pref_user_token = "$pref_file_base_name.pref_user_token";
 String pref_user_type = "$pref_file_base_name.pref_user_type";
 
 
-
-
-

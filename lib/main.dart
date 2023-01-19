@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_log_in_page.dart';
 import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_sign_up_page.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
+import 'package:fnf_buy/view/profile_section/account%20_details_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       // debugShowCheckedModeBanner: false,
       home:
       //ProfileSectionPage(),
-      VendorLogInScreen(),
+      DashBoardPageScreen(),
     );
 
   }
@@ -37,9 +38,7 @@ class MyApp extends StatelessWidget {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {
-
     //_showToast("resumed");
-
     }
   }
 

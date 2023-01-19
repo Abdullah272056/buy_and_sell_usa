@@ -11,8 +11,10 @@ import 'package:image_picker/image_picker.dart';
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
  import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/checkout_step_controller/checkout_page_controller.dart';
+import '../../controller/profile_section_controllert/image_full_view_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
+import 'image_full_view_screen.dart';
 
 
 
@@ -22,9 +24,6 @@ class AccountDetailsPage extends StatelessWidget {
   final accountDetailsPageController = Get.put(AccountDetailsPageController());
   var width;
   var height;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -198,9 +197,6 @@ class AccountDetailsPage extends StatelessWidget {
 
       )
     );
-
-
-
   }
 
   Widget _buildImageSection() {
@@ -219,18 +215,28 @@ class AccountDetailsPage extends StatelessWidget {
                     height: 120,
                     width: 120,
                     color: Colors.black26,
-                    child:Obx(() => FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      placeholder: 'assets/images/loading.png',
-                      image: "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value,
-                      // accountDetailsPageController.imageLink.value,
-                      imageErrorBuilder: (context, url, error) => Image.asset(
-                        'assets/images/loading.png',
+                    child:InkResponse(
+                      child: Obx(() => FadeInImage.assetNetwork(
                         fit: BoxFit.cover,
-                      ),
-                    ))),
+                        placeholder: 'assets/images/loading.png',
+                        image: "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value,
+                        // accountDetailsPageController.imageLink.value,
+                        imageErrorBuilder: (context, url, error) => Image.asset(
+                          'assets/images/loading.png',
+                          fit: BoxFit.cover,
+                        ),
+                      )),
+                    )),
               ),
               onTap: () {
+
+
+                Get.to(() => ImageFullViewPage(), arguments: [
+                  {"imageLink": "https://fnfbuy.bizoytech.com/public/frontend/profile/"+accountDetailsPageController.imageLink.value.toString()},
+                ])?.then((value) => Get.delete<ImageFullViewPageController>());
+
+
+
                 // if (_imageLink.isNotEmpty) {
                 //   Navigator.push(
                 //       context,
@@ -238,6 +244,7 @@ class AccountDetailsPage extends StatelessWidget {
                 //           builder: (context) =>
                 //               ProfileFullScreenImage(_imageLink)));
                 // }
+
               },
             ),
             Row(
@@ -282,7 +289,6 @@ class AccountDetailsPage extends StatelessWidget {
       ],
     );
   }
-
 
   // Widget userStateSelect1() {
   //   return Column(
@@ -452,6 +458,7 @@ class AccountDetailsPage extends StatelessWidget {
     )
     ;
   }
+
   Widget userCountrySelect() {
     return Column(
       children: [
@@ -667,7 +674,6 @@ class AccountDetailsPage extends StatelessWidget {
       ),
     );
   }
-
 
   //user Email input field create
   Widget _buildTextFieldUserEmail({
@@ -931,7 +937,6 @@ class AccountDetailsPage extends StatelessWidget {
     );
   }
 
-
   //user town or city input field create
   Widget _buildTextFieldUserTownOrCity({
     required bool obscureText,
@@ -1064,7 +1069,6 @@ class AccountDetailsPage extends StatelessWidget {
     );
   }
 
-
   Widget _buildAccountDetailsUpdateButton() {
     return ElevatedButton(
       onPressed: () {
@@ -1194,7 +1198,6 @@ class AccountDetailsPage extends StatelessWidget {
 
     return false;
   }
-
 
   //toast create
   _showToast(String message) {

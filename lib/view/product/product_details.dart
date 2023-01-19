@@ -1533,13 +1533,14 @@ class ProductDetailsePageScreen extends StatelessWidget {
   }
 
   //description
-  Widget _buildDescriptionDesign() {
+  Widget _buildDescriptionDesign(){
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
 
+
+        Container(
           margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 15),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -1553,6 +1554,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
             ),
           ),
         ),
+
         Container(
           margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 10),
           child: Align(
@@ -1567,6 +1569,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
             ),)
           ),
         ),
+
 
       ],
     );
@@ -2581,17 +2584,14 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 {"couponSellerId": ""},
               ])?.then((value) => Get.delete<ProductDetailsController>());
               //_showToast("go to checkout process");
-            }else{
+            }
+            else{
               showLoginWarning();
             }
           }else{
             Get.back();
           }
-
-
           // _showToast(zipCode.toString());
-
-
 
         }else{
           _showToast("please Enter Zip code!");
@@ -2631,13 +2631,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
-
     return double.parse(((double.parse(regularPrice)-
         ((double.parse(regularPrice)*
             double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
-
   }
-
 
 
 }

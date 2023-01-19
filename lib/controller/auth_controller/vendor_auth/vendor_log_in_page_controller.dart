@@ -1,8 +1,6 @@
 
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -10,15 +8,13 @@ import 'package:get_storage/get_storage.dart';
 import '../../../api_service/api_service.dart';
 import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
-import '../../../view/dash_board/dash_board_page.dart';
-import '../../dash_board_controller/dash_board_page_controller.dart';
 import 'package:http/http.dart' as http;
+
 class VendorLogInPageController extends GetxController {
 
   ///input box controller
   final userEmailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
-
   final  userEmailControllerFocusNode = FocusNode().obs;
   final  passwordControllerFocusNode = FocusNode().obs;
 
@@ -28,8 +24,6 @@ class VendorLogInPageController extends GetxController {
   var emailFocusNode = FocusNode().obs;
   var isObscure = true.obs;
 
-
-
   updateUserNameLevelTextColor(Color value) {
     userEmailLevelTextColor(value);
   }
@@ -37,7 +31,6 @@ class VendorLogInPageController extends GetxController {
   updateIsObscure(var value) {
     isObscure(value);
   }
-
 
   vendorLogIn({
     required String email,
@@ -127,7 +120,6 @@ class VendorLogInPageController extends GetxController {
     return false;
   }
 
-
   ///user info with share pref
   void saveUserInfo({required String userName,required String userToken,}) async {
     try {
@@ -142,7 +134,6 @@ class VendorLogInPageController extends GetxController {
   }
 
   void showLoadingDialog(String message) {
-
     Get.defaultDialog(
         title: '',
         titleStyle: TextStyle(fontSize: 0),
@@ -197,7 +188,5 @@ class VendorLogInPageController extends GetxController {
         textColor: fnf_color,
         fontSize: 16.0);
   }
-
-
 
 }

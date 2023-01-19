@@ -50,8 +50,6 @@ class VendorLogInScreen extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildBodyDesign() {
     return Center(
       child: SingleChildScrollView(
@@ -376,7 +374,6 @@ class VendorLogInScreen extends StatelessWidget {
       ],
     );
   }
-
 
 }
 
