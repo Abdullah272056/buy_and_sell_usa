@@ -30,9 +30,7 @@ class MyApp extends StatelessWidget {
       // debugShowCheckedModeBanner: false,
       home:
       //ProfileSectionPage(),
-      VendorOrderPage(),
-
-
+      DashBoardPageScreen(),
     );
 
   }

@@ -530,8 +530,6 @@ class VendorOrderPage extends StatelessWidget {
                       ),
                     ),),
 
-
-
                   ],
                 ),
                 const SizedBox(height: 20),
