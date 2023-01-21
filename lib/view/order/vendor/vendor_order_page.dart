@@ -362,6 +362,7 @@ class VendorOrderPage extends StatelessWidget {
                 Container(
                   child: Column(
                     children: [
+
                       IconButton(
                         iconSize: 20,
                         color: hint_color,
@@ -374,6 +375,7 @@ class VendorOrderPage extends StatelessWidget {
 
                         },
                       ),
+
                       Text(
                           response["status"].toString(),
                         overflow: TextOverflow.ellipsis,
@@ -385,6 +387,7 @@ class VendorOrderPage extends StatelessWidget {
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.w500),
                       ),
+
                     ],
                   ),
                 )

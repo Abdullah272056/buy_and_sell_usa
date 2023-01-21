@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../controller/dash_board_controller/home_controller.dart';
 
 import '../../api_service/api_service.dart';
@@ -449,187 +450,345 @@ class HomePageScreen extends StatelessWidget {
         child: Padding(
             padding:
             const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
-            child: Column(
+            child: Obx(()=>Column(
               children: [
 
-                ///categories tab section
-                _buildTabButton(),
 
-                ///slider section
-                SizedBox(
-                  height: sizeHeight * 0.23,
-                  child: Swiper(
-                    itemCount: 7,
-                    itemBuilder: (ctx, index) {
-                      return InkWell(
-                        onTap: (){
-                          _showToast(index.toString());
-                        },
-                        child: _sliderCardDesign(),
-                      ) ;
-                    },
-                    autoplay: true,
-                    pagination: const SwiperPagination(
-                        alignment: Alignment.bottomCenter,
-                        builder: DotSwiperPaginationBuilder(
-                            color: Colors.white,
-                            activeColor: Colors.green)),
-                    // control: const SwiperControl(),
+                if(homeController.tabShimmerStatus==1)...{
+
+
+                  Container(
+                    margin: const EdgeInsets.only(top: 20,bottom: 20,left: 20,right: 20),
+                    height: 30,
+                    child: Row(
+                      children: [
+                        Expanded(child: ListView.builder(
+                            itemCount:10,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+
+                              return  Shimmer.fromColors(
+                                baseColor: shimmer_baseColor ,
+                                highlightColor: shimmer_highlightColor ,
+                                child:Container(
+
+                                  margin: const EdgeInsets.only(right: 10.0,left: 0,bottom: 0),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor ,
+                                  ),
+                                  height: 25,
+                                  width: 70,
+
+
+                                ),
+                              );
+
+                            }),)
+                      ],
+                    ),
                   ),
-                ),
 
-                Container(
-                  padding: const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
-                  margin  : const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 10),
-                  height: 190,
-                  // color: Colors.lime,
-                  child: Center(
-                    child: Obx(() => GridView.builder(
-                        itemCount:homeController.categoriesDataList.length,
-                        padding: EdgeInsets.only(left: 10,right: 10),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
-                            mainAxisExtent: 60
+                  ///shimmer
+                  SizedBox(
+                    height: sizeHeight * 0.23,
+                    child: Swiper(
+                      itemCount: 1,
+                      itemBuilder: (ctx, index) {
+                        return InkWell(
 
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return  categoriesListItemDesign(response: homeController.categoriesDataList[index]);
-                          // return _buildRecentlyCourseItemForGrid(_recentlyAddedCourse[index]);
-                        }),)
+                          child: _sliderCardDesignShimmer(),
+                        ) ;
+                      },
+                      autoplay: true,
+                      pagination: const SwiperPagination(
+                          alignment: Alignment.bottomCenter,
+                          builder: DotSwiperPaginationBuilder(
+                              color: Colors.white,
+                              activeColor: hint_color)),
+                      // control: const SwiperControl(),
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15,right: 15),
+                    child: ///shimmer
+                    Container(
+                      padding: const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
+                      margin  : const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 10),
+                      height: 190,
+                      // color: Colors.lime,
+                      child: Center(
+                          child: GridView.builder(
+                              itemCount:14,
+                              padding: EdgeInsets.only(left: 10,right: 10),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10.0,
+                                  mainAxisSpacing: 10.0,
+                                  mainAxisExtent: 60
 
-                ////////////////////////////////////
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return  categoriesListItemDesignShimmer( );
+                                // return _buildRecentlyCourseItemForGrid(_recentlyAddedCourse[index]);
+                              })
+                      ),
+                    ),
+                  )
 
-                Obx(() =>   ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: homeController.homeDataList.isEmpty?0:homeController.homeDataList.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Obx(() => ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: homeController.homeDataList[index]["sub_categories"].isNotEmpty||
-                              homeController.homeDataList[index]["sub_categories"].length>0?
-                          homeController.homeDataList[index]["sub_categories"].length:0,
+                }
+                else...{
+                  ///categories tab section
+                  _buildTabButton(),
+                  ///slider section
+                  SizedBox(
+                    height: sizeHeight * 0.23,
+                    child: Swiper(
+                      itemCount: 7,
+                      itemBuilder: (ctx, index) {
+                        return InkWell(
+                          onTap: (){
+                            _showToast(index.toString());
+                          },
+                          child: _sliderCardDesign(),
+                        ) ;
+                      },
+                      autoplay: true,
+                      pagination: const SwiperPagination(
+                          alignment: Alignment.bottomCenter,
+                          builder: DotSwiperPaginationBuilder(
+                              color: Colors.white,
+                              activeColor: Colors.green)),
+                      // control: const SwiperControl(),
+                    ),
+                  ),
 
-                          // cartViewPageController.cartList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index1) {
-                            double regularPrice=0.0;
+                  Container(
+                    padding: const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
+                    margin  : const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 10),
+                    height: 190,
+                    // color: Colors.lime,
+                    child: Center(
+                        child: Obx(() => GridView.builder(
+                            itemCount:homeController.categoriesDataList.length,
+                            padding: EdgeInsets.only(left: 10,right: 10),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: const ClampingScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 10.0,
+                                mainAxisExtent: 60
+
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return  categoriesListItemDesign(response: homeController.categoriesDataList[index]);
+                              // return _buildRecentlyCourseItemForGrid(_recentlyAddedCourse[index]);
+                            }),)
+                    ),
+                  ),
+
+                },
+
+                if(homeController.homeShimmerStatus==1)...{
+
+
+                  ///shimmer
+                  ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount:5,
+
+                      // cartViewPageController.cartList.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index1) {
+                        double regularPrice=0.0;
 
 
 
-                            return homeController.homeDataList[index]["sub_categories"].length>0? Column(
+                        return Column(
+                          children: [
+                            Row(
                               children: [
-                                if(homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0)...{
-                                  Container(
-                                    margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                                    child:  Flex(direction: Axis.horizontal,
-                                      children: [
-
-                                        Expanded(child: Align(
-                                          alignment: Alignment.topLeft,
-                                          child:  Obx(()=>Text(
-                                            homeController.homeDataList[index]["sub_categories"][index1]["subcategory_name"].toString(),
-                                            // homeController.homeDataList[index],
-                                            // "Mens Fashion",
-                                            style: TextStyle(
-                                                color:text_color,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                            // textAlign: TextAlign.left,
-
-                                          )),
-                                        ),),
+                                Expanded(child: Shimmer.fromColors(
+                                  baseColor: shimmer_baseColor ,
+                                  highlightColor: shimmer_highlightColor ,
+                                  child:Container(
+                                    margin: const EdgeInsets.only(right: 0.0,left: 10,bottom: 0),
+                                    decoration: BoxDecoration(
+                                      color: shimmer_baseColor ,
+                                    ),
+                                    height: 22,
+                                    width: double.infinity,
 
 
-                                        Container(
-                                          margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
-                                          child: InkResponse(
-                                            onTap: (){
-                                              Get.to(() => ProductListPage(), arguments: [
-                                                {"categoriesId": homeController.homeDataList[index]["category_id"].toString()},
-                                                {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()},
-                                                {"searchValue": ""},
-                                              ]);
-                                          //     _showToast(homeController.homeDataList[index]["category_id"].toString());
-                                          // _showToast(homeController.homeDataList[index]["sub_categories"][index1]["id"].toString());
-                                              //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
+                                  ),
+                                ),),
+                                Expanded(child: Container()),
+                              ],
+                            ),
 
-                                            },
-                                            child: Image.asset(
-                                              "assets/images/arrow_right.png",
-                                              color: fnf_small_color,
-                                              width: 27,
-                                              height: 27,
-                                              fit: BoxFit.fill,
+                            Container(
+                                margin: const EdgeInsets.only(top: 15),
+                                height:270.0,
+
+                                // child: _buildRecentlyAddedCourseItem(),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return  _buildRecentlyAddedCourseItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                )
+                            ),
+
+                            SizedBox(height: 30,)
+
+                          ],
+                        );
+
+                      }),
+
+                }else...{
+                  Obx(() =>   ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: homeController.homeDataList.isEmpty?0:homeController.homeDataList.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Obx(() => ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: homeController.homeDataList[index]["sub_categories"].isNotEmpty||
+                                homeController.homeDataList[index]["sub_categories"].length>0?
+                            homeController.homeDataList[index]["sub_categories"].length:0,
+
+                            // cartViewPageController.cartList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index1) {
+                              double regularPrice=0.0;
+
+
+
+                              return homeController.homeDataList[index]["sub_categories"].length>0? Column(
+                                children: [
+                                  if(homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0)...{
+                                    Container(
+                                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
+                                      child:  Flex(direction: Axis.horizontal,
+                                        children: [
+
+                                          Expanded(child: Align(
+                                            alignment: Alignment.topLeft,
+                                            child:  Obx(()=>Text(
+                                              homeController.homeDataList[index]["sub_categories"][index1]["subcategory_name"].toString(),
+                                              // homeController.homeDataList[index],
+                                              // "Mens Fashion",
+                                              style: TextStyle(
+                                                  color:text_color,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                              // textAlign: TextAlign.left,
+
+                                            )),
+                                          ),),
+
+
+                                          Container(
+                                            margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
+                                            child: InkResponse(
+                                              onTap: (){
+                                                Get.to(() => ProductListPage(), arguments: [
+                                                  {"categoriesId": homeController.homeDataList[index]["category_id"].toString()},
+                                                  {"subCategoriesId": homeController.homeDataList[index]["sub_categories"][index1]["id"].toString()},
+                                                  {"searchValue": ""},
+                                                ]);
+                                                //     _showToast(homeController.homeDataList[index]["category_id"].toString());
+                                                // _showToast(homeController.homeDataList[index]["sub_categories"][index1]["id"].toString());
+                                                //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const RecentlyAddedSeeMoreScreen()));
+
+                                              },
+                                              child: Image.asset(
+                                                "assets/images/arrow_right.png",
+                                                color: fnf_small_color,
+                                                width: 27,
+                                                height: 27,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          ),
 
+                                          )
+
+                                        ],
+                                      ),
+                                    ),
+
+
+                                    Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        height:270.0,
+
+                                        // child: _buildRecentlyAddedCourseItem(),
+                                        child:Obx(()=>
+                                            ListView.builder(
+                                              //  shrinkWrap: true,
+                                              // physics: const NeverScrollableScrollPhysics(),
+                                              itemCount:homeController.homeDataList[index]["sub_categories"][index1]["products"].isNotEmpty||
+                                                  homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0?
+                                              homeController.homeDataList[index]["sub_categories"][index1]["products"].length:0,
+                                              // itemCount:9,
+                                              itemBuilder: (context, index2) {
+                                                if(MediaQuery.of(context).size.width<450){
+
+                                                  return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
+                                                    imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
+                                                    response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2],
+
+
+                                                  );
+                                                }
+
+                                                else{
+                                                  return productCardDesign(height: 00, width: 420,
+                                                      imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
+                                                      response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2]
+                                                  );
+
+                                                }
+
+                                              },
+                                              scrollDirection: Axis.horizontal,
+                                            )
                                         )
 
-                                      ],
+
                                     ),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      height:270.0,
 
-                                      // child: _buildRecentlyAddedCourseItem(),
-                                      child:Obx(()=>
-                                          ListView.builder(
-                                            //  shrinkWrap: true,
-                                            // physics: const NeverScrollableScrollPhysics(),
-                                            itemCount:homeController.homeDataList[index]["sub_categories"][index1]["products"].isNotEmpty||
-                                                homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0?
-                                            homeController.homeDataList[index]["sub_categories"][index1]["products"].length:0,
-                                            // itemCount:9,
-                                            itemBuilder: (context, index2) {
-                                              if(MediaQuery.of(context).size.width<450){
+                                  }
 
-                                                return productCardDesign(height: 00, width: MediaQuery.of(context).size.width,
-                                                    imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
-                                                  response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2],
+                                ],
+                              ):Container();
 
+                            }));
+                      }),),
+                },
 
-                                                );
-                                              }
-
-                                              else{
-                                                return productCardDesign(height: 00, width: 420,
-                                                    imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
-                                                    response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2]
-                                                );
-
-                                              }
-
-                                            },
-                                            scrollDirection: Axis.horizontal,
-                                          )
-                                      )
-
-
-                                  ),
-
-                                }
-
-                              ],
-                            ):Container();
-
-                          }));
-                    }),),
 
 
               ],
-            )));
+            ))));
   }
+
+
 
   Widget productCardDesign({
     required double height,
@@ -661,190 +820,195 @@ class HomePageScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 10,right: 10),
           //  margin: EdgeInsets.only(left: 10,right: 10),
             // color: Colors.white,
-            child:  Column(
-              // alignment: Alignment.bottomCenter,
-              children: [
-                Container(
+            child:ClipRRect(
+              borderRadius: BorderRadius.circular(10.5),
+              child: Column(
+                // alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
 
-                  decoration: BoxDecoration(
-                    // color:Colors.white,
-                      borderRadius: BorderRadius.circular(24)),
-                  child: Stack(
+                    decoration: BoxDecoration(
+                      // color:Colors.white,
+                        borderRadius: BorderRadius.circular(24)),
+                    child: Stack(
+                      children: [
+                        AspectRatio(
+                            aspectRatio: 1,
+                            child:Padding(
+                                padding: EdgeInsets.only(left: 0,right: 0,top: 0),
+                                // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                                // padding: EdgeInsets.all(16),
+                                child: FadeInImage.assetNetwork(
+                                  fit: BoxFit.fill,
+                                  placeholder: 'assets/images/loading.png',
+                                  image:BASE_URL_API_IMAGE_PRODUCT+
+
+                                      response["cover_image"].toString(),
+                                  imageErrorBuilder: (context, url, error) =>
+                                      Image.asset(
+                                        'assets/images/loading.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                )
+                              // Image.asset(
+                              //     imageLink
+                              // ),
+                            )
+                        ),
+                        Positioned(
+                          right: 5,
+                          top: 5,
+                          child: InkWell(
+                            onTap: (){
+
+
+                              if(homeController.userToken.isNotEmpty &&
+                                  homeController.userToken.value!="null"&&
+                                  homeController.userToken.value!=null){
+                                homeController.addWishList(
+                                    token: homeController.userToken.toString(),
+                                    productId: response["id"].toString());
+
+                              }else{
+                                showLoginWarning();
+                              }
+
+                              // if(homeController.userToken.isNotEmpty &&
+                              //     homeController.userToken.value!=null){
+                              //  // _showToast("add favourite");
+                              //   // _showToast(response["id"].toString());
+                              //
+                              //   homeController.addWishList(
+                              //       token: homeController.userToken.toString(),
+                              //       productId: response["id"].toString());
+                              //
+                              // }else{
+                              //   showLoginWarning();
+                              // }
+
+                            },
+                            child: Icon(Icons.favorite_outline,
+                              color: hint_color,
+                            ),
+
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      AspectRatio(
-                          aspectRatio: 1,
-                          child:Padding(
-                              padding: EdgeInsets.only(left: 0,right: 0,top: 0),
-                              // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
-                              // padding: EdgeInsets.all(16),
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.fill,
-                                placeholder: 'assets/images/loading.png',
-                                image:BASE_URL_API_IMAGE_PRODUCT+
+                      SizedBox(height: 5,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child:  Text(
+                              response["product_name"].toString(),
 
-                                    response["cover_image"].toString(),
-                                imageErrorBuilder: (context, url, error) =>
-                                    Image.asset(
-                                      'assets/images/loading.png',
-                                      fit: BoxFit.fill,
-                                    ),
-                              )
-                            // Image.asset(
-                            //     imageLink
-                            // ),
-                          )
+                              // "Men Grey Classic Regular Fit Formal Shirt",
+                              overflow: TextOverflow.ellipsis,
+                              style:  TextStyle(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal),
+                              softWrap: false,
+                              maxLines: 1,
+
+                            ),
+                          ),
+                          // 12.widthBox,
+                          // RatingWidget(rating: widget.product.rating),
+                        ],
                       ),
-                      Positioned(
-                        right: 5,
-                        top: 5,
-                        child: InkWell(
-                          onTap: (){
-
-
-                            if(homeController.userToken.isNotEmpty &&
-                                homeController.userToken.value!="null"&&
-                                homeController.userToken.value!=null){
-                              homeController.addWishList(
-                                  token: homeController.userToken.toString(),
-                                  productId: response["id"].toString());
-
-                            }else{
-                              showLoginWarning();
-                            }
-
-                            // if(homeController.userToken.isNotEmpty &&
-                            //     homeController.userToken.value!=null){
-                            //  // _showToast("add favourite");
-                            //   // _showToast(response["id"].toString());
-                            //
-                            //   homeController.addWishList(
-                            //       token: homeController.userToken.toString(),
-                            //       productId: response["id"].toString());
-                            //
-                            // }else{
-                            //   showLoginWarning();
-                            // }
-
-                          },
-                          child: Icon(Icons.favorite_outline,
-                            color: hint_color,
+                      SizedBox(height: 5,),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Wrap(
+                              children: [
+                                RatingBarIndicator(
+                                  // rating:response["avg_rating"],
+                                  rating:double.parse(response["av_review"].toString()),
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color:Colors.orange,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 15.0,
+                                  direction: Axis.horizontal,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  response["count_review"].toString()+
+                                      " Review",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color:hint_color,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                              ],
+                            ),
                           ),
 
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "\$ "+response["price"].toString(),
 
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child:  Text(
-                            response["product_name"].toString(),
 
-                           // "Men Grey Classic Regular Fit Formal Shirt",
+                            // "\$ "+response["price"].toString(),
+                            //  overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: hint_color,
+                                fontSize: 13,
+                                decoration: TextDecoration.lineThrough,
+                                fontWeight: FontWeight.w600),
+                            // softWrap: false,
+                            maxLines: 1,
+
+
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                            "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                                discountedPercent: response["discount_percent"].toString()),
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.7),
                                 fontSize: 15,
-                                fontWeight: FontWeight.normal),
+                                fontWeight: FontWeight.w700),
                             softWrap: false,
                             maxLines: 1,
 
-                          ),
-                        ),
-                        // 12.widthBox,
-                        // RatingWidget(rating: widget.product.rating),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Wrap(
-                            children: [
-                              RatingBarIndicator(
-                                // rating:response["avg_rating"],
-                                rating:double.parse(response["av_review"].toString()),
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color:Colors.orange,
-                                ),
-                                itemCount: 5,
-                                itemSize: 15.0,
-                                direction: Axis.horizontal,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                response["count_review"].toString()+
-                                " Review",
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color:hint_color,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "\$ "+response["price"].toString(),
+                          )
 
 
-                          // "\$ "+response["price"].toString(),
-                          //  overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: hint_color,
-                              fontSize: 13,
-                              decoration: TextDecoration.lineThrough,
-                              fontWeight: FontWeight.w600),
-                          // softWrap: false,
-                          maxLines: 1,
-
-
-                        ),
-                        SizedBox(width: 10,),
-                        Text(
-                          "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
-                              discountedPercent: response["discount_percent"].toString()),
-                          overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: Colors.black.withOpacity(0.7),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                          softWrap: false,
-                          maxLines: 1,
-
-                        )
-
-
-                      ],
-                    ),
+                        ],
+                      ),
 
 
 
-                  ],
-                ),
+                    ],
+                  ),
 
-              ],
+                ],
+              ),
             ),
+
+
           )
         ],
       )
@@ -940,6 +1104,9 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
+
+
+
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
@@ -993,6 +1160,9 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
 
   void showLoginWarning( ) {
     Get.defaultDialog(
@@ -1173,5 +1343,171 @@ class HomePageScreen extends StatelessWidget {
 
   }
 
+
+
+
+  Widget _buildRecentlyAddedCourseItemShimmer({
+    required double height,
+    required double width,
+  }) {
+    return  Container(
+      width:width/2 ,
+      // height:width/1.3
+      padding: EdgeInsets.only(left: 10,right: 10),
+      //  margin: EdgeInsets.only(left: 10,right: 10),
+      // color: Colors.white,
+      child:  Column(
+        // alignment: Alignment.bottomCenter,
+        children: [
+          Expanded(child: Shimmer.fromColors(
+            baseColor: shimmer_baseColor ,
+            highlightColor: shimmer_highlightColor ,
+            child:Container(
+              margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+              decoration: BoxDecoration(
+                color: shimmer_baseColor ,
+              ),
+              height: double.infinity,
+              width: double.infinity,
+
+
+            ),
+          ),),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 7,),
+              Shimmer.fromColors(
+                baseColor: shimmer_baseColor ,
+                highlightColor: shimmer_highlightColor ,
+                child:Container(
+                  margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+                  decoration: BoxDecoration(
+                    color: shimmer_baseColor ,
+                  ),
+                  height: 20,
+                  width: double.infinity,
+
+
+                ),
+              ),
+              SizedBox(height: 5,),
+              Shimmer.fromColors(
+                baseColor: shimmer_baseColor ,
+                highlightColor: shimmer_highlightColor ,
+                child:Container(
+                  margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+                  decoration: BoxDecoration(
+                    color: shimmer_baseColor ,
+                  ),
+                  height: 15,
+                  width: double.infinity,
+
+
+                ),
+              ),
+              SizedBox(height: 5,),
+              Shimmer.fromColors(
+                baseColor: shimmer_baseColor ,
+                highlightColor: shimmer_highlightColor ,
+                child:Container(
+
+                  margin: const EdgeInsets.only(right: 35.0,left: 0,bottom: 0),
+                  decoration: BoxDecoration(
+                    color: shimmer_baseColor ,
+                  ),
+                  height: 15,
+                  width: double.infinity,
+
+
+                ),
+              ),
+
+
+
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget categoriesListItemDesignShimmer( ){
+    return Container(
+      margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 00),
+      // height: 68,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(25.5),
+            child: Shimmer.fromColors(
+              baseColor: shimmer_baseColor ,
+              highlightColor: shimmer_highlightColor ,
+              child:Container(
+                margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+                decoration: BoxDecoration(
+                  color: shimmer_baseColor ,
+                ),
+                height:50,
+                width: 50,
+
+
+              ),
+            ),
+
+
+          ),
+
+          SizedBox(height: 5,),
+
+          Shimmer.fromColors(
+            baseColor: shimmer_baseColor ,
+            highlightColor: shimmer_highlightColor ,
+            child:Container(
+              margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+              decoration: BoxDecoration(
+                color: shimmer_baseColor ,
+              ),
+              height:20,
+              width: double.infinity,
+
+
+            ),
+          )
+
+        ],
+      ),
+    );
+  }
+
+  Widget _sliderCardDesignShimmer() {
+    // Size size = MediaQuery.of(context).size;
+    double sizeHeight = Get.height;
+    return Container(
+      margin: EdgeInsets.only(left: 20,right: 20),
+      width: double.infinity,
+      height: sizeHeight * 0.2,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: shimmer_baseColor
+      ),
+      child:   Shimmer.fromColors(
+        baseColor: shimmer_baseColor ,
+        highlightColor: shimmer_highlightColor ,
+        child:Container(
+          margin: const EdgeInsets.only(right: 0.0,left: 0,bottom: 0),
+          decoration: BoxDecoration(
+            color: shimmer_baseColor ,
+          ),
+          height:double.infinity,
+          width: double.infinity,
+
+
+        ),
+      ),
+    );
+  }
 
 }

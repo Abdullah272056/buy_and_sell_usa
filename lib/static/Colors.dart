@@ -46,3 +46,6 @@ const Color  sohojatri_color = Color(0xff2146fc);
 const Color  color_demo = Color(0xffe9ffff);
 
 
+const Color shimmer_baseColor = Color(0xFFE5E4E4);
+const Color shimmer_baseColor1 = Color(0xFFFCFCFC);
+const Color shimmer_highlightColor = Color(0xFFF8F8F8);
