@@ -69,6 +69,8 @@ String SUB_URL_API_GET_CONTACT_US= "api/contact-us";
 
 ///vendor
 String SUB_URL_API_VENDOR_LOGIN= "api/login-vendor";
+String SUB_URL_API_VENDOR_DASH_BOARD_CALCULATION= "api/vendor/dashboard-vendor-card";
+String SUB_URL_API_GET_VENDOR_ORDER_LIST= "api/vendor/order-vendor";
 
 
 
