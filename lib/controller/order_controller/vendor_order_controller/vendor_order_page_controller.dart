@@ -24,7 +24,7 @@ class VendorOrderPageController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
 
-
+  var isDrawerOpen = false.obs;
 
   var selectStateId="Pending".obs;
 

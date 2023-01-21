@@ -731,6 +731,7 @@ class SignUpScreen extends StatelessWidget {
       var storage =GetStorage();
       storage.write(pref_user_name, userName);
       storage.write(pref_user_token, userToken);
+      storage.write(pref_user_type, "user");
     } catch (e) {
       //code
     }

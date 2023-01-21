@@ -16,16 +16,20 @@ import '../../../data_base/sqflite/note.dart';
 import '../../../../static/Colors.dart';
 
 
+import '../../drawer/custom_drawer.dart';
+import '../../drawer/vendor_custom_drawer.dart';
 import '../order_details_page.dart';
 
 class VendorOrderPage extends StatelessWidget {
 
   final vendorOrderPageController = Get.put(VendorOrderPageController());
-
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+        key: _drawerKey,
+        drawer: VendorCustomDrawer(),
       body:Container(
           decoration: BoxDecoration(
             color:fnf_title_bar_bg_color,
@@ -40,14 +44,22 @@ class VendorOrderPage extends StatelessWidget {
               Flex(direction: Axis.horizontal,
                 children: [
                   SizedBox(width: 10,),
+
+
                   IconButton(
-                    iconSize: 20,
+                    iconSize: 25,
                     icon:Icon(
-                      Icons.arrow_back_ios_new,
+                      Icons.menu,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Get.back();
+                      if (_drawerKey.currentState!.isDrawerOpen) {
+                        vendorOrderPageController.isDrawerOpen(false);
+                        _drawerKey.currentState!.openEndDrawer();
+                        return;
+                      } else
+                        _drawerKey.currentState!.openDrawer();
+                      vendorOrderPageController.isDrawerOpen(true);
                     },
                   ),
                   SizedBox(width: 5,),
@@ -62,7 +74,7 @@ class VendorOrderPage extends StatelessWidget {
 
                 ],
               ),
-              SizedBox(width: 15,),
+              SizedBox(height: 10,),
               Expanded(child: Container(
                 color: Colors.white,
 
@@ -110,8 +122,6 @@ class VendorOrderPage extends StatelessWidget {
 
       )
     );
-
-
 
   }
 

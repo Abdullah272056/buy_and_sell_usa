@@ -10,6 +10,9 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../view/dash_board/dash_board_page.dart';
+import '../../dash_board_controller/dash_board_page_controller.dart';
+
 class VendorLogInPageController extends GetxController {
 
   ///input box controller
@@ -62,8 +65,8 @@ class VendorLogInPageController extends GetxController {
                 userName: data["data"]["name"].toString(),
                 userToken: data["data"]["token"].toString());
 
-            // Get.deleteAll();
-            // Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+            Get.deleteAll();
+             Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
 
           }
           else if (response.statusCode == 401) {

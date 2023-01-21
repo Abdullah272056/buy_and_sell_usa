@@ -87,6 +87,7 @@ class LogInApiService {
      var storage =GetStorage();
      storage.write(pref_user_name, userName);
      storage.write(pref_user_token, userToken);
+     storage.write(pref_user_type, "user");
     // _showToast(userToken.toString());
     } catch (e) {
       //code

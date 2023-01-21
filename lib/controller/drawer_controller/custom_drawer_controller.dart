@@ -77,6 +77,7 @@ class CustomDrawerController extends GetxController {
   void loadUserIdFromSharePref() async {
     try {
       var storage =GetStorage();
+
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
    //   _showToast("qwer "+userToken.toString());

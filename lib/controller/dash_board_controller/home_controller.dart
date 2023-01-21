@@ -47,7 +47,7 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-
+    loadUserIdFromSharePref();
     super.onInit();
 
 
@@ -201,6 +201,8 @@ class HomeController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
+
+
 
    //   _showToast("Token1= "+storage.read(pref_user_token).toString());
 
