@@ -888,7 +888,7 @@ class HomePageScreen extends StatelessWidget {
 
                             },
                             child: Icon(Icons.favorite_outline,
-                              color: hint_color,
+                              color: fnf_color,
                             ),
 
                           ),
