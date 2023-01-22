@@ -645,7 +645,7 @@ class HomePageScreen extends StatelessWidget {
                                   //itemCount: offerDataList == null ? 0 : offerDataList.length,
                                   itemCount: 3,
                                   itemBuilder: (context, index) {
-                                    return  _buildRecentlyAddedCourseItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
+                                    return  _buildProductItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
                                   },
                                   scrollDirection: Axis.horizontal,
                                 )
@@ -762,32 +762,21 @@ class HomePageScreen extends StatelessWidget {
                                                       imageLink: "https://m.media-amazon.com/images/I/61TrmpaafpL._AC_UL320_.jpg",
                                                       response: homeController.homeDataList[index]["sub_categories"][index1]["products"][index2]
                                                   );
-
                                                 }
-
                                               },
                                               scrollDirection: Axis.horizontal,
                                             )
                                         )
-
-
                                     ),
-
                                   }
-
                                 ],
                               ):Container();
-
                             }));
                       }),),
                 },
-
-
-
               ],
             ))));
   }
-
 
 
   Widget productCardDesign({
@@ -1017,7 +1006,6 @@ class HomePageScreen extends StatelessWidget {
      ;
   }
 
-
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
     double sizeHeight = Get.height;
@@ -1104,9 +1092,6 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
-
-
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
@@ -1160,9 +1145,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
 
   void showLoginWarning( ) {
     Get.defaultDialog(
@@ -1334,7 +1316,6 @@ class HomePageScreen extends StatelessWidget {
         radius: 10.0);
   }
 
-
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 
     return double.parse(((double.parse(regularPrice)-
@@ -1345,8 +1326,8 @@ class HomePageScreen extends StatelessWidget {
 
 
 
-
-  Widget _buildRecentlyAddedCourseItemShimmer({
+  ///shimmer design
+  Widget _buildProductItemShimmer({
     required double height,
     required double width,
   }) {
@@ -1434,6 +1415,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
+
   Widget categoriesListItemDesignShimmer( ){
     return Container(
       margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 00),
@@ -1482,6 +1464,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
+
   Widget _sliderCardDesignShimmer() {
     // Size size = MediaQuery.of(context).size;
     double sizeHeight = Get.height;
@@ -1509,5 +1492,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
+
 
 }
