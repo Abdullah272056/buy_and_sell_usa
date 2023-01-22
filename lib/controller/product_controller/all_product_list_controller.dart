@@ -66,7 +66,7 @@ class AllProductListPageController extends GetxController {
 
 
   var pageNo="1".obs;
-  var perPage="14".obs;
+  var perPage="18".obs;
 
   var allProductList=[].obs;
 
@@ -75,6 +75,7 @@ class AllProductListPageController extends GetxController {
   var isFirstLoadRunning = true.obs;
   var hasNextPage = true.obs;
   var isMoreLoadRunning = false.obs;
+  var productShimmerStatus=1.obs;
 
   ScrollController controller=ScrollController();
 
@@ -414,6 +415,7 @@ class AllProductListPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
         try {
+          productShimmerStatus(1);
           isFirstLoadRunning(true);
           var response = await post(
 
@@ -450,6 +452,7 @@ class AllProductListPageController extends GetxController {
             var responseData = jsonDecode(response.body);
 
             allProductList(responseData["data"]["products"]);
+            productShimmerStatus(0);
 
           //  _showToast(allProductList.length.toString());
 

@@ -37,6 +37,9 @@ class HomeController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
 
+  var homeShimmerStatus=1.obs;
+  var tabShimmerStatus=1.obs;
+
   // dynamic argumentData = Get.arguments;
 
   void ref(){
@@ -47,7 +50,7 @@ class HomeController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-
+    loadUserIdFromSharePref();
     super.onInit();
 
 
@@ -135,6 +138,7 @@ class HomeController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
+          homeShimmerStatus(1);
          // showLoadingDialog("loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_HOME_DATA}'),
@@ -142,8 +146,11 @@ class HomeController extends GetxController {
          // Get.back();
         //  _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
+
+
              var homeDataResponse = jsonDecode(response.body);
              homeDataList(homeDataResponse["data"]);
+             homeShimmerStatus(0);
            //  retriveUserInfo();
             // _showToast("size  "+homeDataList.length.toString());
           }
@@ -169,16 +176,18 @@ class HomeController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
+          tabShimmerStatus(1);
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ONLY_CATEGORIES_LIST}'),
 
           );
          //   _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
+
             var homeDataResponse = jsonDecode(response.body);
             categoriesDataList(homeDataResponse["data"]);
 
-
+            tabShimmerStatus(0);
           }
           else {
             // Fluttertoast.cancel();
@@ -201,6 +210,8 @@ class HomeController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
+
+
 
    //   _showToast("Token1= "+storage.read(pref_user_token).toString());
 

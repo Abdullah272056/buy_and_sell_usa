@@ -21,6 +21,8 @@ import '../../controller/drawer_controller/custom_drawer_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
+import '../auth/vendor_or_seller/vendor_log_in_page.dart';
+import '../auth/vendor_or_seller/vendor_sign_up_page.dart';
 import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../product/product_list.dart';
@@ -43,7 +45,6 @@ class CustomDrawer extends StatelessWidget {
                 children: [
                   Container(
                     height: 150,
-
                     child: Column(
                       children: [
                         Expanded(child:Align(
@@ -140,7 +141,8 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(color: sohojatri_color),
                   ),
-                  Obx(()=> Expanded(child:customDrawerController.drawerSelectedTab.value==1? ListView(
+                  Obx(()=> Expanded(child:customDrawerController.drawerSelectedTab.value==1?
+                  ListView(
                     padding: EdgeInsets.only(top: 10),
                     children:  [
                       ListTile(
@@ -329,20 +331,20 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
 
-                          // Container(
-                          //   margin: EdgeInsets.only(left: 20),
-                          //   child: ListTile(
-                          //     leading: Icon(Icons.login,
-                          //       color: sohojatri_color.withOpacity(.6),
-                          //       size: 20,
-                          //     ),
-                          //     title: Text("Seller Login"),
-                          //     onTap: (){
-                          //       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
-                          //     },
-                          //   ),
-                          // ),
-                          //
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: ListTile(
+                              leading: Icon(Icons.login,
+                                color: sohojatri_color.withOpacity(.6),
+                                size: 20,
+                              ),
+                              title: Text("Seller Login"),
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorLogInScreen()));
+                              },
+                            ),
+                          ),
+
                           // Container(
                           //   margin: EdgeInsets.only(left: 20),
                           //   child:   ListTile(
@@ -352,10 +354,12 @@ class CustomDrawer extends StatelessWidget {
                           //     ),
                           //     title: Text("Seller Registation"),
                           //     onTap: (){
-                          //       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //         Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
                           //     },
                           //   ),
                           // ),
+
+
                           Container(
                             margin: EdgeInsets.only(left: 20),
                             child:   ListTile(
@@ -380,22 +384,54 @@ class CustomDrawer extends StatelessWidget {
 
 
                       ),
-                      ListTile(
-                        leading: Icon(Icons.logout_rounded,
-                          color: sohojatri_color.withOpacity(.6),
-                          size: 22,
-                        ),
-                        title: const Text("Logout",
-                        ),
-                        onTap: (){
+                      if(GetStorage().read(pref_user_token)!=null&&
+                          GetStorage().read(pref_user_token)!="null"&&
+                          GetStorage().read(pref_user_token).toString().isNotEmpty)...{
 
-                          removeUserInfo();
-                          Get.deleteAll();
-                          Get.offAll(LogInScreen());
+                        ListTile(
+                          leading: Icon(Icons.logout_rounded,
+                            color: sohojatri_color.withOpacity(.6),
+                            size: 22,
+                          ),
+                          title: const Text("Logout",
+                          ),
+                          onTap: (){
 
-                        },
+                            removeUserInfo();
+                            Get.deleteAll();
+                            Get.offAll(LogInScreen());
 
-                      ),
+                          },
+
+                        )
+
+                      },
+                      // Obx(() => customDrawerController.userToken!=null&&
+                      //     customDrawerController.userToken!="null"&&
+                      //     customDrawerController.userToken!=""?ListTile(
+                      //   leading: Icon(Icons.logout_rounded,
+                      //     color: sohojatri_color.withOpacity(.6),
+                      //     size: 22,
+                      //   ),
+                      //   title: const Text("Logout",
+                      //   ),
+                      //   onTap: (){
+                      //
+                      //     removeUserInfo();
+                      //     Get.deleteAll();
+                      //     Get.offAll(LogInScreen());
+                      //
+                      //   },
+                      //
+                      // ):Container()),
+
+                      // if(customDrawerController.userToken!=null&&
+                      //     customDrawerController.userToken!="null"&&
+                      //     customDrawerController.userToken!="")...{
+                      //
+                      //
+                      //
+                      // },
                       SizedBox(height: 15,)
                     ],
                   ):
@@ -661,7 +697,6 @@ class CustomDrawer extends StatelessWidget {
 
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -672,7 +707,5 @@ class CustomDrawer extends StatelessWidget {
         textColor: fnf_color,
         fontSize: 15.0);
   }
-
-
 
 }

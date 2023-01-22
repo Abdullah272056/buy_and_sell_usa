@@ -16,16 +16,21 @@ import '../../../data_base/sqflite/note.dart';
 import '../../../../static/Colors.dart';
 
 
+import '../../drawer/custom_drawer.dart';
+import '../../drawer/vendor_custom_drawer.dart';
 import '../order_details_page.dart';
 
 class VendorOrderPage extends StatelessWidget {
 
   final vendorOrderPageController = Get.put(VendorOrderPageController());
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+        key: _drawerKey,
+        drawer: VendorCustomDrawer(),
       body:Container(
           decoration: BoxDecoration(
             color:fnf_title_bar_bg_color,
@@ -40,14 +45,22 @@ class VendorOrderPage extends StatelessWidget {
               Flex(direction: Axis.horizontal,
                 children: [
                   SizedBox(width: 10,),
+
+
                   IconButton(
-                    iconSize: 20,
+                    iconSize: 25,
                     icon:Icon(
-                      Icons.arrow_back_ios_new,
+                      Icons.menu,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Get.back();
+                      if (_drawerKey.currentState!.isDrawerOpen) {
+                        vendorOrderPageController.isDrawerOpen(false);
+                        _drawerKey.currentState!.openEndDrawer();
+                        return;
+                      } else
+                        _drawerKey.currentState!.openDrawer();
+                      vendorOrderPageController.isDrawerOpen(true);
                     },
                   ),
                   SizedBox(width: 5,),
@@ -62,7 +75,7 @@ class VendorOrderPage extends StatelessWidget {
 
                 ],
               ),
-              SizedBox(width: 15,),
+              SizedBox(height: 10,),
               Expanded(child: Container(
                 color: Colors.white,
 
@@ -70,34 +83,127 @@ class VendorOrderPage extends StatelessWidget {
                   children: [
 
                     Expanded(
-                        child: Container(
+                      child:
+                      Container(
                           color: Colors.white,
 
-                          child:  ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount:1,
-                              shrinkWrap: true,
-                              //physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
+                          child: Column(
+                            children: [
+                              SizedBox(height: 10,),
+                              Row(
+                                children: [
+                                  Obx(() =>   _buildTotalCalculationItem(
+                                    item_marginLeft: 20,
+                                    item_marginRight: 10,
+                                    name: "Sell Today",
+                                    value:vendorOrderPageController.sellTodayAmount.value ,
+                                  )),
+
+                                  Obx(() =>  _buildTotalCalculationItem(
+                                    item_marginLeft: 10,
+                                    item_marginRight: 20,
+                                    name: "Order Today",
+                                    value:vendorOrderPageController.orderTodayCount.value ,
+                                  ),)
+
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Obx(() => _buildTotalCalculationItem(
+                                    item_marginLeft: 20,
+                                    item_marginRight: 10,
+                                    name: "Total Sell",
+                                    value:vendorOrderPageController.totalSellAmount.value ,
+                                  ),),
+
+                                  Obx(() => _buildTotalCalculationItem(
+                                    item_marginLeft: 10,
+                                    item_marginRight: 20,
+                                    name: "Total Order",
+                                    value:vendorOrderPageController.totalOrderCount.value ,
+                                  ),)
+
+                                ],
+                              ),
+
+                              Expanded(child:
+                              Obx(() => vendorOrderPageController.isFirstLoadRunning==true? Center(
+                                child: CircularProgressIndicator(),
+                              ):
+                              Column(
+                                children: [
+                                  Expanded(child:
+                                  Obx(() =>
+                                      // GridView.builder(
+                                      //     itemCount:vendorOrderPageController.myOrderList.length,
+                                      //     // shrinkWrap: true,
+                                      //     // physics: const ClampingScrollPhysics(),
+                                      //     controller: vendorOrderPageController.controller,
+                                      //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      //         crossAxisCount: 2,
+                                      //         crossAxisSpacing: 7.0,
+                                      //         mainAxisSpacing: 7.0,
+                                      //         mainAxisExtent: 250
+                                      //     ),
+                                      //     itemBuilder: (BuildContext context, int index) {
+                                      //       return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index,
+                                      //           response: allProductListPageController.allProductList[index]);
+                                      //     }),
                                     ListView.builder(
+                                        controller: vendorOrderPageController.controller,
                                         padding: EdgeInsets.zero,
-                                        itemCount: 5,
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount:vendorOrderPageController.myOrderList.length,
+                                        // shrinkWrap: true,
+                                        // physics: const NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext context, int index) {
-                                          return orderItem("sd");
+                                          return orderItem(vendorOrderPageController.myOrderList[index]);
                                         }),
-                                  ]
 
-                                  ,
-                                );
-                              }),
+                                  )
+                                  ),
+                                  Obx(() =>
+                                  vendorOrderPageController.isMoreLoadRunning==true?Padding(
+                                    padding: EdgeInsets.only(top: 10,bottom: 20),
+                                    child: Center(
+                                        child: LinearProgressIndicator()
+                                    ),
+                                  ):Container()
+
+                                  )
+
+                                ],
+                              )
+
+                              ),),
 
 
-                        )
+                              // ListView.builder(
+                              //     padding: EdgeInsets.zero,
+                              //     itemCount:1,
+                              //     shrinkWrap: true,
+                              //     physics: const NeverScrollableScrollPhysics(),
+                              //     itemBuilder: (BuildContext context, int index) {
+                              //       return Column(
+                              //         children: [
+                              //           ListView.builder(
+                              //               padding: EdgeInsets.zero,
+                              //               itemCount: 10,
+                              //               shrinkWrap: true,
+                              //               physics: const NeverScrollableScrollPhysics(),
+                              //               itemBuilder: (BuildContext context, int index) {
+                              //                 return orderItem("sd");
+                              //               }),
+                              //         ],
+                              //       );
+                              //     }),
+                            ],
+                          )
 
+
+
+
+                      ),
 
                     ),
 
@@ -111,17 +217,15 @@ class VendorOrderPage extends StatelessWidget {
       )
     );
 
-
-
   }
 
-  Widget orderItem(var respons){
+  Widget orderItem(var response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 0),
       child: InkWell(
         onTap: (){
 
           Get.to(() => VendorOrderDetailsPage(),
-            //  arguments: [{"singleProductDetailsData": response}]
+              arguments: [{"singleOrderDetailsData": response}]
 
           )?.then((value) => Get.delete<VendorOrderDetailsPageController>());
 
@@ -136,6 +240,7 @@ class VendorOrderPage extends StatelessWidget {
 
                 Expanded(child:Column(
                   children: [
+
                     Row(
                       children: [
                         Text(
@@ -151,7 +256,7 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "created_at".toString(),
+                            dateFormat(response["created_at"].toString()),
                           // "05-Jan-2023",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
@@ -164,7 +269,9 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
                         Text(
@@ -180,7 +287,7 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "order_id".toString(),
+                          response["order_id"].toString(),
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -192,7 +299,9 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
 
@@ -211,7 +320,7 @@ class VendorOrderPage extends StatelessWidget {
                         SizedBox(width: 10,),
 
                         Text(
-                          "Abdullah".toString(),
+                          response["billings"]["first_name"].toString()+" "+ response["billings"]["last_name"].toString(),
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -224,7 +333,9 @@ class VendorOrderPage extends StatelessWidget {
 
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
                         Text(
@@ -240,7 +351,7 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "\$"+"120",
+                          "\$"+response["total"].toString(),
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -252,32 +363,39 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                   ],
                 ),),
 
                 Container(
                   child: Column(
                     children: [
+
                       IconButton(
                         iconSize: 20,
-                        color: fnf_color,
+                        color: hint_color,
                         icon:Icon(Icons.edit),
                         onPressed: () {
                           vendorOrderPageController.selectStateId("Pending");
-                          openBottomSheet("");
+                          if(response["status"].toString().toLowerCase()!="complete"){
+                            openBottomSheet(response);
+                          }
+
                         },
                       ),
+
                       Text(
-                        "status".toString(),
+                          response["status"].toString(),
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         maxLines: 1,
                         style: TextStyle(
-                            color:fnf_color,
+                            color:response["status"].toString().toLowerCase()=="complete"?Colors.green:fnf_color,
                             fontSize: 13,
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.w500),
                       ),
+
                     ],
                   ),
                 )
@@ -304,7 +422,7 @@ class VendorOrderPage extends StatelessWidget {
 
     DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
     var inputDate = DateTime.parse(parseDate.toString());
-    var outputFormat = DateFormat('dd/MMM/yyyy');
+    var outputFormat = DateFormat('dd-MMM-yyyy  hh:mm aa');
     // var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
     var outputDate = outputFormat.format(inputDate);
 
@@ -312,7 +430,6 @@ class VendorOrderPage extends StatelessWidget {
   }
 
   //join now url page redirect
-
 
   //toast create
   _showToast(String message) {
@@ -382,7 +499,7 @@ class VendorOrderPage extends StatelessWidget {
                     ),
                     SizedBox(width: 10,),
                     Text(
-                      "#order_id".toString(),
+                      response["order_id"].toString(),
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,
@@ -410,7 +527,7 @@ class VendorOrderPage extends StatelessWidget {
                     ),
                     SizedBox(width: 10,),
                     Text(
-                      "Abdullah".toString(),
+                      response["user_id"].toString(),
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,
@@ -549,7 +666,6 @@ class VendorOrderPage extends StatelessWidget {
     );
   }
 
-
   Widget orderStatusSelect() {
     return Column(
       children: [
@@ -632,6 +748,84 @@ class VendorOrderPage extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildTotalCalculationItem({
+    required double item_marginLeft,
+    required double item_marginRight,
+    required String name,
+    required String value,
+  }) {
+    return Container(
+      margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 7,top: 7),
+      width: (Get.width/2)-30,
+      decoration: BoxDecoration(
+        color: Colors.white ,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(
+
+            color: Colors.grey.withOpacity(.25) ,
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius: 20 , // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: const Offset(
+              2.0, // Move to right 10  horizontally
+              1.0, // Move to bottom 10 Vertically
+            )
+        )],
+      ),
+      //   height: 150,
+      child: Container(
+        margin: const EdgeInsets.only(right: 10.0,top: 15,bottom: 15,left: 10),
+        // height: double.infinity,
+        // width: double.infinity,
+
+        child: Center(
+          child: Column(
+            children: [
+
+
+
+
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: fnf_small_text_color,
+                      fontSize: (Get.width/30),
+                      fontWeight: FontWeight.w500),
+                  softWrap: false,
+                ),
+              ),
+              const SizedBox(height: 5,),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  value,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: fnf_small_text_color,
+                      fontSize: (Get.width/25),
+                      fontWeight: FontWeight.w500),
+                  softWrap: false,
+
+                ),
+              ),
+
+
+
+            ],
+          ),
+        ),
+      ) ,
+    );
+  }
+
+
+
 
 
 }

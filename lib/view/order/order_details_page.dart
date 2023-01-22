@@ -561,7 +561,6 @@ class OrderDetailsPage extends StatelessWidget {
     );
   }
 
-
   String discountedPriceCalculate({required String mainPrice, required String discountedPercent}){
 
    double discountedPrice= double.parse(mainPrice)-((double.parse(discountedPercent)*double.parse(mainPrice))/100);

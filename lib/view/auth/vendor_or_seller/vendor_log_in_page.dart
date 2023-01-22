@@ -59,6 +59,8 @@ class VendorLogInScreen extends StatelessWidget {
           // padding: const EdgeInsets.symmetric(
           //   horizontal: 40,
           // ).copyWith(top: 20),
+
+
           child: Column(
             children: [
               Padding(
@@ -128,25 +130,25 @@ class VendorLogInScreen extends StatelessWidget {
                 height: 25,
               ),
 
-              InkWell(
-                child: const Text(
-                  'Forgot Password',
-                  style: TextStyle(
-                    fontFamily: 'PT-Sans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color:forgotten_password_text_color,
-                  ),
-                ),
-                onTap: () {
-                  Get.to(VendorForgetPasswordScreen());
-                },
-              ),
-
-              const SizedBox(
-                height: 20,
-              ),
-              _buildSignUpQuestion(),
+              // InkWell(
+              //   child: const Text(
+              //     'Forgot Password',
+              //     style: TextStyle(
+              //       fontFamily: 'PT-Sans',
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.bold,
+              //       color:forgotten_password_text_color,
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     Get.to(VendorForgetPasswordScreen());
+              //   },
+              // ),
+              //
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // _buildSignUpQuestion(),
               const SizedBox(
                 height: 15,
               ),
