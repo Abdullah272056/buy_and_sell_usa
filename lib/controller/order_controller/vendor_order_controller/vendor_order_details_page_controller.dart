@@ -14,7 +14,7 @@ class VendorOrderDetailsPageController extends GetxController {
 
   var cartList=[].obs;
 
- // dynamic argumentData = Get.arguments;
+ dynamic argumentData = Get.arguments;
 
   var orderNo="".obs;
   var shippingAmount="".obs;
@@ -24,6 +24,7 @@ class VendorOrderDetailsPageController extends GetxController {
   var paymentId="".obs;
   var paymentMethod="".obs;
   var shippingName="".obs;
+  var vendorName="".obs;
 
   ///billing info
   var name="".obs;
@@ -61,30 +62,41 @@ class VendorOrderDetailsPageController extends GetxController {
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
 
-    // argumentData[0]['singleProductDetailsData'].toString();
-    //
-    // orderNo(argumentData[0]['singleProductDetailsData']["order_id"].toString());
-    // shippingAmount(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
-    // taxAmount(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
-    // couponAmount(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
-    // totalAmount(argumentData[0]['singleProductDetailsData']["total"].toString());
-    // paymentId(argumentData[0]['singleProductDetailsData']["payment_id"].toString());
-    // paymentMethod(argumentData[0]['singleProductDetailsData']["payment_method"].toString());
-    // shippingName(argumentData[0]['singleProductDetailsData']["shipping_name"].toString());
-    //
+    argumentData[0]['singleOrderDetailsData'].toString();
+
+
+
+    totalShippingTotal(argumentData[0]['singleOrderDetailsData']["total_shipping"].toString());
+    totalTaxTotal(argumentData[0]['singleOrderDetailsData']["total_tax"].toString());
+    couponAmountTotal(argumentData[0]['singleOrderDetailsData']["coupon_amount"].toString());
+    totalAmountTotal(argumentData[0]['singleOrderDetailsData']["total"].toString());
+
+
+    //order info
+    orderNo(argumentData[0]['singleOrderDetailsData']["order_id"].toString());
+    shippingAmount(argumentData[0]['singleOrderDetailsData']["total_shipping"].toString());
+    taxAmount(argumentData[0]['singleOrderDetailsData']["total_tax"].toString());
+    couponAmount(argumentData[0]['singleOrderDetailsData']["coupon_amount"].toString());
+    totalAmount(argumentData[0]['singleOrderDetailsData']["total"].toString());
+    paymentId(argumentData[0]['singleOrderDetailsData']["payment_id"].toString());
+    paymentMethod(argumentData[0]['singleOrderDetailsData']["payment_method"].toString());
+    shippingName(argumentData[0]['singleOrderDetailsData']["shipping_name"].toString());
+   vendorName(argumentData[0]['singleOrderDetailsData']["vendor"]["name"].toString());
+
+
+
     // //billing info
-    // name(argumentData[0]['singleProductDetailsData']["billings"]["first_name"].toString());
-    // lastLame(argumentData[0]['singleProductDetailsData']["billings"]["last_name"].toString());
-    // phone(argumentData[0]['singleProductDetailsData']["billings"]["phone"].toString());
-    // email(argumentData[0]['singleProductDetailsData']["billings"]["email"].toString());
-    // address(argumentData[0]['singleProductDetailsData']["billings"]["address"].toString());
-    // city(argumentData[0]['singleProductDetailsData']["billings"]["city"].toString());
-    // state(argumentData[0]['singleProductDetailsData']["billings"]["state_name"]["name"].toString());
-    // // state(argumentData[0]['singleProductDetailsData']["billings"]["state"].toString());
-    // zip(argumentData[0]['singleProductDetailsData']["billings"]["zip"].toString());
-    // country(argumentData[0]['singleProductDetailsData']["billings"]["country_name"]["name"].toString());
-    //
-    //
+    name(argumentData[0]['singleOrderDetailsData']["billings"]["first_name"].toString());
+    lastLame(argumentData[0]['singleOrderDetailsData']["billings"]["last_name"].toString());
+    phone(argumentData[0]['singleOrderDetailsData']["billings"]["phone"].toString());
+    email(argumentData[0]['singleOrderDetailsData']["billings"]["email"].toString());
+    address(argumentData[0]['singleOrderDetailsData']["billings"]["address"].toString());
+    city(argumentData[0]['singleOrderDetailsData']["billings"]["city"].toString());
+     state(argumentData[0]['singleOrderDetailsData']["billings"]["state_name"]["name"].toString());
+    zip(argumentData[0]['singleOrderDetailsData']["billings"]["zip"].toString());
+     country(argumentData[0]['singleOrderDetailsData']["billings"]["country_name"]["name"].toString());
+
+
     //  totalShippingTotal(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
     //  totalTaxTotal(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
     //  couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
@@ -94,8 +106,25 @@ class VendorOrderDetailsPageController extends GetxController {
 
 
 
+    //customer info
+     customerName(argumentData[0]['singleOrderDetailsData']["user"]["name"].toString());
+     customerPhone(argumentData[0]['singleOrderDetailsData']["user"]["phone"].toString());
+     customerEmail(argumentData[0]['singleOrderDetailsData']["user"]["email"].toString());
+     customerAddress(argumentData[0]['singleOrderDetailsData']["user"]["address"].toString());
+     customerCity(argumentData[0]['singleOrderDetailsData']["user"]["city"].toString());
+     customerState(argumentData[0]['singleOrderDetailsData']["user"]["state"]["name"].toString());
+     customerZip(argumentData[0]['singleOrderDetailsData']["user"]["zip_code"].toString());
+     customerCountry(argumentData[0]['singleOrderDetailsData']["user"]["country"]["name"].toString());
 
-   // _showToast("list= "+orderProductDetailsList.length.toString());
+
+
+    orderProductDetailsList(argumentData[0]['singleOrderDetailsData']["ordered_products"]);
+
+
+
+
+
+   _showToast("list= "+orderProductDetailsList.length.toString());
 
    // refreshNotes();
 

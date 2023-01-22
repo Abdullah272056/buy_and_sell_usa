@@ -225,7 +225,7 @@ class VendorOrderPage extends StatelessWidget {
         onTap: (){
 
           Get.to(() => VendorOrderDetailsPage(),
-            //  arguments: [{"singleProductDetailsData": response}]
+              arguments: [{"singleOrderDetailsData": response}]
 
           )?.then((value) => Get.delete<VendorOrderDetailsPageController>());
 
@@ -240,6 +240,7 @@ class VendorOrderPage extends StatelessWidget {
 
                 Expanded(child:Column(
                   children: [
+
                     Row(
                       children: [
                         Text(
@@ -268,7 +269,9 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
                         Text(
@@ -296,7 +299,9 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
 
@@ -315,7 +320,7 @@ class VendorOrderPage extends StatelessWidget {
                         SizedBox(width: 10,),
 
                         Text(
-                          response["user_id"].toString(),
+                          response["billings"]["first_name"].toString()+" "+ response["billings"]["last_name"].toString(),
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,
@@ -328,7 +333,9 @@ class VendorOrderPage extends StatelessWidget {
 
                       ],
                     ),
+
                     SizedBox(height: 5,),
+
                     Row(
                       children: [
                         Text(
@@ -356,6 +363,7 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                   ],
                 ),),
 
@@ -422,7 +430,6 @@ class VendorOrderPage extends StatelessWidget {
   }
 
   //join now url page redirect
-
 
   //toast create
   _showToast(String message) {
@@ -659,7 +666,6 @@ class VendorOrderPage extends StatelessWidget {
     );
   }
 
-
   Widget orderStatusSelect() {
     return Column(
       children: [
@@ -743,7 +749,6 @@ class VendorOrderPage extends StatelessWidget {
     );
   }
 
-
   Widget _buildTotalCalculationItem({
     required double item_marginLeft,
     required double item_marginRight,
@@ -818,6 +823,8 @@ class VendorOrderPage extends StatelessWidget {
       ) ,
     );
   }
+
+
 
 
 

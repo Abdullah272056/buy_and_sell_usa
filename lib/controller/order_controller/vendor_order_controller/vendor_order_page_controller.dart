@@ -41,7 +41,6 @@ class VendorOrderPageController extends GetxController {
   var isMoreLoadRunning = false.obs;
   ScrollController controller=ScrollController();
 
-
   List<String> statusList=["Pending","Complete","Cancel"];
 
   @override

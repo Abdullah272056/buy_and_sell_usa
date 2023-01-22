@@ -11,7 +11,7 @@ class OrderDetailsPageController extends GetxController {
   // List<CartNote> notesList=[].obs;
   var totalPrice=0.0.obs;
 
-  var singleProductDataResponse=Get.arguments[0]['singleProductDetailsData'].toString().obs;
+  // var singleProductDataResponse=Get.arguments[0]['singleProductDetailsData'].toString().obs;
 
   var cartList=[].obs;
 

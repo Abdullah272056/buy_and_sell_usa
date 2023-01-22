@@ -120,7 +120,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
                             Obx(()=> userInputSelectTopic(keyName: 'Payment Id:', value: orderDetailsPageController.paymentId.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Payment method:', value: orderDetailsPageController.paymentMethod.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Shipping:', value: orderDetailsPageController.shippingName.value),),
-                            Obx(()=> userInputSelectTopic(keyName: 'Vendor:', value: orderDetailsPageController.shippingName.value),),
+                            Obx(()=> userInputSelectTopic(keyName: 'Vendor:', value: orderDetailsPageController.vendorName.value),),
                           ],
                         ),
                       ),
@@ -171,7 +171,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
 
                             ),
 
-                            Obx(()=>  userInputSelectTopic(keyName: 'Name:', value: orderDetailsPageController.customerEmail.value),),
+                            Obx(()=>  userInputSelectTopic(keyName: 'Name:', value: orderDetailsPageController.customerName.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Phone:', value: orderDetailsPageController.customerPhone.value),),
                             Obx(()=>  userInputSelectTopic(keyName: 'Email:', value: orderDetailsPageController.customerEmail.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Address:', value: orderDetailsPageController.customerAddress.value),),
@@ -233,7 +233,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
                               padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
 
                             ),
-                            Obx(()=>  userInputSelectTopic(keyName: 'Name No:', value: orderDetailsPageController.name.value+orderDetailsPageController.lastLame.value),),
+                            Obx(()=>  userInputSelectTopic(keyName: 'Name No:', value: orderDetailsPageController.name.value+" "+orderDetailsPageController.lastLame.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Phone:', value: orderDetailsPageController.phone.value),),
                             Obx(()=>  userInputSelectTopic(keyName: 'Email:', value: orderDetailsPageController.email.value),),
                             Obx(()=> userInputSelectTopic(keyName: 'Address:', value: orderDetailsPageController.address.value),),
@@ -284,7 +284,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (BuildContext context, int index) {
                                       return
-                                        //Container();
+
                                         orderProductItem(orderDetailsPageController.orderProductDetailsList[index]);
                                     }),)
                               ]
@@ -471,7 +471,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
     ;
   }
 
-  Widget orderProductItem(var response){
+  Widget orderProductItem1(var response){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 10),
       child: InkWell(
         onTap: (){
@@ -505,7 +505,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
                         placeholder: 'assets/images/loading.png',
                         // image:response[""],
                        image:BASE_URL_API_IMAGE_PRODUCT+
-                           response["product"]["cover_image"].toString(),
+                           response["product_image"].toString(),
                         imageErrorBuilder: (context, url, error) =>
                             Image.asset(
                               'assets/images/loading.png',
@@ -572,7 +572,7 @@ class VendorOrderDetailsPage extends StatelessWidget {
                       alignment: Alignment.centerLeft,
 
                       child: Text(" \$"+
-                          discountedPriceCalculate(mainPrice: response["product"]["price"].toString(),
+                          discountedPriceCalculate(mainPrice: response ["price"].toString(),
                               discountedPercent: response["product"]["discount_percent"].toString()),
 
                          // response.productDiscountedPrice,
@@ -668,7 +668,203 @@ class VendorOrderDetailsPage extends StatelessWidget {
       ),
     );
   }
+  Widget orderProductItem(var response){
+    return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 10),
+      child: InkWell(
+        onTap: (){
 
+          // Get.to(() => ProductDetailsePageScreen(), arguments: [
+          //   {"productId": response.productId.toString()},
+          //   {"second": 'Second data'}
+          // ])?.then((value) => Get.delete<ProductDetailsController>());
+
+        },
+        child: Flex(
+          direction: Axis.horizontal,
+          children: [
+
+            Container(
+              width: 60,
+              height: 60,
+
+              margin:const EdgeInsets.only(left:0, top: 00, right: 22, bottom: 00),
+              // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                      height: 60,
+                      width: 60,
+                      color:hint_color,
+                      child: FadeInImage.assetNetwork(
+                        fit: BoxFit.fill,
+                        placeholder: 'assets/images/loading.png',
+                        // image:response[""],
+                        image:BASE_URL_API_IMAGE_PRODUCT+
+                            response["product"]["cover_image"].toString(),
+                        imageErrorBuilder: (context, url, error) =>
+                            Image.asset(
+                              'assets/images/loading.png',
+                              fit: BoxFit.fill,
+                            ),
+                      )),
+                ),
+              ),
+
+            ),
+
+            Expanded(child:Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child:Text(
+                    response["product_name"].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    maxLines: 1,
+                    style: TextStyle(
+                        color:text_color,
+                        fontSize: 15,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+
+                const SizedBox(
+                  height: 5,
+                ),
+
+                Row(
+                  children: [
+
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Qty x Price:",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: text_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        response["qty"].toString()+
+                            " X ",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: hint_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+
+                      child: Text(" \$"+response["price"].toString(),
+                          // discountedPriceCalculate(mainPrice: response["product"]["price"].toString(),
+                          //     discountedPercent: response["product"]["discount_percent"].toString()),
+
+                        // response.productDiscountedPrice,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: hint_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  children: [
+
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Shipping: ",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: text_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(" \$"+response["shipping"].toString(),
+                        // response.productDiscountedPrice,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: hint_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Tax: ",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: text_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(" \$"+response["tax"].toString(),
+                        // response.productDiscountedPrice,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: hint_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+
+
+              ],
+            ),),
+
+            Container(
+              margin: EdgeInsets.only(left: 10,right: 10,),
+              child: Text(
+                " \$"+response["total"].toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: text_color,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
+
+          ],
+        ),
+      ),
+    );
+  }
 
   String discountedPriceCalculate({required String mainPrice, required String discountedPercent}){
 
