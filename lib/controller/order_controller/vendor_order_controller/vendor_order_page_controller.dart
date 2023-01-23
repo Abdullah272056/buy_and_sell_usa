@@ -43,6 +43,8 @@ class VendorOrderPageController extends GetxController {
 
   List<String> statusList=["Pending","Complete","Cancel"];
 
+  var orderListShimmerStatus=1.obs;
+
   @override
   void onInit() {
     loadUserIdFromSharePref();
@@ -121,10 +123,11 @@ class VendorOrderPageController extends GetxController {
             // _showToast("calculation = "+responseData["data"]["total_order"].toString());
 
 
-            sellTodayAmount("\$"+responseData["data"]["total_sell_amount"].toStringAsFixed(2));
-            totalSellAmount("\$"+responseData["data"]["today_sell_order"].toStringAsFixed(2));
-            orderTodayCount("\$"+responseData["data"]["today_order"].toString());
-            totalOrderCount("\$"+responseData["data"]["total_order"].toString());
+            sellTodayAmount("\$"+responseData["data"]["today_sell_order"].toStringAsFixed(2));
+
+            totalSellAmount("\$"+responseData["data"]["total_sell_amount"].toStringAsFixed(2));
+            orderTodayCount(responseData["data"]["today_order"].toString());
+            totalOrderCount(responseData["data"]["total_order"].toString());
 
             //  _showToast(myOrderList.length.toString());
 
