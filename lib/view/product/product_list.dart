@@ -36,20 +36,29 @@ class ProductListPage extends StatelessWidget {
                   children: [
 
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 16,
+                      height: MediaQuery.of(context).size.height / 22,
                       // height: 50,
                     ),
 
                     Flex(direction: Axis.horizontal,
                       children: [
-                        SizedBox(width: 30,),
-
+                        SizedBox(width: 10,),
+                        IconButton(
+                          iconSize: 22,
+                          icon:Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
                         SizedBox(width: 5,),
                         Expanded(child: Text(
-                          "Product list",
+                          "PRODUCT LIST",
                           style: TextStyle(color: Colors.white,
                               fontWeight: FontWeight.w500,
-                              fontSize: 17
+                              fontSize: 16
                           ),
                         )),
 
@@ -90,7 +99,7 @@ class ProductListPage extends StatelessWidget {
                     ),
 
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 40,
+                      height: MediaQuery.of(context).size.height / 70,
                       // height: 50,
                     ),
 
