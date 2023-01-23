@@ -88,7 +88,8 @@ class WishListPage extends StatelessWidget {
                                 itemBuilder: (BuildContext context, int index) {
                                   return cartItemShimmer();
                                 })),
-                          }else...{
+                          }
+                          else...{
 
                             Obx(() =>  Expanded(
                               child:wishListPageController.wishList.length>0? Container(

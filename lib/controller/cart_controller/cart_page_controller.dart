@@ -18,6 +18,7 @@ class CartPageController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
+  var cartListShimmerStatus=1.obs;
 
   // dynamic argumentData = Get.arguments;
   @override
@@ -25,7 +26,7 @@ class CartPageController extends GetxController {
     // abcd(argumentData[0]['first']);
     // print(argumentData[0]['first']);
     // print(argumentData[1]['second']);
-    refreshNotes();
+    loadAllCartNotes();
     loadUserIdFromSharePref();
     super.onInit();
   }
@@ -43,10 +44,11 @@ class CartPageController extends GetxController {
   }
 
 
-  Future refreshNotes() async {
+  Future loadAllCartNotes() async {
+    cartListShimmerStatus(1);
     NotesDataBase.instance;
     cartList(await NotesDataBase.instance.readAllNotes());
-
+    cartListShimmerStatus(0);
     totalPriceCalculate(cartList);
    // _showToast("Local length= "+cartList.length.toString());
   }
@@ -54,7 +56,7 @@ class CartPageController extends GetxController {
   Future deleteNotes(int id) async {
     NotesDataBase.instance;
     NotesDataBase.instance.delete(id)  ;
-    refreshNotes();
+    loadAllCartNotes();
 
   }
 

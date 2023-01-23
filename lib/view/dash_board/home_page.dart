@@ -608,9 +608,6 @@ class HomePageScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index1) {
                         double regularPrice=0.0;
-
-
-
                         return Column(
                           children: [
                             Row(
