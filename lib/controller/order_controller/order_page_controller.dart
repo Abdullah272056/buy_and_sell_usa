@@ -18,11 +18,13 @@ class OrderPageController extends GetxController {
 
   // List<CartNote> notesList=[].obs;
   var totalPrice=0.0.obs;
-  var cartLis=[].obs;
+
   var myOrderList=[].obs;
 
   var userName="".obs;
   var userToken="".obs;
+
+  var cartListShimmerStatus=1.obs;
 
 
   @override
@@ -64,7 +66,8 @@ class OrderPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
           //_showToast(token);
         try {
-          showLoadingDialog("Loading...");
+          cartListShimmerStatus(1);
+          // showLoadingDialog("Loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_ORDERS_LIST}'),
             headers: {
@@ -72,7 +75,8 @@ class OrderPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-          Get.back();
+          cartListShimmerStatus(0);
+          // Get.back();
          //   _showToast("orders = "+response.statusCode.toString());
           if (response.statusCode == 200) {
 

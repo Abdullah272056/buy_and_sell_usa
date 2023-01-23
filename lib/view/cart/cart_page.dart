@@ -6,7 +6,7 @@ import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
-import '../../data_base/sqflite/notes_database.dart';
+
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
@@ -17,7 +17,9 @@ import 'cart_view_page.dart';
 
 
 class CartPage extends StatelessWidget {
+
   final cartPageController = Get.put(CartPageController());
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -277,8 +279,6 @@ class CartPage extends StatelessWidget {
       ),
     );
 
-
-
   }
 
   Widget cartItem(CartNote response){
@@ -524,8 +524,6 @@ class CartPage extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildViewCartButton() {
     return ElevatedButton(
       onPressed: () {
@@ -564,7 +562,6 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
-
 
   void showLoginWarning( ) {
 
@@ -748,7 +745,6 @@ class CartPage extends StatelessWidget {
         fontSize: 16.0);
   }
 
-
   ///shimmer
   Widget cartItemShimmer(){
     return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
@@ -818,7 +814,6 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
-
 
 }
 
