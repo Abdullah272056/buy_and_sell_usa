@@ -525,8 +525,7 @@ class CartViewePage extends StatelessWidget {
                                        child:Obx(()=> Text(
 
                                          "\$ "+"${(double.parse(cartViewPageController.totalPrice.toString())-
-                                             double.parse(totalPromoAmount(cartViewPageController.couponDataList))).toString()}"
-                                         ,
+                                             double.parse(totalPromoAmount(cartViewPageController.couponDataList))).toString()}",
                                          style: TextStyle(fontWeight: FontWeight.w600,
                                              color: Colors.blue,
                                              fontSize: 18
@@ -1067,6 +1066,7 @@ class CartViewePage extends StatelessWidget {
             {"couponCodes": cartViewPageController.couponCodes.value},
             {"couponAmount": cartViewPageController.couponAmount.value},
             {"couponSellerId": cartViewPageController.couponSellerId.value},
+            {"couponInfoList": cartViewPageController.couponDataList},
           ])?.then((value) => Get.delete<CartViewPageController>());
 
 

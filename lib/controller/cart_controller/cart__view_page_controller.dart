@@ -105,18 +105,14 @@ class CartViewPageController extends GetxController {
   }
   void totalTaxPriceCalculate(List cartList1){
 
-
     double totalTax=0.0;
     for(int i=0;i<cartList1.length;i++){
       double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
-
       double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
       totalTax=(totalTax+singleProductTax);
     }
 
-
     totalTaxPrice(double.parse((totalTax).toStringAsFixed(2)));
-
 
   }
   void subTotalPriceCalculate(List cartList1){

@@ -83,6 +83,10 @@ class CheckoutPageController extends GetxController {
      couponSellerId(argumentData[2]['couponSellerId'].toString());
 
 
+     _showToast("sert= "+argumentData[3]['couponInfoList'].length.toString());
+     // couponSellerId(argumentData[3]['couponInfoList'].toString());
+
+
     loadUserIdFromSharePref();
     refreshNotes();
 

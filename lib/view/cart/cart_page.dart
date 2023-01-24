@@ -485,6 +485,7 @@ class CartPage extends StatelessWidget {
             {"couponCodes": ""},
             {"couponAmount": ""},
             {"couponSellerId": ""},
+            {"couponInfoList": cartPageController.couponDataList},
           ])?.then((value) => Get.delete<CartPageController>());
 
 

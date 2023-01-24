@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../data_base/sqflite/notes_database.dart';
+import 'cart__view_page_controller.dart';
 
 class CartPageController extends GetxController {
 
@@ -19,6 +20,9 @@ class CartPageController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
   var cartListShimmerStatus=1.obs;
+
+  var couponDataList = [].obs;
+  var sellerGroupList=[].obs;
 
   // dynamic argumentData = Get.arguments;
   @override
@@ -50,8 +54,27 @@ class CartPageController extends GetxController {
     cartList(await NotesDataBase.instance.readAllNotes());
     cartListShimmerStatus(0);
     totalPriceCalculate(cartList);
+    sellerIdUnique(cartList);
+
+
    // _showToast("Local length= "+cartList.length.toString());
   }
+
+  void sellerIdUnique(List cartList){
+    var seen = Set<String>();
+    List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
+    sellerGroupList(uniqueList);
+
+    couponDataList([]);
+
+    for(int i=0;i<sellerGroupList.length;i++){
+      CouponData couponData=CouponData(sellerId: sellerGroupList[i].seller, couponStatus: 'true', couponAmount: '', couponCode: '');
+      couponDataList.add(couponData);
+    }
+
+  }
+
+
 
   Future deleteNotes(int id) async {
     NotesDataBase.instance;
