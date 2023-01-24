@@ -185,6 +185,7 @@ class AddressPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       //  _showToast(token);
         try {
+          showLoadingDialog("Loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_BILLING_ADDRESS}'),
             headers: {
@@ -192,6 +193,8 @@ class AddressPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
+
+          Get.back();
 
          //_showToast("billing= "+response.statusCode.toString());
           if (response.statusCode == 200) {
@@ -314,8 +317,8 @@ class AddressPageController extends GetxController {
                     width: 10,
                   ),
                   Container(
-                    height:50,
-                    width: 50,
+                    height:40,
+                    width: 40,
                     margin: EdgeInsets.only(top: 10),
                     child: CircularProgressIndicator(
                       backgroundColor: awsStartColor,
@@ -328,7 +331,7 @@ class AddressPageController extends GetxController {
                     margin: EdgeInsets.only(top: 10),
                     child:Text(
                       message,
-                      style: const TextStyle(fontSize: 25,),
+                      style: const TextStyle(fontSize: 20,),
                     ),
                   ),
 

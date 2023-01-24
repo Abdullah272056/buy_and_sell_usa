@@ -12,6 +12,7 @@ import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 
 
+import '../shimer/product_shimmir.dart';
 import 'order_details_page.dart';
 
 
@@ -29,7 +30,7 @@ class OrderPage extends StatelessWidget {
           decoration: BoxDecoration(
             color:fnf_title_bar_bg_color,
           ),
-          child: Column(
+          child: Obx(() => Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
@@ -62,50 +63,122 @@ class OrderPage extends StatelessWidget {
                 ],
               ),
               SizedBox(width: 15,),
-              Expanded(child: Container(
-                color: Colors.white,
-
-                child: Column(
-                  children: [
-
-                    Expanded(
-                        child: Container(
-                          color: Colors.white,
-
-                          child:  ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount:1,
-                              shrinkWrap: true,
-                              //physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    Obx(() =>   ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: orderPageController.myOrderList.length,
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return orderItem(orderPageController.myOrderList[index]);
-                                        }),)
-                                  ]
-
-                                  ,
-                                );
-                              }),
 
 
+
+              if(orderPageController.cartListShimmerStatus==1)...{
+
+                Expanded(child: Container(
+                      color: Colors.white,
+
+                      child: Column(
+                        children: [
+
+                          Expanded(child:ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount:10,
+
+                            itemBuilder:(BuildContext context, int index){
+                              return orderItemShimmer();
+                            },
+
+                          )),
+                        ],
+                      ),
+
+                    ))
+
+              }
+              else...{
+                Expanded(child:orderPageController.myOrderList.length>0?
+
+                Container(
+                  color: Colors.white,
+
+                  child: Column(
+                    children: [
+
+                      Expanded(
+                          child: Container(
+                            color: Colors.white,
+
+                            child:  ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount:1,
+                                shrinkWrap: true,
+                                //physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Column(
+                                    children: [
+                                      Obx(() =>   ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          itemCount: orderPageController.myOrderList.length,
+                                          shrinkWrap: true,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return orderItem(orderPageController.myOrderList[index]);
+                                          }),)
+                                    ]
+
+                                    ,
+                                  );
+                                }),
+
+
+                          )
+
+
+                      ),
+
+                    ],
+                  ),
+
+                ):Container(
+                  color: Colors.white,
+                  child:LayoutBuilder(
+                    builder: (context, constraints) => ListView(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20.0),
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight,
+                          ),
+                          child: Center(
+                            child:Column(
+
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/not_found.png",
+                                  width: 180,
+                                  height: 80,
+                                ),
+                                const SizedBox(height: 20,),
+                                const Text(
+                                  "Cart list not found!",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      color:text_color,
+                                      fontSize: 15,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                          ),
                         )
-
-
+                      ],
                     ),
+                  ) ,
+                )),
 
-                  ],
-                ),
+              },
 
-              ))
+
             ],
-          )
+          ))
 
       )
     );
@@ -280,6 +353,77 @@ class OrderPage extends StatelessWidget {
         backgroundColor:Colors.amber,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  ///shimmer
+  Widget orderItemShimmer(){
+    return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
+      child:Flex(
+        direction: Axis.horizontal,
+        children: [
+
+
+          Expanded(child:Column(
+            children: [
+
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+              ],),
+
+              SizedBox(
+                height: 4,
+              ),
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+              SizedBox(
+                height: 4,
+              ),
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+            ],
+          ),),
+
+
+          buildRectangleShimmer(
+              height: 20,
+              width: 80,
+              marginLeft: 0,
+              marginTop: 0,
+              marginRight: 0,
+              marginBottom: 0
+          )
+
+
+        ],
+      ),
+    );
   }
 
 

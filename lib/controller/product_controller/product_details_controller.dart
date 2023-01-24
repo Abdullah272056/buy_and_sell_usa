@@ -101,6 +101,13 @@ class ProductDetailsController extends GetxController {
   var userToken="".obs;
   dynamic argumentData = Get.arguments;
   var userEmailLevelTextColor = hint_color.obs;
+
+
+
+  var productDetailsShimmerStatus=1.obs;
+
+
+
   @override
   void onInit() {
     // print(argumentData[0]['first']);
@@ -193,12 +200,14 @@ class ProductDetailsController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          showLoadingDialog("loading...");
+          // showLoadingDialog("loading...");
+          productDetailsShimmerStatus(1);
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_INDIVIDUAL_PRODUCT_DETAILS}${productId}'),
           );
           // _showToast("status = ${response.statusCode}");
-          Get.back();
+          // Get.back();
+          productDetailsShimmerStatus(0);
           if (response.statusCode == 200) {
 
 
@@ -528,6 +537,8 @@ class ProductDetailsController extends GetxController {
     }
 
   }
+
+
 
 
 }

@@ -19,6 +19,9 @@ class WishListPageController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
 
+
+  var wishListShimmerStatus=1.obs;
+
   // dynamic argumentData = Get.arguments;
   @override
   void onInit() {
@@ -67,7 +70,8 @@ class WishListPageController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       //  _showToast(token);
         try {
-          showLoadingDialog("loading...");
+          wishListShimmerStatus(1);
+        //  showLoadingDialog("loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_WIShLIST}'),
             headers: {
@@ -75,9 +79,10 @@ class WishListPageController extends GetxController {
               //'Content-Type': 'application/json',
             },
           );
-          Get.back();
+          // Get.back();
          // _showToast("get"+response.statusCode.toString());
           if (response.statusCode == 200) {
+            wishListShimmerStatus(0);
            var wishListResponse = jsonDecode(response.body);
            wishList(wishListResponse["data"]["data"]);
 

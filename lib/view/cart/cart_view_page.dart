@@ -94,7 +94,7 @@ class CartViewePage extends StatelessWidget {
                                              shrinkWrap: true,
                                              physics: const NeverScrollableScrollPhysics(),
                                              itemBuilder: (BuildContext context, int index) {
-                                               return Column(
+                                               return Obx(()=>Column(
                                                  children: [
                                                    Row(
                                                      children: [
@@ -203,6 +203,49 @@ class CartViewePage extends StatelessWidget {
                                                        ],
                                                      ),
                                                    ),
+
+                                                   if(cartViewPageController.promoCodeServerResponse==1)...{
+                                                     //promo code
+                                                     if(cartViewPageController.couponDataList[index].couponStatus=="true")...{
+
+
+                                                       Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                                         child:Row(
+                                                           // mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: [
+                                                             const Expanded(
+                                                               child:Text("Promo Amount: ",
+                                                                 style: TextStyle(fontWeight: FontWeight.w600,
+                                                                     color: text_color,
+                                                                     fontSize: 15
+                                                                 ),
+                                                               ),),
+                                                             Expanded(child:   Align(
+                                                               alignment: Alignment.centerRight,
+                                                               child:Obx(()=> Text(
+                                                               cartViewPageController.couponDataList[index].couponAmount==""?"\$ 0.0":
+                                                                 "\$ "+ cartViewPageController.couponDataList[index].couponAmount.toString(),
+                                                                 // totalTaxCalculate(cartViewPageController.cartList,
+                                                                 // cartViewPageController.sellerGroupList[index].seller.toString()),
+                                                                 style: const TextStyle(fontWeight: FontWeight.w600,
+                                                                     color: Colors.blue,
+                                                                     fontSize: 16
+                                                                 ),
+                                                               )),
+                                                             )),
+
+
+
+                                                           ],
+                                                         ),
+                                                       ),
+
+
+                                                     },
+
+                                                   },
+
+
                                                    Padding(padding: EdgeInsets.only(left: 10,right: 10,),
                                                      child:  Row(
                                                        // mainAxisAlignment: MainAxisAlignment.center,
@@ -230,9 +273,107 @@ class CartViewePage extends StatelessWidget {
                                                      ),
                                                    ),
 
+                                                   SizedBox(height: 15,),
+
+                                                   if(cartViewPageController.promoCodeServerResponse==1)...{
+                                                     if(cartViewPageController.couponDataList[index].couponStatus=="true")...{
+
+                                                       Padding(padding: EdgeInsets.only(left: 10,right: 10,),
+                                                           child:  Row(
+                                                             children: [
+                                                              Obx(() =>  Expanded(flex: 2,child: _buildTextFieldPromoCode(
+                                                                labelText: "Promo Code", controller: cartViewPageController.textFieldControllers[index],
+                                                              ),
+
+                                                              ),),
+
+                                                               SizedBox(width: 15,),
+                                                               Expanded(
+                                                                 flex: 1,
+                                                                 child: ElevatedButton(
+                                                                   onPressed: () {
+
+                                                                     if(cartViewPageController.textFieldControllers[index].value.text!=""){
+
+                                                                       // CouponData couponData= CouponData(
+                                                                       //     sellerId: cartViewPageController.couponDataList[index].sellerId,
+                                                                       //     couponStatus: cartViewPageController.couponDataList[index].couponStatus,
+                                                                       //     couponAmount: '',
+                                                                       //     couponCode: cartViewPageController.textFieldControllers[index].value.text
+                                                                       // );
+                                                                       //
+                                                                       // cartViewPageController.couponDataList[index]=couponData;
+
+                                                                       // _showToast(totalPriceCalculate(cartViewPageController.cartList,
+                                                                       //     cartViewPageController.sellerGroupList[index].seller.toString()));
+                                                                       // _showToast(cartViewPageController.couponDataList[index].sellerId);
+                                                                       // _showToast(cartViewPageController.couponDataList[index].couponCode);
+
+
+                                                                       // _showToast(cartViewPageController.couponDataList[index].sellerId);
+                                                                       // _showToast(cartViewPageController.textFieldControllers[index].value.text.toString());
+                                                                       // _showToast(cartViewPageController.couponDataList[index].couponAmount);
+
+
+                                                                       cartViewPageController.couponCodeCheckIndividual(
+                                                                               token: cartViewPageController.userToken.value,
+                                                                               couponCode: cartViewPageController.textFieldControllers[index].value.text.toString(),
+                                                                               sellerId: cartViewPageController.couponDataList[index].sellerId,
+                                                                               totalAmount: totalPriceCalculate(cartViewPageController.cartList,
+                                                                                   cartViewPageController.couponDataList[index].sellerId.toString()), index: index);
+
+                                                                     }else{
+                                                                       _showToast("Enter Coupon Code!");
+                                                                     }
+
+
+                                                                   },
+
+                                                                   style: ElevatedButton.styleFrom(
+                                                                       padding: EdgeInsets.zero,
+                                                                       shape: RoundedRectangleBorder(
+                                                                           borderRadius: BorderRadius.circular(5))),
+                                                                   child: Ink(
+                                                                     decoration: BoxDecoration(
+                                                                         gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+                                                                           begin: Alignment.centerLeft,
+                                                                           end: Alignment.centerRight,
+                                                                         ),
+                                                                         borderRadius: BorderRadius.circular(5.0)
+                                                                     ),
+                                                                     child: Container(
+                                                                       padding: EdgeInsets.only(left: 10,right: 10,),
+                                                                       height: 45,
+                                                                       alignment: Alignment.center,
+                                                                       child:  const Text(
+                                                                         "Apply",
+                                                                         textAlign: TextAlign.center,
+                                                                         style: TextStyle(
+                                                                           fontFamily: 'PT-Sans',
+                                                                           fontSize: 15,
+                                                                           fontWeight: FontWeight.w500,
+                                                                           color: Colors.white,
+                                                                         ),
+                                                                       ),
+                                                                     ),
+                                                                   ),
+                                                                 ),
+                                                               )
+
+                                                             ],
+                                                           )
+                                                       ),
+
+                                                     },
+
+                                                   },
+
+
+
                                                    Container(height: 20,)
+
                                                  ],
-                                               );
+                                               ));
                                              }),),
                                        ],
                                      );
@@ -267,17 +408,17 @@ class CartViewePage extends StatelessWidget {
                                  const SizedBox(
                                    height: 10,
                                  ),
-                                 _buildTextFieldPromoCode(
-                                   obscureText: false,
-                                   // prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                                   labelText: "Promo Code",
-                                 ),
-                                 const SizedBox(
-                                   height: 20,
-                                 ),
-
-                                 _buildApplyPromoCodeButton(),
-                                 SizedBox(height: 20,),
+                                 // _buildTextFieldPromoCode(
+                                 //   obscureText: false,
+                                 //   // prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                                 //   labelText: "Promo Code",
+                                 // ),
+                                 // const SizedBox(
+                                 //   height: 20,
+                                 // ),
+                                 //
+                                 // _buildApplyPromoCodeButton(),
+                                 // SizedBox(height: 20,),
 
 
                                  Row(
@@ -334,10 +475,10 @@ class CartViewePage extends StatelessWidget {
                                  ),
 
                                  //promo
-                                 Obx(() =>   Row(
+                                 Obx(() =>Row(
                                    // mainAxisAlignment: MainAxisAlignment.center,
                                    children: [
-                                     if(cartViewPageController.couponAmount!="")...{
+                                     if(cartViewPageController.couponDataList.length>0)...{
 
                                        Expanded(
                                          child:  Text("Promo Amount : ",
@@ -346,21 +487,25 @@ class CartViewePage extends StatelessWidget {
                                                fontSize: 16
                                            ),
                                          ),),
-                                       Expanded(child:   Align(
+
+
+                                       Expanded(child:Align(
                                          alignment: Alignment.centerRight,
                                          child:Obx(()=> Text(
                                            // j
-                                           "-\$ "+"${cartViewPageController.couponAmount}",
+                                           "-\$ "
+                                               //+"${cartViewPageController.couponAmount}"
+                                           +totalPromoAmount(cartViewPageController.couponDataList)
+                                           ,
                                            style: TextStyle(fontWeight: FontWeight.w600,
                                                color: Colors.blue,
                                                fontSize: 18
                                            ),
                                          )),
                                        )),
+
+
                                      }
-
-
-
 
                                    ],
                                  ),),
@@ -378,11 +523,9 @@ class CartViewePage extends StatelessWidget {
                                      Expanded(child:   Align(
                                        alignment: Alignment.centerRight,
                                        child:Obx(()=> Text(
-                                         cartViewPageController.couponAmount!=""?
+
                                          "\$ "+"${(double.parse(cartViewPageController.totalPrice.toString())-
-                                             double.parse(cartViewPageController.couponAmount.toString())).toString()}":
-                                         "\$ "+"${double.parse(cartViewPageController.totalPrice.toString())}"
-                                         ,
+                                             double.parse(totalPromoAmount(cartViewPageController.couponDataList))).toString()}",
                                          style: TextStyle(fontWeight: FontWeight.w600,
                                              color: Colors.blue,
                                              fontSize: 18
@@ -394,7 +537,6 @@ class CartViewePage extends StatelessWidget {
 
                                    ],
                                  ),
-
 
                                  SizedBox(height: 20,),
 
@@ -847,10 +989,9 @@ class CartViewePage extends StatelessWidget {
 
   //user name input field create
   Widget _buildTextFieldPromoCode({
-    required bool obscureText,
-    Widget? prefixedIcon,
     String? hintText,
     String? labelText,
+    required TextEditingController controller
   }) {
     return Container(
       color:transparent,
@@ -870,19 +1011,16 @@ class CartViewePage extends StatelessWidget {
           onSubmitted:(_){
 
           },
-          controller: cartViewPageController.promoCodeController.value,
+          controller: controller,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black, fontSize: 15),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
             filled: true,
             fillColor: Colors.white,
             // contentPadding: const EdgeInsets.all(17),
-            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
-
-            prefixIcon: prefixedIcon,
-            prefixIconColor: input_box_icon_color,
+            contentPadding:  EdgeInsets.only(left: 15, right: 15,top: height/60,bottom:height/60 ),
 
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
@@ -928,6 +1066,7 @@ class CartViewePage extends StatelessWidget {
             {"couponCodes": cartViewPageController.couponCodes.value},
             {"couponAmount": cartViewPageController.couponAmount.value},
             {"couponSellerId": cartViewPageController.couponSellerId.value},
+            {"couponInfoList": cartViewPageController.couponDataList},
           ])?.then((value) => Get.delete<CartViewPageController>());
 
 
@@ -971,6 +1110,76 @@ class CartViewePage extends StatelessWidget {
   }
 
   Widget _buildApplyPromoCodeButton() {
+    return ElevatedButton(
+      onPressed: () {
+        // _showToast(cartViewPageController.userToken.value);
+
+        if(cartViewPageController.userToken.isNotEmpty &&
+            cartViewPageController.userToken.value!=null){
+          String couponCode=cartViewPageController.promoCodeController.value.text;
+          if(couponCode.isNotEmpty){
+            List<CheckPromoCode> checkPromoCodeDataList = [];
+            for(int i=0;i<cartViewPageController.sellerGroupList.length;i++){
+              checkPromoCodeDataList.add(CheckPromoCode(
+                  sellerId: cartViewPageController.sellerGroupList[i].seller.toString(),
+                  buyedAmount:totalPriceCalculate(cartViewPageController.cartList,
+                      cartViewPageController.sellerGroupList[i].seller.toString()).toString()
+              ) );
+            }
+            var checkPromoCodeDataListJson = checkPromoCodeDataList.map((e){
+              return {
+                "seller_id": e.sellerId,
+                "buyed_amount": e.buyedAmount
+              };
+            }).toList();
+            cartViewPageController.couponCodeCheck(
+                token: cartViewPageController.userToken.value,
+                couponCode: couponCode,
+                couponInfoJson: checkPromoCodeDataListJson);
+
+          }else{
+            _showToast("Please Enter Promo Code!");
+          }
+
+
+        }else{
+          showLoginWarning();
+        }
+
+      },
+
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5))),
+      child: Ink(
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [fnf_color,fnf_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0)
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          height: 40,
+          alignment: Alignment.center,
+          child:  const Text(
+            "Apply Promo Code",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildApplyPromoCodeButton2() {
     return ElevatedButton(
       onPressed: () {
         // _showToast(cartViewPageController.userToken.value);
@@ -1108,6 +1317,20 @@ class CartViewePage extends StatelessWidget {
         backgroundColor:Colors.amber,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+
+  String totalPromoAmount(List list ){
+
+    double totalPromoAmount=0.0;
+
+    for(int i=0;i<list.length;i++){
+      if(list[i].couponAmount!=""){
+        totalPromoAmount=totalPromoAmount+ double.parse(list[i].couponAmount);
+      }
+    }
+
+    return totalPromoAmount.toString();
   }
 
   void showLoginWarning( ) {

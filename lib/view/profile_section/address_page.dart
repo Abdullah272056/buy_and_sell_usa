@@ -1,12 +1,9 @@
-import 'package:badges/badges.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
- import '../../controller/cart_controller/cart_page_controller.dart';
-import '../../controller/checkout_step_controller/checkout_page_controller.dart';
-import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 import '../../controller/profile_section_controllert/address_page_controller.dart';
 

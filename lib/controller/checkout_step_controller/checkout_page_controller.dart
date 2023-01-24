@@ -19,6 +19,7 @@ class CheckoutPageController extends GetxController {
 
   ///controller
   final firstNameController = TextEditingController().obs;
+  final middleNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;
   final emailAddressController = TextEditingController().obs;
   final phoneController = TextEditingController().obs;
@@ -31,6 +32,7 @@ class CheckoutPageController extends GetxController {
   ///Focus Node
   final firstNameControllerFocusNode = FocusNode().obs;
   final lastNameControllerFocusNode = FocusNode().obs;
+  final middleNameControllerFocusNode = FocusNode().obs;
   final emailAddressControllerFocusNode = FocusNode().obs;
   final phoneControllerFocusNode = FocusNode().obs;
   final addressControllerFocusNode = FocusNode().obs;
@@ -79,6 +81,10 @@ class CheckoutPageController extends GetxController {
      couponCodes(argumentData[0]['couponCodes'].toString());
      couponAmount(argumentData[1]['couponAmount'].toString());
      couponSellerId(argumentData[2]['couponSellerId'].toString());
+
+
+     _showToast("sert= "+argumentData[3]['couponInfoList'].length.toString());
+     // couponSellerId(argumentData[3]['couponInfoList'].toString());
 
 
     loadUserIdFromSharePref();

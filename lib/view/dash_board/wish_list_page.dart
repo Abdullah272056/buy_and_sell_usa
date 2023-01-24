@@ -12,6 +12,7 @@ import '../../static/Colors.dart';
 import '../product/product_details.dart';
 import '../product/product_list.dart';
 import '../cart/cart_view_page.dart';
+import '../shimer/product_shimmir.dart';
 
 
 
@@ -74,10 +75,23 @@ class WishListPage extends StatelessWidget {
                     Expanded(child: Container(
                       color: Colors.white,
 
-                      child: Column(
+                      child: Obx(() => Column(
                         children: [
 
-                          Obx(() =>  Expanded(
+
+                          if(wishListPageController.wishListShimmerStatus==1)...{
+
+                            Expanded(child:   ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount:10,
+
+                                itemBuilder: (BuildContext context, int index) {
+                                  return cartItemShimmer();
+                                })),
+                          }
+                          else...{
+
+                            Obx(() =>  Expanded(
                               child:wishListPageController.wishList.length>0? Container(
                                 color: Colors.white,
                                 child:  ListView.builder(
@@ -141,11 +155,15 @@ class WishListPage extends StatelessWidget {
                                 ),
                               ),
 
-                          ),)
+                            ),)
+                          }
+
+
+
 
 
                         ],
-                      ),
+                      )),
 
                     ))
                   ],
@@ -354,6 +372,75 @@ class WishListPage extends StatelessWidget {
 
           ],
         ),
+      ),
+    );
+  }
+
+  Widget cartItemShimmer(){
+    return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
+      child:Flex(
+        direction: Axis.horizontal,
+        children: [
+
+          buildRectangleShimmer(
+              height: 56,
+              width: 56,
+              marginLeft: 0,
+              marginTop: 0,
+              marginRight: 20,
+              marginBottom: 0
+          ),
+
+
+
+          Expanded(child:Column(
+            children: [
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 23,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+
+               SizedBox(
+                height: 10,
+              ),
+
+
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 20,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+
+            ],
+          ),),
+
+
+          buildRectangleShimmer(
+              height: 30,
+              width: 30,
+              marginLeft: 0,
+              marginTop: 0,
+              marginRight: 10,
+              marginBottom: 0
+          )
+
+
+        ],
       ),
     );
   }

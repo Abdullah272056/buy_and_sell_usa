@@ -1,4 +1,5 @@
 
+
 import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ import '../auth/user/sign_up_page.dart';
 
 import '../checkout step/checkout_page.dart';
 import '../drawer/custom_drawer.dart';
+import '../shimer/product_shimmir.dart';
 
 
 class ProductDetailsePageScreen extends StatelessWidget {
@@ -128,88 +130,111 @@ class ProductDetailsePageScreen extends StatelessWidget {
                   Expanded(child: Container(
                     color: Colors.white,
 
-                    child: Column(
+                    child: Obx(() => Column(
                       children: [
-                        Expanded(
-                            child: Container(
-                              color: Colors.white,
-                              child:  SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    _buildBottomSectionDesign(),
-                                  ],
-                                ),
-                              ),
-                            )
+                        if(productDetailsController.productDetailsShimmerStatus==1)...{
+                          Expanded(
+                              child: Container(
+                                color: Colors.white,
+                                child:  SingleChildScrollView(
+                                  child:Column(
+                                    children: [
 
+                                      _buildBottomSectionDesignShimmer()
 
-                        ),
-
-                        //add to cart button section
-                        Container(
-                          height: 50,
-                          padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
-
-                          decoration: BoxDecoration(
-                            color:Colors.white,
-                            borderRadius:   BorderRadius.only(
-                              topRight: Radius.circular(10.0),
-                              topLeft: Radius.circular(10.0),
-                            ),
-                            boxShadow: [BoxShadow(
-
-                              color:Colors.grey.withOpacity(.5),
-                              //  blurRadius: 20.0, // soften the shadow
-                              blurRadius:.5, // soften the shadow
-                              spreadRadius: 0.0, //extend the shadow
-                              offset:Offset(
-                                1.0, // Move to right 10  horizontally
-                                0.0, // Move to bottom 10 Vertically
-                                // Move to bottom 10 Vertically
-                              ),
-                            )],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 0,right: 30),
-                                child:  Badge(
-                                  badgeContent:Obx(()=> Text(
-                                    productDetailsController.cartCount.value.toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500
-                                    ),
-                                  )),
-                                  badgeColor: Colors.blue,
-                                  child:  InkWell(
-                                    onTap: (){
-
-                                      // _showToast("ddd")
-                                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                                    },
-                                    child: Icon(
-                                      Icons.shopping_cart_outlined,
-                                      size: 30,
-                                      color: Colors.blue,
-                                    ),
+                                    ],
                                   ),
-
-
                                 ),
-                              ),
-
-                              Expanded(child: _buildAddToCartButton()),
+                              )
 
 
-
-                            ],
                           ),
 
-                        ),
+                        }
+                        else...{
+                          Expanded(
+                              child: Container(
+                                color: Colors.white,
+                                child:  SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+
+                                      _buildBottomSectionDesign(),
+
+                                    ],
+                                  ),
+                                ),
+                              )
+
+
+                          ),
+                          Container(
+                            height: 50,
+                            padding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 5),
+
+                            decoration: BoxDecoration(
+                              color:Colors.white,
+                              borderRadius:   BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0),
+                              ),
+                              boxShadow: [BoxShadow(
+
+                                color:Colors.grey.withOpacity(.5),
+                                //  blurRadius: 20.0, // soften the shadow
+                                blurRadius:.5, // soften the shadow
+                                spreadRadius: 0.0, //extend the shadow
+                                offset:Offset(
+                                  1.0, // Move to right 10  horizontally
+                                  0.0, // Move to bottom 10 Vertically
+                                  // Move to bottom 10 Vertically
+                                ),
+                              )],
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 0,right: 30),
+                                  child:  Badge(
+                                    badgeContent:Obx(()=> Text(
+                                      productDetailsController.cartCount.value.toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500
+                                      ),
+                                    )),
+                                    badgeColor: Colors.blue,
+                                    child:  InkWell(
+                                      onTap: (){
+
+                                        // _showToast("ddd")
+                                        Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                                      },
+                                      child: Icon(
+                                        Icons.shopping_cart_outlined,
+                                        size: 30,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+
+
+                                  ),
+                                ),
+
+                                Expanded(child: _buildAddToCartButton()),
+
+
+
+                              ],
+                            ),
+
+                          ),
+                        }
+
+
                       ],
-                    ),
+                    ),)
 
                   ))
 
@@ -582,6 +607,274 @@ class ProductDetailsePageScreen extends StatelessWidget {
               ],
             )));
   }
+
+  Widget _buildBottomSectionDesignShimmer() {
+    double sizeHeight = Get.height;
+    double sizeWidth = Get.width;
+    // Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
+    return Container(
+        width: sizeWidth,
+        decoration:  BoxDecoration(
+          color:Colors.white,
+        ),
+        child: Padding(
+            padding:
+            const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
+            child: Column(
+              children: [
+
+                buildRectangleShimmer(
+                    height: Get.height * 0.5,
+                    width:double.maxFinite,
+                    marginLeft: 0,
+                    marginTop: 5,
+                    marginRight: 0,
+                    marginBottom: 0),
+
+                Container(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: Column(
+                    children: [
+
+                      SizedBox(height: 10,),
+
+                      //shimmer
+                      Row(
+                        children: [
+                          Expanded(child: Align(alignment: Alignment.centerLeft,
+                            child: buildRectangleShimmer(
+                                height: 40,
+                                width:double.maxFinite,
+                                marginLeft: 0,
+                                marginTop: 8,
+                                marginRight: 0,
+                                marginBottom: 0),
+                          ),),
+                          SizedBox(width: 20,),
+                          Column(
+                            children: [
+                              Align(alignment: Alignment.centerRight,
+                                child: buildRectangleShimmer(
+                                    height: 15,
+                                    width:Get.size.width/3.5,
+                                    marginLeft: 0,
+                                    marginTop: 8,
+                                    marginRight: 0,
+                                    marginBottom: 0),
+                              ),
+                              Align(alignment: Alignment.centerRight,
+                                child: buildRectangleShimmer(
+                                    height: 20,
+                                    width:Get.size.width/3.5,
+                                    marginLeft: 0,
+                                    marginTop: 8,
+                                    marginRight: 0,
+                                    marginBottom: 0),
+                              ),
+                            ],
+                          )
+
+
+
+
+                        ],
+                      ),
+
+                      //color
+
+                      Obx(() => Container(
+                        child: productDetailsController.sizeList.length>0?Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 27,
+                          child: Row(
+                            children: [
+                              Text(
+                                "Available Color: ",
+                                overflow: TextOverflow.ellipsis,
+                                style:  TextStyle(
+                                    color: text_color,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
+                                softWrap: false,
+                                maxLines: 2,
+                              ),
+                              Expanded(child:Obx(()=> ListView.builder(
+                                //  shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
+
+                                itemCount:productDetailsController.colorsList==null||
+                                    productDetailsController.colorsList.length<=0?0:
+                                productDetailsController.colorsList.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(right: 8,left: 8),
+                                    height: 27,
+                                    //  width:32,
+                                    decoration: BoxDecoration(
+                                      color:Colors.white,
+                                      border: Border.all(
+                                        color: hint_color,
+                                        width: .5, //                   <--- border width here
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(5.0),
+
+                                      ),
+
+                                    ),
+                                    child:  Center(
+                                      child: Text(
+                                        "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                        //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
+                                        ,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:  TextStyle(
+                                            color: text_color,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.normal),
+                                        softWrap: false,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  );
+
+                                },
+                                scrollDirection: Axis.horizontal,
+                              )))
+
+                            ],
+                          ) ,
+                        ):Container(),
+                      ),),
+
+                      ///smimmer
+                      Row(
+                        children: [
+                          Expanded(child: Align(alignment: Alignment.centerLeft,
+                            child: buildRectangleShimmer(
+                                height: 20,
+                                width:Get.size.width/3,
+                                marginLeft: 0,
+                                marginTop: 5,
+                                marginRight: 0,
+                                marginBottom: 0),
+                          ),),
+                          Expanded(child:  Align(alignment: Alignment.centerRight,
+                            child: buildRectangleShimmer(
+                                height: 20,
+                                width:Get.size.width/3,
+                                marginLeft: 0,
+                                marginTop: 5,
+                                marginRight: 0,
+                                marginBottom: 0),
+                          ),)
+
+
+
+                        ],
+                      ),
+
+                      ///shimmer
+                      Row(
+                        children: [
+                          buildRectangleShimmer(
+                              height: 22,
+                              width:Get.size.width/2.3,
+                              marginLeft: 0,
+                              marginTop: 15,
+                              marginRight: 0,
+                              marginBottom: 0),
+
+                        ],
+                      ),
+
+                      //shimmer
+                      Row(
+                        children: [
+                          Expanded(child:  buildRectangleShimmer(
+                              height: 50,
+                              width:double.infinity,
+                              marginLeft: 0,
+                              marginTop: 6,
+                              marginRight: 0,
+                              marginBottom: 0),)
+
+
+                        ],
+                      ),
+
+                      ///shimmer
+                      Row(
+                        children: [
+                          buildRectangleShimmer(
+                              height: 22,
+                              width:Get.size.width/2.3,
+                              marginLeft: 0,
+                              marginTop: 15,
+                              marginRight: 0,
+                              marginBottom: 0),
+
+                        ],
+                      ),
+
+                      //shimmer
+                      Row(
+                        children: [
+                          Expanded(child:  buildRectangleShimmer(
+                              height: 50,
+                              width:double.infinity,
+                              marginLeft: 0,
+                              marginTop: 6,
+                              marginRight: 0,
+                              marginBottom: 0),)
+
+
+                        ],
+                      ),
+
+
+                      //shimmer
+                      Row(
+                        children: [
+                          buildRectangleShimmer(
+                              height: 20,
+                              width:Get.size.width/2,
+                              marginLeft: 0,
+                              marginTop: 20,
+                              marginRight: 0,
+                              marginBottom: 0),
+
+                        ],
+                      ),
+                      //shimmer
+                      GridView.builder(
+                          itemCount:4,
+                          padding: EdgeInsets.only(top: 10),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: Get.size.width>550? 3:2,
+                              crossAxisSpacing: 15.0,
+                              mainAxisSpacing: 15.0,
+                              mainAxisExtent: 250
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return  buildProductItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
+                          })
+
+
+
+                    ],
+
+                  ),
+                )
+
+              ],
+            )));
+  }
+
 
   void openBottomSheet(String text) {
     Get.bottomSheet(
@@ -1159,173 +1452,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
-  //user name input field create
-  Widget productCardItemDesign1({
-    required double height,
-    required double width,
-    required int index,
-  }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-
-        Container(
-          width:width/2 ,
-          // height:width/1.3
-          // margin: EdgeInsets.only(left: 10,right: 10),
-          margin: EdgeInsets.only(left: 5,right: 5),
-          // color: Colors.white,
-          child:  Column(
-            // alignment: Alignment.bottomCenter,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      // color:Colors.white,
-                        borderRadius: BorderRadius.circular(24)),
-                    child: Stack(
-                      children: [
-                        AspectRatio(
-                            aspectRatio: 1,
-                            child:Padding(
-                              // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
-                                padding: EdgeInsets.only(left: 0,right: 0,top: 0),
-                                // padding: EdgeInsets.all(16),
-                                child: Obx(()=>FadeInImage.assetNetwork(
-                                  fit: BoxFit.fill,
-                                  placeholder: 'assets/images/loading.png',
-                                 //  image:"http://localhost/bijoytech_ecomerce/public/images/product/1672033114-63a9335aed848.webp",
-                                  image:BASE_URL_API_IMAGE_PRODUCT+productDetailsController.productImage.value,
-                                  imageErrorBuilder: (context, url, error) =>
-                                      Image.asset(
-                                        'assets/images/loading.png',
-                                        fit: BoxFit.fill,
-                                      ),
-                                ))
-
-                            )
-                        ),
-                        Positioned(
-                          right: 5,
-                          top: 5,
-                          child: InkWell(
-                            onTap: (){
-                              if(productDetailsController.userToken.isNotEmpty &&
-                                  productDetailsController.userToken.value!=null&&productDetailsController.userToken.value!="null"){
-                                 _showToast("add favourite");
-                                // _showToast(response["id"].toString());
-
-                                // productDetailsController.addWishList(
-                                //     token: homeController.userToken.toString(),
-                                //     productId: response["id"].toString());
-
-                              }else{
-                                showLoginWarning();
-                              }
 
 
-
-                            },
-                            child: Icon(Icons.favorite_outline,
-                              color: hint_color,
-                            ),
-
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-              ),
-
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child:  Text(
-                          "Men Grey Classic Regular Fit Formal Shir",
-                          //"Men Grey Classic Regular Fit Formal Shirt",
-                          overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal),
-                          softWrap: false,
-                          maxLines: 1,
-                        ),
-                      ),
-                      // 12.widthBox,
-                      // RatingWidget(rating: widget.product.rating),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Wrap(
-                          children: [
-                            RatingBarIndicator(
-                              // rating:response["avg_rating"],
-                              rating:double.parse("4.5"),
-                              itemBuilder: (context, index) => const Icon(
-                                Icons.star,
-                                color:Colors.orange,
-                              ),
-                              itemCount: 5,
-                              itemSize: 15.0,
-                              direction: Axis.horizontal,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              " 8 Review",
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color:hint_color,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child:  Text("\$ "+"120.50",
-                          overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                              color: Colors.black.withOpacity(0.7),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                          softWrap: false,
-                          maxLines: 2,
-                        ),
-                      ),
-                      // 12.widthBox,
-                      // RatingWidget(rating: widget.product.rating),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
 
   //product item
   Widget productCardItemDesign({
@@ -1363,149 +1491,152 @@ class ProductDetailsePageScreen extends StatelessWidget {
             // height:width/1.3
             padding: EdgeInsets.only(left: 10,right: 10),
             // color: Colors.white,
-            child:  Column(
-              // alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    // color:Colors.white,
-                      borderRadius: BorderRadius.circular(24)),
-                  child: Stack(
-                    children: [
-                      AspectRatio(
-                          aspectRatio: 1,
-                          child:Padding(
-                            // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
-                              padding: EdgeInsets.only(left: 0,right: 0,top: 0),
-                              // padding: EdgeInsets.all(16),
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.fill,
-                                placeholder: 'assets/images/loading.png',
-                                // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
-                                image:BASE_URL_API_IMAGE_PRODUCT+
-                                    productDetailsController.relatedProductList[index]['cover_image'].toString()??"",
-                                imageErrorBuilder: (context, url, error) =>
-                                    Image.asset(
-                                      'assets/images/loading.png',
-                                      fit: BoxFit.fill,
-                                    ),
-                              )
-
-                            // Image.asset(
-                            //     "assets/images/shirt.png"
-                            // ),
-                          )
-                      ),
-                      Positioned(
-                        right: 5,
-                        top: 5,
-                        child: InkWell(
-                          onTap: (){
-
-                            if(productDetailsController.userToken.isNotEmpty &&
-                                productDetailsController.userToken.value!=null){
-                              productDetailsController.addWishList(
-                                  token: productDetailsController.userToken.toString(),
-                                  productId: productDetailsController.relatedProductList[index]["id"].toString());
-
-                            }else{
-                              showLoginWarning();
-                            }
-                          },
-                          child: Icon(Icons.favorite_outline,
-                            color: hint_color,
-                          ),
-
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            child:ClipRRect(
+              borderRadius: BorderRadius.circular(10.5),
+              child: Column(
+                // alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      // color:Colors.white,
+                        borderRadius: BorderRadius.circular(24)),
+                    child: Stack(
                       children: [
-                        Expanded(
-                          child: Obx(()=> Text(
-                            // "product name",
-                            productDetailsController.relatedProductList[index]["product_name"],
+                        AspectRatio(
+                            aspectRatio: 1,
+                            child:Padding(
+                              // padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+                                padding: EdgeInsets.only(left: 0,right: 0,top: 0),
+                                // padding: EdgeInsets.all(16),
+                                child: FadeInImage.assetNetwork(
+                                  fit: BoxFit.fill,
+                                  placeholder: 'assets/images/loading.png',
+                                  // image:"http://192.168.68.106/bijoytech_ecomerce/public/images/product/1669097419-637c67cbbabda.webp",
+                                  image:BASE_URL_API_IMAGE_PRODUCT+
+                                      productDetailsController.relatedProductList[index]['cover_image'].toString()??"",
+                                  imageErrorBuilder: (context, url, error) =>
+                                      Image.asset(
+                                        'assets/images/loading.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                )
 
-                            overflow: TextOverflow.ellipsis,
+                              // Image.asset(
+                              //     "assets/images/shirt.png"
+                              // ),
+                            )
+                        ),
+                        Positioned(
+                          right: 5,
+                          top: 5,
+                          child: InkWell(
+                            onTap: (){
+
+                              if(productDetailsController.userToken.isNotEmpty &&
+                                  productDetailsController.userToken.value!=null &&
+                                  productDetailsController.userToken.value!="null"){
+                                productDetailsController.addWishList(
+                                    token: productDetailsController.userToken.toString(),
+                                    productId: productDetailsController.relatedProductList[index]["id"].toString());
+
+                              }else{
+                                showLoginWarning();
+                              }
+                            },
+                            child: Icon(Icons.favorite_outline,
+                              color: fnf_color,
+                            ),
+
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Obx(()=> Text(
+                              // "product name",
+                              productDetailsController.relatedProductList[index]["product_name"],
+
+                              overflow: TextOverflow.ellipsis,
+                              style:  TextStyle(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal),
+                              softWrap: false,
+                              maxLines: 1,
+                            )),
+                          ),
+                          // 12.widthBox,
+                          // RatingWidget(rating: widget.product.rating),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Wrap(
+                              children: [
+                                RatingBarIndicator(
+                                  // rating:response["avg_rating"],
+                                  // rating:double.parse("4.5"),
+                                  rating:double.parse(productDetailsController.relatedProductList[index]["av_review"].toString()),
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color:Colors.orange,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 15.0,
+                                  direction: Axis.horizontal,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  productDetailsController.relatedProductList[index]["count_review"].toString()+
+                                      " Review",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color:hint_color,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(()=> Text(
+                            "\$ "+productDetailsController.relatedProductList[index]['price'].toString(),
                             style:  TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 15,
+                                color: hint_color,
+                                fontSize: 13,
+                                decoration: TextDecoration.lineThrough,
                                 fontWeight: FontWeight.normal),
                             softWrap: false,
                             maxLines: 1,
-                          )),
-                        ),
-                        // 12.widthBox,
-                        // RatingWidget(rating: widget.product.rating),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Wrap(
-                            children: [
-                              RatingBarIndicator(
-                                // rating:response["avg_rating"],
-                                // rating:double.parse("4.5"),
-                                rating:double.parse(productDetailsController.relatedProductList[index]["av_review"].toString()),
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color:Colors.orange,
-                                ),
-                                itemCount: 5,
-                                itemSize: 15.0,
-                                direction: Axis.horizontal,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                productDetailsController.relatedProductList[index]["count_review"].toString()+
-                                    " Review",
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color:hint_color,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
+                          ),),
 
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Obx(()=> Text(
-                          "\$ "+productDetailsController.relatedProductList[index]['price'].toString(),
-                          style:  TextStyle(
-                              color: hint_color,
-                              fontSize: 13,
-                              decoration: TextDecoration.lineThrough,
-                              fontWeight: FontWeight.normal),
-                          softWrap: false,
-                          maxLines: 1,
-                        ),),
-
-                        SizedBox(width: 10,),
-                        Expanded(
+                          SizedBox(width: 10,),
+                          Expanded(
                             child: Obx(()=>Text(
                               "\$ "+discountedPriceCalculate(regularPrice:productDetailsController.relatedProductList[index]['price'].toString(),
                                   discountedPercent:productDetailsController.relatedProductList[index]['discount_percent'].toString()
-                                  //discountedPercent: response["discount_percent"].toString()
+                                //discountedPercent: response["discount_percent"].toString()
                               ),
 
                               //allProductListPageController.filterProductList[index].price,
@@ -1517,15 +1648,20 @@ class ProductDetailsePageScreen extends StatelessWidget {
                               softWrap: false,
                               maxLines: 2,
                             )),
-                        ),
-                        // 12.widthBox,
-                        // RatingWidget(rating: widget.product.rating),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                          ),
+                          // 12.widthBox,
+                          // RatingWidget(rating: widget.product.rating),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+
+
+
+
           )
         ],
       ) ,

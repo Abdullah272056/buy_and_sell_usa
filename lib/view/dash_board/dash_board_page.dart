@@ -15,10 +15,6 @@ import '../cart/cart_page.dart';
 import 'category_page.dart';
 import 'home_page.dart';
 
-
-
-
-
 class DashBoardPageScreen extends StatelessWidget {
 
   // int selectedTabIndex;

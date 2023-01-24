@@ -18,12 +18,13 @@ import '../../../../static/Colors.dart';
 
 import '../../drawer/custom_drawer.dart';
 import '../../drawer/vendor_custom_drawer.dart';
+import '../../shimer/product_shimmir.dart';
 import '../order_details_page.dart';
 
 class VendorOrderPage extends StatelessWidget {
 
   final vendorOrderPageController = Get.put(VendorOrderPageController());
-  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -236,6 +237,232 @@ class VendorOrderPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: [
 
+                SizedBox(width: 5,),
+
+                Expanded(child:Column(
+                  children: [
+
+                    Row(
+                      children: [
+                        Text(
+                          "Date: ",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:fnf_small_text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                            dateFormat(response["created_at"].toString()),
+                          // "05-Jan-2023",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    Row(
+                      children: [
+                        Text(
+                          "ID: ",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:fnf_small_text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          response["order_id"].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    Row(
+                      children: [
+
+                        Text(
+                          "Order By:",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:fnf_small_text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.normal),
+                        ),
+
+                        SizedBox(width: 10,),
+
+                        Text(
+                          response["billings"]["first_name"].toString()+" "+ response["billings"]["last_name"].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+
+                      ],
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       "Total: ",
+                    //       overflow: TextOverflow.ellipsis,
+                    //       softWrap: false,
+                    //       maxLines: 1,
+                    //       style: TextStyle(
+                    //           color:fnf_small_text_color,
+                    //           fontSize: 15,
+                    //           decoration: TextDecoration.none,
+                    //           fontWeight: FontWeight.w500),
+                    //     ),
+                    //     SizedBox(width: 10,),
+                    //     Text(
+                    //       "\$"+response["total"].toString(),
+                    //       overflow: TextOverflow.ellipsis,
+                    //       softWrap: false,
+                    //       maxLines: 1,
+                    //       style: TextStyle(
+                    //           color:text_color,
+                    //           fontSize: 15,
+                    //           decoration: TextDecoration.none,
+                    //           fontWeight: FontWeight.normal),
+                    //     ),
+                    //   ],
+                    // ),
+                    Row(
+                      children: [
+                        Text(
+                          "Status: ",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:fnf_small_text_color,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          response["status"].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color:response["status"].toString().toLowerCase()=="complete"?Colors.green:fnf_color,
+                              fontSize: 16,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),),
+
+                Container(
+                  child: Column(
+                    children: [
+
+                      // IconButton(
+                      //   iconSize: 20,
+                      //   color: hint_color,
+                      //   icon:Icon(Icons.edit),
+                      //   onPressed: () {
+                      //     vendorOrderPageController.selectStateId("Pending");
+                      //     if(response["status"].toString().toLowerCase()!="complete"){
+                      //       openBottomSheet(response);
+                      //     }
+                      //
+                      //   },
+                      // ),
+
+                      Text(
+                        "\$"+response["total"].toString(),
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        maxLines: 1,
+                        style: TextStyle(
+                            color:fnf_color,
+                            fontSize: 16,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w700),
+                      ),
+
+                    ],
+                  ),
+                )
+
+              ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Expanded(child: Container(
+                  height: .5,
+                  color:fnf_color,
+                ))
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  Widget orderItem1(var response){
+    return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 0),
+      child: InkWell(
+        onTap: (){
+
+          Get.to(() => VendorOrderDetailsPage(),
+              arguments: [{"singleOrderDetailsData": response}]
+
+          )?.then((value) => Get.delete<VendorOrderDetailsPageController>());
+
+        },
+        child: Column(
+          children: [
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+
                 SizedBox(width: 15,),
 
                 Expanded(child:Column(
@@ -256,7 +483,7 @@ class VendorOrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                            dateFormat(response["created_at"].toString()),
+                          dateFormat(response["created_at"].toString()),
                           // "05-Jan-2023",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
@@ -371,21 +598,21 @@ class VendorOrderPage extends StatelessWidget {
                   child: Column(
                     children: [
 
-                      IconButton(
-                        iconSize: 20,
-                        color: hint_color,
-                        icon:Icon(Icons.edit),
-                        onPressed: () {
-                          vendorOrderPageController.selectStateId("Pending");
-                          if(response["status"].toString().toLowerCase()!="complete"){
-                            openBottomSheet(response);
-                          }
-
-                        },
-                      ),
+                      // IconButton(
+                      //   iconSize: 20,
+                      //   color: hint_color,
+                      //   icon:Icon(Icons.edit),
+                      //   onPressed: () {
+                      //     vendorOrderPageController.selectStateId("Pending");
+                      //     if(response["status"].toString().toLowerCase()!="complete"){
+                      //       openBottomSheet(response);
+                      //     }
+                      //
+                      //   },
+                      // ),
 
                       Text(
-                          response["status"].toString(),
+                        response["status"].toString(),
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         maxLines: 1,
@@ -393,7 +620,7 @@ class VendorOrderPage extends StatelessWidget {
                             color:response["status"].toString().toLowerCase()=="complete"?Colors.green:fnf_color,
                             fontSize: 13,
                             decoration: TextDecoration.none,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w600),
                       ),
 
                     ],
@@ -407,7 +634,7 @@ class VendorOrderPage extends StatelessWidget {
               children: [
                 Expanded(child: Container(
                   height: .5,
-                  color:hint_color,
+                  color:fnf_color,
                 ))
               ],
             )
@@ -775,7 +1002,7 @@ class VendorOrderPage extends StatelessWidget {
       ),
       //   height: 150,
       child: Container(
-        margin: const EdgeInsets.only(right: 10.0,top: 15,bottom: 15,left: 10),
+        margin: const EdgeInsets.only(right: 10.0,top: 20,bottom: 20,left: 20),
         // height: double.infinity,
         // width: double.infinity,
 
@@ -783,39 +1010,34 @@ class VendorOrderPage extends StatelessWidget {
           child: Column(
             children: [
 
-
-
-
               Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  name,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: fnf_small_text_color,
-                      fontSize: (Get.width/30),
-                      fontWeight: FontWeight.w500),
-                  softWrap: false,
-                ),
-              ),
-              const SizedBox(height: 5,),
-              Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.centerLeft,
                 child: Text(
                   value,
                   overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: fnf_small_text_color,
-                      fontSize: (Get.width/25),
-                      fontWeight: FontWeight.w500),
+                      color: fnf_color,
+                      fontSize: (Get.width/20),
+                      fontWeight: FontWeight.w800),
                   softWrap: false,
 
                 ),
               ),
-
-
+              const SizedBox(height: 10,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: fnf_small_text_color,
+                      fontSize: (Get.width/27),
+                      fontWeight: FontWeight.w500),
+                  softWrap: false,
+                ),
+              ),
 
             ],
           ),
@@ -825,7 +1047,76 @@ class VendorOrderPage extends StatelessWidget {
   }
 
 
+  ///shimmer
+  Widget orderItemShimmer(){
+    return  Padding(padding: const EdgeInsets.only(right:20,top: 10,left: 20,bottom: 20),
+      child:Flex(
+        direction: Axis.horizontal,
+        children: [
 
+
+          Expanded(child:Column(
+            children: [
+
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+              ],),
+
+              SizedBox(
+                height: 4,
+              ),
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+              SizedBox(
+                height: 4,
+              ),
+              Row(children: [
+                Expanded(child: buildRectangleShimmer(
+                    height: 18,
+                    width: double.infinity,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    marginRight: 10,
+                    marginBottom: 0
+                ),),
+
+              ],),
+
+            ],
+          ),),
+
+
+          buildRectangleShimmer(
+              height: 20,
+              width: 80,
+              marginLeft: 0,
+              marginTop: 0,
+              marginRight: 0,
+              marginBottom: 0
+          )
+
+
+        ],
+      ),
+    );
+  }
 
 
 }
