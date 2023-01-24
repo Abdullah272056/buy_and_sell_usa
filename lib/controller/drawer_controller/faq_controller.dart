@@ -29,10 +29,6 @@ class FaqController extends GetxController {
 
   }
 
-
-
-
-
   ///get data api call
   void getPrivacyPolicyData() async{
     try {

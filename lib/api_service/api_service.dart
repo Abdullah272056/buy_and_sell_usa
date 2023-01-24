@@ -74,3 +74,10 @@ String SUB_URL_API_GET_VENDOR_ORDER_LIST= "api/vendor/order-vendor";
 
 
 
+///coupon
+String SUB_URL_API_COUPON_AVAILABLE_SELLER= "api/coupon-available-seller";
+String SUB_URL_API_COUPON_AVAILABLE_SELLER_LIST= "api/coupon-available-check";
+String SUB_URL_API_COUPON_CODE_CHECK_INDIVIDUAL= "api/coupon-check-individual";
+
+
+

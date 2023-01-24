@@ -645,8 +645,6 @@ class VendorOrderPage extends StatelessWidget {
   }
 
 
-
-
   String dateFormat(String dateString){
 
     DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);

@@ -66,11 +66,13 @@ class CheckoutPage extends StatelessWidget {
 
               Expanded(child: Container(
                 color: Colors.white,
-                padding: EdgeInsets.only(left: 20,right: 20,top: 10),
+                padding: EdgeInsets.only(left: 20,right: 20,top: 5),
 
                 child:SingleChildScrollView(
                   child: Column(
                     children: [
+
+                      SizedBox(height: 15,),
 
                       //user name input
                       _buildTextFieldUserFirstName(
@@ -81,6 +83,17 @@ class CheckoutPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+
+
+                      _buildTextFieldUserMiddleName(
+                        obscureText: false,
+                        prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                        labelText: "Middle Name*",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
 
                       _buildTextFieldUserLastName(
                         obscureText: false,
@@ -217,6 +230,7 @@ class CheckoutPage extends StatelessWidget {
                                  "\$ "+"${
                                      double.parse(( checkoutPageController.totalPrice).toStringAsFixed(2))
                                  }",
+
                                  // totalPriceCalculate(cartViewPageController.cartList,
                                  // cartViewPageController.sellerGroupList[index].seller.toString()),
 
@@ -236,8 +250,6 @@ class CheckoutPage extends StatelessWidget {
                               //   ),
                               // )),
                             )),
-
-
 
                           ],
                         ) ,
@@ -611,9 +623,75 @@ class CheckoutPage extends StatelessWidget {
           // autofocus: false,
           focusNode:checkoutPageController.firstNameControllerFocusNode.value,
           onSubmitted:(_){
-            checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
+            checkoutPageController.middleNameControllerFocusNode.value.requestFocus();
           },
           controller: checkoutPageController.firstNameController.value,
+          textInputAction: TextInputAction.next,
+          style: const TextStyle(color: Colors.black, fontSize: 18),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            labelText: labelText,
+            filled: true,
+            fillColor: Colors.white,
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+
+            prefixIcon: prefixedIcon,
+            prefixIconColor: input_box_icon_color,
+
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+            ),
+            labelStyle: TextStyle(
+              color:checkoutPageController.inputLevelTextColor.value,
+            ),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              color: hint_color,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'PTSans',
+            ),
+          ),
+          keyboardType: TextInputType.text,
+
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
+          //   LengthLimitingTextInputFormatter(
+          //     13,
+          //   ),
+          // ],
+        ),
+      ),
+    );
+  }
+
+
+  //user name input field create
+  Widget _buildTextFieldUserMiddleName({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Container(
+      color:transparent,
+      child: Focus(
+        onFocusChange: (hasFocus) {
+          checkoutPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        },
+        child: TextField(
+          cursorColor: awsCursorColor,
+          cursorWidth: 1.5,
+          // maxLength: 13,
+          // autofocus: false,
+          focusNode:checkoutPageController.middleNameControllerFocusNode.value,
+          onSubmitted:(_){
+            checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
+          },
+          controller: checkoutPageController.middleNameController.value,
           textInputAction: TextInputAction.next,
           style: const TextStyle(color: Colors.black, fontSize: 18),
           decoration: InputDecoration(
@@ -1059,6 +1137,7 @@ class CheckoutPage extends StatelessWidget {
         // String userEmailTxt = logInPageController.userEmailController.value.text;
 
         String firstName=checkoutPageController.firstNameController.value.text;
+        String middleName=checkoutPageController.middleNameController.value.text;
         String lastName=checkoutPageController.lastNameController.value.text;
         String email=checkoutPageController.emailAddressController.value.text;
         String phone=checkoutPageController.phoneController.value.text;
@@ -1066,13 +1145,14 @@ class CheckoutPage extends StatelessWidget {
         String townCity=checkoutPageController.townOrCityController.value.text;
         String zipCode=checkoutPageController.zipCodeController.value.text;
 
+        // _showToast("state="+checkoutPageController.selectStateId.value);
+        // _showToast("country="+checkoutPageController.selectCountryId.value);
 
-            // _showToast("state="+checkoutPageController.selectStateId.value);
-            // _showToast("country="+checkoutPageController.selectCountryId.value);
-
-        if (_inputValid(f_name: firstName, l_name: lastName, email: email, phone: phone,
+        if (_inputValid(f_name: firstName,middle_name: middleName, l_name: lastName, email: email, phone: phone,
             address: address, town_city: townCity, zipCode: zipCode,
-            selectedState: checkoutPageController.selectStateId.value, selectedCountry: checkoutPageController.selectCountryId.value)== false) {
+            selectedState: checkoutPageController.selectStateId.value,
+            selectedCountry: checkoutPageController.selectCountryId.value,
+            )== false) {
 
           // checkoutPageController.updateUserBillingInfoList(
           //     token: checkoutPageController.userToken.value,
@@ -1135,8 +1215,11 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
+
   //input text validation check
-  _inputValid({required String f_name, required String l_name,
+  _inputValid({required String f_name,
+    required String l_name,
+    required String middle_name,
     required String selectedState, required String selectedCountry,
     required String email, required String phone,required String address,
     required String town_city,required String zipCode}) {
@@ -1144,6 +1227,11 @@ class CheckoutPage extends StatelessWidget {
     if (f_name.isEmpty) {
       Fluttertoast.cancel();
       _showToast("First name can't empty!");
+      return;
+    }
+    if (middle_name.isEmpty) {
+      Fluttertoast.cancel();
+      _showToast("Middle name can't empty!");
       return;
     }
     if (l_name.isEmpty) {
@@ -1200,6 +1288,7 @@ class CheckoutPage extends StatelessWidget {
 
     return false;
   }
+
 
 
   //toast create
