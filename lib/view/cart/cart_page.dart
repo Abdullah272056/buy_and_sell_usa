@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -477,17 +478,19 @@ class CartPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
-
         if(cartPageController.userToken.isNotEmpty &&
             cartPageController.userToken.value!=null){
           // Get.to(CheckoutPage());
-          Get.to(() => CheckoutPage(), arguments: [
-            {"couponCodes": ""},
-            {"couponAmount": ""},
-            {"couponSellerId": ""},
-            {"couponInfoList": cartPageController.couponDataList},
-          ])?.then((value) => Get.delete<CartPageController>());
 
+          cartPageController.loadAllCartNotesAgain().then((value) => {
+            Get.to(() => CheckoutPage(), arguments: [
+              {"couponCodes": ""},
+              {"couponAmount": ""},
+              {"couponSellerId": ""},
+              {"couponInfoList": cartPageController.couponDataList},
+            ])?.then((value) => Get.delete<CartPageController>())
+
+          });
 
         }else{
           showLoginWarning();
