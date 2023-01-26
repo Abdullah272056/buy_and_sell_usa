@@ -96,6 +96,9 @@ class ProductDetailsController extends GetxController {
   var commission="".obs;
   var commissionType="".obs;
 
+  var sku="".obs;
+  var vendorName="".obs;
+
   var discountPercent="".obs;
 
 
@@ -315,6 +318,9 @@ class ProductDetailsController extends GetxController {
             tax(dataResponse[1]["product"]["tax_percent"].toString());
             seller(dataResponse[1]["product"]["seller"]["id"].toString());
             sellerName(dataResponse[1]["product"]["seller"]["name"].toString());
+
+            sku(dataResponse[1]["product"]["sku"].toString());
+
             slug(dataResponse[1]["product"]["slug"]["id"].toString());
 
 
