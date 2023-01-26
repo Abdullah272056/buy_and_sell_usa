@@ -1016,11 +1016,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
   }
 
 
-
-
-
-
-
   //product item
   Widget productCardItemDesign({
     required double height,
@@ -1276,7 +1271,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
       ],
     );
   }
-
 
   Widget sliderSectionDesign() {
     return Container(
@@ -1652,6 +1646,11 @@ class ProductDetailsePageScreen extends StatelessWidget {
             // id: 1,
           );
           productDetailsController.insertData(cartNote);
+
+          productDetailsController.loadAllCartNotes().then((value) => {
+            Get.to(() => CartPage())?.then((value) => Get.delete<CartPageController>())
+          });
+
         }
 
         ///
@@ -3023,8 +3022,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
-
-
   void showLoginWarning( ) {
 
     Get.defaultDialog(
@@ -3195,7 +3192,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
         radius: 10.0);
   }
 
-
   void showGroceryModal( ) {
 
     Get.defaultDialog(
@@ -3311,7 +3307,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
-
 
   void showGroceryModalForBuyNow( ) {
 
@@ -3429,7 +3424,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
         radius: 10.0);
   }
 
-
   Widget _buildCheckZipCodeButton() {
     return ElevatedButton(
       onPressed: () async {
@@ -3471,6 +3465,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
              // id: 1,
            );
            productDetailsController.insertData(cartNote);
+           productDetailsController.loadAllCartNotes().then((value) => {
+             Get.to(() => CartPage())?.then((value) => Get.delete<CartPageController>())
+           });
 
          }else{
            Get.back();
@@ -3516,7 +3513,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildCheckZipCodeButtonForBuyNow() {
     return ElevatedButton(
@@ -3626,7 +3622,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
       ),
     );
   }
-
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
     return double.parse(((double.parse(regularPrice)-

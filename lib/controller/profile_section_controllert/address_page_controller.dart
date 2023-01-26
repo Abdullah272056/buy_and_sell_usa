@@ -19,6 +19,7 @@ class AddressPageController extends GetxController {
 
   ///controller
   final firstNameController = TextEditingController().obs;
+  final middleNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;
   final emailAddressController = TextEditingController().obs;
   final phoneController = TextEditingController().obs;
@@ -30,6 +31,7 @@ class AddressPageController extends GetxController {
 
   ///Focus Node
   final firstNameControllerFocusNode = FocusNode().obs;
+  final middleNameControllerFocusNode = FocusNode().obs;
   final lastNameControllerFocusNode = FocusNode().obs;
   final emailAddressControllerFocusNode = FocusNode().obs;
   final phoneControllerFocusNode = FocusNode().obs;
@@ -243,6 +245,7 @@ class AddressPageController extends GetxController {
   void updateUserBillingInfoList({
             required String token,
             required String firstname,
+            required String middleName,
             required String lastName,
             required String emailAddress,
             required String phoneNumber,
@@ -267,6 +270,7 @@ class AddressPageController extends GetxController {
             },
             body: {
               'first_name': firstname,
+              'middle_name': middleName,
               'last_name': lastName,
               'email': emailAddress,
               'phone': phoneNumber,
