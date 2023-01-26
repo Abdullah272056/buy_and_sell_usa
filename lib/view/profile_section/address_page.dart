@@ -121,6 +121,7 @@ class AddressPage extends StatelessWidget {
 
                 ],
               ),
+              SizedBox(height: 5,),
 
               Expanded(child: Container(
                 color: Colors.white,
@@ -156,9 +157,7 @@ class AddressPage extends StatelessWidget {
                             labelText: "Last Name",
                           )),
                         ],
-                      )
-
-                     ,
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
