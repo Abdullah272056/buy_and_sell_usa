@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
+import '../../controller/cart_controller/cart__view_page_controller.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
@@ -477,17 +479,19 @@ class CartPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
-
         if(cartPageController.userToken.isNotEmpty &&
             cartPageController.userToken.value!=null){
           // Get.to(CheckoutPage());
-          Get.to(() => CheckoutPage(), arguments: [
-            {"couponCodes": ""},
-            {"couponAmount": ""},
-            {"couponSellerId": ""},
-            {"couponInfoList": cartPageController.couponDataList},
-          ])?.then((value) => Get.delete<CartPageController>());
 
+          cartPageController.loadAllCartNotesAgain().then((value) => {
+            Get.to(() => CheckoutPage(), arguments: [
+              {"couponCodes": ""},
+              {"couponAmount": ""},
+              {"couponSellerId": ""},
+              {"couponInfoList": cartPageController.couponDataList},
+            ])?.then((value) => Get.delete<CartPageController>())
+
+          });
 
         }else{
           showLoginWarning();
@@ -529,7 +533,7 @@ class CartPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
 
-      Get.to(CartViewePage());
+      Get.to(CartViewePage())?.then((value) => Get.delete<CartViewPageController>());
 
       },
 

@@ -136,9 +136,6 @@ class HomePageScreen extends StatelessWidget {
                               ),
                             ),
                           )),
-
-
-
                       Container(
                         margin: const EdgeInsets.only(right: 20),
                         child: InkWell(
@@ -203,12 +200,10 @@ class HomePageScreen extends StatelessWidget {
 
                   ),
 
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 35,
                     // height: 30,
                   ),
-
 
                   Expanded(
                       child:  Container(
@@ -520,7 +515,8 @@ class HomePageScreen extends StatelessWidget {
                       // color: Colors.lime,
                       child: Center(
                           child: GridView.builder(
-                              itemCount:14,
+                              // itemCount:10,
+                              itemCount:length(sizeWidth),
                               padding: EdgeInsets.only(left: 10,right: 10),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -775,6 +771,11 @@ class HomePageScreen extends StatelessWidget {
             ))));
   }
 
+
+  int length(double sizeWidth){
+    double len=((sizeWidth-50)/65);
+    return len.toInt()*2;
+  }
 
   Widget productCardDesign({
     required double height,

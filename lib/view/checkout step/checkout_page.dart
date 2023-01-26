@@ -1,15 +1,12 @@
-import 'package:badges/badges.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/checkout_step_controller/checkout_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
-
-
 
 
 class CheckoutPage extends StatelessWidget {
@@ -17,7 +14,6 @@ class CheckoutPage extends StatelessWidget {
   final checkoutPageController = Get.put(CheckoutPageController());
   var width;
   var height;
-
 
   @override
   Widget build(BuildContext context) {
@@ -288,8 +284,13 @@ class CheckoutPage extends StatelessWidget {
                         ) ,
                       ),
                       //promo
+
                       Obx(() =>
-                          Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+                          Padding(padding:
+                          checkoutPageController.couponAmount!=""?
+                          EdgeInsets.only(left: 10,right: 10,top: 10):
+                          EdgeInsets.only(left: 0,right: 0,top: 0),
+
                             child:  Row(
                               // mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -385,7 +386,6 @@ class CheckoutPage extends StatelessWidget {
 
 
   }
-
 
   Widget cartItem(CartNote response){
     return  Padding(padding: const EdgeInsets.only(right:10,top: 8,left: 10,bottom: 8),
@@ -667,7 +667,6 @@ class CheckoutPage extends StatelessWidget {
       ),
     );
   }
-
 
   //user name input field create
   Widget _buildTextFieldUserMiddleName({
@@ -997,7 +996,6 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-
   //user town or city input field create
   Widget _buildTextFieldUserTownOrCity({
     required bool obscureText,
@@ -1130,7 +1128,6 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-
   Widget _buildPlaceOrderButton() {
     return ElevatedButton(
       onPressed: () {
@@ -1171,6 +1168,7 @@ class CheckoutPage extends StatelessWidget {
           checkoutPageController.checkGroceryProductZipList(
               token: checkoutPageController.userToken.value,
               firstname: firstName,
+              middleName: middleName,
               lastName:lastName,
               emailAddress: email,
               phoneNumber: phone,
@@ -1179,8 +1177,10 @@ class CheckoutPage extends StatelessWidget {
               zipCode: zipCode,
               stateId: checkoutPageController.selectStateId.value,
               countryId: checkoutPageController.selectCountryId.value,
-              productList:checkoutPageController. allCartProductIdList
+              productList:checkoutPageController. allCartProductIdList,
           );
+
+
         }
       },
 
@@ -1215,7 +1215,6 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-
   //input text validation check
   _inputValid({required String f_name,
     required String l_name,
@@ -1229,16 +1228,16 @@ class CheckoutPage extends StatelessWidget {
       _showToast("First name can't empty!");
       return;
     }
-    if (middle_name.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Middle name can't empty!");
-      return;
-    }
-    if (l_name.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Last name can't empty!");
-      return;
-    }
+    // if (middle_name.isEmpty) {
+    //   Fluttertoast.cancel();
+    //   _showToast("Middle name can't empty!");
+    //   return;
+    // }
+    // if (l_name.isEmpty) {
+    //   Fluttertoast.cancel();
+    //   _showToast("Last name can't empty!");
+    //   return;
+    // }
     if (email.isEmpty) {
       Fluttertoast.cancel();
       _showToast("Email can't empty!");
@@ -1289,8 +1288,6 @@ class CheckoutPage extends StatelessWidget {
     return false;
   }
 
-
-
   //toast create
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -1302,7 +1299,6 @@ class CheckoutPage extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
 }
 

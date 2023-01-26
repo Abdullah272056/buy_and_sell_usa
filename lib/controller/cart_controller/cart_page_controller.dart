@@ -60,6 +60,25 @@ class CartPageController extends GetxController {
    // _showToast("Local length= "+cartList.length.toString());
   }
 
+  Future loadAllCartNotesAgain() async {
+    NotesDataBase.instance;
+    cartList(await NotesDataBase.instance.readAllNotes());
+    sellerIdUnique(cartList);
+
+
+    var seen = Set<String>();
+    List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
+    sellerGroupList(uniqueList);
+
+    couponDataList([]);
+
+    for(int i=0;i<sellerGroupList.length;i++){
+      CouponData couponData=CouponData(sellerId: sellerGroupList[i].seller, couponStatus: 'true', couponAmount: '', couponCode: '');
+      couponDataList.add(couponData);
+    }
+
+  }
+
   void sellerIdUnique(List cartList){
     var seen = Set<String>();
     List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
@@ -74,15 +93,12 @@ class CartPageController extends GetxController {
 
   }
 
-
-
   Future deleteNotes(int id) async {
     NotesDataBase.instance;
     NotesDataBase.instance.delete(id)  ;
     loadAllCartNotes();
 
   }
-
 
   void totalPriceCalculate(List cartList){
     double subTotal=0.0;
@@ -98,15 +114,15 @@ class CartPageController extends GetxController {
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
+
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-
       //  _showToast(storage.read(pref_user_token).toString());
 
     } catch (e) {
-
     }
-
   }
+
+
 }

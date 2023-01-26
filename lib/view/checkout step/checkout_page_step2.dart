@@ -322,10 +322,6 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                                   )),
                                                 )),
                                               }
-
-
-
-
                                             ],
                                           ),
                                         ),
@@ -379,12 +375,14 @@ class CheckoutPageStep2Page extends StatelessWidget {
                                             ),),
                                           Expanded(child:   Align(
                                             alignment: Alignment.centerRight,
+
                                             child:Obx(()=> Text(
 
                                               cartViewPageController.couponAmount!=""?
                                               "\$ "+"${(
+
                                                   double.parse((cartViewPageController.allTotalAmountWithAllCost.value))-
-                                                  double.parse(cartViewPageController.couponAmount.toString())).toString()}":
+                                                  double.parse(cartViewPageController.couponAmount.toString())).toStringAsFixed(2)}":
 
                                               "\$ "+
                                                   "${cartViewPageController.allTotalAmountWithAllCost.value}",
@@ -670,22 +668,74 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
 
 
-        String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
-            "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
+        if(cartViewPageController.couponAmount!=""){
 
-        Get.to(()=>
-            WebviewPaymentScreen(
-            productId: '',
-            zipCode: cartViewPageController.zipCode.value,
-            surName: cartViewPageController.surName.value,
-            mobileNumber:cartViewPageController.mobileNumber.value,
-            totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
-            emailAddress: cartViewPageController.emailAddress.value,
-            paymentLink: paymentLink,
-            couponCodes: cartViewPageController.couponCodes.value,
-            couponAmount: cartViewPageController.couponAmount.value,
-            couponSellerId: cartViewPageController.couponSellerId.value,
-        ));
+          String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
+              "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${(
+              double.parse((cartViewPageController.allTotalAmountWithAllCost.value))-
+                  double.parse(cartViewPageController.couponAmount.toString())).toStringAsFixed(2)}";
+
+          Get.to(()=>
+              WebViewPaymentScreen(
+                productId: '',
+                zipCode: cartViewPageController.zipCode.value,
+                surName: cartViewPageController.surName.value,
+                mobileNumber:cartViewPageController.mobileNumber.value,
+                totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+                emailAddress: cartViewPageController.emailAddress.value,
+                paymentLink: paymentLink,
+                couponCodes: cartViewPageController.couponCodes.value,
+                couponAmount: cartViewPageController.couponAmount.value,
+                couponSellerId: cartViewPageController.couponSellerId.value,
+                couponDataList:cartViewPageController.couponDataList,
+              ));
+
+        }else{
+
+          String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
+              "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
+
+          Get.to(()=>
+              WebViewPaymentScreen(
+                productId: '',
+                zipCode: cartViewPageController.zipCode.value,
+                surName: cartViewPageController.surName.value,
+                mobileNumber:cartViewPageController.mobileNumber.value,
+                totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+                emailAddress: cartViewPageController.emailAddress.value,
+                paymentLink: paymentLink,
+                couponCodes: cartViewPageController.couponCodes.value,
+                couponAmount: cartViewPageController.couponAmount.value,
+                couponSellerId: cartViewPageController.couponSellerId.value,
+                couponDataList:cartViewPageController.couponDataList,
+              ));
+
+        }
+
+        // _showToast((
+        //         double.parse((cartViewPageController.allTotalAmountWithAllCost.value))-
+        //         double.parse(cartViewPageController.couponAmount.toString())).toStringAsFixed(2));
+        //
+        //
+        //
+        //
+        //
+        // String paymentLink="https://fnfbuy.bizoytech.com/api/payment-api?surname=${cartViewPageController.surName}&"
+        //     "email=${cartViewPageController.emailAddress}&mobile=${cartViewPageController.mobileNumber}&amount=${cartViewPageController.allTotalAmountWithAllCost}";
+        //
+        // Get.to(()=>
+        //     WebviewPaymentScreen(
+        //     productId: '',
+        //     zipCode: cartViewPageController.zipCode.value,
+        //     surName: cartViewPageController.surName.value,
+        //     mobileNumber:cartViewPageController.mobileNumber.value,
+        //     totalAmountWithTax: cartViewPageController.totalAmountWithTax.value,
+        //     emailAddress: cartViewPageController.emailAddress.value,
+        //     paymentLink: paymentLink,
+        //     couponCodes: cartViewPageController.couponCodes.value,
+        //     couponAmount: cartViewPageController.couponAmount.value,
+        //     couponSellerId: cartViewPageController.couponSellerId.value,
+        // ));
 
 
 
@@ -1110,6 +1160,8 @@ class CheckoutPageStep2Page extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
+
+
 
 }
 

@@ -2127,15 +2127,28 @@ class ProductDetailsePageScreen extends StatelessWidget {
             );
             productDetailsController.insertData1(cartNote);
 
+            productDetailsController.loadAllCartNotes().then((value) => {
+              Get.to(() => CheckoutPage(), arguments: [
 
-            Get.to(() => CheckoutPage(), arguments: [
-              {"couponCodes": ""},
-              {"couponAmount": ""},
-              {"couponSellerId": ""},
-            ])?.then((value) => Get.delete<ProductDetailsController>());
+                {"couponCodes": ""},
+                {"couponAmount": ""},
+                {"couponSellerId": ""},
+                {"couponInfoList": productDetailsController.couponDataList},
+
+              ])?.then((value) => Get.delete<ProductDetailsController>())
+
+            });
+
+           // _showToast(productDetailsController.couponDataList.length.toString());
+
+
+
 
             // Get.to(CheckoutPage());
             //_showToast("go to checkout process");
+
+
+
           }else{
             showLoginWarning();
           }
@@ -2714,11 +2727,25 @@ class ProductDetailsePageScreen extends StatelessWidget {
                 // id: 1,
               );
               productDetailsController.insertData1(cartNote);
-              Get.to(() => CheckoutPage(), arguments: [
-                {"couponCodes": ""},
-                {"couponAmount": ""},
-                {"couponSellerId": ""},
-              ])?.then((value) => Get.delete<ProductDetailsController>());
+
+
+              productDetailsController.loadAllCartNotes().then((value) => {
+                Get.to(() => CheckoutPage(), arguments: [
+
+                  {"couponCodes": ""},
+                  {"couponAmount": ""},
+                  {"couponSellerId": ""},
+                  {"couponInfoList": productDetailsController.couponDataList},
+
+                ])?.then((value) => Get.delete<ProductDetailsController>())
+
+              });
+
+              // Get.to(() => CheckoutPage(), arguments: [
+              //   {"couponCodes": ""},
+              //   {"couponAmount": ""},
+              //   {"couponSellerId": ""},
+              // ])?.then((value) => Get.delete<ProductDetailsController>());
               //_showToast("go to checkout process");
             }
             else{
@@ -2751,7 +2778,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
           height: 40,
           alignment: Alignment.center,
           child:  const Text(
-            "Check",
+            "Verify",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',

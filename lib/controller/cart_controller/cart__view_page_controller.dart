@@ -291,7 +291,9 @@ class CartViewPageController extends GetxController {
 
   sellerCouponCodeAvailableCheckList({
     required List sellerList,
-  })  async {
+  })  async
+
+  {
     promoCodeServerResponse(0);
     showLoadingDialog("Checking...");
     var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_COUPON_AVAILABLE_SELLER_LIST'),
@@ -349,8 +351,8 @@ class CartViewPageController extends GetxController {
          couponAmount: '',
          couponCode: ''
      ));
-     _showToast("sellerId ="+sellerId);
-     _showToast("couponDataList ="+couponDataList[index].couponStatus.toString());
+     // _showToast("sellerId ="+sellerId);
+     // _showToast("couponDataList ="+couponDataList[index].couponStatus.toString());
     // sellerCouponStatusCheck[index](responseCoupon["promoCodeStatus"].toString());
 
      //_showToast(sellerCouponStatusCheck[index].toString());

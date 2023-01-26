@@ -62,11 +62,16 @@ class WebViewPageController1 extends GetxController {
      required String coupon_code,
      required String coupon_amount,
      required String coupon_seller_id,
+
+
+     required List couponDataList,
+
+
      required String payment_id,
      required String payer_id,
      required String payment_method,
       }){
-
+    //convert product list to json
     List<Product1> productList = [];
     for(int i=0;i<cartList.length;i++){
       //  _showToast("weight= " +cartViewPageController.cartList[i].weight.toString());
@@ -93,6 +98,20 @@ class WebViewPageController1 extends GetxController {
       };
     }).toList();
 
+
+    //convert product list to json
+    var couponDataListJson = couponDataList.map((couponData){
+      return {
+        "seller_id": couponData.sellerId,
+        "coupon_amount": couponData.couponAmount,
+        "coupon_code": couponData.couponCode,
+
+      };
+    }).toList();
+
+
+
+
    // _showToast(productList.length.toString());
 
     orderInfoPost(
@@ -104,6 +123,7 @@ class WebViewPageController1 extends GetxController {
         payment_id: payment_id,
         payer_id: payer_id,
         payment_method: payment_method,
+        couponDataListJson: couponDataListJson,
 
     );
   }
@@ -117,7 +137,8 @@ class WebViewPageController1 extends GetxController {
      required String payer_id,
      required String payment_method,
     // required String shipping_name,
-     required var productJson
+     required var productJson,
+     required var couponDataListJson
    }) async {
      try {
        final result = await InternetAddress.lookup('example.com');
@@ -131,15 +152,16 @@ class WebViewPageController1 extends GetxController {
            var request = http.Request('POST', Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_ORDERS_INFO_POST}'));
            request.body = json.encode({
              "payment_info": {
-               "coupon_code": coupon_code,
-               "coupon_amount":coupon_amount,
-               "coupon_seller_id": coupon_seller_id,
+               // "coupon_code": coupon_code,
+               // "coupon_amount":coupon_amount,
+               // "coupon_seller_id": coupon_seller_id,
                "payment_id": payment_id,
                "payer_id": payer_id,
                "payment_method": payment_method
               // "shipping_name": shipping_name
              },
-             "product": productJson
+             "product": productJson,
+             "sellerInfo": couponDataListJson,
            });
            request.headers.addAll(headers);
 
@@ -148,7 +170,7 @@ class WebViewPageController1 extends GetxController {
            Get.back();
            //_showToast("response= "+response.statusCode.toString());
            if (response.statusCode == 200) {
-             _showToast(  "Order Complete Successfully!");
+             _showToast(  "Order Complete Successfully! api");
              deleteNotes();
              print(await response.stream.bytesToString());
            }

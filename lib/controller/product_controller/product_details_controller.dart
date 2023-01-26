@@ -16,6 +16,8 @@ import '../../model/FilterListDataModelClass.dart';
 import 'package:http/http.dart' as http;
 
 import '../../static/Colors.dart';
+import '../../view/checkout step/checkout_page.dart';
+import '../cart_controller/cart__view_page_controller.dart';
 
 class ProductDetailsController extends GetxController {
   // TextEditingController? searchController = TextEditingController();
@@ -106,7 +108,9 @@ class ProductDetailsController extends GetxController {
 
   var productDetailsShimmerStatus=1.obs;
 
-
+  var couponDataList = [].obs;
+  var sellerGroupList=[].obs;
+  var cartList=[].obs;
 
   @override
   void onInit() {
@@ -119,6 +123,48 @@ class ProductDetailsController extends GetxController {
 
     refreshNotes();
     super.onInit();
+  }
+
+  Future loadAllCartNotes() async {
+    NotesDataBase.instance;
+    cartList(await NotesDataBase.instance.readAllNotes());
+    sellerIdUnique(cartList);
+
+
+    var seen = Set<String>();
+    List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
+    sellerGroupList(uniqueList);
+
+    couponDataList([]);
+
+    for(int i=0;i<sellerGroupList.length;i++){
+      CouponData couponData=CouponData(sellerId: sellerGroupList[i].seller, couponStatus: 'true', couponAmount: '', couponCode: '');
+      couponDataList.add(couponData);
+    }
+
+      // Get.to(() => CheckoutPage(), arguments: [
+      //
+      //       {"couponCodes": ""},
+      //       {"couponAmount": ""},
+      //       {"couponSellerId": ""},
+      //       {"couponInfoList": couponDataList},
+      //
+      //     ])?.then((value) => Get.delete<ProductDetailsController>());
+
+  }
+
+  void sellerIdUnique(List cartList){
+    var seen = Set<String>();
+    List  uniqueList = cartList.where((student) => seen.add(student.seller)).toList();
+    sellerGroupList(uniqueList);
+
+    couponDataList([]);
+
+    for(int i=0;i<sellerGroupList.length;i++){
+      CouponData couponData=CouponData(sellerId: sellerGroupList[i].seller, couponStatus: 'true', couponAmount: '', couponCode: '');
+      couponDataList.add(couponData);
+    }
+
   }
 
   //toast create

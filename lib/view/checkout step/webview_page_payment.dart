@@ -18,7 +18,7 @@ import '../../static/Colors.dart';
 import '../order/order_page.dart';
 
 
-class WebviewPaymentScreen extends StatefulWidget {
+class WebViewPaymentScreen extends StatefulWidget {
 
   String productId;
   String zipCode;
@@ -30,7 +30,8 @@ class WebviewPaymentScreen extends StatefulWidget {
   String couponCodes;
   String couponAmount;
   String couponSellerId;
-  WebviewPaymentScreen({Key? key,
+  List couponDataList;
+  WebViewPaymentScreen({Key? key,
 
     required this.productId,
     required this.zipCode,
@@ -42,10 +43,11 @@ class WebviewPaymentScreen extends StatefulWidget {
     required this.couponCodes,
     required this.couponAmount,
     required this.couponSellerId,
+    required this.couponDataList,
   }) : super(key: key);
 
   @override
-  State<WebviewPaymentScreen> createState() => _WebviewPaymentScreenState(
+  State<WebViewPaymentScreen> createState() => _WebViewPaymentScreenState(
 
      this.productId,
      this.zipCode,
@@ -56,10 +58,12 @@ class WebviewPaymentScreen extends StatefulWidget {
      this.paymentLink,
      this.couponCodes,
      this.couponAmount,
-     this.couponSellerId,);
+     this.couponSellerId,
+     this.couponDataList,
+  );
 }
 
-class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
+class _WebViewPaymentScreenState extends State<WebViewPaymentScreen>{
 
 
   String productId;
@@ -72,8 +76,9 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
   String couponCodes;
   String couponAmount;
   String couponSellerId;
+  List couponDataList;
 
-  _WebviewPaymentScreenState(
+  _WebViewPaymentScreenState(
 
      this.productId,
      this.zipCode,
@@ -85,6 +90,8 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
      this.couponCodes,
      this.couponAmount,
      this.couponSellerId,
+     this.couponDataList,
+
   );
 
   final cartViewPageController = Get.put(WebViewPageController1());
@@ -92,6 +99,9 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
   @protected
   @mustCallSuper
   void initState() {
+
+    _showToast("pataq= "+couponDataList.length.toString());
+
    // _showToast("1"); //
    // _showToast("2");
   }
@@ -133,7 +143,11 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
 
               ],
             ),
+
+
             SizedBox(height: 8,),
+
+
             Expanded(child:   Container(
               decoration: BoxDecoration(
                 color:Colors.white,
@@ -193,7 +207,8 @@ class _WebviewPaymentScreenState extends State<WebviewPaymentScreen>{
                           coupon_seller_id: couponSellerId,
                           payment_id: uri.queryParameters['paymentId'].toString(),
                           payer_id: uri.queryParameters['PayerID'].toString(),
-                          payment_method: 'paypal'
+                          payment_method: 'paypal',
+                          couponDataList: couponDataList
                       );
 
                     }
