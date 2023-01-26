@@ -80,7 +80,7 @@ class AccountDetailsPageController extends GetxController {
     loadUserIdFromSharePref();
 
     ///getStateList();
-    getUserBillingInfoList(userToken.value);
+    getUserAccountDetails(userToken.value);
 
     super.onInit();
 
@@ -90,7 +90,7 @@ class AccountDetailsPageController extends GetxController {
   void loadUserIdFromSharePref() async {
     try {
       var storage =GetStorage();
-      userName(storage.read(pref_user_name));
+      //userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
 
        //_showToast("anbv=  "+storage.read(pref_user_token).toString());
@@ -185,7 +185,7 @@ class AccountDetailsPageController extends GetxController {
     }
   }
 
-  void getUserBillingInfoList(String token) async{
+  void getUserAccountDetails(String token) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -210,13 +210,13 @@ class AccountDetailsPageController extends GetxController {
 
             // wishList(wishListResponse["data"]["data"]);
             // _showToast("size  "+wishList.length.toString());
-
-             firstNameController.value.text =addressResponseData["data"]["name"].toString() ;
-             lastNameController.value.text = addressResponseData["data"]["name"].toString() ;
-             emailAddressController.value.text =addressResponseData["data"]["email"] .toString() ;
-             phoneController.value.text = addressResponseData["data"]["phone"].toString() ;
-             addressController.value.text =addressResponseData["data"]["address"].toString()  ;
-             townOrCityController.value.text =addressResponseData["data"]["city"].toString()  ;
+            userName(addressResponseData["data"]["name"].toString());
+             firstNameController.value.text =addressResponseData["data"]["name"];
+             lastNameController.value.text = addressResponseData["data"]["name"];
+             emailAddressController.value.text =addressResponseData["data"]["email"];
+             phoneController.value.text = addressResponseData["data"]["phone"];
+             addressController.value.text =addressResponseData["data"]["address"];
+             townOrCityController.value.text =addressResponseData["data"]["city"];
 
 
             //  // selectedState(addressResponseData["data"]["city"].toString());
@@ -228,9 +228,9 @@ class AccountDetailsPageController extends GetxController {
 
 
             // _showToast(selectedState.value);
-             stateController.value.text = addressResponseData["data"]["first_name"].toString() ;
-             countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
-             zipCodeController.value.text = addressResponseData["data"]["zip_code"].toString() ;
+            //  stateController.value.text = addressResponseData["data"]["first_name"].toString() ;
+            //  countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
+             zipCodeController.value.text = addressResponseData["data"]["zip_code"];
 
             imageLink(addressResponseData["data"]["image"].toString());
 
@@ -259,7 +259,7 @@ class AccountDetailsPageController extends GetxController {
   }
 
 
-  void updateUserBillingInfoList({
+  void updateUserAccountDetails({
             required String token,
             required String firstname,
             required String mobile,
@@ -303,7 +303,7 @@ class AccountDetailsPageController extends GetxController {
 
           if (response.statusCode == 200) {
             _showToast("Account info update success!");
-            getUserBillingInfoList(userToken.value);
+            getUserAccountDetails(userToken.value);
 
           }
           else {
@@ -582,7 +582,7 @@ class AccountDetailsPageController extends GetxController {
 
             var data = jsonDecode(res.body);
             _showToast("Image Saved Successfully!");
-            getUserBillingInfoList(token);
+            getUserAccountDetails(token);
 
           }
           if (response.statusCode == 404) {
