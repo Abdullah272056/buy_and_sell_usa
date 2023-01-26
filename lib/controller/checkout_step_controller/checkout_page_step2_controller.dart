@@ -45,18 +45,21 @@ class CheckoutPageStep2Controller extends GetxController {
   var allShippingAmount="0.0".obs;
   var allTaxAmount="0.0".obs;
   var allTotalAmountWithAllCost="0.0".obs;
-
   var couponCodes= "".obs;
   var couponAmount="".obs;
   var couponSellerId="".obs;
-
   dynamic argumentData = Get.arguments;
 
+  var couponDataList=[].obs;
 
   @override
   void onInit() {
 
    // _showToast(argumentData[4]['totalAmountWithTax'].toString());
+
+    couponDataList(argumentData[0]['couponInfoList']);
+   // _showToast("sert23= "+couponDataList.length.toString());
+
     zipCode(argumentData[1]['zipCode'].toString());
     surName(argumentData[2]['surName'].toString());
     mobileNumber(argumentData[3]['mobileNumber'].toString());
@@ -70,6 +73,8 @@ class CheckoutPageStep2Controller extends GetxController {
     readAllNotes();
     loadUserIdFromSharePref();
     super.onInit();
+
+
   }
 
   //toast create

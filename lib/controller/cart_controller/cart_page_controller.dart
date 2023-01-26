@@ -114,15 +114,15 @@ class CartPageController extends GetxController {
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
+
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-
       //  _showToast(storage.read(pref_user_token).toString());
 
     } catch (e) {
-
     }
-
   }
+
+
 }

@@ -617,7 +617,7 @@ class CartViewePage extends StatelessWidget {
   Widget cartItem(CartNote response){
     return InkWell(
       onTap: (){
-        _showToast("seller id "+response.id.toString());
+        // _showToast("seller id "+response.id.toString());
         // _showToast("seller id "+response.seller);
       },
       child:  Padding(padding: const EdgeInsets.only(right:10,top: 10,left: 10,bottom: 20),
@@ -1064,7 +1064,7 @@ class CartViewePage extends StatelessWidget {
 
           Get.to(() => CheckoutPage(), arguments: [
             {"couponCodes": cartViewPageController.couponCodes.value},
-            {"couponAmount": cartViewPageController.couponAmount.value},
+            {"couponAmount": totalPromoAmount(cartViewPageController.couponDataList)},
             {"couponSellerId": cartViewPageController.couponSellerId.value},
             {"couponInfoList": cartViewPageController.couponDataList},
           ])?.then((value) => Get.delete<CartViewPageController>());

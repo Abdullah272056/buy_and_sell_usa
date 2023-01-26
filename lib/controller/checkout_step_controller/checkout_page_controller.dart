@@ -68,6 +68,7 @@ class CheckoutPageController extends GetxController {
 
   var selectedState="".obs;
   var selectedCountry="".obs;
+  var couponDataList=[].obs;
 
 
   var couponCodes= "".obs;
@@ -83,7 +84,8 @@ class CheckoutPageController extends GetxController {
      couponSellerId(argumentData[2]['couponSellerId'].toString());
 
 
-     _showToast("sert= "+argumentData[3]['couponInfoList'].length.toString());
+     couponDataList(argumentData[3]['couponInfoList']);
+    // _showToast("sert= "+couponDataList.length.toString());
      // couponSellerId(argumentData[3]['couponInfoList'].toString());
 
 
@@ -267,8 +269,17 @@ class CheckoutPageController extends GetxController {
 
 
             firstNameController.value.text =addressResponseData["data"]["first_name"] ;
-            lastNameController.value.text = addressResponseData["data"]["last_name"] ;
-            emailAddressController.value.text =addressResponseData["data"]["email"]  ;
+
+            if(addressResponseData["data"]["last_name"].toString()!="null"){
+              lastNameController.value.text = addressResponseData["data"]["last_name"] ;
+            }
+          //  middleNameController.value.text = "aaas";
+            if(addressResponseData["data"]["middle_name"].toString()!="null"){
+              middleNameController.value.text = addressResponseData["data"]["middle_name"] ;
+            }
+
+
+            emailAddressController.value.text =addressResponseData["data"]["email"];
             phoneController.value.text = addressResponseData["data"]["phone"] ;
             addressController.value.text =addressResponseData["data"]["address"]  ;
             townOrCityController.value.text =addressResponseData["data"]["city"]  ;
@@ -298,6 +309,7 @@ class CheckoutPageController extends GetxController {
   void checkGroceryProductZipList({
     required String token,
     required String firstname,
+    required String middleName,
     required String lastName,
     required String emailAddress,
     required String phoneNumber,
@@ -335,6 +347,7 @@ class CheckoutPageController extends GetxController {
           updateUserBillingInfoList(
                 token:token,
                 firstname: firstname,
+                middleName: middleName,
                 lastName:lastName,
                 emailAddress: emailAddress,
                 phoneNumber: phoneNumber,
@@ -367,6 +380,7 @@ class CheckoutPageController extends GetxController {
   void updateUserBillingInfoList({
             required String token,
             required String firstname,
+            required String middleName,
             required String lastName,
             required String emailAddress,
             required String phoneNumber,
@@ -391,6 +405,7 @@ class CheckoutPageController extends GetxController {
             },
             body: {
               'first_name': firstname,
+              'middle_name': middleName,
               'last_name': lastName,
               'email': emailAddress,
               'phone': phoneNumber,
@@ -409,7 +424,7 @@ class CheckoutPageController extends GetxController {
 
 
            Get.to(() => CheckoutPageStep2Page(), arguments: [
-             {"productId": ""},
+             {"couponInfoList": couponDataList},
              {"zipCode": zipCode},
              {"surName": firstname},
              {"mobileNumber": phoneNumber},
@@ -418,6 +433,7 @@ class CheckoutPageController extends GetxController {
              {"couponCodes": couponCodes},
              {"couponAmount":couponAmount},
              {"couponSellerId": couponSellerId}
+
 
            ]);
 
