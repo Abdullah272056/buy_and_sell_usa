@@ -60,10 +60,10 @@ class CategoryPage extends StatelessWidget{
                           // shrinkWrap: true,
                           // physics: const ClampingScrollPhysics(),
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Get.size.width>550?3:2,
+                              crossAxisCount: Get.size.width>550?4:3,
                               crossAxisSpacing: 15.0,
                               mainAxisSpacing: 10.0,
-                              mainAxisExtent: 200
+                              mainAxisExtent: Get.size.width>550?220: 150
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return categoriesListItemDesignShimmer();
@@ -83,10 +83,10 @@ class CategoryPage extends StatelessWidget{
                           // shrinkWrap: true,
                           // physics: const ClampingScrollPhysics(),
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Get.size.width>550?3:2,
+                              crossAxisCount: Get.size.width>550?4:3,
                               crossAxisSpacing: 15.0,
                               mainAxisSpacing: 7.0,
-                              mainAxisExtent:Get.size.width>550?270: 200
+                              mainAxisExtent:Get.size.width>550?220: 150
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return categoriesListItemDesign(response: categoriesPageController.categoriesDataList[index]);

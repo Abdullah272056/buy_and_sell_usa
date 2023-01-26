@@ -89,14 +89,14 @@ class ProfileSectionPage extends StatelessWidget {
                               _buildCardItem(
                                 item_marginLeft: 20,
                                 item_marginRight: 10,
-                                name: "ORDERS",
+                                name: "MY ORDERS",
                                 imageLink: 'assets/images/orders.png',
                                 onClick: 1,),
 
                               _buildCardItem(
                                 item_marginLeft: 10,
                                 item_marginRight: 20,
-                                name: "ADDRESS",
+                                name: "BILLING ADDRESS",
                                 imageLink: 'assets/images/icon_address.png',
                                 onClick: 2,),
 

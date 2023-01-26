@@ -760,7 +760,7 @@ class HomePageScreen extends StatelessWidget {
 
                                     Container(
                                         margin: const EdgeInsets.only(top: 10),
-                                        height:255.0,
+                                        height:MediaQuery.of(context).size.width<450?255.0:260,
 
                                         // child: _buildRecentlyAddedCourseItem(),
                                         child:Obx(()=>
