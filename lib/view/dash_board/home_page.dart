@@ -72,7 +72,7 @@ class HomePageScreen extends StatelessWidget {
                 direction: Axis.vertical,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 18,
+                    height: MediaQuery.of(context).size.height / 20,
                     // height: 50,
                   ),
 
@@ -195,13 +195,36 @@ class HomePageScreen extends StatelessWidget {
                     delayDuration: const Duration(milliseconds: 10),// Not required
                     animationDuration: const Duration(milliseconds: 500),// Not required
                     animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-                    child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),
+                    child: Row(
+                      children: [
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 20),
+                          child: InkResponse(
+                            onTap: () {
+                              homeController. searchBoxVisible(0);
+
+                            },
+                            child: const Icon(
+                              Icons.home,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
+                        ),
+
+                        Expanded(child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),)
+
+                      ],
+                    )
+
+
                   ),
 
                   ),
 
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 35,
+                    height: MediaQuery.of(context).size.height / 45,
                     // height: 30,
                   ),
 
@@ -240,7 +263,7 @@ class HomePageScreen extends StatelessWidget {
 
   Widget userInputSearchField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
     return Container(
-      height: 50,
+      height: 45,
       alignment: Alignment.center,
       margin: const EdgeInsets.only(left: 20,right: 20),
       decoration: BoxDecoration(
@@ -254,22 +277,26 @@ class HomePageScreen extends StatelessWidget {
           textInputAction: TextInputAction.search,
           autofocus: true,
           cursorColor:fnf_color,
-          style: TextStyle(color:text_color,),
+          textAlign: TextAlign.center,
+          style: TextStyle(color:text_color,
+
+
+          ),
           decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon: IconButton(
-              // color: Colors.intello_input_text_color,
-                icon: Icon(
-                  Icons.arrow_back_outlined,
-                  color:hint_color,
-
-                  //color: Colors.intello_hint_color,
-                  size: 25,
-                ),
-                onPressed: () {
-                  homeController. searchBoxVisible(0);
-
-                }),
+            // prefixIcon: IconButton(
+            //   // color: Colors.intello_input_text_color,
+            //     icon: Icon(
+            //       Icons.arrow_back_outlined,
+            //       color:hint_color,
+            //
+            //       //color: Colors.intello_hint_color,
+            //       size: 25,
+            //     ),
+            //     onPressed: () {
+            //       homeController. searchBoxVisible(0);
+            //
+            //     }),
             suffixIconConstraints: BoxConstraints(
               minHeight: 15,
               minWidth: 15,
@@ -307,6 +334,7 @@ class HomePageScreen extends StatelessWidget {
 
             hintStyle:  TextStyle(fontSize: 16,
                 color:hint_color,
+
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),
           ),
@@ -340,8 +368,8 @@ class HomePageScreen extends StatelessWidget {
 
   Widget _buildTabButton() {
     return Container(
-      margin: const EdgeInsets.only(top: 20,bottom: 10),
-      height: 40,
+      margin: const EdgeInsets.only(top: 10,bottom: 5),
+      height: 35,
       child: Row(
         children: [
           Expanded(child:Obx(()=> ListView.builder(
@@ -538,13 +566,14 @@ class HomePageScreen extends StatelessWidget {
 
                 }
                 else...{
+
                   ///categories tab section
                   _buildTabButton(),
                   ///slider section
                   SizedBox(
-                    height: sizeHeight * 0.23,
+                    height: sizeHeight * 0.20,
                     child: Swiper(
-                      itemCount: 7,
+                      itemCount: 5,
                       itemBuilder: (ctx, index) {
                         return InkWell(
                           onTap: (){
@@ -555,7 +584,9 @@ class HomePageScreen extends StatelessWidget {
                       },
                       autoplay: true,
                       pagination: const SwiperPagination(
+
                           alignment: Alignment.bottomCenter,
+
                           builder: DotSwiperPaginationBuilder(
                               color: Colors.white,
                               activeColor: Colors.green)),
@@ -565,8 +596,8 @@ class HomePageScreen extends StatelessWidget {
 
                   Container(
                     padding: const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 00),
-                    margin  : const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 10),
-                    height: 190,
+                    margin  : const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 0),
+                    height: 160,
                     // color: Colors.lime,
                     child: Center(
                         child: Obx(() => GridView.builder(
@@ -577,7 +608,7 @@ class HomePageScreen extends StatelessWidget {
                             physics: const ClampingScrollPhysics(),
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 10.0,
+                                crossAxisSpacing: 0.0,
                                 mainAxisSpacing: 10.0,
                                 mainAxisExtent: 60
 
@@ -598,7 +629,6 @@ class HomePageScreen extends StatelessWidget {
                   ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount:5,
-
                       // cartViewPageController.cartList.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -651,15 +681,17 @@ class HomePageScreen extends StatelessWidget {
 
                       }),
 
-                }else...{
+                }
+                else...{
                   Obx(() =>   ListView.builder(
-                      padding: EdgeInsets.zero,
+                      padding: EdgeInsets.only(left: 0),
                       itemCount: homeController.homeDataList.isEmpty?0:homeController.homeDataList.length,
+
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return Obx(() => ListView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.only(left: 0),
                             itemCount: homeController.homeDataList[index]["sub_categories"].isNotEmpty||
                                 homeController.homeDataList[index]["sub_categories"].length>0?
                             homeController.homeDataList[index]["sub_categories"].length:0,
@@ -686,7 +718,7 @@ class HomePageScreen extends StatelessWidget {
                                               homeController.homeDataList[index]["sub_categories"][index1]["subcategory_name"].toString(),
                                               // homeController.homeDataList[index],
                                               // "Mens Fashion",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color:text_color,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold),
@@ -697,7 +729,7 @@ class HomePageScreen extends StatelessWidget {
 
 
                                           Container(
-                                            margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 10),
+                                            margin:  const EdgeInsets.only(left: 10.0, right: 0.0,top: 5),
                                             child: InkResponse(
                                               onTap: (){
                                                 Get.to(() => ProductListPage(), arguments: [
@@ -728,11 +760,12 @@ class HomePageScreen extends StatelessWidget {
 
                                     Container(
                                         margin: const EdgeInsets.only(top: 10),
-                                        height:270.0,
+                                        height:255.0,
 
                                         // child: _buildRecentlyAddedCourseItem(),
                                         child:Obx(()=>
                                             ListView.builder(
+                                              padding: EdgeInsets.only(left: 0,top: 0,bottom: 0),
                                               //  shrinkWrap: true,
                                               // physics: const NeverScrollableScrollPhysics(),
                                               itemCount:homeController.homeDataList[index]["sub_categories"][index1]["products"].isNotEmpty||
@@ -1106,10 +1139,10 @@ class HomePageScreen extends StatelessWidget {
           child:  Column(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(25.5),
+                borderRadius: BorderRadius.circular(23.5),
                 child: Container(
-                    height:50,
-                    width: 50,
+                    height:46,
+                    width: 46,
                     color:hint_color,
                     child: FadeInImage.assetNetwork(
                       fit: BoxFit.fill,
@@ -1126,14 +1159,14 @@ class HomePageScreen extends StatelessWidget {
               ),
 
               Container(
-                  margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 5),
+                  margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 4),
                   child:  Text(
                     response["category_name"].toString(),
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style:  TextStyle(
                         color: Colors.black,
-                        fontSize: 13,
+                        fontSize: 12,
                         fontWeight: FontWeight.w500),
                   )
               ),
@@ -1322,8 +1355,6 @@ class HomePageScreen extends StatelessWidget {
 
   }
 
-
-
   ///shimmer design
   Widget _buildProductItemShimmer({
     required double height,
@@ -1413,7 +1444,6 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-
   Widget categoriesListItemDesignShimmer( ){
     return Container(
       margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 00),
@@ -1461,7 +1491,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _sliderCardDesignShimmer() {
     // Size size = MediaQuery.of(context).size;
