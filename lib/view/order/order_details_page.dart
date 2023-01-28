@@ -39,6 +39,7 @@ class OrderDetailsPage extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 25,
               ),
+
               Flex(direction: Axis.horizontal,
                 children: [
                   SizedBox(width: 5,),
@@ -110,14 +111,11 @@ class OrderDetailsPage extends StatelessWidget {
 
                 ],
               ),
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 125,
                 // height: 50,
               ),
-
-
-
-
 
               Expanded(child: SingleChildScrollView(
                 child: Container(
@@ -374,6 +372,7 @@ class OrderDetailsPage extends StatelessWidget {
 
                 ),
               ))
+
             ],
           )
 
