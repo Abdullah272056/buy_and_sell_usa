@@ -38,7 +38,7 @@ class CheckoutPage extends StatelessWidget {
             children: [
 
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
+                height: MediaQuery.of(context).size.height / 25,
                 // height: 50,
               ),
 
@@ -120,6 +120,17 @@ class CheckoutPage extends StatelessWidget {
 
                 ],
               ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 125,
+                // height: 50,
+              ),
+
+
+
+
+
+
 
               Expanded(child: Container(
                 color: Colors.white,

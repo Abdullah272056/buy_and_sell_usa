@@ -60,7 +60,9 @@ class CartPage extends StatelessWidget {
 
                     Flex(direction: Axis.horizontal,
                       children: [
+
                         SizedBox(width: 5,),
+
                         IconButton(
                           iconSize: 20,
                           icon:Icon(
@@ -71,7 +73,9 @@ class CartPage extends StatelessWidget {
                             Get.back();
                           },
                         ),
+
                         SizedBox(width: 5,),
+
                         Expanded(child: Text(
                           "SHOPPING CART",
                           style: TextStyle(color: Colors.white,
@@ -94,8 +98,8 @@ class CartPage extends StatelessWidget {
                               )
                           ),
                         ),
-                        SizedBox(width: 10,),
 
+                        SizedBox(width: 10,),
 
                         // Container(
                         //   margin: EdgeInsets.only(top: 0,right: 10),
@@ -145,19 +149,6 @@ class CartPage extends StatelessWidget {
 
                         SizedBox(width: 10,),
 
-                        InkWell(
-                          onTap: (){
-
-                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                          },
-                          child: Icon(
-                            Icons.shopping_cart_outlined,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-
-                        SizedBox(width: 25,),
 
 
                       ],
@@ -167,11 +158,6 @@ class CartPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 125,
                       // height: 50,
                     ),
-
-
-
-
-
 
 
 
