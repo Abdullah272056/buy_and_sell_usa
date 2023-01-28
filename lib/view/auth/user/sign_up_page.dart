@@ -500,12 +500,12 @@ class SignUpScreen extends StatelessWidget {
           height: 50,
           alignment: Alignment.center,
           child:  const Text(
-            "Sign Up",
+            "Create Account",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
-              fontSize: 18,
-              fontWeight: FontWeight.normal,
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
               color: Colors.white,
             ),
           ),
