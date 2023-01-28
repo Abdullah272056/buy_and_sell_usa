@@ -5,11 +5,18 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/order_controller/order_details_page_controller.dart';
 import '../../controller/order_controller/order_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
+import '../cart/cart_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
+import '../profile_section/profile_section_page.dart';
 
 
 
@@ -28,13 +35,13 @@ class OrderDetailsPage extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
-                // height: 50,
+                height: MediaQuery.of(context).size.height / 25,
               ),
               Flex(direction: Axis.horizontal,
                 children: [
-                  SizedBox(width: 10,),
+                  SizedBox(width: 5,),
                   IconButton(
                     iconSize: 20,
                     icon:Icon(
@@ -54,10 +61,64 @@ class OrderDetailsPage extends StatelessWidget {
                     ),
                   )),
 
+                  Container(
+                    margin: EdgeInsets.only(top: 0,right: 10),
+                    child: InkWell(
+                        onTap: (){
+                          Get.deleteAll();
+                          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                        },
+                        child: Icon(
+                          Icons.home,
+                          size: 25,
+                          color: Colors.white,
+                        )
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+
+
+                  Container(
+                    margin: const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                      },
+                      child:  Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(width: 10,),
+
+                  InkWell(
+                    onTap: (){
+                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                    },
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+
+                  SizedBox(width: 25,),
+
 
                 ],
               ),
-              SizedBox(width: 15,),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 125,
+                // height: 50,
+              ),
+
+
+
+
+
               Expanded(child: SingleChildScrollView(
                 child: Container(
                   color: Colors.white,

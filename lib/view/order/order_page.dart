@@ -152,7 +152,7 @@ class OrderPage extends StatelessWidget {
               ),
 
               SizedBox(
-                height: 5,
+                height: MediaQuery.of(context).size.height / 125,
                 // height: 50,
               ),
 
