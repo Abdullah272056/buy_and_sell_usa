@@ -572,7 +572,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                       //color
 
                       Obx(() => Container(
-                        child: productDetailsController.colorsList.length>0?Container(
+                        child: productDetailsController.colorsImageList.length>0?Container(
                           margin: EdgeInsets.only(top: 10),
                           height: 27,
                           child: Row(
@@ -591,9 +591,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 //  shrinkWrap: true,
                                 // physics: const NeverScrollableScrollPhysics(),
 
-                                itemCount:productDetailsController.colorsList==null||
-                                    productDetailsController.colorsList.length<=0?0:
-                                productDetailsController.colorsList.length,
+                                itemCount:productDetailsController.colorsImageList==null||
+                                    productDetailsController.colorsImageList.length<=0?0:
+                                productDetailsController.colorsImageList.length,
                                 itemBuilder: (context, index) {
                                   return Container(
                                     margin: EdgeInsets.only(right: 5),
@@ -614,7 +614,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                     ),
                                     child:  Center(
                                       child: Text(
-                                        "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                        "${productDetailsController.colorsImageList[index]["color_name"]["name"]}"
                                         //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
                                         ,
                                         overflow: TextOverflow.ellipsis,
@@ -843,9 +843,9 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 //  shrinkWrap: true,
                                 // physics: const NeverScrollableScrollPhysics(),
 
-                                itemCount:productDetailsController.colorsList==null||
-                                    productDetailsController.colorsList.length<=0?0:
-                                productDetailsController.colorsList.length,
+                                itemCount:productDetailsController.colorsImageList==null||
+                                    productDetailsController.colorsImageList.length<=0?0:
+                                productDetailsController.colorsImageList.length,
                                 itemBuilder: (context, index) {
                                   return Container(
                                     margin: EdgeInsets.only(right: 5),
@@ -866,7 +866,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                     ),
                                     child:  Center(
                                       child: Text(
-                                        "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                        "${productDetailsController.colorsImageList[index]["color_name"]["name"]}"
                                         //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
                                         ,
                                         overflow: TextOverflow.ellipsis,
@@ -1612,7 +1612,8 @@ class ProductDetailsePageScreen extends StatelessWidget {
           showGroceryModal();
 
         }else{
-          Get.back();
+         Get.back();
+
 
           CartNote cartNote= CartNote(
 
@@ -1730,6 +1731,10 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
           if(productDetailsController.userToken.isNotEmpty &&
               productDetailsController.userToken.value!=null){
+
+
+
+
             CartNote cartNote= CartNote(
 
                 productId: productDetailsController.productId.value.toString(),
@@ -2045,7 +2050,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                 //color
                 Obx(() => Container(
-                  child: productDetailsController.colorsList.length>0?Container(
+                  child: productDetailsController.colorsImageList.length>0?Container(
                     margin: EdgeInsets.only(top: 20,left: 10,right: 10),
                     height: 30,
                     child: Row(
@@ -2065,16 +2070,16 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           //  shrinkWrap: true,
                           // physics: const NeverScrollableScrollPhysics(),
                           //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                          itemCount:productDetailsController.colorsList==null||
-                              productDetailsController.colorsList.length<=0?0:
-                          productDetailsController.colorsList.length,
+                          itemCount:productDetailsController.colorsImageList==null||
+                              productDetailsController.colorsImageList.length<=0?0:
+                          productDetailsController.colorsImageList.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: (){
                                 productDetailsController.selectedColorIndex(index);
 
-                                productDetailsController.colorId(productDetailsController.sizeList[index]["color"]["id"].toString());
-                                productDetailsController.color(productDetailsController.sizeList[index]["color"]["name"].toString());
+                                productDetailsController.colorId(productDetailsController.colorsImageList[index]["color_name"]["id"].toString());
+                                productDetailsController.color(productDetailsController.colorsImageList[index]["color_name"]["name"].toString());
 
                               },
                               child: Obx(()=>Container(
@@ -2099,7 +2104,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                    "${productDetailsController.colorsImageList[index]["color_name"]["name"]}"
                                     //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
                                     ,
                                     overflow: TextOverflow.ellipsis,
@@ -2625,7 +2630,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
                 //color
                 Obx(() => Container(
-                  child: productDetailsController.colorsList.length>0?Container(
+                  child: productDetailsController.colorsImageList.length>0?Container(
                     margin: EdgeInsets.only(top: 20,left: 10,right: 10),
                     height: 30,
                     child: Row(
@@ -2645,16 +2650,18 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           //  shrinkWrap: true,
                           // physics: const NeverScrollableScrollPhysics(),
                           //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                          itemCount:productDetailsController.colorsList==null||
-                              productDetailsController.colorsList.length<=0?0:
-                          productDetailsController.colorsList.length,
+                          itemCount:productDetailsController.colorsImageList==null||
+                              productDetailsController.colorsImageList.length<=0?0:
+                          productDetailsController.colorsImageList.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: (){
                                 productDetailsController.selectedColorIndex(index);
+                                productDetailsController.colorId(productDetailsController.colorsImageList[index]["color_name"]["id"].toString());
+                                productDetailsController.color(productDetailsController.colorsImageList[index]["color_name"]["name"].toString());
 
-                                productDetailsController.colorId(productDetailsController.sizeList[index]["color"]["id"].toString());
-                                productDetailsController.color(productDetailsController.sizeList[index]["color"]["name"].toString());
+                                // productDetailsController.colorId(productDetailsController.sizeList[index]["color"]["id"].toString());
+                                // productDetailsController.color(productDetailsController.sizeList[index]["color"]["name"].toString());
 
                               },
                               child: Obx(()=>Container(
@@ -2679,7 +2686,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "${productDetailsController.colorsList[index]["color"]["name"]}"
+                                    "${productDetailsController.colorsImageList[index]["color_name"]["name"]}"
                                     //"${productDetailsController.productDetailsData[1]["product"]["colors"][index]["color"]["name"]}"??""
                                     ,
                                     overflow: TextOverflow.ellipsis,

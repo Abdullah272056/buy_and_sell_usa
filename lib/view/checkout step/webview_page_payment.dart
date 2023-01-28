@@ -107,7 +107,7 @@ class _WebViewPaymentScreenState extends State<WebViewPaymentScreen>{
   @mustCallSuper
   void initState() {
 
-    _showToast("pataq= "+couponDataList.length.toString());
+  //  _showToast("pataq= "+couponDataList.length.toString());
 
    // _showToast("1"); //
    // _showToast("2");
@@ -245,10 +245,6 @@ class _WebViewPaymentScreenState extends State<WebViewPaymentScreen>{
             // SizedBox(height: 8,),
             //
             //
-
-
-
-
 
 
 

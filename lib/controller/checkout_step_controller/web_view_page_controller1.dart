@@ -79,7 +79,7 @@ class WebViewPageController1 extends GetxController {
           seller_id: cartList[i].seller.toString(),
           shipping_charge: cartList[i].shipping.toString(),
           product_id:cartList[i].productId.toString(),
-          qty: cartList[i].weight.toString(),
+          qty: cartList[i].productQuantity.toString(),
           color_id:cartList[i].colorId.toString(),
           size_id: cartList[i].sizeId.toString(),
         shipping_name: cartList[i].shippingName.toString(),
@@ -170,7 +170,7 @@ class WebViewPageController1 extends GetxController {
            Get.back();
            //_showToast("response= "+response.statusCode.toString());
            if (response.statusCode == 200) {
-             _showToast(  "Order Complete Successfully! api");
+             _showToast(  "Order Complete Successfully!");
              deleteNotes();
              print(await response.stream.bytesToString());
            }

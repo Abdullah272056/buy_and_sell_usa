@@ -378,7 +378,7 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "\$"+response["total"].toString()+" for "+response["ordered_products"][0]["qty"].toString()+" item",
+                          "\$"+response["total"].toString()+" for "+response["ordered_products_sum_qty"].toString()+" item",
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 1,

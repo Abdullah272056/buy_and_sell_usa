@@ -62,6 +62,7 @@ class ProductDetailsController extends GetxController {
  var productReviewRating="0.0".obs;
  var productImage="".obs;
  var colorsList=[].obs;
+ var colorsImageList=[].obs;
  var sizeList=[].obs;
  var relatedProductList=[].obs;
   // var filterProductList=[].obs;
@@ -295,6 +296,7 @@ class ProductDetailsController extends GetxController {
 
             productImage(dataResponse[1]["product"]["cover_image"].toString());
             colorsList(dataResponse[1]["product"]["colors"]);
+            colorsImageList(dataResponse[1]["product"]["images"]);
             sizeList(dataResponse[1]["product"]["sizes"]);
            // _showToast("color len=  "+dataResponse[1]["product"]["colors"].length.toString());
            //   if(dataResponse[1]["reviews"]!=null){
@@ -326,9 +328,15 @@ class ProductDetailsController extends GetxController {
 
            sizeId(sizeList[0]["size"]["id"].toString());
            size(sizeList[0]["size"]["name"].toString());
-           colorId(colorsList[0]["color"]["id"].toString());
-           color(colorsList[0]["color"]["name"].toString());
 
+
+           // colorId(colorsList[0]["color"]["id"].toString());
+           // color(colorsList[0]["color"]["name"].toString());
+
+            colorId(colorsImageList[0]["color_name"]["id"].toString());
+            color(colorsImageList[0]["color_name"]["name"].toString());
+
+          //  colorsImageList(dataResponse[1]["product"]["images"]);
 
             shipping("0.0");
             weightOption("");

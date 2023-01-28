@@ -486,7 +486,6 @@ class OrderDetailsPage extends StatelessWidget {
                   ),
                 ),
 
-
                 const SizedBox(
                   height: 5,
                 ),
@@ -599,6 +598,71 @@ class OrderDetailsPage extends StatelessWidget {
                   ],
                 ),
 
+                Container(
+                  child: response["color"].toString()!=""?Row(
+                    children: [
+
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Color: ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: text_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(response["color"].toString(),
+                          // response.productDiscountedPrice,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: hint_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ):Container(),
+                ),
+
+                Container(
+                  child: response["size"].toString()!=""? Row(
+                    children: [
+
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Size: ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: text_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(response["size"].toString(),
+                          // response.productDiscountedPrice,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: hint_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ):Container(),
+                )
 
               ],
             ),),
@@ -627,7 +691,6 @@ class OrderDetailsPage extends StatelessWidget {
 
     return discountedPrice.toString();
   }
-
 
   //toast create
   _showToast(String message) {
