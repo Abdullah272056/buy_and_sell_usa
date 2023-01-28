@@ -229,7 +229,7 @@ class SubCategoryPage extends StatelessWidget{
                   width: double.maxFinite,
                   height: double.maxFinite,
                   placeholder: 'assets/images/loading.png',
-                  image:BASE_URL_API_IMAGE_CATEGORIES+response["category_image"].toString(),
+                  image:BASE_URL_API_IMAGE_SUB_CATEGORIES+response["photo"].toString(),
                   // "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
                   imageErrorBuilder: (context, url, error) =>
                       Image.asset(

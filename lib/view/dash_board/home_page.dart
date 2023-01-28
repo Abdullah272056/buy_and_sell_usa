@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
+import 'package:fnf_buy/view/dash_board/search_page.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -106,7 +107,10 @@ class HomePageScreen extends StatelessWidget {
                         child: InkWell(
 
                           onTap: () {
-                            homeController. searchBoxVisible(1);
+                          //  homeController. searchBoxVisible(1);
+
+                           Get.to(SearchPage());
+
                           },
                           child:  Icon(
                             Icons.search_rounded,
@@ -124,7 +128,7 @@ class HomePageScreen extends StatelessWidget {
                                 margin: const EdgeInsets.only(right: 30),
                                 child: Container(
                                   padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(8.0),
                                         bottomRight: Radius.circular(8.0),

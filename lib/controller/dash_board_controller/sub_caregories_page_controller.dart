@@ -78,7 +78,7 @@ class SubCategoriesPageController extends GetxController {
               "category_id":categoriesId
             }
           );
-            _showToast("status = ${response.statusCode}");
+          //  _showToast("status = ${response.statusCode}");
           if (response.statusCode == 200) {
 
              categoriesShimmerStatus(0);
