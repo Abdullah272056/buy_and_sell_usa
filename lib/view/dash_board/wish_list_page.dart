@@ -93,7 +93,6 @@ class WishListPage extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
 
-
                         InkWell(
                           onTap: (){
 
@@ -116,8 +115,6 @@ class WishListPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 125,
                       // height: 50,
                     ),
-
-
 
                     Expanded(child: Container(
                       color: Colors.white,
