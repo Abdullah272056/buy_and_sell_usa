@@ -122,15 +122,27 @@ class HomePageScreen extends StatelessWidget {
                               alignment: Alignment.center,
                               child: Container(
                                 margin: const EdgeInsets.only(right: 30),
-                                child: InkWell(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(8.0),
+                                        bottomRight: Radius.circular(8.0),
+                                        topLeft: Radius.circular(8.0),
+                                        bottomLeft: Radius.circular(8.0),
+                                    ),
+                                    color: Colors.black,
+                                  ),
+                                  child: InkWell(
 
-                                  onTap: () {
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/fnf_logo.png",
-                                    // width: 25,
-                                    fit: BoxFit.fill,
-                                    height: 35,
+                                    onTap: () {
+                                    },
+                                    child: Image.asset(
+                                      "assets/images/fnf_logo.png",
+                                      // width: 25,
+                                      fit: BoxFit.fill,
+                                      height: 35,
+                                    ),
                                   ),
                                 ),
                               ),
