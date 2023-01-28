@@ -411,7 +411,7 @@ class HomePageScreen extends StatelessWidget {
     return  InkWell(
       onTap: (){
 
-        homeController.subCategoriesButtonColorStatus (index) ;
+       // homeController.subCategoriesButtonColorStatus (index) ;
         Get.to(() => ProductListPage(), arguments: [
           {"categoriesId": response["id"].toString()},
           {"subCategoriesId": ""},

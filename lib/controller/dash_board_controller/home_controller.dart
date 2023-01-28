@@ -34,6 +34,8 @@ class HomeController extends GetxController {
   var homeDataList=[].obs;
   var categoriesDataList=[].obs;
 
+  var categoriesDataListForTab=[].obs;
+
   var userName="".obs;
   var userToken="".obs;
 
@@ -186,6 +188,7 @@ class HomeController extends GetxController {
 
             var homeDataResponse = jsonDecode(response.body);
             categoriesDataList(homeDataResponse["data"]);
+
 
             tabShimmerStatus(0);
           }

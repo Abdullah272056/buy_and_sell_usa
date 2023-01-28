@@ -18,6 +18,7 @@ import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 
 import '../auth/user/change_password_page.dart';
+import '../auth/user/fotget_password_page.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 import 'account _details_page.dart';
@@ -76,80 +77,112 @@ class ProfileSectionPage extends StatelessWidget {
               Expanded(child: Container(
                 color: Colors.white,
 
-                child: Column(
-                  children: [
-                    Expanded(child: SingleChildScrollView(
-                      child: Column(
-                        children: [
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
 
-                          SizedBox(height: 10,),
+                      SizedBox(height: 10,),
 
-                          Row(
-                            children: [
-                              _buildCardItem(
-                                item_marginLeft: 20,
-                                item_marginRight: 10,
-                                name: "MY ORDERS",
-                                imageLink: 'assets/images/orders.png',
-                                onClick: 1,),
+                      if(profileSectionPageController.userToken.isNotEmpty &&
+                          profileSectionPageController.userToken.value!=null&&
+                          profileSectionPageController.userToken.value!="null")...{
 
-                              _buildCardItem(
-                                item_marginLeft: 10,
-                                item_marginRight: 20,
-                                name: "BILLING ADDRESS",
-                                imageLink: 'assets/images/icon_address.png',
-                                onClick: 2,),
+                        Row(
+                          children: [
+                            _buildCardItem(
+                              item_marginLeft: 20,
+                              item_marginRight: 10,
+                              name: "MY ORDERS",
+                              imageLink: 'assets/images/orders.png',
+                              onClick: 1,),
 
-                            ],
-                          ),
+                            _buildCardItem(
+                              item_marginLeft: 10,
+                              item_marginRight: 20,
+                              name: "BILLING ADDRESS",
+                              imageLink: 'assets/images/icon_address.png',
+                              onClick: 2,),
 
-                          Row(
-                            children: [
-                              _buildCardItem(
-                                item_marginLeft: 20,
-                                item_marginRight: 10,
-                                name: "ACCOUNT DETAILS ",
-                                imageLink: 'assets/images/icon_account.png',
-                                onClick: 3,),
-                              _buildCardItem(
-                                item_marginLeft: 10,
-                                item_marginRight: 20,
-                                name: "WISHLIST",
-                                imageLink: 'assets/images/icon_love.png',
-                                onClick: 4,),
+                          ],
+                        ),
 
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            _buildCardItem(
+                              item_marginLeft: 20,
+                              item_marginRight: 10,
+                              name: "ACCOUNT DETAILS ",
+                              imageLink: 'assets/images/icon_account.png',
+                              onClick: 3,),
+                            _buildCardItem(
+                              item_marginLeft: 10,
+                              item_marginRight: 20,
+                              name: "WISHLIST",
+                              imageLink: 'assets/images/icon_love.png',
+                              onClick: 4,),
 
-                          Obx(() =>  Row(
-                           children: [
-                             _buildCardItem(
-                               item_marginLeft: 20,
-                               item_marginRight: 10,
-                               name: "CHANGE PASSWORD",
-                               imageLink: 'assets/images/change_password.png',
-                               onClick: 5,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            _buildCardItem(
+                              item_marginLeft: 20,
+                              item_marginRight: 10,
+                              name: "CHANGE PASSWORD",
+                              imageLink: 'assets/images/change_password.png',
+                              onClick: 5,),
 
-                             if(profileSectionPageController.userToken.isNotEmpty &&
-                                 profileSectionPageController.userToken.value!=null&&profileSectionPageController.userToken.value!="null")...{
-                               _buildCardItem(
-                                 item_marginLeft: 10,
-                                 item_marginRight: 20,
-                                 name: "LOGOUT",
-                                 imageLink: 'assets/images/icon_logout.png',
-                                 onClick: 6,),
-                             }
+                            _buildCardItem(
+                              item_marginLeft: 10,
+                              item_marginRight: 20,
+                              name: "LOGOUT",
+                              imageLink: 'assets/images/icon_logout.png',
+                              onClick: 6,),
 
 
 
-                           ],
-                         ),)
+                          ],
+                        )
+                      }
+                      else...{
 
-                        ],
-                      ),
-                    ))
-                    /// add to cart button section
-                  ],
+                        Row(
+                          children: [
+                            _buildCardItem(
+                              item_marginLeft: 20,
+                              item_marginRight: 10,
+                              name: "SIGN IN",
+                              imageLink: 'assets/images/icon_log_in_account.png',
+                              onClick: 11,),
+
+                            _buildCardItem(
+                              item_marginLeft: 10,
+                              item_marginRight: 20,
+                              name: "CREATE ACCOUNT",
+                              imageLink: 'assets/images/icon_create_account.png',
+                              onClick: 12,),
+
+
+
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            _buildCardItem(
+                              item_marginLeft: 20,
+                              item_marginRight: 10,
+                              name: "FORGET YOUR PASSWORD",
+                              imageLink: 'assets/images/change_password.png',
+                              onClick: 13,),
+
+
+                          ],
+                        )
+
+                      }
+                    ],
+                  ),
                 ),
               ))
             ],
@@ -271,6 +304,40 @@ class ProfileSectionPage extends StatelessWidget {
           }
 
 
+
+          return;
+        }
+
+
+        ///before login
+        if(onClick==11){
+
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.to(LogInScreen());
+
+          return;
+        }
+        if(onClick==12){
+
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.to(SignUpScreen());
+
+
+          return;
+        }
+        if(onClick==13){
+
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.to(ForgetPasswordScreen());
 
           return;
         }
