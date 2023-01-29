@@ -400,10 +400,10 @@ class CustomDrawer extends StatelessWidget {
 
                       ),
                       if(GetStorage().read(pref_user_token)!=null&&
-                          GetStorage().read(pref_user_token)!="null"&&
-                          GetStorage().read(pref_user_token).toString().isNotEmpty)...{
+                         GetStorage().read(pref_user_token)!="null"&&
+                         GetStorage().read(pref_user_token).toString().isNotEmpty)...{
 
-                        ListTile(
+                         ListTile(
                           leading: Icon(Icons.logout_rounded,
                             color: sohojatri_color.withOpacity(.6),
                             size: 22,
@@ -417,10 +417,6 @@ class CustomDrawer extends StatelessWidget {
                             // removeUserInfo();
                             // Get.deleteAll();
                             // Get.offAll(LogInScreen());
-
-
-
-
 
                           },
 
@@ -647,7 +643,9 @@ class CustomDrawer extends StatelessWidget {
         ),
         barrierDismissible: false,
         radius: 10.0);
+
   }
+
   Widget categoriesItemDesign(int index){
     return Container(
 
@@ -718,15 +716,6 @@ class CustomDrawer extends StatelessWidget {
 
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: fnf_color,
-        fontSize: 15.0);
-  }
+
 
 }

@@ -739,17 +739,7 @@ class CartPageForDashBoard extends StatelessWidget {
         barrierDismissible: false,
         radius: 10.0);
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   ///shimmer
   Widget cartItemShimmer(){

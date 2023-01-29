@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/common/toast.dart';
 import 'package:get/get.dart';
 
 import '../../../api_service/api_service.dart';
@@ -38,7 +39,7 @@ class VendorForgetPasswordPageController extends GetxController {
           Get.back();
           // _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
-            _showToast("success");
+            showToastShort("success");
             // var data = jsonDecode(response.body);
 
 
@@ -54,7 +55,7 @@ class VendorForgetPasswordPageController extends GetxController {
           else if (response.statusCode == 401) {
 
             var data = jsonDecode(response.body);
-            _showToast("User name or password not match!");
+            showToastShort("User name or password not match!");
           }
           else {
 
@@ -74,7 +75,7 @@ class VendorForgetPasswordPageController extends GetxController {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -127,28 +128,18 @@ class VendorForgetPasswordPageController extends GetxController {
   inputValid(String email) {
     if (email.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("E-mail can't empty!");
+      showToastLong("E-mail can't empty!");
       return;
     }
     if (!RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
     return false;
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
+
 }

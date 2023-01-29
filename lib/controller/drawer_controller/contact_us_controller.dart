@@ -13,6 +13,8 @@ import '../../model/CategoriesData.dart';
 import '../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../view/common/toast.dart';
+
 class ContactUsController extends GetxController {
 
   var userName="".obs;
@@ -86,7 +88,7 @@ class ContactUsController extends GetxController {
           else {
             // Fluttertoast.cancel();
 
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -143,17 +145,7 @@ class ContactUsController extends GetxController {
         radius: 10.0);
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:awsMixedColor,
-        textColor: fnf_color,
-        fontSize: 16.0);
-  }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -205,7 +197,7 @@ class ContactUsController extends GetxController {
           Get.back();
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
-             _showToast("Message Send Successfully!");
+            showToastShort("Message Send Successfully!");
 
                userNameController.value.text=""  ;
                userEmailController.value.text=""  ;
@@ -232,7 +224,7 @@ class ContactUsController extends GetxController {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 

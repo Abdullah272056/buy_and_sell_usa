@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 
 import '../../static/Colors.dart';
 import '../../view/checkout step/checkout_page.dart';
+import '../../view/common/toast.dart';
 import '../cart_controller/cart__view_page_controller.dart';
 
 class ProductDetailsController extends GetxController {
@@ -171,17 +172,7 @@ class ProductDetailsController extends GetxController {
 
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   updateSelectedTabIndex(int index){
     selectedTabIndex(index);
@@ -355,14 +346,14 @@ class ProductDetailsController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
         }
       }
       else{
-        _showToast("No Internet Connection!");
+        showToastShort("No Internet Connection!");
 
       }
     } on SocketException {
@@ -416,17 +407,17 @@ class ProductDetailsController extends GetxController {
             var responseData = response.body;
             FilterListDataModelClass filterListDataModelClass= filterListDataModelClassFromJson(responseData);
             relatedProductList(filterListDataModelClass.data!.products!.data);
-             _showToast("related="+relatedProductList.length.toString());
+            showToastShort("related="+relatedProductList.length.toString());
 
           }
           else {
             // Fluttertoast.cancel();
 
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
-          _showToast(e.toString());
+          showToastShort(e.toString());
         }
       }
     } on SocketException {
@@ -458,11 +449,11 @@ class ProductDetailsController extends GetxController {
           // _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
-            _showToast("Wishlist added Successfully!");
+            showToastShort("Wishlist added Successfully!");
           }
           else {
             var data = jsonDecode(response.body);
-            _showToast(data['message']);
+            showToastShort(data['message']);
           }
           //   Get.back();
 
@@ -478,7 +469,7 @@ class ProductDetailsController extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -559,7 +550,7 @@ class ProductDetailsController extends GetxController {
           }
           else {
             var data = jsonDecode(response.body);
-            _showToast("This product is not shipping to your area!");
+            showToastShort("This product is not shipping to your area!");
           }
 
           //   Get.back();
@@ -576,7 +567,7 @@ class ProductDetailsController extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
 
     }
     return false;

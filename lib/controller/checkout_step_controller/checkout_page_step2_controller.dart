@@ -12,6 +12,7 @@ import '../../data_base/sqflite/note.dart';
 import 'package:http/http.dart' as http;
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 
 
 class CheckoutPageStep2Controller extends GetxController {
@@ -77,17 +78,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   Future readAllNotes() async {
     NotesDataBase.instance;
@@ -318,7 +309,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -451,7 +442,7 @@ class CheckoutPageStep2Controller extends GetxController {
           //   Get.back();
 
         } catch (e) {
-          _showToast(e.toString());
+          showToastShort(e.toString());
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
@@ -463,7 +454,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
   void showLoadingDialog(String message) {
@@ -549,7 +540,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
           http.StreamedResponse response = await request.send();
 
-          _showToast(response.statusCode.toString());
+          showToastShort(response.statusCode.toString());
           if (response.statusCode == 200) {
             print(await response.stream.bytesToString());
           }
@@ -559,7 +550,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
 
         } catch (e) {
-          _showToast(e.toString());
+          showToastShort(e.toString());
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
@@ -571,7 +562,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -631,7 +622,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 

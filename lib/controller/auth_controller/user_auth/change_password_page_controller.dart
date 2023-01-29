@@ -12,6 +12,7 @@ import '../../../api_service/api_service.dart';
 import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import '../../../view/auth/user/log_in_page.dart';
+import '../../../view/common/toast.dart';
 
 class ChangePasswordPageController extends GetxController {
 
@@ -104,7 +105,7 @@ class ChangePasswordPageController extends GetxController {
 
           Get.back();
           if (response.statusCode == 200) {
-            _showToast("Password Changed Successfully!");
+            showToastLong("Password Changed Successfully!");
              oldPasswordController.value.text="" ;
              passwordController.value.text="" ;
              confirmPasswordController.value.text="";
@@ -113,12 +114,12 @@ class ChangePasswordPageController extends GetxController {
           else if(response.statusCode==404){
             var data = jsonDecode(response.body);
 
-            _showToast(data["data"]["error"].toString());
+            showToastLong(data["data"]["error"].toString());
 
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastLong("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -178,16 +179,6 @@ class ChangePasswordPageController extends GetxController {
         radius: 10.0);
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
+
 
 }

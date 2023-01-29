@@ -13,6 +13,7 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../data_base/sqflite/note.dart';
 import '../../../data_base/sqflite/notes_database.dart';
 import '../../../static/Colors.dart';
+import '../../../view/common/toast.dart';
 
 class VendorOrderPageController extends GetxController {
 
@@ -74,17 +75,7 @@ class VendorOrderPageController extends GetxController {
   }
 
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -134,7 +125,7 @@ class VendorOrderPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -184,7 +175,7 @@ class VendorOrderPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -241,7 +232,7 @@ class VendorOrderPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();

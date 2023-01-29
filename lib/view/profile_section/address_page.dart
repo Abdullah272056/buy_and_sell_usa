@@ -11,6 +11,8 @@ import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/profile_section_controllert/address_page_controller.dart';
 import '../cart/cart_page.dart';
+import '../common/login_warning.dart';
+import '../common/toast.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 
@@ -1036,7 +1038,7 @@ class AddressPage extends StatelessWidget {
 
     if (f_name.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("First name can't empty!");
+      showToastLong("First name can't empty!");
       return;
     }
     // if (l_name.isEmpty) {
@@ -1046,7 +1048,7 @@ class AddressPage extends StatelessWidget {
     // }
     if (email.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastLong("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -1054,42 +1056,42 @@ class AddressPage extends StatelessWidget {
     )
         .hasMatch(email)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
 
     if (phone.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Phone can't empty!");
+      showToastLong("Phone can't empty!");
       return;
     }
 
 
     if (selectedState.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Please select State!");
+      showToastLong("Please select State!");
       return;
     }
     if (selectedCountry.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Please select Country!");
+      showToastLong("Please select Country!");
       return;
     }
     if (town_city.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Town or City can't empty!");
+      showToastLong("Town or City can't empty!");
       return;
     }
 
     if (zipCode.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Zip code can't empty!");
+      showToastLong("Zip code can't empty!");
       return;
     }
 
     if (address.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Address can't empty!");
+      showToastLong("Address can't empty!");
       return;
     }
 
@@ -1097,17 +1099,7 @@ class AddressPage extends StatelessWidget {
   }
 
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
 
 }

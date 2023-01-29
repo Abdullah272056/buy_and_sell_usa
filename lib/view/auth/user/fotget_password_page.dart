@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../api_service/api_service.dart';
 import '../../../controller/auth_controller/user_auth/forget_password_page_controller.dart';
 import '../../../static/Colors.dart';
+import '../../common/toast.dart';
 import 'email_verification.dart';
 import 'package:http/http.dart' as http;
 import 'log_in_page.dart';
@@ -282,40 +283,21 @@ class ForgetPasswordScreen extends StatelessWidget {
     );
   }
 
-
-
   _inputValid(String email) {
     if (email.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("E-mail can't empty!");
+      showToastLong("E-mail can't empty!");
       return;
     }
     if (!RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
     return false;
   }
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
-
-
-
-
-
 
   _sendEmailForOtp({
     required String email,
@@ -336,7 +318,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           Get.back();
           // _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
-            _showToast("success");
+            showToastLong("success");
             // var data = jsonDecode(response.body);
 
 
@@ -352,7 +334,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           else if (response.statusCode == 401) {
 
             var data = jsonDecode(response.body);
-            _showToast("User name or password not match!");
+            showToastLong("User name or password not match!");
           }
           else {
 
@@ -372,7 +354,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastLong("No Internet Connection!");
     }
   }
 

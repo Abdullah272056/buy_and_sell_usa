@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/static/Colors.dart';
 
+import '../common/toast.dart';
 import 'sale_widget.dart';
 
 
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (ctx, index) {
                             return InkWell(
                               onTap: (){
-                                _showToast(index.toString());
+                              //showToastLong(index.toString());
                               },
                               child: SaleWidget(),
                             ) ;
@@ -100,15 +101,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
+
 }

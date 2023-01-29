@@ -16,6 +16,7 @@ import '../../../data_base/sqflite/note.dart';
 import '../../../../static/Colors.dart';
 
 
+import '../../common/toast.dart';
 import '../../drawer/custom_drawer.dart';
 import '../../drawer/vendor_custom_drawer.dart';
 import '../../shimer/product_shimmir.dart';
@@ -658,17 +659,7 @@ class VendorOrderPage extends StatelessWidget {
 
   //join now url page redirect
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   void openBottomSheet(var response) {
     Get.bottomSheet(
@@ -831,14 +822,14 @@ class VendorOrderPage extends StatelessWidget {
                       //  Get.back();
 
                         if(vendorOrderPageController.selectStateId.value=="Pending"){
-                          _showToast("Pending");
+                          showToastShort("Pending");
 
                         }
                         else if(vendorOrderPageController.selectStateId.value=="Complete"){
-                          _showToast("Complete");
+                          showToastShort("Complete");
 
                         }else{
-                          _showToast("cancel");
+                          showToastShort("cancel");
 
                         }
 

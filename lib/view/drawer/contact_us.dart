@@ -14,6 +14,7 @@ import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../common/toast.dart';
 import '../product/product_details.dart';
 
 class ContactUsPage extends StatelessWidget {
@@ -666,12 +667,12 @@ class ContactUsPage extends StatelessWidget {
         String messageTxt = contactUsController.messageController.value.text;
 
         if(userNameTxt.isEmpty){
-          _showToast("Name can't Empty!");
+          showToastShort("Name can't Empty!");
           return;
 
         }
         if(userEmailTxt.isEmpty){
-          _showToast("Email can't Empty!");
+          showToastShort("Email can't Empty!");
           return;
 
         }
@@ -680,11 +681,11 @@ class ContactUsPage extends StatelessWidget {
         )
             .hasMatch(userEmailTxt)) {
           Fluttertoast.cancel();
-          _showToast("Enter valid email!");
+          showToastShort("Enter valid email!");
           return;
         }
         if(messageTxt.isEmpty){
-          _showToast("Message can't Empty!");
+          showToastShort("Message can't Empty!");
           return;
 
         }
@@ -920,17 +921,7 @@ class ContactUsPage extends StatelessWidget {
     );
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
 
 }

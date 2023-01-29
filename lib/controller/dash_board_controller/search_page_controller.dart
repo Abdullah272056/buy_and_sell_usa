@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/notes_database.dart';
+import '../../view/common/toast.dart';
 
 class SearchPageController extends GetxController {
   final searchController = TextEditingController().obs;
@@ -65,7 +66,7 @@ class SearchPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -77,15 +78,4 @@ class SearchPageController extends GetxController {
     }
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 }

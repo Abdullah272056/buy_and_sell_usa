@@ -17,6 +17,7 @@ import '../../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 import '../cart/cart_page.dart';
+import '../common/toast.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 
@@ -607,7 +608,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
   Widget cartItem(CartNote response){
     return InkWell(
       onTap: (){
-        _showToast("seller id "+response.id.toString());
+        showToastShort("seller id "+response.id.toString());
         // _showToast("seller id "+response.seller);
       },
       child:  Padding(padding: const EdgeInsets.only(right:10,top: 10,left: 10,bottom: 10),
@@ -758,7 +759,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
 
         for(int i=0; i<cartViewPageController.selectedShippingValueList.length;i++){
           if(cartViewPageController.selectedShippingValueList[i]==""){
-            _showToast("Select all shipping!");
+            showToastShort("Select all shipping!");
            return;
           }
 
@@ -1076,17 +1077,7 @@ class CheckoutPageStep2Page extends StatelessWidget {
     ;
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   void showLoginWarning( ) {
     Get.defaultDialog(

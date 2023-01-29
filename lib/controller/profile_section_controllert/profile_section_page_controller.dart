@@ -22,11 +22,13 @@ class ProfileSectionPageController extends GetxController {
   var categoriesDataList=[].obs;
   var userName="".obs;
   var userToken="".obs;
+
   @override
   void onInit() {
     super.onInit();
     loadUserIdFromSharePref();
   }
+
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
@@ -40,8 +42,6 @@ class ProfileSectionPageController extends GetxController {
     }
 
   }
-
-
 
   void getUserAccountLogOut(String token) async{
     try {
@@ -83,17 +83,6 @@ class ProfileSectionPageController extends GetxController {
     }
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: fnf_color,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
-
   ///user info with share pref
   void saveUserInfoRemove({required String userName,required String userToken,}) async {
     try {
@@ -105,4 +94,5 @@ class ProfileSectionPageController extends GetxController {
       //code
     }
   }
+
 }

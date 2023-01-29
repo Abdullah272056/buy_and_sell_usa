@@ -54,7 +54,7 @@ class TestScreen extends StatelessWidget {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
+      //_showToast("resumed");
     }
   }
 
@@ -125,7 +125,7 @@ class TestScreen extends StatelessWidget {
     return ElevatedButton(
         onPressed: () {
 
-                  _showToast("ok");
+              //    _showToast("ok");
 
         },
       style: ElevatedButton.styleFrom(
@@ -163,16 +163,7 @@ class TestScreen extends StatelessWidget {
 
 
   //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
+
 
 
   //loading dialog crete

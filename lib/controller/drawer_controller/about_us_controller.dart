@@ -12,6 +12,7 @@ import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../model/CategoriesData.dart';
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 
 class AboutUsController extends GetxController {
 
@@ -51,7 +52,7 @@ class AboutUsController extends GetxController {
           else {
             // Fluttertoast.cancel();
 
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -108,17 +109,7 @@ class AboutUsController extends GetxController {
         radius: 10.0);
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:awsMixedColor,
-        textColor: fnf_color,
-        fontSize: 16.0);
-  }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {

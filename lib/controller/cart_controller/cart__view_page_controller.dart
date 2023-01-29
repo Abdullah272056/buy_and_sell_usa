@@ -12,6 +12,7 @@ import '../../data_base/sqflite/note.dart';
 import 'package:http/http.dart' as http;
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 
 class CartViewPageController extends GetxController {
 
@@ -45,17 +46,7 @@ class CartViewPageController extends GetxController {
     super.onInit();
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   Future readAllNotes() async {
     NotesDataBase.instance;
@@ -256,7 +247,7 @@ class CartViewPageController extends GetxController {
           // _showToast(response.statusCode.toString());
           Get.back();
           if (response.statusCode == 200) {
-            _showToast("success");
+            showToastShort("success");
 
             var couponCodeResponse = jsonDecode(response.body);
             couponCodes(couponCodeResponse["data"]["coupon_info"]["code"].toString());
@@ -267,7 +258,7 @@ class CartViewPageController extends GetxController {
           }
           else {
             promoCodeController.value.text="";
-            _showToast("Invalid Promo Code!");
+            showToastShort("Invalid Promo Code!");
           }
           //   Get.back();
 
@@ -283,7 +274,7 @@ class CartViewPageController extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -390,7 +381,7 @@ class CartViewPageController extends GetxController {
           Get.back();
           if (response.statusCode == 200) {
 
-            _showToast("Successfully!".toString());
+            showToastShort("Successfully!".toString());
 
             var couponCodeResponse = jsonDecode(response.body);
 
@@ -422,7 +413,7 @@ class CartViewPageController extends GetxController {
             couponDataList[index]=couponData;
 
             // promoCodeController.value.text="";
-            _showToast("Your promo code is not valid!");
+            showToastShort("Your promo code is not valid!");
           }
           //   Get.back();
 
@@ -437,7 +428,7 @@ class CartViewPageController extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 

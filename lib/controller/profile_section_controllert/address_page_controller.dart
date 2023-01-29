@@ -13,6 +13,7 @@ import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 import 'address_page_controller.dart';
 
 class AddressPageController extends GetxController {
@@ -94,17 +95,7 @@ class AddressPageController extends GetxController {
     }
 
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   void getCountryList(String token) async{
     try {
@@ -167,7 +158,7 @@ class AddressPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -230,7 +221,7 @@ class AddressPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -286,13 +277,13 @@ class AddressPageController extends GetxController {
         //  _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
-            _showToast("Address info update successfully!");
+            showToastShort("Address info update successfully!");
             getUserBillingInfoList(userToken.value);
 
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -365,7 +356,7 @@ class AddressPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();

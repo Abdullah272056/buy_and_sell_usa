@@ -18,6 +18,7 @@ import '../../controller/product_controller/product_details_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
+import '../common/toast.dart';
 import '../drawer/custom_drawer.dart';
 import '../product/product_details.dart';
 
@@ -338,7 +339,7 @@ class HomePageScreen extends StatelessWidget {
 
                     ])?.then((value) => Get.delete<ProductDetailsController>());
                   }else{
-                    _showToast("Enter search value!");
+                    showToastShort("Enter search value!");
                   }
 
                  // homeController. searchBoxVisible(0);
@@ -461,16 +462,6 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: fnf_color,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
   Widget _buildBottomSectionDesign() {
     double sizeHeight = Get.height;
@@ -593,7 +584,7 @@ class HomePageScreen extends StatelessWidget {
                       itemBuilder: (ctx, index) {
                         return InkWell(
                           onTap: (){
-                            _showToast(index.toString());
+                            showToastShort(index.toString());
                           },
                           child: _sliderCardDesign(),
                         ) ;

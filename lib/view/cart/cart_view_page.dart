@@ -12,6 +12,7 @@ import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../common/toast.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 import 'cart_page.dart';
@@ -457,7 +458,7 @@ class CartViewePage extends StatelessWidget {
                                                                                    cartViewPageController.couponDataList[index].sellerId.toString()), index: index);
 
                                                                      }else{
-                                                                       _showToast("Enter Coupon Code!");
+                                                                       showToastShort("Enter Coupon Code!");
                                                                      }
 
 
@@ -1272,7 +1273,7 @@ class CartViewePage extends StatelessWidget {
                 couponInfoJson: checkPromoCodeDataListJson);
 
           }else{
-            _showToast("Please Enter Promo Code!");
+            showToastShort("Please Enter Promo Code!");
           }
 
 
@@ -1342,7 +1343,7 @@ class CartViewePage extends StatelessWidget {
                 couponInfoJson: checkPromoCodeDataListJson);
 
           }else{
-            _showToast("Please Enter Promo Code!");
+            showToastShort("Please Enter Promo Code!");
           }
 
 
@@ -1439,18 +1440,6 @@ class CartViewePage extends StatelessWidget {
 
       (totalTax+subTotal).toString();
 
-  }
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
 

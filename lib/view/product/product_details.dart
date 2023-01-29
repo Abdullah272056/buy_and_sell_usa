@@ -18,6 +18,7 @@ import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 
 import '../checkout step/checkout_page.dart';
+import '../common/toast.dart';
 import '../dash_board/dash_board_page.dart';
 import '../drawer/custom_drawer.dart';
 import '../shimer/product_shimmir.dart';
@@ -313,19 +314,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
 
     );
-  }
-
-
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: fnf_color,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
   Widget _buildBottomSectionDesign() {
@@ -1290,7 +1278,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return InkWell(
                   onTap: (){
-                    _showToast(index.toString());
+                    showToastShort(index.toString());
                   },
                   child: _sliderCardDesign(),
                 ) ;
@@ -3494,7 +3482,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
 
        }else{
-         _showToast("please Enter Zip code!");
+         showToastShort("please Enter Zip code!");
 
        }
       },
@@ -3603,7 +3591,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
           // _showToast(zipCode.toString());
 
         }else{
-          _showToast("please Enter Zip code!");
+          showToastShort("please Enter Zip code!");
 
         }
       },

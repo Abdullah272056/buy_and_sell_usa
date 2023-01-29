@@ -13,6 +13,7 @@ import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import 'package:http/http.dart' as http;
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 
 class WebViewPageController1 extends GetxController {
 
@@ -170,7 +171,7 @@ class WebViewPageController1 extends GetxController {
            Get.back();
            //_showToast("response= "+response.statusCode.toString());
            if (response.statusCode == 200) {
-             _showToast(  "Order Complete Successfully!");
+             showToastShort("Order Complete Successfully!");
              deleteNotes();
              print(await response.stream.bytesToString());
            }
@@ -180,7 +181,7 @@ class WebViewPageController1 extends GetxController {
 
 
          } catch (e) {
-           _showToast(e.toString());
+           showToastShort(e.toString());
          } finally {
            //   Get.back();
 
@@ -190,21 +191,11 @@ class WebViewPageController1 extends GetxController {
      } on SocketException catch (_) {
 
        Fluttertoast.cancel();
-       _showToast("No Internet Connection!");
+       showToastShort("No Internet Connection!");
      }
    }
 
-   //toast create
-   _showToast(String message) {
-     Fluttertoast.showToast(
-         msg: message,
-         toastLength: Toast.LENGTH_SHORT,
-         gravity: ToastGravity.CENTER,
-         timeInSecForIosWeb: 1,
-         backgroundColor:Colors.amber,
-         textColor: Colors.white,
-         fontSize: 16.0);
-   }
+
 
    ///get data from share pref
    void loadUserIdFromSharePref() async {

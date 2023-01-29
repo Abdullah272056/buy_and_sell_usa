@@ -19,6 +19,7 @@ import '../../controller/order_controller/order_page_controller.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
 import '../cart/cart_page.dart';
+import '../common/login_warning.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 import '../order/order_page.dart';
@@ -331,19 +332,6 @@ class _WebViewPaymentScreenState extends State<WebViewPaymentScreen>{
     );
 
 
-  }
-
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
 

@@ -10,6 +10,7 @@ import '../../../controller/auth_controller/user_auth/change_password_page_contr
 import '../../../controller/auth_controller/user_auth/password_set_page_controller.dart';
 import '../../../static/Colors.dart';
 
+import '../../common/toast.dart';
 import 'log_in_page.dart';
 
 
@@ -165,7 +166,7 @@ class ChangePasswordScreen extends StatelessWidget {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
+      showToastLong("resumed");
     }
   }
 
@@ -494,46 +495,30 @@ class ChangePasswordScreen extends StatelessWidget {
 
     if (oldPasswordTxt.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Old password can't empty!");
+      showToastLong("Old password can't empty!");
       return;
     }
 
 
     if (password.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Password can't empty!");
+      showToastLong("Password can't empty!");
       return;
     }
     if (password.length < 8) {
       Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
+      showToastLong("Password must be 8 character!");
       return;
     }
 
     if (password != confirmPassword) {
       Fluttertoast.cancel();
-      _showToast("Confirm Password does not match!");
+      showToastLong("Confirm Password does not match!");
       return;
     }
 
     return false;
   }
-
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
-
-
-
 
 
 
