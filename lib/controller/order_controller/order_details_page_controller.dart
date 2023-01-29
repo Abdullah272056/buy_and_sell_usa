@@ -111,8 +111,6 @@ class OrderDetailsPageController extends GetxController {
     super.onInit();
   }
 
-
-
   Future refreshNotes() async {
     NotesDataBase.instance;
     cartList(await NotesDataBase.instance.readAllNotes());

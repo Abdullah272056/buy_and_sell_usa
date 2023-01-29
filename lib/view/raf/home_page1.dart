@@ -10,6 +10,7 @@ import '../../controller/dash_board_controller/home_controller.dart';
 class HomePage22 extends StatelessWidget {
 
   final homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,6 +49,5 @@ class HomePage22 extends StatelessWidget {
       ),
     );
   }
-
 
 }

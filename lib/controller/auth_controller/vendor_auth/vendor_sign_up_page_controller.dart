@@ -13,6 +13,7 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../view/common/loading_dialog.dart';
 import '../../../view/common/toast.dart';
 import '../../../view/dash_board/dash_board_page.dart';
 import '../../checkout_step_controller/checkout_page_controller.dart';
@@ -122,56 +123,6 @@ class  VendorSignUpPageController extends GetxController {
 
     return false;
   }
-
-
-
-
-  //loading dialog crete
-  void showLoadingDialog(String message) {
-
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
-
 
   userSignUp({
     required String name,

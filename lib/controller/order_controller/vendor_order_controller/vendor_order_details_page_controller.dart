@@ -96,15 +96,12 @@ class VendorOrderDetailsPageController extends GetxController {
     zip(argumentData[0]['singleOrderDetailsData']["billings"]["zip"].toString());
      country(argumentData[0]['singleOrderDetailsData']["billings"]["country_name"]["name"].toString());
 
-
     //  totalShippingTotal(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
     //  totalTaxTotal(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
     //  couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
     //  totalAmountTotal(argumentData[0]['singleProductDetailsData']["total"].toString());
     //
     // orderProductDetailsList(argumentData[0]['singleProductDetailsData']["ordered_products"]);
-
-
 
     //customer info
      customerName(argumentData[0]['singleOrderDetailsData']["user"]["name"].toString());
@@ -116,15 +113,7 @@ class VendorOrderDetailsPageController extends GetxController {
      customerZip(argumentData[0]['singleOrderDetailsData']["user"]["zip_code"].toString());
      customerCountry(argumentData[0]['singleOrderDetailsData']["user"]["country"]["name"].toString());
 
-
-
     orderProductDetailsList(argumentData[0]['singleOrderDetailsData']["ordered_products"]);
-
-
-
-
-
-
 
    // refreshNotes();
 

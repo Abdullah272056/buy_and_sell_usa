@@ -12,6 +12,7 @@ import '../../data_base/sqflite/note.dart';
 import 'package:http/http.dart' as http;
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../../view/common/loading_dialog.dart';
 import '../../view/common/toast.dart';
 
 class CartViewPageController extends GetxController {
@@ -433,49 +434,7 @@ class CartViewPageController extends GetxController {
   }
 
 
-  void showLoadingDialog(String message) {
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
 
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
   ///user info with share pref
   void saveUserInfo({required String userName,required String userToken,}) async {

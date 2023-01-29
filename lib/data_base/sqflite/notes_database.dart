@@ -18,16 +18,13 @@ class NotesDataBase{
    if(_database !=null) return _database!;
    _database =await _initDB('notes.db');
    return _database!;
-
   }
-
 
   Future<Database> _initDB(String filePath) async {
    final dbPath =await getDatabasesPath();
    final path =join( dbPath, filePath);
    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
-
 
   Future _createDB(Database db, int version) async{
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
@@ -71,7 +68,6 @@ class NotesDataBase{
       '''
     );
   }
-
 
   Future<CartNote> create(CartNote note) async{
     final db = await instance.database;
@@ -125,20 +121,6 @@ class NotesDataBase{
 
   }
 
-
-  // Future<List<CartNote>> readAllNotes1() async{
-  //   final db =await instance.database;
-  //
-  //   final orderBy='${CartNoteFields.time} ASC';
-  //   /// final result =await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
-  //
-  //   final result =await db.query(tableNotes,orderBy: orderBy);
-  //
-  //   return result.map((json) => Note.fromJson(json)).toList();
-  //
-  // }
-
-
   Future<List<CartNote>> readAllNotes() async{
     final db =await instance.database;
 
@@ -191,7 +173,6 @@ class NotesDataBase{
     return result.map((json) => CartNote.fromJson(json)).toList();
 
   }
-
 
   Future close() async{
   final db = await instance.database;

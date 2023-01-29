@@ -25,6 +25,7 @@ class _MyPainterState extends State<Background> {
       ),
     );
   }
+
 }
 
 class Curved extends CustomPainter {
