@@ -502,7 +502,7 @@ class HomePageScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(child: ListView.builder(
-                            itemCount:10,
+                            itemCount:15,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -682,9 +682,21 @@ class HomePageScreen extends StatelessWidget {
 
                                   physics: const NeverScrollableScrollPhysics(),
                                   //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                                  itemCount: 3,
+                                  itemCount: 6,
                                   itemBuilder: (context, index) {
-                                    return  _buildProductItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
+
+                                    if(MediaQuery.of(context).size.width<450){
+
+                                      return _buildProductItemShimmer(height: 00, width: MediaQuery.of(context).size.width,);
+                                    }
+
+                                    else{
+                                      return _buildProductItemShimmer(height: 00, width: 430,);
+
+
+                                    }
+
+
                                   },
                                   scrollDirection: Axis.horizontal,
                                 )
@@ -1377,7 +1389,7 @@ class HomePageScreen extends StatelessWidget {
     required double width,
   }) {
     return  Container(
-      width:width/2 ,
+      width:width>450? width/3.4:width/2,
       // height:width/1.3
       padding: EdgeInsets.only(left: 10,right: 10),
       //  margin: EdgeInsets.only(left: 10,right: 10),

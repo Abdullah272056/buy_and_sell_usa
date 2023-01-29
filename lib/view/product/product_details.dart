@@ -729,12 +729,20 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           itemCount:productDetailsController.relatedProductList.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing:7.0,
-                              mainAxisSpacing: 5.0,
-                              mainAxisExtent: 250
+
+                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:Get.size.width>550? 3:2,
+                              crossAxisSpacing: 0.0,
+                              mainAxisSpacing: 10.0,
+                              mainAxisExtent:Get.size.width>550? 350:260
                           ),
+
+                          // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 2,
+                          //     crossAxisSpacing:7.0,
+                          //     mainAxisSpacing: 5.0,
+                          //     mainAxisExtent: 250
+                          // ),
                           itemBuilder: (BuildContext context, int index) {
                             return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index);
                           }))
