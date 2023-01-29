@@ -4,16 +4,22 @@ import 'package:badges/badges.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/profile_section/profile_section_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/profile_section_controllert/account_details_page_controller.dart';
  import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/checkout_step_controller/checkout_page_controller.dart';
 import '../../controller/profile_section_controllert/image_full_view_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
+import '../cart/cart_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
 import 'image_full_view_screen.dart';
 
 
@@ -40,7 +46,7 @@ class AccountDetailsPage extends StatelessWidget {
             children: [
 
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
+                height: MediaQuery.of(context).size.height / 25,
                 // height: 50,
               ),
 
@@ -59,7 +65,7 @@ class AccountDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "Account Details",
+                    "My Account",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 17
@@ -67,7 +73,64 @@ class AccountDetailsPage extends StatelessWidget {
                   )),
 
 
+                  Container(
+                    margin: EdgeInsets.only(top: 0,right: 15),
+                    child: InkWell(
+                        onTap: (){
+                          Get.deleteAll();
+                          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                        },
+                        child: Icon(
+                          Icons.home_outlined,
+                          size: 25,
+                          color: Colors.white,
+                        )
+                    ),
+                  ),
+
+
+                  Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    child: InkWell(
+
+                      onTap: () {
+                        if(accountDetailsPageController.userToken.isNotEmpty &&
+                            accountDetailsPageController.userToken.value!="null"&&
+                            accountDetailsPageController.userToken.value!=null){
+                          // _showToast(homeController.userToken.toString());
+                          //  _showToast("add favourite");
+                          Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                        }else{
+                          showLoginWarning();
+                        }
+
+                      },
+                      child:  Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+
+                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                    },
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20,),
+
                 ],
+              ),
+              SizedBox(
+                height: 6,
+                // height: 50,
               ),
 
               Expanded(child: Container(
@@ -133,46 +196,56 @@ class AccountDetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-
-                      userCountrySelect(),
-
+                      _buildTextFieldUserAddress(
+                        obscureText: false,
+                        //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
+                        labelText: "Address*",
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
-
-                      userStateSelect(),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-
 
                       _buildTextFieldUserTownOrCity(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.location_city, color: input_box_icon_color),
                         labelText: "Town/City",
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _buildTextFieldUserZip(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
-                        labelText: "Zip Code",
-                      ),
-
 
 
                       const SizedBox(
                         height: 20,
                       ),
-
-                      _buildTextFieldUserAddress(
-                        obscureText: false,
-                        //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
-                        labelText: "Address*",
+                      const SizedBox(
+                        height: 20,
                       ),
+
+
+                      Row(children: [
+                        Expanded(
+                          flex: 5,
+                          child:   userStateSelect(),
+                        ),
+                        SizedBox(width: 10,),
+
+                        Expanded(
+                          flex:4,
+                          child: _buildTextFieldUserZip(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
+                            labelText: "Zip Code*",
+                          ),)
+
+                      ],),
+
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      userCountrySelect(),
+
+
+                      SizedBox(height: 20,),
 
 
 
@@ -192,6 +265,7 @@ class AccountDetailsPage extends StatelessWidget {
               )),
 
 
+
             ],
           )
 
@@ -204,7 +278,7 @@ class AccountDetailsPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(
-          height: 20,
+          height: 5,
         ),
         Stack(
           children: [
@@ -274,17 +348,17 @@ class AccountDetailsPage extends StatelessWidget {
             )
           ],
         ),
-        Text(
-          "Abdullah",
-          style: TextStyle(
-            fontSize: 22,
-            //fontSize: MediaQuery.of(context).size.height / 25,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),
-        ),
+       Obx(() =>  Text(
+         accountDetailsPageController.userName.value,
+         style: TextStyle(
+           fontSize: 20,
+           //fontSize: MediaQuery.of(context).size.height / 25,
+           fontWeight: FontWeight.w500,
+           color: text_color,
+         ),
+       ),),
         SizedBox(
-          height: 10,
+          height: 15,
         ),
       ],
     );
@@ -383,7 +457,7 @@ class AccountDetailsPage extends StatelessWidget {
             // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
             decoration: BoxDecoration(
                 color:Colors.white,
-                border: Border(
+                border: const Border(
 
                   left: BorderSide(width: 1.0, color: hint_color),
                   right: BorderSide(width:1.0, color: hint_color),
@@ -416,6 +490,10 @@ class AccountDetailsPage extends StatelessWidget {
               items: accountDetailsPageController.stateList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.center,
+
+
+                  // value: list["id"].toString(),
+                  value: list.stateId.toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -426,7 +504,7 @@ class AccountDetailsPage extends StatelessWidget {
                             list.stateName,
                             // list["name"].toString(),
                             textAlign: TextAlign.center,
-                            style:  TextStyle(
+                            style:  const TextStyle(
                                 color: text_color,
                                 //color: intello_text_color,
                                 fontSize: 15,
@@ -438,10 +516,6 @@ class AccountDetailsPage extends StatelessWidget {
 
                     ],
                   ),
-
-
-                  // value: list["id"].toString(),
-                  value: list.stateId.toString(),
                 );
 
               },
@@ -924,8 +998,8 @@ class AccountDetailsPage extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.text,
-          minLines: 3,
-          maxLines: 7,
+          // minLines: 3,
+          // maxLines: 7,
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -1090,7 +1164,7 @@ class AccountDetailsPage extends StatelessWidget {
         if (_inputValid(f_name: firstName,  email: email, phone: phone,
             address: address, town_city: townCity, zipCode: zipCode,
             selectedState: accountDetailsPageController.selectStateId.value, selectedCountry: accountDetailsPageController.selectCountryId.value)== false) {
-          accountDetailsPageController.updateUserBillingInfoList(
+          accountDetailsPageController.updateUserAccountDetails(
               token: accountDetailsPageController.userToken.value,
               firstname: firstName,
               emailAddress: email,
@@ -1119,14 +1193,14 @@ class AccountDetailsPage extends StatelessWidget {
         ),
         child: Container(
           padding: EdgeInsets.only(left: 20,right: 20),
-          height: 40,
+          height: 45,
           alignment: Alignment.center,
           child:  const Text(
             "Update",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
-              fontSize: 13,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.white,
             ),

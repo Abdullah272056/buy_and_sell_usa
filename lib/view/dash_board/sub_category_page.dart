@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:fnf_buy/view/dash_board/sub_category_page.dart';
+import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../api_service/api_service.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/dash_board_controller/caregories_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../controller/dash_board_controller/sub_caregories_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
+import '../../controller/product_controller/all_product_list_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
+import '../cart/cart_page.dart';
 import '../product/product_list.dart';
+import '../profile_section/profile_section_page.dart';
 import '../shimer/product_shimmir.dart';
+import 'dash_board_page.dart';
 
-class CategoryPage extends StatelessWidget{
-  final categoriesPageController = Get.put(CategoriesPageController());
+class SubCategoryPage extends StatelessWidget{
+
+  final categoriesPageController = Get.put(SubCategoriesPageController());
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -26,28 +35,118 @@ class CategoryPage extends StatelessWidget{
               children: [
 
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 16,
+                  height: MediaQuery.of(context).size.height / 25,
                   // height: 50,
                 ),
 
                 Flex(direction: Axis.horizontal,
                   children: [
-                    SizedBox(width: 30,),
-
                     SizedBox(width: 5,),
-                    Expanded(child: Text(
-                      "All Categories",
+                    IconButton(
+                      iconSize: 20,
+                      icon:Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                    SizedBox(width: 5,),
+                    Expanded(child: Obx(()=>Text(
+                      categoriesPageController.categoryName.value,
                       style: TextStyle(color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 17
                       ),
-                    )),
+                    ))),
+
+
+                    Container(
+                      margin: EdgeInsets.only(top: 0,right: 10),
+                      child: InkWell(
+                          onTap: (){
+                            Get.deleteAll();
+                            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                          },
+                          child: Icon(
+                            Icons.home,
+                            size: 25,
+                            color: Colors.white,
+                          )
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+
+
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 0,right: 10),
+                    //   child: InkWell(
+                    //       onTap: (){
+                    //         if(categoriesPageController.userToken.isNotEmpty &&
+                    //             categoriesPageController.userToken.value!=null){
+                    //           categoriesPageController.addWishList(
+                    //               token: categoriesPageController.userToken.toString(),
+                    //               productId: categoriesPageController.productId.toString());
+                    //
+                    //         }else{
+                    //           showLoginWarning();
+                    //         }
+                    //       },
+                    //       child: Icon(
+                    //
+                    //         Icons.favorite_border,
+                    //         size: 25,
+                    //         color: Colors.red,
+                    //       )
+                    //   ),
+                    // ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+
+                        onTap: () {
+                          if(categoriesPageController.userToken.isNotEmpty &&
+                              categoriesPageController.userToken.value!="null"&&
+                              categoriesPageController.userToken.value!=null){
+                            // _showToast(homeController.userToken.toString());
+                            //  _showToast("add favourite");
+                            Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                          }else{
+                            showLoginWarning();
+                          }
+
+                        },
+                        child:  Icon(
+                          Icons.favorite_border,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width: 10,),
+
+                    InkWell(
+                      onTap: (){
+
+                        Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                      },
+                      child: Icon(
+                        Icons.shopping_cart_outlined,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+
+                    SizedBox(width: 25,),
 
 
                   ],
                 ),
+
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
+                  height: 5,
                   // height: 50,
                 ),
 
@@ -98,9 +197,6 @@ class CategoryPage extends StatelessWidget{
                   )),
                 }
 
-
-
-
               ],
             ))
 
@@ -111,20 +207,12 @@ class CategoryPage extends StatelessWidget{
   Widget categoriesListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-        Get.to(() => SubCategoryPage(), arguments: [
-          {"categoriesId": response["id"].toString()},
-          {"categoriesName": response["category_name"].toString()},
-          {"categoriesImage": ""}
+        Get.to(() => ProductListPage(), arguments: [
+          {"categoriesId": categoriesPageController.categoryId.value},
+          {"subCategoriesId": response["id"].toString()},
+          {"searchValue": ""}
 
-        ])?.then((value) => Get.delete<SubCategoriesPageController>());
-
-
-        // Get.to(() => ProductListPage(), arguments: [
-        //   {"categoriesId": response["id"].toString()},
-        //   {"subCategoriesId": ""},
-        //   {"searchValue": ""}
-        //
-        // ])?.then((value) => Get.delete<ProductDetailsController>());
+        ])?.then((value) => Get.delete<AllProductListPageController>());
       },
       child:  Column(
         children: [
@@ -141,7 +229,7 @@ class CategoryPage extends StatelessWidget{
                   width: double.maxFinite,
                   height: double.maxFinite,
                   placeholder: 'assets/images/loading.png',
-                  image:BASE_URL_API_IMAGE_CATEGORIES+response["category_image"].toString(),
+                  image:BASE_URL_API_IMAGE_SUB_CATEGORIES+response["photo"].toString(),
                   // "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
                   imageErrorBuilder: (context, url, error) =>
                       Image.asset(
@@ -158,7 +246,7 @@ class CategoryPage extends StatelessWidget{
           Container(
               margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 10,top: 8),
               child:  Text(
-                response["category_name"].toString(),
+                response["name"].toString(),
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 style:  TextStyle(
@@ -214,7 +302,6 @@ class CategoryPage extends StatelessWidget{
       ],
     );
   }
-
 
 }
 

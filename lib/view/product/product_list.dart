@@ -9,6 +9,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../api_service/api_service.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/product_controller/all_product_list_controller.dart';
 
 
@@ -16,6 +19,9 @@ import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
+import '../cart/cart_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
 import 'product_details.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -36,7 +42,7 @@ class ProductListPage extends StatelessWidget {
                   children: [
 
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 22,
+                      height: MediaQuery.of(context).size.height / 25,
                       // height: 50,
                     ),
 
@@ -61,7 +67,33 @@ class ProductListPage extends StatelessWidget {
                               fontSize: 16
                           ),
                         )),
+                        Container(
+                          margin: EdgeInsets.only(top: 0,right: 15),
+                          child: InkWell(
+                              onTap: (){
+                                Get.deleteAll();
+                                Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                              },
+                              child: Icon(
+                                Icons.home_outlined,
+                                size: 25,
+                                color: Colors.white,
+                              )
+                          ),
+                        ),
 
+
+                        InkWell(
+                          onTap: (){
+                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                          },
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(width: 15,),
 
                         InkResponse(
                           onTap: (){
@@ -98,10 +130,95 @@ class ProductListPage extends StatelessWidget {
                       ],
                     ),
 
+                    // Flex(direction: Axis.horizontal,
+                    //   children: [
+                    //     SizedBox(width: 5,),
+                    //     IconButton(
+                    //       iconSize: 20,
+                    //       icon:Icon(
+                    //         Icons.arrow_back_ios_new,
+                    //         color: Colors.white,
+                    //       ),
+                    //       onPressed: () {
+                    //         Get.back();
+                    //       },
+                    //     ),
+                    //     SizedBox(width: 5,),
+                    //     Expanded(child: Text(
+                    //       "PAYMENT",
+                    //       style: TextStyle(color: Colors.white,
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 16
+                    //       ),
+                    //     )),
+                    //
+                    //     Container(
+                    //       margin: EdgeInsets.only(top: 0,right: 15),
+                    //       child: InkWell(
+                    //           onTap: (){
+                    //             Get.deleteAll();
+                    //             Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                    //           },
+                    //           child: Icon(
+                    //             Icons.home_outlined,
+                    //             size: 25,
+                    //             color: Colors.white,
+                    //           )
+                    //       ),
+                    //     ),
+                    //
+                    //
+                    //     Container(
+                    //       margin: const EdgeInsets.only(right: 15),
+                    //       child: InkWell(
+                    //
+                    //         onTap: () {
+                    //           if(cartViewPageController.userToken.isNotEmpty &&
+                    //               cartViewPageController.userToken.value!="null"&&
+                    //               cartViewPageController.userToken.value!=null){
+                    //             // _showToast(homeController.userToken.toString());
+                    //             //  _showToast("add favourite");
+                    //             Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                    //           }else{
+                    //             showLoginWarning();
+                    //           }
+                    //
+                    //         },
+                    //         child:  Icon(
+                    //           Icons.favorite_border,
+                    //           color: Colors.white,
+                    //           size: 25.0,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //
+                    //     InkWell(
+                    //       onTap: (){
+                    //         Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                    //       },
+                    //       child: Icon(
+                    //         Icons.shopping_cart_outlined,
+                    //         size: 25,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //     SizedBox(width: 20,),
+                    //
+                    //
+                    //   ],
+                    // ),
+
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
+                      height: MediaQuery.of(context).size.height / 125,
                       // height: 50,
                     ),
+
+
+
+
+
+
+
 
                     if(allProductListPageController.productShimmerStatus==1)...{
                       Expanded(child:

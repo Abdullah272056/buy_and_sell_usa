@@ -2,10 +2,17 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/profile_section/profile_section_page.dart';
 import 'package:get/get.dart';
 
 import '../../../static/Colors.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/profile_section_controllert/address_page_controller.dart';
+import '../cart/cart_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
 
 
 
@@ -32,7 +39,7 @@ class AddressPage extends StatelessWidget {
             children: [
 
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
+                height: MediaQuery.of(context).size.height / 25,
                 // height: 50,
               ),
 
@@ -51,16 +58,70 @@ class AddressPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "ADDRESS",
+                    "SHIPPING ADDRESS",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 17
+                        fontSize: 16
                     ),
                   )),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 0,right: 15),
+                    child: InkWell(
+                        onTap: (){
+                          Get.deleteAll();
+                          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                        },
+                        child: Icon(
+                          Icons.home_outlined,
+                          size: 25,
+                          color: Colors.white,
+                        )
+                    ),
+                  ),
+
+
+                  Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    child: InkWell(
+
+                      onTap: () {
+                        if(addressPageController.userToken.isNotEmpty &&
+                            addressPageController.userToken.value!="null"&&
+                            addressPageController.userToken.value!=null){
+                          // _showToast(homeController.userToken.toString());
+                          //  _showToast("add favourite");
+                          Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                        }else{
+                          showLoginWarning();
+                        }
+
+                      },
+                      child:  Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+
+                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                    },
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20,),
 
 
                 ],
               ),
+              SizedBox(height: 5,),
 
               Expanded(child: Container(
                 color: Colors.white,
@@ -82,10 +143,20 @@ class AddressPage extends StatelessWidget {
                         height: 20,
                       ),
 
-                      _buildTextFieldUserLastName(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                        labelText: "Last Name*",
+                      Row(
+                        children: [
+                          Expanded(child:  _buildTextFieldUserMiddleName(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                            labelText: "Middle Name",
+                          )),
+                          SizedBox(width: 10,),
+                          Expanded(child:  _buildTextFieldUserLastName(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                            labelText: "Last Name",
+                          )),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -106,6 +177,45 @@ class AddressPage extends StatelessWidget {
                         labelText: "Phone*",
                       ),
 
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _buildTextFieldUserAddress(
+                        obscureText: false,
+                        //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
+                        labelText: "Address*",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      _buildTextFieldUserTownOrCity(
+                        obscureText: false,
+                        prefixedIcon: const Icon(Icons.location_city, color: input_box_icon_color),
+                        labelText: "Town/City*",
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+
+                      Row(children: [
+                        Expanded(
+                          flex: 5,
+                          child:   userStateSelect(),
+                        ),
+                        SizedBox(width: 10,),
+
+                        Expanded(
+                          flex:4,
+                          child: _buildTextFieldUserZip(
+                          obscureText: false,
+                          prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
+                          labelText: "Zip Code*",
+                        ),)
+
+                      ],),
 
 
                       const SizedBox(
@@ -114,52 +224,13 @@ class AddressPage extends StatelessWidget {
 
                       userCountrySelect(),
 
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      userStateSelect(),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-
-
-                      _buildTextFieldUserTownOrCity(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.location_city, color: input_box_icon_color),
-                        labelText: "Town/City*",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _buildTextFieldUserZip(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
-                        labelText: "Zip Code*",
-                      ),
-
-
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      _buildTextFieldUserAddress(
-                        obscureText: false,
-                        //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
-                        labelText: "Address*",
-                      ),
-
-
 
                       SizedBox(height: 20,),
 
 
                       _buildAccountDetailsUpdateButton(),
 
-                      SizedBox(height: 10,)
+                      SizedBox(height: 20,)
 
                     ],
                   ),
@@ -371,11 +442,11 @@ class AddressPage extends StatelessWidget {
           // autofocus: false,
           focusNode:addressPageController.firstNameControllerFocusNode.value,
           onSubmitted:(_){
-            addressPageController.lastNameControllerFocusNode.value.requestFocus();
+            addressPageController.middleNameControllerFocusNode.value.requestFocus();
           },
           controller: addressPageController.firstNameController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -401,10 +472,79 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
 
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
+          //   LengthLimitingTextInputFormatter(
+          //     13,
+          //   ),
+          // ],
+        ),
+      ),
+    );
+  }
+
+  //user middle Name input field create
+  Widget _buildTextFieldUserMiddleName({
+    required bool obscureText,
+    Widget? prefixedIcon,
+    String? hintText,
+    String? labelText,
+  }) {
+    return Container(
+      color:transparent,
+      child: Focus(
+        onFocusChange: (hasFocus) {
+          addressPageController.inputLevelTextColor.value = hasFocus ? hint_color : hint_color;
+        },
+        child: TextField(
+          cursorColor: awsCursorColor,
+          cursorWidth: 1.5,
+          // maxLength: 13,
+          // autofocus: false,
+
+          focusNode:addressPageController.middleNameControllerFocusNode.value,
+          onSubmitted:(_){
+            addressPageController.lastNameControllerFocusNode.value.requestFocus();
+          },
+
+          controller: addressPageController.middleNameController.value,
+          textInputAction: TextInputAction.next,
+          style: const TextStyle(color: Colors.black, fontSize: 16),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            labelText: labelText,
+            filled: true,
+            fillColor: Colors.white,
+            // contentPadding: const EdgeInsets.all(17),
+            contentPadding:  EdgeInsets.only(left: 15, right: 15,top: height/50,bottom:height/50 ),
+
+            prefixIcon: prefixedIcon,
+            prefixIconColor: input_box_icon_color,
+
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: .6),
+            ),
+            labelStyle: TextStyle(
+              color:addressPageController.inputLevelTextColor.value,
+
+            ),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              color: hint_color,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'PTSans',
+                fontSize: 16
+            ),
+          ),
+          keyboardType: TextInputType.text,
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -441,7 +581,7 @@ class AddressPage extends StatelessWidget {
           },
           controller: addressPageController.lastNameController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -480,6 +620,8 @@ class AddressPage extends StatelessWidget {
       ),
     );
   }
+
+
 
 
   //user Email input field create
@@ -533,6 +675,7 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -572,7 +715,7 @@ class AddressPage extends StatelessWidget {
           },
           controller: addressPageController.phoneController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -598,6 +741,7 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -637,7 +781,7 @@ class AddressPage extends StatelessWidget {
           },
           controller: addressPageController.addressController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -663,11 +807,12 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
-          minLines: 3,
-          maxLines: 7,
+          // minLines: 1,
+          // maxLines: 7,
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -705,7 +850,7 @@ class AddressPage extends StatelessWidget {
           },
           controller: addressPageController.townOrCityController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -731,6 +876,7 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+              fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -771,7 +917,7 @@ class AddressPage extends StatelessWidget {
           },
           controller: addressPageController.zipCodeController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black, fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -797,6 +943,7 @@ class AddressPage extends StatelessWidget {
               color: hint_color,
               fontWeight: FontWeight.normal,
               fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -820,6 +967,7 @@ class AddressPage extends StatelessWidget {
 
         String firstName=addressPageController.firstNameController.value.text;
         String lastName=addressPageController.lastNameController.value.text;
+        String middleName=addressPageController.middleNameController.value.text;
         String email=addressPageController.emailAddressController.value.text;
         String phone=addressPageController.phoneController.value.text;
         String address=addressPageController.addressController.value.text;
@@ -837,6 +985,7 @@ class AddressPage extends StatelessWidget {
               token: addressPageController.userToken.value,
               firstname: firstName,
               lastName:lastName,
+              middleName:middleName,
               emailAddress: email,
               phoneNumber: phone,
               address: address,
@@ -862,14 +1011,14 @@ class AddressPage extends StatelessWidget {
         ),
         child: Container(
           padding: EdgeInsets.only(left: 20,right: 20),
-          height: 40,
+          height: 45,
           alignment: Alignment.center,
           child:  const Text(
             "Update",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
-              fontSize: 13,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.white,
             ),
@@ -890,11 +1039,11 @@ class AddressPage extends StatelessWidget {
       _showToast("First name can't empty!");
       return;
     }
-    if (l_name.isEmpty) {
-      Fluttertoast.cancel();
-      _showToast("Last name can't empty!");
-      return;
-    }
+    // if (l_name.isEmpty) {
+    //   Fluttertoast.cancel();
+    //   _showToast("Last name can't empty!");
+    //   return;
+    // }
     if (email.isEmpty) {
       Fluttertoast.cancel();
       _showToast("Email can't empty!");

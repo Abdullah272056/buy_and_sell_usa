@@ -7,6 +7,7 @@ String BASE_URL_API = "https://fnfbuy.bizoytech.com/";
 String BASE_URL_API_IMAGE_PRODUCT = "https://fnfbuy.bizoytech.com/public/images/product/";
 // String BASE_URL_API_IMAGE_PRODUCT = "http://192.168.0.115/bijoytech_ecomerce/public/images/product/";
 String BASE_URL_API_IMAGE_CATEGORIES = "https://fnfbuy.bizoytech.com/public/images/category/";
+String BASE_URL_API_IMAGE_SUB_CATEGORIES = "https://fnfbuy.bizoytech.com/public/images/sub-category/";
 // String BASE_URL_API_IMAGE_CATEGORIES = "http://192.168.0.115/bijoytech_ecomerce/public/images/category/";
 
 String SUB_URL_API_LOG_IN = "api/login";
@@ -17,6 +18,7 @@ String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 String SUB_URL_API_CHANGE_PASSWORD = "api/user/change-password";
 
 String SUB_URL_API_GET_ONLY_CATEGORIES_LIST = "api/categories-only";
+String SUB_URL_API_GET_CATEGORIES_DETAILS= "api/category-details";
 String SUB_URL_API_GET_CATEGORIES = "api/categories";
 String SUB_URL_API_GET_SUBCATEGORIES = "api/sub-categories";
 String SUB_URL_API_GET_INNER_CATEGORIES = "api/inner-categories";
@@ -78,6 +80,10 @@ String SUB_URL_API_GET_VENDOR_ORDER_LIST= "api/vendor/order-vendor";
 String SUB_URL_API_COUPON_AVAILABLE_SELLER= "api/coupon-available-seller";
 String SUB_URL_API_COUPON_AVAILABLE_SELLER_LIST= "api/coupon-available-check";
 String SUB_URL_API_COUPON_CODE_CHECK_INDIVIDUAL= "api/coupon-check-individual";
+
+
+
+String SUB_URL_API_SEARCH_SEGGEST= "api/search";
 
 
 

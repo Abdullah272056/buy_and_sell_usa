@@ -120,7 +120,7 @@ class LogInScreen extends StatelessWidget {
 
               InkWell(
                 child: const Text(
-                  'Forgot Password',
+                  'Forgot Your Password?',
                   style: TextStyle(
                     fontFamily: 'PT-Sans',
                     fontSize: 15,
@@ -320,11 +320,11 @@ class LogInScreen extends StatelessWidget {
           height: 50,
           alignment: Alignment.center,
           child:  const Text(
-            "Login",
+            "SIGN IN",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
-              fontSize: 18,
+              fontSize: 17,
               fontWeight: FontWeight.normal,
               color: Colors.white,
             ),
@@ -351,7 +351,7 @@ class LogInScreen extends StatelessWidget {
         ),
         InkWell(
           child: const Text(
-            'Sign Up',
+            'Create Account',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,

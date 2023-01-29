@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../controller/auth_controller/user_auth/log_in_page_controller.dart';
 import '../../controller/auth_controller/user_auth/sign_up_page_controller.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/drawer_controller/about_us_controller.dart';
 import '../../controller/drawer_controller/contact_us_controller.dart';
 import '../../controller/drawer_controller/faq_controller.dart';
@@ -25,6 +26,7 @@ import '../auth/vendor_or_seller/vendor_log_in_page.dart';
 import '../auth/vendor_or_seller/vendor_sign_up_page.dart';
 import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../dash_board/wish_list_page.dart';
 import '../product/product_list.dart';
 import 'about_us.dart';
 import 'contact_us.dart';
@@ -45,6 +47,7 @@ class CustomDrawer extends StatelessWidget {
                 children: [
                   Container(
                     height: 150,
+                    decoration: BoxDecoration(color: sohojatri_color),
                     child: Column(
                       children: [
                         Expanded(child:Align(
@@ -139,7 +142,6 @@ class CustomDrawer extends StatelessWidget {
                         )
                       ],
                     ),
-                    decoration: BoxDecoration(color: sohojatri_color),
                   ),
                   Obx(()=> Expanded(child:customDrawerController.drawerSelectedTab.value==1?
                   ListView(
@@ -158,12 +160,24 @@ class CustomDrawer extends StatelessWidget {
                         // onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardScreen())),
                       ),
                       ListTile(
-                        leading: Icon(Icons.hail,
+                        leading: Icon(Icons.favorite,
                           color: sohojatri_color.withOpacity(.6),
                           size: 22,
                         ),
-                        title: Text("Shop",
-                        ),
+                        title: Text("Wish List",),
+                        onTap: (){
+                          if(GetStorage().read(pref_user_token)!=null&&
+                              GetStorage().read(pref_user_token)!="null"&&
+                              GetStorage().read(pref_user_token).toString().isNotEmpty){
+
+                            Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                          }else{
+                            showLoginWarning();
+
+                          }
+
+
+                        },
                       ),
                       ExpansionTile(
                         leading:Icon(Icons.pages,
@@ -267,6 +281,7 @@ class CustomDrawer extends StatelessWidget {
                           Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
                         },
                       ),
+
                       // ListTile(
                       //   leading: Icon(Icons.shopping_cart_checkout_outlined,
                       //     color: sohojatri_color.withOpacity(.6),

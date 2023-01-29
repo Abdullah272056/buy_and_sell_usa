@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../static/Colors.dart';
+import '../cart/cart_page_for_dash_board.dart';
 import '../drawer/custom_drawer.dart';
 import '../order/vendor/vendor_order_page.dart';
 import '../profile_section/profile_section_page.dart';
@@ -66,7 +67,7 @@ class DashBoardPageScreen extends StatelessWidget {
           }
 
           if(index==3){
-            dashBoardPageController.updateSelectedPage([CartPage()]);
+            dashBoardPageController.updateSelectedPage([CartPageForDashBoard()]);
             // selectedPage= CartPage( );
             return;
           }

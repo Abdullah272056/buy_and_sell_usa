@@ -4,11 +4,17 @@ import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart__view_page_controller.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
+import 'cart_page.dart';
 
 
 class CartViewePage extends StatelessWidget {
@@ -35,6 +41,11 @@ class CartViewePage extends StatelessWidget {
         child:  Column(
           children: [
 
+
+
+
+
+
             Expanded(child: Container(
                 decoration: BoxDecoration(
                   color:fnf_title_bar_bg_color,
@@ -42,10 +53,40 @@ class CartViewePage extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height / 22,
+                    //   // height: 50,
+                    // ),
+                    // Flex(direction: Axis.horizontal,
+                    //   children: [
+                    //     SizedBox(width: 5,),
+                    //     IconButton(
+                    //       iconSize: 20,
+                    //       icon:Icon(
+                    //         Icons.arrow_back_ios_new,
+                    //         color: Colors.white,
+                    //       ),
+                    //       onPressed: () {
+                    //         Get.back();
+                    //       },
+                    //     ),
+                    //     SizedBox(width: 5,),
+                    //     Expanded(child: Text(
+                    //       "SHOPPING CART",
+                    //       style: TextStyle(color: Colors.white,
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 17
+                    //       ),
+                    //     )),
+                    //   ],
+                    // ),
+
+
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 22,
+                      height: MediaQuery.of(context).size.height / 25,
                       // height: 50,
                     ),
+
                     Flex(direction: Axis.horizontal,
                       children: [
                         SizedBox(width: 5,),
@@ -67,8 +108,101 @@ class CartViewePage extends StatelessWidget {
                               fontSize: 17
                           ),
                         )),
+
+                        Container(
+                          margin: EdgeInsets.only(top: 0,right: 10),
+                          child: InkWell(
+                              onTap: (){
+                                Get.deleteAll();
+                                Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                              },
+                              child: Icon(
+                                Icons.home,
+                                size: 25,
+                                color: Colors.white,
+                              )
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+
+
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 0,right: 10),
+                        //   child: InkWell(
+                        //       onTap: (){
+                        //         if(categoriesPageController.userToken.isNotEmpty &&
+                        //             categoriesPageController.userToken.value!=null){
+                        //           categoriesPageController.addWishList(
+                        //               token: categoriesPageController.userToken.toString(),
+                        //               productId: categoriesPageController.productId.toString());
+                        //
+                        //         }else{
+                        //           showLoginWarning();
+                        //         }
+                        //       },
+                        //       child: Icon(
+                        //
+                        //         Icons.favorite_border,
+                        //         size: 25,
+                        //         color: Colors.red,
+                        //       )
+                        //   ),
+                        // ),
+                        Container(
+                          margin: const EdgeInsets.only(right: 20),
+                          child: InkWell(
+
+                            onTap: () {
+                              if(cartViewPageController.userToken.isNotEmpty &&
+                                  cartViewPageController.userToken.value!="null"&&
+                                  cartViewPageController.userToken.value!=null){
+                                // _showToast(homeController.userToken.toString());
+                                //  _showToast("add favourite");
+                                Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                              }else{
+                                showLoginWarning();
+                              }
+
+                            },
+                            child:  Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(width: 10,),
+
+                        InkWell(
+                          onTap: (){
+
+                            Get.off(CartPage())?.then((value) => Get.delete<CartPageController>());
+                          },
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        SizedBox(width: 25,),
+
+
                       ],
                     ),
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 125,
+                      // height: 50,
+                    ),
+
+
+
+
+
+
+
                    Obx(()=> Expanded(child:cartViewPageController.cartList.length>0?
                    Container(
                      color: Colors.white,
@@ -250,7 +384,7 @@ class CartViewePage extends StatelessWidget {
                                                      child:  Row(
                                                        // mainAxisAlignment: MainAxisAlignment.center,
                                                        children: [
-                                                         Expanded(
+                                                         const Expanded(
                                                            child:  Text("Total: ",
                                                              style: TextStyle(fontWeight: FontWeight.w600,
                                                                  color: text_color,

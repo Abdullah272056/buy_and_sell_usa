@@ -84,7 +84,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                "Forgot Password",
+                "Forget Your Password",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color:fnf_bold_text_color,
@@ -268,7 +268,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           height: 50,
           alignment: Alignment.center,
           child: Text(
-            "Next",
+            "Continue",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',

@@ -4,9 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller/cart_page_controller.dart';
 import '../../controller/checkout_step_controller/checkout_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
-import '../../../static/Colors.dart';
+
+import '../../static/Colors.dart';
+import '../cart/cart_page.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
+import '../profile_section/profile_section_page.dart';
 
 
 class CheckoutPage extends StatelessWidget {
@@ -30,7 +38,7 @@ class CheckoutPage extends StatelessWidget {
             children: [
 
               SizedBox(
-                height: MediaQuery.of(context).size.height / 22,
+                height: MediaQuery.of(context).size.height / 25,
                 // height: 50,
               ),
 
@@ -49,16 +57,80 @@ class CheckoutPage extends StatelessWidget {
                   ),
                   SizedBox(width: 5,),
                   Expanded(child: Text(
-                    "BILLING ADDRESS",
+                    "SHIPPING ADDRESS",
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 17
+                        fontSize: 16
                     ),
                   )),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 0,right: 15),
+                    child: InkWell(
+                        onTap: (){
+                          Get.deleteAll();
+                          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                        },
+                        child: Icon(
+                          Icons.home_outlined,
+                          size: 25,
+                          color: Colors.white,
+                        )
+                    ),
+                  ),
+
+
+                  Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    child: InkWell(
+
+                      onTap: () {
+                        if(checkoutPageController.userToken.isNotEmpty &&
+                            checkoutPageController.userToken.value!="null"&&
+                            checkoutPageController.userToken.value!=null){
+                          // _showToast(homeController.userToken.toString());
+                          //  _showToast("add favourite");
+                          Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                        }else{
+                          showLoginWarning();
+                        }
+
+                      },
+                      child:  Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+
+                      Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                    },
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20,),
 
 
                 ],
               ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 125,
+                // height: 50,
+              ),
+
+
+
+
+
+
 
               Expanded(child: Container(
                 color: Colors.white,
@@ -71,6 +143,8 @@ class CheckoutPage extends StatelessWidget {
                       SizedBox(height: 15,),
 
                       //user name input
+
+
                       _buildTextFieldUserFirstName(
                         obscureText: false,
                         prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
@@ -80,21 +154,20 @@ class CheckoutPage extends StatelessWidget {
                         height: 20,
                       ),
 
-
-                      _buildTextFieldUserMiddleName(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                        labelText: "Middle Name*",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-
-                      _buildTextFieldUserLastName(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
-                        labelText: "Last Name*",
+                      Row(
+                        children: [
+                          Expanded(child:  _buildTextFieldUserMiddleName(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                            labelText: "Middle Name",
+                          )),
+                          SizedBox(width: 10,),
+                          Expanded(child:  _buildTextFieldUserLastName(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.person, color: input_box_icon_color),
+                            labelText: "Last Name",
+                          )),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -118,13 +191,11 @@ class CheckoutPage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-
                       _buildTextFieldUserAddress(
                         obscureText: false,
                         //  prefixedIcon: const Icon(Icons.locatio, color: input_box_icon_color),
                         labelText: "Address*",
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -139,23 +210,31 @@ class CheckoutPage extends StatelessWidget {
                         height: 20,
                       ),
 
+
+                      Row(children: [
+                        Expanded(
+                          flex: 5,
+                          child:   userStateSelect(),
+                        ),
+                        SizedBox(width: 10,),
+
+                        Expanded(
+                          flex:4,
+                          child: _buildTextFieldUserZip(
+                            obscureText: false,
+                            prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
+                            labelText: "Zip Code*",
+                          ),)
+
+                      ],),
+
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
                       userCountrySelect(),
 
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      userStateSelect(),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      _buildTextFieldUserZip(
-                        obscureText: false,
-                        prefixedIcon: const Icon(Icons.edit_location_outlined, color: input_box_icon_color),
-                        labelText: "Zip Code*",
-                      ),
 
                       SizedBox(height: 30,),
                       Row(
@@ -627,7 +706,7 @@ class CheckoutPage extends StatelessWidget {
           },
           controller: checkoutPageController.firstNameController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -650,9 +729,10 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -668,7 +748,7 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-  //user name input field create
+  //user middle Name input field create
   Widget _buildTextFieldUserMiddleName({
     required bool obscureText,
     Widget? prefixedIcon,
@@ -686,20 +766,22 @@ class CheckoutPage extends StatelessWidget {
           cursorWidth: 1.5,
           // maxLength: 13,
           // autofocus: false,
+
           focusNode:checkoutPageController.middleNameControllerFocusNode.value,
           onSubmitted:(_){
             checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
           },
+
           controller: checkoutPageController.middleNameController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black, fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
             filled: true,
             fillColor: Colors.white,
             // contentPadding: const EdgeInsets.all(17),
-            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+            contentPadding:  EdgeInsets.only(left: 15, right: 15,top: height/50,bottom:height/50 ),
 
             prefixIcon: prefixedIcon,
             prefixIconColor: input_box_icon_color,
@@ -712,16 +794,17 @@ class CheckoutPage extends StatelessWidget {
             ),
             labelStyle: TextStyle(
               color:checkoutPageController.inputLevelTextColor.value,
+
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
-
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -758,7 +841,7 @@ class CheckoutPage extends StatelessWidget {
           },
           controller: checkoutPageController.lastNameController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -797,6 +880,8 @@ class CheckoutPage extends StatelessWidget {
       ),
     );
   }
+
+
 
 
   //user Email input field create
@@ -847,9 +932,10 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -889,7 +975,7 @@ class CheckoutPage extends StatelessWidget {
           },
           controller: checkoutPageController.phoneController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -912,9 +998,10 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -950,11 +1037,11 @@ class CheckoutPage extends StatelessWidget {
 
           focusNode:checkoutPageController.addressControllerFocusNode.value,
           onSubmitted:(_){
-           // checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
+            // checkoutPageController.lastNameControllerFocusNode.value.requestFocus();
           },
           controller: checkoutPageController.addressController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -977,14 +1064,15 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
-          minLines: 3,
-          maxLines: 7,
+          // minLines: 1,
+          // maxLines: 7,
           // inputFormatters: [
           //   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
           //   LengthLimitingTextInputFormatter(
@@ -995,6 +1083,7 @@ class CheckoutPage extends StatelessWidget {
       ),
     );
   }
+
 
   //user town or city input field create
   Widget _buildTextFieldUserTownOrCity({
@@ -1017,11 +1106,11 @@ class CheckoutPage extends StatelessWidget {
 
           focusNode:checkoutPageController.townOrCityControllerFocusNode.value,
           onSubmitted:(_){
-             checkoutPageController.zipCodeControllerFocusNode.value.requestFocus();
+            checkoutPageController.zipCodeControllerFocusNode.value.requestFocus();
           },
           controller: checkoutPageController.townOrCityController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black,  fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -1044,9 +1133,10 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,
@@ -1087,7 +1177,7 @@ class CheckoutPage extends StatelessWidget {
           },
           controller: checkoutPageController.zipCodeController.value,
           textInputAction: TextInputAction.next,
-          style: const TextStyle(color: Colors.black, fontSize: 18),
+          style: const TextStyle(color: Colors.black, fontSize: 16),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             labelText: labelText,
@@ -1110,9 +1200,10 @@ class CheckoutPage extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: hint_color,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'PTSans',
+                color: hint_color,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'PTSans',
+                fontSize: 16
             ),
           ),
           keyboardType: TextInputType.text,

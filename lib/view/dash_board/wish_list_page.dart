@@ -5,14 +5,18 @@ import 'package:get/get.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../static/Colors.dart';
+import '../cart/cart_page.dart';
 import '../product/product_details.dart';
 import '../product/product_list.dart';
 import '../cart/cart_view_page.dart';
+import '../profile_section/profile_section_page.dart';
 import '../shimer/product_shimmir.dart';
+import 'dash_board_page.dart';
 
 
 
@@ -43,10 +47,14 @@ class WishListPage extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
+
+
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 22,
+                      height: MediaQuery.of(context).size.height / 25,
                       // height: 50,
                     ),
+
                     Flex(direction: Axis.horizontal,
                       children: [
                         SizedBox(width: 5,),
@@ -69,9 +77,45 @@ class WishListPage extends StatelessWidget {
                           ),
                         )),
 
+                        Container(
+                          margin: EdgeInsets.only(top: 0,right: 10),
+                          child: InkWell(
+                              onTap: (){
+                                Get.deleteAll();
+                                Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                              },
+                              child: Icon(
+                                Icons.home,
+                                size: 25,
+                                color: Colors.white,
+                              )
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+
+                        InkWell(
+                          onTap: (){
+
+                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                          },
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        SizedBox(width: 25,),
+
 
                       ],
                     ),
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 125,
+                      // height: 50,
+                    ),
+
                     Expanded(child: Container(
                       color: Colors.white,
 
