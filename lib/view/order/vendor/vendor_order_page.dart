@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/order/vendor/vendor_order_details_page.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 import '../../../../api_service/api_service.dart';
 import '../../../controller/order_controller/order_page_controller.dart';

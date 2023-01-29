@@ -53,7 +53,7 @@ class AccountDetailsPageController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
- // var userToken="18|55gHatBObrLJz3zR2XQ3ppLOGA7I6f4BAsfbr6m4".obs;
+
 
   var firstName="".obs;
   var lastName="".obs;

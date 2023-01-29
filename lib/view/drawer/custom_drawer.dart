@@ -412,9 +412,15 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: (){
 
-                            removeUserInfo();
-                            Get.deleteAll();
-                            Get.offAll(LogInScreen());
+                            customDrawerController.getUserAccountLogOut(GetStorage().read(pref_user_token));
+
+                            // removeUserInfo();
+                            // Get.deleteAll();
+                            // Get.offAll(LogInScreen());
+
+
+
+
 
                           },
 

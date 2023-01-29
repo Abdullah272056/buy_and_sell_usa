@@ -84,6 +84,7 @@ String SUB_URL_API_COUPON_CODE_CHECK_INDIVIDUAL= "api/coupon-check-individual";
 
 
 String SUB_URL_API_SEARCH_SEGGEST= "api/search";
+String SUB_URL_API_LOG_OUT= "api/logout";
 
 
 

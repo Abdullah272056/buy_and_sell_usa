@@ -293,11 +293,10 @@ class ProfileSectionPage extends StatelessWidget {
 
           if(profileSectionPageController.userToken.isNotEmpty &&
               profileSectionPageController.userToken.value!=null&&profileSectionPageController.userToken.value!="null"){
-            saveUserInfoRemove(
-                userName:"",
-                userToken:"");
-            Get.deleteAll();
-            Get.offAll(LogInScreen());
+
+
+            profileSectionPageController.getUserAccountLogOut(profileSectionPageController.userToken.value);
+
           }else{
             showLoginWarning();
 
@@ -312,7 +311,7 @@ class ProfileSectionPage extends StatelessWidget {
         ///before login
         if(onClick==11){
 
-            saveUserInfoRemove(
+          profileSectionPageController.saveUserInfoRemove(
                 userName:"",
                 userToken:"");
             Get.deleteAll();
@@ -322,7 +321,7 @@ class ProfileSectionPage extends StatelessWidget {
         }
         if(onClick==12){
 
-            saveUserInfoRemove(
+          profileSectionPageController.saveUserInfoRemove(
                 userName:"",
                 userToken:"");
             Get.deleteAll();
@@ -333,7 +332,7 @@ class ProfileSectionPage extends StatelessWidget {
         }
         if(onClick==13){
 
-            saveUserInfoRemove(
+          profileSectionPageController.saveUserInfoRemove(
                 userName:"",
                 userToken:"");
             Get.deleteAll();
@@ -413,17 +412,7 @@ class ProfileSectionPage extends StatelessWidget {
     );
   }
 
-  ///user info with share pref
-  void saveUserInfoRemove({required String userName,required String userToken,}) async {
-    try {
-      var storage =GetStorage();
-      storage.write(pref_user_name, userName);
-      storage.write(pref_user_token, userToken);
-      // _showToast(userToken.toString());
-    } catch (e) {
-      //code
-    }
-  }
+
 
   //toast create
   _showToast(String message) {
