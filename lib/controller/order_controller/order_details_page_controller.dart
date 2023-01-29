@@ -56,7 +56,18 @@ class OrderDetailsPageController extends GetxController {
     orderNo(argumentData[0]['singleProductDetailsData']["order_id"].toString());
     shippingAmount(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
     taxAmount(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
-    couponAmount(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+
+    if(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString()!="null"){
+
+      couponAmount(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+
+    }else{
+      couponAmount("0.0");
+
+    }
+
+
+
     totalAmount(argumentData[0]['singleProductDetailsData']["total"].toString());
     paymentId(argumentData[0]['singleProductDetailsData']["payment_id"].toString());
     paymentMethod(argumentData[0]['singleProductDetailsData']["payment_method"].toString());
@@ -77,7 +88,16 @@ class OrderDetailsPageController extends GetxController {
 
      totalShippingTotal(argumentData[0]['singleProductDetailsData']["total_shipping"].toString());
      totalTaxTotal(argumentData[0]['singleProductDetailsData']["total_tax"].toString());
-     couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+
+    if(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString()!="null"){
+
+      couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
+
+    }else{
+      couponAmountTotal("0.0");
+
+    }
+    // couponAmountTotal(argumentData[0]['singleProductDetailsData']["coupon_amount"].toString());
      totalAmountTotal(argumentData[0]['singleProductDetailsData']["total"].toString());
 
     orderProductDetailsList(argumentData[0]['singleProductDetailsData']["ordered_products"]);
