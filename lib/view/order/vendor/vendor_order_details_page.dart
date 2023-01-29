@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 import '../../../api_service/api_service.dart';
 
@@ -874,17 +874,6 @@ class VendorOrderDetailsPage extends StatelessWidget {
   }
 
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
 }
 

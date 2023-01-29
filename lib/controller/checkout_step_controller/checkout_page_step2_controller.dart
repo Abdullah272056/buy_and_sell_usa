@@ -12,6 +12,8 @@ import '../../data_base/sqflite/note.dart';
 import 'package:http/http.dart' as http;
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../../view/common/loading_dialog.dart';
+import '../../view/common/toast.dart';
 
 
 class CheckoutPageStep2Controller extends GetxController {
@@ -77,17 +79,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   Future readAllNotes() async {
     NotesDataBase.instance;
@@ -318,7 +310,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -451,7 +443,7 @@ class CheckoutPageStep2Controller extends GetxController {
           //   Get.back();
 
         } catch (e) {
-          _showToast(e.toString());
+          showToastShort(e.toString());
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
@@ -463,53 +455,10 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
-  void showLoadingDialog(String message) {
 
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: fnf_color,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
   test1({
     required String token,
@@ -549,7 +498,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
           http.StreamedResponse response = await request.send();
 
-          _showToast(response.statusCode.toString());
+          showToastShort(response.statusCode.toString());
           if (response.statusCode == 200) {
             print(await response.stream.bytesToString());
           }
@@ -559,7 +508,7 @@ class CheckoutPageStep2Controller extends GetxController {
 
 
         } catch (e) {
-          _showToast(e.toString());
+          showToastShort(e.toString());
           //  Navigator.of(context).pop();
           //print(e.toString());
         } finally {
@@ -571,7 +520,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -631,7 +580,7 @@ class CheckoutPageStep2Controller extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 

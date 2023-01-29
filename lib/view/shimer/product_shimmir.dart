@@ -91,16 +91,14 @@ Widget buildProductItemShimmer({
   );
 }
 
-Widget buildRectangleShimmer(
-        {
+Widget buildRectangleShimmer({
           required double height,
           required double width,
           required double marginLeft,
           required double marginTop,
           required double marginRight,
           required double marginBottom,
-    }
-    ){
+    }){
   return Shimmer.fromColors(
     baseColor: shimmer_baseColor ,
     highlightColor: shimmer_highlightColor ,

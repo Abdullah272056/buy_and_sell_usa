@@ -10,6 +10,7 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../view/common/toast.dart';
 import '../../../view/dash_board/dash_board_page.dart';
 import '../../dash_board_controller/dash_board_page_controller.dart';
 
@@ -54,11 +55,11 @@ class VendorLogInPageController extends GetxController {
               }
           );
 
-           _showToast(response.statusCode.toString());
+          // showToastLong(response.statusCode.toString());
 
           Get.back();
           if (response.statusCode == 200) {
-            _showToast("success");
+            showToastShort("success");
 
             var data = jsonDecode(response.body);
             saveUserInfo(
@@ -70,7 +71,7 @@ class VendorLogInPageController extends GetxController {
 
           }
           else if (response.statusCode == 401) {
-            _showToast("User name or password not match!");
+            showToastShort("User name or password not match!");
           }
           else {
             var data = jsonDecode(response.body);
@@ -90,7 +91,7 @@ class VendorLogInPageController extends GetxController {
     } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -98,7 +99,7 @@ class VendorLogInPageController extends GetxController {
   inputValid(String userEmail, String password) {
     if (userEmail.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastShort("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -106,17 +107,17 @@ class VendorLogInPageController extends GetxController {
     )
         .hasMatch(userEmail)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastShort("Enter valid email!");
       return;
     }
     if (password.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Password can't empty!");
+      showToastShort("Password can't empty!");
       return;
     }
     if (password.length < 8) {
       Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
+      showToastShort("Password must be 8 character!");
       return;
     }
 
@@ -180,16 +181,6 @@ class VendorLogInPageController extends GetxController {
         radius: 10.0);
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: fnf_color,
-        fontSize: 16.0);
-  }
+
 
 }

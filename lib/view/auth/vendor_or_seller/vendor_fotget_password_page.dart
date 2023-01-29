@@ -280,13 +280,4 @@ class VendorForgetPasswordScreen extends StatelessWidget {
   }
 
 
-
-
-
-
-
-
-
-
-
 }

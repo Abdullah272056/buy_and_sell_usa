@@ -12,6 +12,7 @@ import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../data_base/sqflite/notes_database.dart';
+import '../../view/common/toast.dart';
 
 class SubCategoriesPageController extends GetxController {
 
@@ -51,17 +52,6 @@ class SubCategoriesPageController extends GetxController {
     }
 
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
 
 
@@ -89,7 +79,7 @@ class SubCategoriesPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();

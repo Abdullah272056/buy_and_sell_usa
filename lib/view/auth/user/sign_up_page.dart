@@ -11,6 +11,7 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../controller/auth_controller/user_auth/sign_up_page_controller.dart';
 import '../../../static/Colors.dart';
 
+import '../../common/toast.dart';
 import '../../dash_board/dash_board_page.dart';
 import 'log_in_page.dart';
 
@@ -174,7 +175,7 @@ class SignUpScreen extends StatelessWidget {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
+      showToastLong("resumed");
     }
   }
 
@@ -554,12 +555,12 @@ class SignUpScreen extends StatelessWidget {
     required String password, required String confirmPassword}) {
     if (userName.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Name can't empty!");
+      showToastLong("Name can't empty!");
       return;
     }
     if (userEmail.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastLong("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -567,41 +568,28 @@ class SignUpScreen extends StatelessWidget {
     )
         .hasMatch(userEmail)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
 
     if (password.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Password can't empty!");
+      showToastLong("Password can't empty!");
       return;
     }
     if (password.length < 8) {
       Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
+      showToastLong("Password must be 8 character!");
       return;
     }
 
     if (password != confirmPassword) {
       Fluttertoast.cancel();
-      _showToast("Confirm Password does not match!");
+      showToastLong("Confirm Password does not match!");
       return;
     }
 
     return false;
-  }
-
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
   }
 
 
@@ -688,17 +676,17 @@ class SignUpScreen extends StatelessWidget {
           else if (response.statusCode == 404) {
             var data = jsonDecode(response.body);
             if(data["message"]["name"]!=null){
-              _showToast(data["message"]["name"][0].toString());
+              showToastLong(data["message"]["name"][0].toString());
               return;
             }
 
             if(data["message"]["email"]!=null){
-              _showToast(data["message"]["email"][0].toString());
+              showToastLong(data["message"]["email"][0].toString());
               return;
             }
 
             if(data["message"]["password"]!=null){
-              _showToast(data["message"]["password"][0].toString());
+              showToastLong(data["message"]["password"][0].toString());
               return;
             }
 
@@ -720,7 +708,7 @@ class SignUpScreen extends StatelessWidget {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastLong("No Internet Connection!");
     }
   }
 

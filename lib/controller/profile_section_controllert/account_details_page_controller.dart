@@ -15,6 +15,9 @@ import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../view/common/loading_dialog.dart';
+import '../../view/common/toast.dart';
+
 class AccountDetailsPageController extends GetxController {
 
   ///controller
@@ -53,7 +56,7 @@ class AccountDetailsPageController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
- // var userToken="18|55gHatBObrLJz3zR2XQ3ppLOGA7I6f4BAsfbr6m4".obs;
+
 
   var firstName="".obs;
   var lastName="".obs;
@@ -100,17 +103,7 @@ class AccountDetailsPageController extends GetxController {
     }
 
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   void getCountryList(String token) async{
     try {
@@ -173,7 +166,7 @@ class AccountDetailsPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -246,7 +239,7 @@ class AccountDetailsPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -302,13 +295,13 @@ class AccountDetailsPageController extends GetxController {
          // _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
-            _showToast("Account info update success!");
+            showToastShort("Account info update success!");
             getUserAccountDetails(userToken.value);
 
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -320,50 +313,7 @@ class AccountDetailsPageController extends GetxController {
     }
   }
 
-  void showLoadingDialog(String message) {
 
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
   void getStateList() async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -381,7 +331,7 @@ class AccountDetailsPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -581,13 +531,13 @@ class AccountDetailsPageController extends GetxController {
           if (response.statusCode == 200) {
 
             var data = jsonDecode(res.body);
-            _showToast("Image Saved Successfully!");
+            showToastShort("Image Saved Successfully!");
             getUserAccountDetails(token);
 
           }
           if (response.statusCode == 404) {
             var data = jsonDecode(res.body);
-            _showToast(data["message"]["image"]["0"]);
+            showToastShort(data["message"]["image"]["0"]);
            // getUserBillingInfoList(token);
           }
           else {
@@ -601,107 +551,14 @@ class AccountDetailsPageController extends GetxController {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
-
-
-
 
   }
 
 
-  void _nidCardVerify2() async{
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-          var response = await get(
-            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_STATE_LIST}'),
-          );
-          // _showToast("status = ${response.statusCode}");
-          if (response.statusCode == 200) {
 
-            var dataResponse = jsonDecode(response.body);
-            stateList(dataResponse["data"]);
-            //  _showToast("Colors= "+stateList.length.toString());
-          }
-          else {
-            // Fluttertoast.cancel();
-            _showToast("failed try again!");
-          }
-        } catch (e) {
-          // Fluttertoast.cancel();
-        }
-      }
-    } on SocketException {
-      Fluttertoast.cancel();
-      // _showToast("No Internet Connection!");
-    }
-  }
 
-  // _nidCardVerify({
-  //   required File fontImage,
-  //   required File backImage,
-  //   required String type,
-  //   required String nidNumber,
-  // }
-  //     ) async {
-  //
-  //   try {
-  //     final result = await InternetAddress.lookup('example.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //
-  //       try {
-  //         showLoadingDialog(context,"Checking...");
-  //         var headers = {
-  //           'Accept': 'application/json',
-  //           'Authorization': "Bearer $_accessToken"
-  //         };
-  //         var request = http.MultipartRequest(
-  //             'POST', Uri.parse('$BASE_URL_API$SUB_URL_API_DOCUMENT_VERIFY'));
-  //
-  //         request.fields['nid'] = nidNumber;
-  //         request.fields['type'] = type;
-  //
-  //
-  //         request.files.add(await http.MultipartFile.fromPath('nidImage1', fontImage.path));
-  //         request.files.add(await http.MultipartFile.fromPath('nidImage2', backImage.path));
-  //         request.headers.addAll(headers);
-  //
-  //
-  //         var response = await request.send();
-  //         final res = await http.Response.fromStream(response);
-  //         // _showToast(response.statusCode.toString());
-  //         Navigator.of(context).pop();
-  //         if (response.statusCode == 200) {
-  //           setState(() {
-  //             _showToast("Successfully Added");
-  //             // Navigator.of(context).pop();
-  //             var data = jsonDecode(res.body);
-  //
-  //           });
-  //
-  //         }
-  //         else {
-  //           // var data = jsonDecode(response.body.toString());
-  //           var data = jsonDecode(res.body);
-  //           _showToast("Failed try again!");
-  //           // print(data.toString());
-  //         }
-  //       } catch (e) {
-  //         Navigator.of(context).pop();
-  //         print(e.toString());
-  //       }
-  //     }
-  //   } on SocketException catch (_) {
-  //     Fluttertoast.cancel();
-  //     _showToast("No Internet Connection!");
-  //   }
-  //
-  //
-  //
-  //
-  // }
 
 
 

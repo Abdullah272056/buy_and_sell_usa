@@ -10,9 +10,6 @@ class CartNoteFields{
   colorId,grocery,tax,shipping,shippingName,width,height,depth,weightOption,commission,commissionType
   ];
 
-
-
-
   static final String id='_id';
   static final String productId='productId';
   static final String productName='productName';
@@ -41,8 +38,6 @@ class CartNoteFields{
   static final String weightOption='weightOption';
   static final String commission='commission';
   static final String commissionType='commissionType';
-
-
 
 
 }

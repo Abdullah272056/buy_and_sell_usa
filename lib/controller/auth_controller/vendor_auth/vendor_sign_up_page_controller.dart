@@ -13,6 +13,8 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../view/common/loading_dialog.dart';
+import '../../../view/common/toast.dart';
 import '../../../view/dash_board/dash_board_page.dart';
 import '../../checkout_step_controller/checkout_page_controller.dart';
 import '../../dash_board_controller/dash_board_page_controller.dart';
@@ -85,12 +87,12 @@ class  VendorSignUpPageController extends GetxController {
     required String password, required String confirmPassword}) {
     if (userName.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Name can't empty!");
+      showToastShort("Name can't empty!");
       return;
     }
     if (userEmail.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastShort("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -98,90 +100,29 @@ class  VendorSignUpPageController extends GetxController {
     )
         .hasMatch(userEmail)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastShort("Enter valid email!");
       return;
     }
 
     if (password.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Password can't empty!");
+      showToastShort("Password can't empty!");
       return;
     }
     if (password.length < 8) {
       Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
+      showToastShort("Password must be 8 character!");
       return;
     }
 
     if (password != confirmPassword) {
       Fluttertoast.cancel();
-      _showToast("Confirm Password does not match!");
+      showToastShort("Confirm Password does not match!");
       return;
     }
 
     return false;
   }
-
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
-
-
-  //loading dialog crete
-  void showLoadingDialog(String message) {
-
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
-
 
   userSignUp({
     required String name,
@@ -219,17 +160,17 @@ class  VendorSignUpPageController extends GetxController {
           else if (response.statusCode == 404) {
             var data = jsonDecode(response.body);
             if(data["message"]["name"]!=null){
-              _showToast(data["message"]["name"][0].toString());
+              showToastShort(data["message"]["name"][0].toString());
               return;
             }
 
             if(data["message"]["email"]!=null){
-              _showToast(data["message"]["email"][0].toString());
+              showToastShort(data["message"]["email"][0].toString());
               return;
             }
 
             if(data["message"]["password"]!=null){
-              _showToast(data["message"]["password"][0].toString());
+              showToastShort(data["message"]["password"][0].toString());
               return;
             }
 
@@ -251,7 +192,7 @@ class  VendorSignUpPageController extends GetxController {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -329,7 +270,7 @@ class  VendorSignUpPageController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();

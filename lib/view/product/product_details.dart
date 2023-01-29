@@ -18,6 +18,8 @@ import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
 
 import '../checkout step/checkout_page.dart';
+import '../common/login_warning.dart';
+import '../common/toast.dart';
 import '../dash_board/dash_board_page.dart';
 import '../drawer/custom_drawer.dart';
 import '../shimer/product_shimmir.dart';
@@ -313,19 +315,6 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
 
     );
-  }
-
-
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: fnf_color,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
   Widget _buildBottomSectionDesign() {
@@ -729,12 +718,20 @@ class ProductDetailsePageScreen extends StatelessWidget {
                           itemCount:productDetailsController.relatedProductList.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing:7.0,
-                              mainAxisSpacing: 5.0,
-                              mainAxisExtent: 250
+
+                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:Get.size.width>550? 3:2,
+                              crossAxisSpacing: 0.0,
+                              mainAxisSpacing: 10.0,
+                              mainAxisExtent:Get.size.width>550? 350:260
                           ),
+
+                          // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 2,
+                          //     crossAxisSpacing:7.0,
+                          //     mainAxisSpacing: 5.0,
+                          //     mainAxisExtent: 250
+                          // ),
                           itemBuilder: (BuildContext context, int index) {
                             return  productCardItemDesign(height: 00, width: MediaQuery.of(context).size.width, index: index);
                           }))
@@ -1282,7 +1279,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return InkWell(
                   onTap: (){
-                    _showToast(index.toString());
+                    showToastShort(index.toString());
                   },
                   child: _sliderCardDesign(),
                 ) ;
@@ -3029,175 +3026,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
     );
   }
 
-  void showLoginWarning( ) {
 
-    Get.defaultDialog(
-        contentPadding: EdgeInsets.zero,
-        //  title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-
-            Stack(
-              children: [
-                Container(
-
-                    child:   Center(
-                      child: Column(
-                        children: [
-
-                          Container(
-
-                            margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
-                              bottom: 0,
-                            ),
-                            child:Image.asset(
-                              "assets/images/fnf_logo.png",
-                              // color: sohojatri_color,
-                              // width: 81,
-                              height: 40,
-                              width: 90,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
-                            child:  Align(
-                              alignment: Alignment.topCenter,
-                              child:   Text(
-                                "This section is Locked",
-                                textAlign: TextAlign.center,
-
-                                style: TextStyle(
-                                    color: text_color,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
-                            child:  Align(
-                              alignment: Alignment.topCenter,
-                              child: Text(
-                                "Go to login or Sign Up screen \nand try again ",
-                                textAlign: TextAlign.center,
-
-                                style: TextStyle(
-                                    color: text_color,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Get.back();
-                                Get.to(SignUpScreen());
-
-                                //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
-
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7))),
-                              child: Ink(
-
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(7.0)
-                                ),
-                                child: Container(
-
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  child:  Text(
-                                    "SIGN UP",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'PT-Sans',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
-                            child: InkWell(
-                              onTap: (){
-                                Get.back();
-                                Get.to(LogInScreen());
-                                //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(7.0)
-                                ),
-                                height: 40,
-                                alignment: Alignment.center,
-                                child:  Text(
-                                  "LOG IN",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'PT-Sans',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: sohojatri_color,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-
-                ),
-                Align(alignment: Alignment.topRight,
-                  child: Container(
-                    margin: EdgeInsets.only(right: 10),
-
-
-
-                    child: InkWell(
-                      onTap: (){
-                        Get.back();
-
-
-                      },
-                      child: Icon(
-                        Icons.cancel_outlined,
-                        color: Colors.deepOrangeAccent,
-                        size: 22.0,
-                      ),
-                    ),
-                  ),
-
-                ),
-              ],
-            )
-
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
   void showGroceryModal( ) {
 
@@ -3486,7 +3315,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
 
 
        }else{
-         _showToast("please Enter Zip code!");
+         showToastShort("please Enter Zip code!");
 
        }
       },
@@ -3595,7 +3424,7 @@ class ProductDetailsePageScreen extends StatelessWidget {
           // _showToast(zipCode.toString());
 
         }else{
-          _showToast("please Enter Zip code!");
+          showToastShort("please Enter Zip code!");
 
         }
       },

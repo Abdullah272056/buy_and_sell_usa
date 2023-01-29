@@ -8,6 +8,9 @@ import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../model/CategoriesData.dart';
 import '../../static/Colors.dart';
+import '../../view/auth/user/log_in_page.dart';
+import '../../view/common/loading_dialog.dart';
+import '../../view/common/toast.dart';
 
 class CustomDrawerController extends GetxController {
   var drawerSelectedTab = 1.obs;
@@ -49,7 +52,7 @@ class CustomDrawerController extends GetxController {
           else {
             // Fluttertoast.cancel();
 
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -61,17 +64,7 @@ class CustomDrawerController extends GetxController {
     }
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:awsMixedColor,
-        textColor: fnf_color,
-        fontSize: 16.0);
-  }
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -98,6 +91,63 @@ class CustomDrawerController extends GetxController {
 
     }
 
+  }
+
+
+  void getUserAccountLogOut(String token) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //_showToast(token);
+        try {
+          showLoadingDialog("Processing...");
+          var response = await post(
+
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_LOG_OUT}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              'Content-Type': 'application/json',
+            },
+          );
+
+          Get.back();
+
+          showToastShort(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.offAll(LogInScreen());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            //  _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+  ///user info with share pref
+  void saveUserInfoRemove({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
   }
 
 }

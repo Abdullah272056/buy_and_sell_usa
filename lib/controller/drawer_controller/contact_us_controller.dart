@@ -13,6 +13,9 @@ import '../../model/CategoriesData.dart';
 import '../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../view/common/loading_dialog.dart';
+import '../../view/common/toast.dart';
+
 class ContactUsController extends GetxController {
 
   var userName="".obs;
@@ -86,7 +89,7 @@ class ContactUsController extends GetxController {
           else {
             // Fluttertoast.cancel();
 
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -98,62 +101,7 @@ class ContactUsController extends GetxController {
     }
   }
 
-  void showLoadingDialog(String message) {
 
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:awsMixedColor,
-        textColor: fnf_color,
-        fontSize: 16.0);
-  }
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -205,7 +153,7 @@ class ContactUsController extends GetxController {
           Get.back();
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
-             _showToast("Message Send Successfully!");
+            showToastShort("Message Send Successfully!");
 
                userNameController.value.text=""  ;
                userEmailController.value.text=""  ;
@@ -232,7 +180,7 @@ class ContactUsController extends GetxController {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 

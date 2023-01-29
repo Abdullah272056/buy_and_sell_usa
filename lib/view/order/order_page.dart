@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 import '../../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
@@ -16,6 +16,7 @@ import '../../../static/Colors.dart';
 
 
 import '../cart/cart_page.dart';
+import '../common/login_warning.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 import '../profile_section/profile_section_page.dart';
@@ -439,17 +440,7 @@ class OrderPage extends StatelessWidget {
   //join now url page redirect
 
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   ///shimmer
   Widget orderItemShimmer(){

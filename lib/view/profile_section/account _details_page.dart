@@ -4,6 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/common/toast.dart';
 import 'package:fnf_buy/view/profile_section/profile_section_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,6 +19,7 @@ import '../../controller/profile_section_controllert/image_full_view_controller.
 import '../../data_base/sqflite/note.dart';
 import '../../../static/Colors.dart';
 import '../cart/cart_page.dart';
+import '../common/login_warning.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 import 'image_full_view_screen.dart';
@@ -1218,13 +1220,13 @@ class AccountDetailsPage extends StatelessWidget {
 
     if (f_name.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("First name can't empty!");
+      showToastLong("First name can't empty!");
       return;
     }
 
     if (email.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastLong("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -1232,58 +1234,48 @@ class AccountDetailsPage extends StatelessWidget {
     )
         .hasMatch(email)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
 
     if (phone.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Phone can't empty!");
+      showToastLong("Phone can't empty!");
       return;
     }
 
     if (selectedState.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Please select State!");
+      showToastLong("Please select State!");
       return;
     }
     if (selectedCountry.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Please select Country!");
+      showToastLong("Please select Country!");
       return;
     }
     if (town_city.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Town or City can't empty!");
+      showToastLong("Town or City can't empty!");
       return;
     }
 
     if (zipCode.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Zip code can't empty!");
+      showToastLong("Zip code can't empty!");
       return;
     }
 
     if (address.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Address can't empty!");
+      showToastLong("Address can't empty!");
       return;
     }
 
     return false;
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
 
 }

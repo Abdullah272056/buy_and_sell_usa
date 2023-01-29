@@ -12,6 +12,7 @@ import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
+import '../../view/common/toast.dart';
 
 class HomeController extends GetxController {
 
@@ -84,17 +85,7 @@ class HomeController extends GetxController {
 
   }
 
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.amber,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
   updateSelectedTabIndex(int index){
     selectedTabIndex(index);
@@ -158,18 +149,18 @@ class HomeController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
         }
       }
       else{
-        _showToast("No Internet Connection!");
+        showToastShort("No Internet Connection!");
       }
     } on SocketException {
     //  Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
@@ -194,7 +185,7 @@ class HomeController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            _showToast("failed try again!");
+            showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
@@ -247,11 +238,11 @@ class HomeController extends GetxController {
            // _showToast(response.statusCode.toString());
 
             if (response.statusCode == 200) {
-              _showToast("Wishlist added Successfully!");
+              showToastShort("Wishlist added Successfully!");
             }
             else {
               var data = jsonDecode(response.body);
-              _showToast(data['message']);
+              showToastShort(data['message']);
             }
             //   Get.back();
 
@@ -267,54 +258,11 @@ class HomeController extends GetxController {
       } on SocketException catch (_) {
 
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastShort("No Internet Connection!");
     }
   }
 
 
-  void showLoadingDialog(String message) {
 
-    Get.defaultDialog(
-        title: '',
-        titleStyle: TextStyle(fontSize: 0),
-        // backgroundColor: Colors.white.withOpacity(.8),
-        content: Wrap(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
-              child:Column(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height:50,
-                    width: 50,
-                    margin: EdgeInsets.only(top: 10),
-                    child: CircularProgressIndicator(
-                      backgroundColor: awsStartColor,
-                      color: awsEndColor,
-                      strokeWidth: 6,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child:Text(
-                      message,
-                      style: const TextStyle(fontSize: 25,),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
-          ],
-          // child: VerificationScreen(),
-        ),
-        barrierDismissible: false,
-        radius: 10.0);
-  }
 
 }

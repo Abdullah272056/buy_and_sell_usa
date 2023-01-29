@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import '../../../api_service/api_service.dart';
 import '../../../controller/auth_controller/user_auth/email_verification_page_controller.dart';
 import '../../../static/Colors.dart';
+import '../../common/toast.dart';
 
 
 
@@ -319,17 +320,6 @@ class EmailVerificationScreen extends StatelessWidget {
       ],
     );
   }
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
 
 
   Widget _buildBottomDesign() {
@@ -554,7 +544,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                // _showToast(emailVerifyPageController.userEmail.value);
                                 if(emailVerifyPageController.inputText.value.length<6||emailVerifyPageController.inputText.value.length>6){
 
-                                  _showToast("Input six digit pin");
+                                  showToastLong("Input six digit pin");
 
                                 }
                                 else{
@@ -945,7 +935,7 @@ class EmailVerificationScreen extends StatelessWidget {
           else {
             // Get.back();
             var data = jsonDecode(response.body);
-           _showToast("Otp Invalid!");
+            showToastLong("Otp Invalid!");
           }
 
 
@@ -960,7 +950,7 @@ class EmailVerificationScreen extends StatelessWidget {
       }
     } on SocketException catch (_) {
       Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
+      showToastLong("No Internet Connection!");
     }
   }
 

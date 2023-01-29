@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../api_service/login_api_service.dart';
 import '../../../controller/auth_controller/user_auth/log_in_page_controller.dart';
 import '../../../static/Colors.dart';
+import '../../common/toast.dart';
 import 'fotget_password_page.dart';
 
 
@@ -24,7 +25,6 @@ class LogInScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor:  backGroundColor,
         body: LayoutBuilder(builder: (context,constraints){
-
           if(constraints.maxWidth<600){
             return _buildBodyDesign();
           }
@@ -36,14 +36,8 @@ class LogInScreen extends StatelessWidget {
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);
-
           }
-
         },)
-
-
-
-
       ),
     );
   }
@@ -53,7 +47,7 @@ class LogInScreen extends StatelessWidget {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {
-      _showToast("resumed");
+      showToastLong("resumed");
     }
   }
 
@@ -286,8 +280,6 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-
-
   //login button create
   Widget _buildLoginButton() {
     return ElevatedButton(
@@ -372,7 +364,7 @@ class LogInScreen extends StatelessWidget {
   _inputValid(String userEmail, String password) {
     if (userEmail.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Email can't empty!");
+      showToastLong("Email can't empty!");
       return;
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
@@ -380,35 +372,22 @@ class LogInScreen extends StatelessWidget {
     )
         .hasMatch(userEmail)) {
       Fluttertoast.cancel();
-      _showToast("Enter valid email!");
+      showToastLong("Enter valid email!");
       return;
     }
     if (password.isEmpty) {
       Fluttertoast.cancel();
-      _showToast("Password can't empty!");
+      showToastLong("Password can't empty!");
       return;
     }
     if (password.length < 8) {
       Fluttertoast.cancel();
-      _showToast("Password must be 8 character!");
+      showToastLong("Password must be 8 character!");
       return;
     }
 
     return false;
   }
-
-  //toast create
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:toast_bg_color,
-        textColor: toast_text_color,
-        fontSize: 16.0);
-  }
-
 
   //loading dialog crete
   void showLoadingDialog(BuildContext context, String message) {
