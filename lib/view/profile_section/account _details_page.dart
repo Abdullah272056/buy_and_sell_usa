@@ -1165,7 +1165,8 @@ class AccountDetailsPage extends StatelessWidget {
 
         if (_inputValid(f_name: firstName,  email: email, phone: phone,
             address: address, town_city: townCity, zipCode: zipCode,
-            selectedState: accountDetailsPageController.selectStateId.value, selectedCountry: accountDetailsPageController.selectCountryId.value)== false) {
+            selectedState: accountDetailsPageController.selectStateId.value,
+            selectedCountry: accountDetailsPageController.selectCountryId.value)== false) {
           accountDetailsPageController.updateUserAccountDetails(
               token: accountDetailsPageController.userToken.value,
               firstname: firstName,

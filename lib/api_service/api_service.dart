@@ -12,8 +12,10 @@ String BASE_URL_API_IMAGE_SUB_CATEGORIES = "https://fnfbuy.bizoytech.com/public/
 
 String SUB_URL_API_LOG_IN = "api/login";
 String SUB_URL_API_SIGN_UP = "api/register";
+String SUB_URL_API_SIGN_UP_VENDOR = "api/register-vendor";
 String SUB_URL_API_RESET_PASSWORD = "api/reset-password";
 String SUB_URL_API_SEND_OTP = "api/reset-otp-check";
+String SUB_URL_API_SEND_OTP_VENDOR = "api/check-otp-vendor";
 String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 String SUB_URL_API_CHANGE_PASSWORD = "api/user/change-password";
 

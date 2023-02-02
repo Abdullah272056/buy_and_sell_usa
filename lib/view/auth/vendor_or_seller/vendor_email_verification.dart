@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/user/password_set_page.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../../api_service/api_service.dart';
 import '../../../controller/auth_controller/user_auth/email_verification_page_controller.dart';
 import '../../../controller/auth_controller/vendor_auth/vendor_email_verification_page_controller.dart';
+import '../../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import '../../common/toast.dart';
+import '../../dash_board/dash_board_page.dart';
 
 
 
@@ -911,22 +915,27 @@ class VendorEmailVerificationScreen extends StatelessWidget {
 
           showLoadingDialog("Checking");
 
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP'),
-          //     var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP_VENDOR'),
+
               body: {
                 'email': email,
-                'otp': otp
+                'token': otp
               }
           );
           Get.back();
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
-            Get.to(() => PasswordSetScreen(), arguments: [
-              {"email": email},
-              {"otp": otp}
-            ]);
-          //  Get.to(PasswordSetScreen());
+            showToastShort("success");
+
+            var data = jsonDecode(response.body);
+            saveUserInfo(
+                userName: data["data"]["name"].toString(),
+                userToken: data["data"]["token"].toString());
+
+            Get.deleteAll();
+            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+
 
           }
 
@@ -998,7 +1007,18 @@ class VendorEmailVerificationScreen extends StatelessWidget {
         radius: 10.0);
   }
 
-
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      storage.write(pref_user_type, "vendor");
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
+  }
 
 }
 

@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/drawer_controller/privacy_policy_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
+import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../data_base/sqflite/note.dart';
 import '../../data_base/sqflite/notes_database.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
+import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../common/login_warning.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
 import '../product/product_details.dart';
 
 
@@ -56,7 +64,73 @@ class PrivacyPolicyPage extends StatelessWidget {
                         fontSize: 17
                     ),
                   )),
+                  Flex(direction: Axis.horizontal,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 0,right: 10),
+                        child: InkWell(
+                            onTap: (){
+                              Get.deleteAll();
+                              Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                            },
+                            child: Icon(
+                              Icons.home,
+                              size: 25,
+                              color: Colors.white,
+                            )
+                        ),
+                      ),
+                      SizedBox(width: 10,),
 
+                      if(GetStorage().read(pref_user_type).toString()!="vendor")...{
+                        Container(
+                          margin: const EdgeInsets.only(right: 20),
+                          child: InkWell(
+
+                            onTap: () {
+                              if (privacyPolicyController.userToken
+                                  .isNotEmpty &&
+                                  privacyPolicyController.userToken.value !=
+                                      "null" &&
+                                  privacyPolicyController.userToken.value !=
+                                      null) {
+                                // _showToast(homeController.userToken.toString());
+                                //  _showToast("add favourite");
+                                Get.off(WishListPage())?.then((value) =>
+                                    Get.delete<WishListPageController>());
+                              } else {
+                                showLoginWarning();
+                              }
+                            },
+                            child: Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: const EdgeInsets.only(right: 25),
+                          child: InkWell(
+
+                            onTap: () {
+                              Get.off(CartPage())?.then((value) =>
+                                  Get.delete<CartPageController>());
+                            },
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+
+
+                          ),
+                        ),
+                      }
+                    ],
+
+                  )
 
                 ],
               ),

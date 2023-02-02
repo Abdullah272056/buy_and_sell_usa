@@ -144,11 +144,11 @@ class VendorLogInScreen extends StatelessWidget {
               //     Get.to(VendorForgetPasswordScreen());
               //   },
               // ),
-              //
-              // const SizedBox(
-              //   height: 20,
-              // ),
-              // _buildSignUpQuestion(),
+
+              const SizedBox(
+                height: 10,
+              ),
+              _buildSignUpQuestion(),
               const SizedBox(
                 height: 15,
               ),
@@ -360,7 +360,7 @@ class VendorLogInScreen extends StatelessWidget {
         ),
         InkWell(
           child: const Text(
-            'Sign Up',
+            'Create Account',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,

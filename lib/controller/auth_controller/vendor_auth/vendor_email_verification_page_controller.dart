@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/common/toast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 
 class VendorEmailVerifyPageController extends GetxController {
 
   dynamic argumentData = Get.arguments;
-  var userEmail="".obs;
+ var userEmail="".obs;
   @override
   void onInit() {
 
    // _showToast(argumentData[0]['email']);
-    userEmail(argumentData[0]['email']);
+    userEmail(argumentData[1]['userEmail'].toString());
+    showToastShort(argumentData[1]['userEmail'].toString());
 
     super.onInit();
   }

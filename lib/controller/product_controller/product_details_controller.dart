@@ -82,6 +82,7 @@ class ProductDetailsController extends GetxController {
   var weight="".obs;
   var seller="".obs;
   var sellerName="".obs;
+  var storeName="".obs;
   var slug="".obs;
   var colorImage="".obs;
   var  size="".obs;
@@ -311,6 +312,7 @@ class ProductDetailsController extends GetxController {
             tax(dataResponse[1]["product"]["tax_percent"].toString());
             seller(dataResponse[1]["product"]["seller"]["id"].toString());
             sellerName(dataResponse[1]["product"]["seller"]["name"].toString());
+            storeName(dataResponse[1]["product"]["seller"]["store_name"].toString());
 
             sku(dataResponse[1]["product"]["sku"].toString());
 

@@ -104,6 +104,7 @@ class HomePageScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       Container(
                         margin: const EdgeInsets.only(left: 20),
                         child: InkWell(
@@ -121,13 +122,14 @@ class HomePageScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       Expanded(
                           child: Container(
-                            margin: const EdgeInsets.only(right: 10),
+                            margin: const EdgeInsets.only(right: 0),
                             child:  Align(
                               alignment: Alignment.center,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 30),
+                                margin: const EdgeInsets.only(right: 00),
                                 child: Container(
                                   padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
                                   decoration: const BoxDecoration(
@@ -154,6 +156,7 @@ class HomePageScreen extends StatelessWidget {
                               ),
                             ),
                           )),
+
                       Container(
                         margin: const EdgeInsets.only(right: 20),
                         child: InkWell(
@@ -177,6 +180,7 @@ class HomePageScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       Container(
                         margin: const EdgeInsets.only(right: 25),
                         child: InkWell(
@@ -206,6 +210,7 @@ class HomePageScreen extends StatelessWidget {
 
                         ),
                       ),
+
                     ],
                   ):
 
@@ -846,10 +851,7 @@ class HomePageScreen extends StatelessWidget {
           {"second": 'Second data'}
         ])?.then((value) => Get.delete<ProductDetailsController>());
 
-        // Get.to(() => ProductDetailsePageScreen(), arguments: [
-        //   {"productId": response["id"].toString()},
-        //   {"second": 'Second data'}
-        // ]);
+
       },
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -895,44 +897,46 @@ class HomePageScreen extends StatelessWidget {
                               // ),
                             )
                         ),
-                        Positioned(
-                          right: 5,
-                          top: 5,
-                          child: InkWell(
-                            onTap: (){
 
-
-                              if(homeController.userToken.isNotEmpty &&
-                                  homeController.userToken.value!="null"&&
-                                  homeController.userToken.value!=null){
-                                homeController.addWishList(
-                                    token: homeController.userToken.toString(),
-                                    productId: response["id"].toString());
-
-                              }else{
-                                showLoginWarning();
-                              }
-
-                              // if(homeController.userToken.isNotEmpty &&
-                              //     homeController.userToken.value!=null){
-                              //  // _showToast("add favourite");
-                              //   // _showToast(response["id"].toString());
-                              //
-                              //   homeController.addWishList(
-                              //       token: homeController.userToken.toString(),
-                              //       productId: response["id"].toString());
-                              //
-                              // }else{
-                              //   showLoginWarning();
-                              // }
-
-                            },
-                            child: Icon(Icons.favorite_outline,
-                              color: fnf_color,
-                            ),
-
-                          ),
-                        )
+                        //favourite button
+                        // Positioned(
+                        //   right: 5,
+                        //   top: 5,
+                        //   child: InkWell(
+                        //     onTap: (){
+                        //
+                        //
+                        //       if(homeController.userToken.isNotEmpty &&
+                        //           homeController.userToken.value!="null"&&
+                        //           homeController.userToken.value!=null){
+                        //         homeController.addWishList(
+                        //             token: homeController.userToken.toString(),
+                        //             productId: response["id"].toString());
+                        //
+                        //       }else{
+                        //         showLoginWarning();
+                        //       }
+                        //
+                        //       // if(homeController.userToken.isNotEmpty &&
+                        //       //     homeController.userToken.value!=null){
+                        //       //  // _showToast("add favourite");
+                        //       //   // _showToast(response["id"].toString());
+                        //       //
+                        //       //   homeController.addWishList(
+                        //       //       token: homeController.userToken.toString(),
+                        //       //       productId: response["id"].toString());
+                        //       //
+                        //       // }else{
+                        //       //   showLoginWarning();
+                        //       // }
+                        //
+                        //     },
+                        //     child: Icon(Icons.favorite_outline,
+                        //       color: fnf_color,
+                        //     ),
+                        //
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -972,7 +976,7 @@ class HomePageScreen extends StatelessWidget {
                               children: [
                                 RatingBarIndicator(
                                   // rating:response["avg_rating"],
-                                  rating:double.parse(response["av_review"].toString()),
+                                  rating: double.parse(response["av_review"].toString()),
                                   itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color:Colors.orange,
@@ -1006,25 +1010,8 @@ class HomePageScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "\$ "+response["price"].toString(),
-
-
-                            // "\$ "+response["price"].toString(),
-                            //  overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                                color: hint_color,
-                                fontSize: 13,
-                                decoration: TextDecoration.lineThrough,
-                                fontWeight: FontWeight.w600),
-                            // softWrap: false,
-                            maxLines: 1,
-
-
-                          ),
-                          SizedBox(width: 10,),
-                          Text(
-                            "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
-                                discountedPercent: response["discount_percent"].toString()),
+                            "\$ ${discountedPriceCalculate(regularPrice:response["price"].toString(),
+                                discountedPercent: response["discount_percent"].toString())}",
                             overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
                                 color: Colors.black.withOpacity(0.7),
@@ -1032,9 +1019,22 @@ class HomePageScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                             softWrap: false,
                             maxLines: 1,
+                          ),
 
-                          )
+                          SizedBox(width: 10,),
 
+                          Expanded(child: Text(
+                            "\$ "+response["price"].toString(),
+                            //  overflow: TextOverflow.ellipsis,
+                            style:  TextStyle(
+                                color: hint_color,
+                                fontSize: 14,
+                                decoration: TextDecoration.lineThrough,
+                                fontWeight: FontWeight.normal),
+                            softWrap: false,
+                            maxLines: 1,
+
+                          ),)
 
                         ],
                       ),

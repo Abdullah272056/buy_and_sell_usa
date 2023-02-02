@@ -39,9 +39,9 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       child: Column(
         children: [
+
           Expanded(child:  SizedBox(
              // height: MediaQuery.of(context).size.height-kBottomNavigationBarHeight,
               child:Column(
@@ -174,10 +174,7 @@ class CustomDrawer extends StatelessWidget {
                             Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
                           }else{
                             showLoginWarning();
-
                           }
-
-
                         },
                       ),
                       ExpansionTile(
@@ -227,7 +224,7 @@ class CustomDrawer extends StatelessWidget {
                                 color: sohojatri_color.withOpacity(.6),
                                 size: 20,
                               ),
-                              title: Text("Faq"),
+                              title: Text("FAQ"),
                               onTap: (){
                                 Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
@@ -264,7 +261,6 @@ class CustomDrawer extends StatelessWidget {
                               },
                             ),
                           ),
-
 
                         ],
 
@@ -361,19 +357,20 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
 
-                          // Container(
-                          //   margin: EdgeInsets.only(left: 20),
-                          //   child:   ListTile(
-                          //     leading: Icon(Icons.app_registration,
-                          //       color: sohojatri_color.withOpacity(.6),
-                          //       size: 20,
-                          //     ),
-                          //     title: Text("Seller Registation"),
-                          //     onTap: (){
-                          //         Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
-                          //     },
-                          //   ),
-                          // ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child:   ListTile(
+                              leading: Icon(Icons.app_registration,
+                                color: sohojatri_color.withOpacity(.6),
+                                size: 20,
+                              ),
+                              title: Text("Seller Registation"),
+                              onTap: (){
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
+                              },
+                            ),
+                          ),
 
 
                           Container(
@@ -453,6 +450,7 @@ class CustomDrawer extends StatelessWidget {
                       SizedBox(height: 15,)
                     ],
                   ):
+                      ///categories
                   ListView.builder(
                       itemCount:customDrawerController.categoriesList.length,
                       padding: EdgeInsets.only(top: 10),
@@ -470,7 +468,7 @@ class CustomDrawer extends StatelessWidget {
               )
 
 
-          ),)
+          ),),
 
         ],
       )
@@ -500,16 +498,16 @@ class CustomDrawer extends StatelessWidget {
               physics:  NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index2) {
                 return Container(
-                  margin: EdgeInsets.only(left:50),
+                  margin: EdgeInsets.only(left:75),
                   child: ListTile(
                     // leading: Icon(Icons.info_outline,
                     //   color: sohojatri_color.withOpacity(.6),
                     //   size: 20,
                     // ),
-                    title: Text(
+                    title: Text("\t"+
                         customDrawerController.categoriesList[index].subCategories[index2].subcategoryName.toString(),
                       style: TextStyle(
-                        fontSize: 13
+                          fontSize: 13
                       ),
 
                     ),
@@ -534,9 +532,8 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  void removeUserInfo() async {
+  void removeUserInfo() async  {
     try {
-
       var storage =GetStorage();
       storage.write(pref_user_name, "");
       storage.write(pref_user_token, "");

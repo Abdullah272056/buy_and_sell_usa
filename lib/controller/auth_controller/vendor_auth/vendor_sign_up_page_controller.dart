@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/controller/auth_controller/vendor_auth/vendor_email_verification_page_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
@@ -13,11 +14,13 @@ import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../view/auth/vendor_or_seller/vendor_email_verification.dart';
 import '../../../view/common/loading_dialog.dart';
 import '../../../view/common/toast.dart';
 import '../../../view/dash_board/dash_board_page.dart';
 import '../../checkout_step_controller/checkout_page_controller.dart';
 import '../../dash_board_controller/dash_board_page_controller.dart';
+import '../../product_controller/product_details_controller.dart';
 import '../../profile_section_controllert/account_details_page_controller.dart';
 
 class  VendorSignUpPageController extends GetxController {
@@ -65,6 +68,15 @@ class  VendorSignUpPageController extends GetxController {
   var selectedCountry="".obs;
 
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    getCountryList();
+
+  }
+
+
   updateUserNameLevelTextColor(Color value) {
     userEmailLevelTextColor(value);
   }
@@ -83,9 +95,23 @@ class  VendorSignUpPageController extends GetxController {
 
 
   //input text validation check
-  _inputValid({required String userName,required String userEmail,
-    required String password, required String confirmPassword}) {
-    if (userName.isEmpty) {
+  inputValidation({
+    required String fullNameTxt,
+    required String userEmail,
+    required String password,
+    required String confirmPassword,
+    required String companyNameTxt,
+    required String storeCompanyWebsiteTxt,
+    required String phoneNoTxt,
+    required String mobileNoTxt,
+    required String addressTxt,
+    required String cityTxt,
+    required String zipCodeTxt,
+    required String selectedState,
+    required String selectedCountry,
+  }) {
+
+    if (fullNameTxt.isEmpty) {
       Fluttertoast.cancel();
       showToastShort("Name can't empty!");
       return;
@@ -97,8 +123,7 @@ class  VendorSignUpPageController extends GetxController {
     }
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
       //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-    )
-        .hasMatch(userEmail)) {
+    ).hasMatch(userEmail)) {
       Fluttertoast.cancel();
       showToastShort("Enter valid email!");
       return;
@@ -121,42 +146,110 @@ class  VendorSignUpPageController extends GetxController {
       return;
     }
 
+    if (companyNameTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("Company Name can't empty!");
+      return;
+    }
+
+    if (phoneNoTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("Phone  can't empty!");
+      return;
+    }
+
+    if (cityTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("City can't empty!");
+      return;
+    }
+    if (mobileNoTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("Mobile can't empty!");
+      return;
+    }
+
+    if (zipCodeTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("Zip Code  can't empty!");
+      return;
+    }
+    if (addressTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastShort("Address  can't empty!");
+      return;
+    }
+
+
+    if (selectedState.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Please select State!");
+      return;
+    }
+    if (selectedCountry.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Please select Country!");
+      return;
+    }
+
     return false;
   }
 
   userSignUp({
-    required String name,
-    required String email,
+    required String fullNameTxt,
+    required String userEmail,
     required String password,
+    required String confirmPassword,
+    required String companyNameTxt,
+    required String storeCompanyWebsiteTxt,
+    required String phoneNoTxt,
+    required String mobileNoTxt,
+    required String addressTxt,
+    required String cityTxt,
+    required String zipCodeTxt,
+    required String selectedState,
+    required String selectedCountry,
   }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty){
         try {
-
           showLoadingDialog("Checking");
-
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP_VENDOR'),
               // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
               body: {
-                'name': name,
-                'email': email,
-                'password': password
+                'owner_name': fullNameTxt,
+                'store_name': companyNameTxt,
+                'store_social_link': storeCompanyWebsiteTxt,
+                'phone': phoneNoTxt,
+                'mobile': mobileNoTxt,
+                'address': addressTxt,
+                'city': cityTxt,
+                'state': selectedState,
+                'zip': zipCodeTxt,
+                'country': selectedCountry,
+                'email': userEmail,
+                'password': password,
+                'password_confirmation': confirmPassword,
+
               }
           );
           Get.back();
-          // _showToast(response.statusCode.toString());
+           showToastShort(response.statusCode.toString());
           if (response.statusCode == 200) {
-            // _showToast("success");
-            var data = jsonDecode(response.body);
-            saveUserInfo(
-                userName: data["data"]["name"].toString(),
-                userToken: data["data"]["token"].toString());
 
-            Get.deleteAll();
-            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+            // _showToast("success");
+            // var data = jsonDecode(response.body);
+
+            Get.to(VendorEmailVerificationScreen(),
+                arguments: [
+                  {"productId": ""},
+                  {"userEmail": userEmail.toString()}
+                ]
+            )?.then((value) => Get.delete<VendorEmailVerifyPageController>());
 
           }
+
           else if (response.statusCode == 404) {
             var data = jsonDecode(response.body);
             if(data["message"]["name"]!=null){
@@ -175,8 +268,8 @@ class  VendorSignUpPageController extends GetxController {
             }
 
           }
-          else {
 
+          else {
             var data = jsonDecode(response.body);
             //_showToast(data['message']);
           }
@@ -197,6 +290,8 @@ class  VendorSignUpPageController extends GetxController {
   }
 
 
+
+
   ///user info with share pref
   void saveUserInfo({required String userName,required String userToken,}) async {
     try {
@@ -209,7 +304,7 @@ class  VendorSignUpPageController extends GetxController {
 
   }
 
-  void getCountryList(String token) async{
+  void getCountryList( ) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -217,11 +312,11 @@ class  VendorSignUpPageController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ALL_COUNTRY_LIST}'),
             headers: {
-              'Authorization': 'Bearer '+token,
+              //'Authorization': 'Bearer '+token,
               //'Content-Type': 'application/json',
             },
           );
-          //  _showToast("country = ${response.statusCode}");
+          // showToastShort("country = ${response.statusCode}");
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);

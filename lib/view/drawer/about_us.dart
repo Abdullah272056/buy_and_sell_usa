@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../controller/cart_controller/cart_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/drawer_controller/about_us_controller.dart';
+import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../static/Colors.dart';
 import '../auth/user/log_in_page.dart';
 import '../auth/user/sign_up_page.dart';
+import '../cart/cart_page.dart';
+import '../common/login_warning.dart';
+import '../dash_board/dash_board_page.dart';
+import '../dash_board/wish_list_page.dart';
 
 class AboutUsPage extends StatelessWidget {
 
@@ -48,6 +57,73 @@ final aboutUsController = Get.put(AboutUsController());
                         fontSize: 17
                     ),
                   )),
+
+
+                  Container(
+                    margin: EdgeInsets.only(top: 0,right: 10),
+                    child: InkWell(
+                        onTap: (){
+                          Get.deleteAll();
+                          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                        },
+                        child: Icon(
+                          Icons.home,
+                          size: 25,
+                          color: Colors.white,
+                        )
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+
+
+                  if(GetStorage().read(pref_user_type).toString()!="vendor")...{
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+
+                        onTap: () {
+                          if(aboutUsController.userToken.isNotEmpty &&
+                              aboutUsController.userToken.value!="null"&&
+                              aboutUsController.userToken.value!=null){
+                            // _showToast(homeController.userToken.toString());
+                            //  _showToast("add favourite");
+                            Get.off(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                          }else{
+                            showLoginWarning();
+                          }
+
+                        },
+                        child:  Icon(
+                          Icons.favorite_border,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(right: 25),
+                      child: InkWell(
+
+                        onTap: () {
+
+                          Get.off(CartPage())?.then((value) => Get.delete<CartPageController>());
+                        },
+                        child:Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+
+
+
+                      ),
+                    ),
+
+                  },
+
+
+
 
 
                 ],
