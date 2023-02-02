@@ -274,16 +274,15 @@ class SearchPage extends StatelessWidget {
           color:Colors.white,
 
           borderRadius: BorderRadius.circular(10)),
-      child: Padding(
+        child: Padding(
         padding: const EdgeInsets.only(left: 0.0, top: 5,bottom: 5, right: 0),
         child: TextFormField(
           controller: userInputController,
           textInputAction: TextInputAction.search,
           autofocus: true,
           cursorColor:fnf_color,
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
           style: TextStyle(color:text_color,
-
 
           ),
           decoration: InputDecoration(
@@ -311,7 +310,6 @@ class SearchPage extends StatelessWidget {
               onTap: (){
 
                 searchPageController.searchController.value.text = "";
-
                 searchPageController.productNameDataList([]);
                 searchPageController.sellerNameDataList([]);
 

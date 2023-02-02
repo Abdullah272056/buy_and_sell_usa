@@ -200,11 +200,6 @@ class CartViewePage extends StatelessWidget {
                     ),
 
 
-
-
-
-
-
                    Obx(()=> Expanded(child:cartViewPageController.cartList.length>0?
                    Container(
                      color: Colors.white,
@@ -1419,6 +1414,7 @@ class CartViewePage extends StatelessWidget {
   }
 
   String totalPriceWithTaxCalculate(List cartList1, String sellerId){
+
     double subTotal=0.0;
     for(int i=0;i<cartList1.length;i++){
       if(sellerId==cartList1[i].seller.toString()){
@@ -1431,7 +1427,6 @@ class CartViewePage extends StatelessWidget {
     for(int i=0;i<cartList1.length;i++){
       if(sellerId==cartList1[i].seller.toString()){
         double oneItemPrice=double.parse(cartList1[i].productQuantity)*double.parse(cartList1[i].productDiscountedPrice);
-
         double singleProductTax=(double.parse(cartList1[i].tax)*oneItemPrice)/100;
         totalTax=(totalTax+singleProductTax);
       }
@@ -1439,7 +1434,7 @@ class CartViewePage extends StatelessWidget {
 
     return ( double.parse((totalTax).toStringAsFixed(2))+double.parse((subTotal).toStringAsFixed(2))).toString();
 
-      (totalTax+subTotal).toString();
+      // (totalTax+subTotal).toString();
 
   }
 

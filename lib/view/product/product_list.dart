@@ -565,7 +565,8 @@ class ProductListPage extends StatelessWidget {
               child: Column(
                 // alignment: Alignment.bottomCenter,
                 children: [
-                 Wrap(
+
+                  Wrap(
                    children: [ Container(
                      decoration: BoxDecoration(
                        // color:Colors.white,
@@ -596,44 +597,44 @@ class ProductListPage extends StatelessWidget {
                                // ),
                              )
                          ),
-                         Positioned(
-                           right: 5,
-                           top: 5,
-                           child: InkWell(
-                             onTap: (){
-
-                               if(allProductListPageController.userToken.isNotEmpty &&
-                                   allProductListPageController.userToken.value!="null"&&
-                                   allProductListPageController.userToken.value!=null){
-                                 allProductListPageController.addWishList(
-                                     token: allProductListPageController.userToken.toString(),
-                                     productId: response["id"].toString());
-
-                               }else{
-                                 showLoginWarning();
-                               }
-
-
-                               // if(allProductListPageController.userToken.isNotEmpty &&
-                               //     allProductListPageController.userToken.value!=null){
-                               //   _showToast("add favourite");
-                               //
-                               // }else{
-                               //   showLoginWarning();
-                               // }
-                             },
-                             child: Icon(Icons.favorite_outline,
-                               color: fnf_color,
-                             ),
-
-                           ),
-                         )
+                         // Positioned(
+                         //   right: 5,
+                         //   top: 5,
+                         //   child: InkWell(
+                         //     onTap: (){
+                         //
+                         //       if(allProductListPageController.userToken.isNotEmpty &&
+                         //           allProductListPageController.userToken.value!="null"&&
+                         //           allProductListPageController.userToken.value!=null){
+                         //         allProductListPageController.addWishList(
+                         //             token: allProductListPageController.userToken.toString(),
+                         //             productId: response["id"].toString());
+                         //
+                         //       }else{
+                         //         showLoginWarning();
+                         //       }
+                         //
+                         //
+                         //       // if(allProductListPageController.userToken.isNotEmpty &&
+                         //       //     allProductListPageController.userToken.value!=null){
+                         //       //   _showToast("add favourite");
+                         //       //
+                         //       // }else{
+                         //       //   showLoginWarning();
+                         //       // }
+                         //     },
+                         //     child: Icon(Icons.favorite_outline,
+                         //       color: fnf_color,
+                         //     ),
+                         //
+                         //   ),
+                         // )
                        ],
                      ),
                    ),],
                  ),
 
-                  Column(
+                 Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(height: 5,),
@@ -700,35 +701,37 @@ class ProductListPage extends StatelessWidget {
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "\$ "+ response["price"].toString(),
+                            "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
+                                discountedPercent: response["discount_percent"].toString()),
 
-
-                            // productDetailsController.productPrice.value ,
-                            //  overflow: TextOverflow.ellipsis,
-
+                            //allProductListPageController.filterProductList[index].price,
+                            overflow: TextOverflow.ellipsis,
                             style:  TextStyle(
-                                color: hint_color,
-                                fontSize: 13,
-                                decoration: TextDecoration.lineThrough,
-                                fontWeight: FontWeight.normal),
+                                color: Colors.black.withOpacity(0.7),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
                             softWrap: false,
                             maxLines: 1,
                           ),
                           SizedBox(width: 10,),
                           Expanded(
                               child: Text(
-                                "\$ "+discountedPriceCalculate(regularPrice:response["price"].toString(),
-                                    discountedPercent: response["discount_percent"].toString()),
+                                "\$ "+ response["price"].toString(),
 
-                                //allProductListPageController.filterProductList[index].price,
-                                overflow: TextOverflow.ellipsis,
+
+                                // productDetailsController.productPrice.value ,
+                                //  overflow: TextOverflow.ellipsis,
+
                                 style:  TextStyle(
-                                    color: Colors.black.withOpacity(0.7),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700),
+                                    color: hint_color,
+                                    fontSize: 14,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontWeight: FontWeight.normal),
                                 softWrap: false,
-                                maxLines: 2,
-                              )
+                                maxLines: 1,
+                              ),
+
+
                           ),
                           // 12.widthBox,
                           // RatingWidget(rating: widget.product.rating),
@@ -2100,10 +2103,6 @@ class ProductListPage extends StatelessWidget {
   }
 
 
-
-
-
-
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 
    return double.parse(((double.parse(regularPrice)-
@@ -2111,11 +2110,6 @@ class ProductListPage extends StatelessWidget {
            double.parse(discountedPercent))/100))).toStringAsFixed(2)).toString();
 
   }
-
-
-
-
-
 
 
 ///shimmer design
@@ -2206,8 +2200,6 @@ class ProductListPage extends StatelessWidget {
       ),
     );
   }
-
-
 
 
 }

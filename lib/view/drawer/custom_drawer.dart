@@ -6,6 +6,7 @@ import 'package:fnf_buy/view/drawer/refund_policy.dart';
 import 'package:fnf_buy/view/drawer/terms_of_use.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controller/auth_controller/user_auth/log_in_page_controller.dart';
 import '../../controller/auth_controller/user_auth/sign_up_page_controller.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
@@ -36,12 +37,15 @@ import 'faq.dart';
 
 class CustomDrawer extends StatelessWidget {
   final customDrawerController = Get.put(CustomDrawerController());
+  // final Uri _url = Uri.parse('https://www.youtube.com/');
+  final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/tracking-api');
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       child: Column(
         children: [
+
           Expanded(child:  SizedBox(
              // height: MediaQuery.of(context).size.height-kBottomNavigationBarHeight,
               child:Column(
@@ -174,12 +178,24 @@ class CustomDrawer extends StatelessWidget {
                             Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
                           }else{
                             showLoginWarning();
-
                           }
+                        },
+                      ),
+
+                      ListTile(
+                        leading: Icon(Icons.track_changes,
+                          color: sohojatri_color.withOpacity(.6),
+                          size: 22,
+                        ),
+                        title: Text("Tracking",),
+                        onTap: (){
+
+                          _launchUrl();
 
 
                         },
                       ),
+
                       ExpansionTile(
                         leading:Icon(Icons.pages,
                           color: sohojatri_color.withOpacity(.6),
@@ -227,7 +243,7 @@ class CustomDrawer extends StatelessWidget {
                                 color: sohojatri_color.withOpacity(.6),
                                 size: 20,
                               ),
-                              title: Text("Faq"),
+                              title: Text("FAQ"),
                               onTap: (){
                                 Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
@@ -264,7 +280,6 @@ class CustomDrawer extends StatelessWidget {
                               },
                             ),
                           ),
-
 
                         ],
 
@@ -361,19 +376,20 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
 
-                          // Container(
-                          //   margin: EdgeInsets.only(left: 20),
-                          //   child:   ListTile(
-                          //     leading: Icon(Icons.app_registration,
-                          //       color: sohojatri_color.withOpacity(.6),
-                          //       size: 20,
-                          //     ),
-                          //     title: Text("Seller Registation"),
-                          //     onTap: (){
-                          //         Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
-                          //     },
-                          //   ),
-                          // ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child:   ListTile(
+                              leading: Icon(Icons.app_registration,
+                                color: sohojatri_color.withOpacity(.6),
+                                size: 20,
+                              ),
+                              title: Text("Seller Registation"),
+                              onTap: (){
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
+                              },
+                            ),
+                          ),
 
 
                           Container(
@@ -453,6 +469,7 @@ class CustomDrawer extends StatelessWidget {
                       SizedBox(height: 15,)
                     ],
                   ):
+                      ///categories
                   ListView.builder(
                       itemCount:customDrawerController.categoriesList.length,
                       padding: EdgeInsets.only(top: 10),
@@ -470,13 +487,19 @@ class CustomDrawer extends StatelessWidget {
               )
 
 
-          ),)
+          ),),
 
         ],
       )
     );
   }
 
+  //join now url page redirect
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   Widget categoriesItemDesign(int index){
     return Container(
@@ -500,16 +523,16 @@ class CustomDrawer extends StatelessWidget {
               physics:  NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index2) {
                 return Container(
-                  margin: EdgeInsets.only(left:50),
+                  margin: EdgeInsets.only(left:75),
                   child: ListTile(
                     // leading: Icon(Icons.info_outline,
                     //   color: sohojatri_color.withOpacity(.6),
                     //   size: 20,
                     // ),
-                    title: Text(
+                    title: Text("\t"+
                         customDrawerController.categoriesList[index].subCategories[index2].subcategoryName.toString(),
                       style: TextStyle(
-                        fontSize: 13
+                          fontSize: 13
                       ),
 
                     ),
@@ -534,9 +557,8 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  void removeUserInfo() async {
+  void removeUserInfo() async  {
     try {
-
       var storage =GetStorage();
       storage.write(pref_user_name, "");
       storage.write(pref_user_token, "");

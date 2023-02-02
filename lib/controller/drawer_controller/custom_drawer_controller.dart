@@ -112,7 +112,7 @@ class CustomDrawerController extends GetxController {
 
           Get.back();
 
-          showToastShort(response.statusCode.toString());
+        //  showToastShort(response.statusCode.toString());
           if (response.statusCode == 200) {
 
             saveUserInfoRemove(

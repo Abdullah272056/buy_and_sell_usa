@@ -144,11 +144,11 @@ class VendorLogInScreen extends StatelessWidget {
               //     Get.to(VendorForgetPasswordScreen());
               //   },
               // ),
-              //
-              // const SizedBox(
-              //   height: 20,
-              // ),
-              // _buildSignUpQuestion(),
+
+              const SizedBox(
+                height: 10,
+              ),
+              _buildSignUpQuestion(),
               const SizedBox(
                 height: 15,
               ),
@@ -156,6 +156,299 @@ class VendorLogInScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+
+
+
+  void showLoadingDialog112(String email) {
+    Get.defaultDialog(
+        title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content: Wrap(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              // margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 20),
+              child:Column(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: const Text("Verify Your Email Address",
+                        style: TextStyle(
+                            color: text_color,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: const Text("We need to verify your email address!",
+                        style: TextStyle(
+                            color: hint_color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 0, bottom: 10),
+                    child: Text(email,
+                        style:  TextStyle(
+                            color: fnf_color,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500)),
+                  ),
+
+
+                  Container(
+                    margin:
+                    const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Fluttertoast.cancel();
+
+                        Get.back();
+
+                        // _sendOtp(userId: userId);
+
+                        // Navigator.push(context,MaterialPageRoute(builder: (context)=> SendOtpForVerifyScreen(),));
+
+                        //_showToast("verify page");
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7))),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                            gradient:  LinearGradient(
+                              colors: [
+                                fnf_color,
+                                fnf_color
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(7.0)),
+                        child: Container(
+                          height: 45,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "Verify Mail",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'PT-Sans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    margin:
+                    const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7))),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                            gradient:  LinearGradient(
+                              colors: [
+                                hint_color,
+                                hint_color
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(7.0)),
+                        child: Container(
+                          height: 45,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "Cancel",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'PT-Sans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
+          // child: VerificationScreen(),
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
+
+  void userNotActiveDialog1(BuildContext context, String email, String userId) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            height: 300,
+            padding: const EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 10, bottom: 10),
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: const Text("Verify Your Email Address",
+                      style: TextStyle(
+                          color: text_color,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: const Text("We need to verify your email address!",
+                              style: TextStyle(
+                                  color: hint_color,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500)),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 0, bottom: 10),
+                          child: Text(email,
+                              style:  TextStyle(
+                                  color: fnf_color,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500)),
+                        ),
+                      ],
+                    )),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin:
+                            const EdgeInsets.only(left: 00.0, right: 10.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7))),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                    gradient:  LinearGradient(
+                                      colors: [
+                                        hint_color,
+                                        hint_color
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7.0)),
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Cancel",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'PT-Sans',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin:
+                            const EdgeInsets.only(left: 10.0, right: 00.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Fluttertoast.cancel();
+                                Navigator.of(context).pop();
+                               // _sendOtp(userId: userId);
+
+                                // Navigator.push(context,MaterialPageRoute(builder: (context)=> SendOtpForVerifyScreen(),));
+
+                                //_showToast("verify page");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7))),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                    gradient:  LinearGradient(
+                                      colors: [
+                                        fnf_color,
+                                        fnf_color
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7.0)),
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Verify Mail",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'PT-Sans',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ))
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -305,6 +598,8 @@ class VendorLogInScreen extends StatelessWidget {
           String userEmailTxt = logInPageController.userEmailController.value.text;
           String passwordTxt = logInPageController.passwordController.value.text;
 
+
+
           if (logInPageController.inputValid(userEmailTxt, passwordTxt)== false) {
 
             logInPageController.vendorLogIn(email: userEmailTxt, password: passwordTxt);
@@ -360,7 +655,7 @@ class VendorLogInScreen extends StatelessWidget {
         ),
         InkWell(
           child: const Text(
-            'Sign Up',
+            'Create Account',
             style: TextStyle(
               fontFamily: 'PT-Sans',
               fontSize: 16,

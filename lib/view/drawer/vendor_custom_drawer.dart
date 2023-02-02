@@ -45,6 +45,7 @@ class VendorCustomDrawer extends StatelessWidget {
                 children: [
                   Container(
                     height: 150,
+                    decoration: BoxDecoration(color: sohojatri_color),
 
                     child: Column(
                       children: [
@@ -64,7 +65,6 @@ class VendorCustomDrawer extends StatelessWidget {
 
                       ],
                     ),
-                    decoration: BoxDecoration(color: sohojatri_color),
                   ),
                      Expanded(child:ListView(
                 padding: EdgeInsets.only(top: 10),
@@ -129,7 +129,7 @@ class VendorCustomDrawer extends StatelessWidget {
                             color: sohojatri_color.withOpacity(.6),
                             size: 20,
                           ),
-                          title: Text("Faq"),
+                          title: Text("FAQ"),
                           onTap: (){
                             Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
                             // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
@@ -216,7 +216,20 @@ class VendorCustomDrawer extends StatelessWidget {
                       },
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child:   ListTile(
+                      leading: Icon(Icons.app_registration,
+                        color: sohojatri_color.withOpacity(.6),
+                        size: 20,
+                      ),
+                      title: Text("Seller Registation"),
+                      onTap: (){
 
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>VendorSignUpScreen()));
+                      },
+                    ),
+                  ),
 
                   if(GetStorage().read(pref_user_token)!=null&&
                       GetStorage().read(pref_user_token)!="null"&&

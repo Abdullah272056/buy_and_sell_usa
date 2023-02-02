@@ -34,11 +34,7 @@ class VendorSignUpScreen extends StatelessWidget {
               ),);
 
             }
-
           },)
-
-
-
 
       ),
     );
@@ -50,7 +46,7 @@ class VendorSignUpScreen extends StatelessWidget {
     return  Center(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 30,right: 30,top: 20,bottom: 20),
+          padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
 
           // padding: const EdgeInsets.symmetric(
           //   horizontal: 40,
@@ -651,10 +647,63 @@ class VendorSignUpScreen extends StatelessWidget {
     return ElevatedButton(
         onPressed: () {
 
-
           String userEmailTxt = signUpPageController.userEmailController.value.text;
           String passwordTxt = signUpPageController.passwordController.value.text;
           String confirmPasswordTxt = signUpPageController.confirmPasswordController.value.text;
+
+          String fullNameTxt = signUpPageController.fullNameController.value.text;
+          String companyNameTxt = signUpPageController.companyNameController.value.text;
+          String storeCompanyWebsiteTxt = signUpPageController.storeCompanyWebsiteController.value.text;
+
+          String phoneNoTxt = signUpPageController.phoneNoController.value.text;
+          String mobileNoTxt = signUpPageController.mobileNoController.value.text;
+          String addressTxt = signUpPageController.addressController.value.text;
+          String cityTxt = signUpPageController.cityController.value.text;
+          String zipCodeTxt = signUpPageController.zipCodeController.value.text;
+
+
+          if (signUpPageController.inputValidation(
+
+              fullNameTxt: fullNameTxt,
+              userEmail: userEmailTxt,
+              password: passwordTxt,
+              confirmPassword: confirmPasswordTxt,
+              companyNameTxt: companyNameTxt,
+              storeCompanyWebsiteTxt: storeCompanyWebsiteTxt,
+              phoneNoTxt: phoneNoTxt,
+              mobileNoTxt: mobileNoTxt,
+              addressTxt: addressTxt,
+              cityTxt: cityTxt,
+              zipCodeTxt: zipCodeTxt,
+              selectedState: signUpPageController.selectStateId.value,
+              selectedCountry: signUpPageController.selectCountryId.value
+
+          ) == false){
+
+            signUpPageController.userSignUp(
+
+                fullNameTxt: fullNameTxt,
+                userEmail: userEmailTxt,
+                password: passwordTxt,
+                confirmPassword: confirmPasswordTxt,
+                companyNameTxt: companyNameTxt,
+                storeCompanyWebsiteTxt: storeCompanyWebsiteTxt,
+                phoneNoTxt: phoneNoTxt,
+                mobileNoTxt: mobileNoTxt,
+                addressTxt: addressTxt,
+                cityTxt: cityTxt,
+                zipCodeTxt: zipCodeTxt,
+                selectedState: signUpPageController.selectStateId.value,
+                selectedCountry: signUpPageController.selectCountryId.value
+
+            );
+
+            //userSignUp(name: userNameTxt, email: userEmailTxt, password: confirmPasswordTxt);
+
+            //    LogInApiService().userLogIn(userName: userNameTxt, password: passwordTxt);
+
+          }
+
 
 
 

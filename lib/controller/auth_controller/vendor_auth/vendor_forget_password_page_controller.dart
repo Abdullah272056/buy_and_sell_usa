@@ -46,10 +46,10 @@ class VendorForgetPasswordPageController extends GetxController {
 
             // Get.to(SignUpScreen());
 
-            Get.to(() => VendorEmailVerificationScreen(), arguments: [
-              {"email": email},
-              {"second": 'Second'}
-            ]);
+            // Get.to(() => VendorEmailVerificationScreen(), arguments: [
+            //   {"email": email},
+            //   {"second": 'Second'}
+            // ]);
 
 
           }

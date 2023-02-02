@@ -4,23 +4,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fnf_buy/view/auth/user/password_set_page.dart';
+import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_log_in_page.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../../../api_service/api_service.dart';
 import '../../../controller/auth_controller/user_auth/email_verification_page_controller.dart';
 import '../../../controller/auth_controller/vendor_auth/vendor_email_verification_page_controller.dart';
+import '../../../controller/auth_controller/vendor_auth/vendor_log_in_page_controller.dart';
+import '../../../controller/dash_board_controller/dash_board_page_controller.dart';
+import '../../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
 import '../../common/toast.dart';
-
-
+import '../../dash_board/dash_board_page.dart';
 
 class VendorEmailVerificationScreen extends StatelessWidget {
-
 
   final emailVerifyPageController = Get.put(VendorEmailVerifyPageController());
 
   var width;
   var height;
+
   @override
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
@@ -276,7 +280,7 @@ class VendorEmailVerificationScreen extends StatelessWidget {
                             child: Align(alignment: Alignment.topCenter,
                               child: InkResponse(
                                 onTap: (){
-
+                                  userResendOtp( email: emailVerifyPageController.userEmail.value,);
                                   // _userSendCodeWithEmail();
 
                                 },
@@ -909,25 +913,79 @@ class VendorEmailVerificationScreen extends StatelessWidget {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
 
+          //showToastShort(email);
           showLoadingDialog("Checking");
 
-          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP'),
-          //     var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP_VENDOR'),
+
               body: {
                 'email': email,
-                'otp': otp
-              }
+                'token': otp
+              },
+            // headers: {
+            //
+            // 'Content-Type': 'application/json',
+            // },
           );
           Get.back();
         //  _showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
 
-            Get.to(() => PasswordSetScreen(), arguments: [
-              {"email": email},
-              {"otp": otp}
-            ]);
-          //  Get.to(PasswordSetScreen());
+            showToastShort("Successfully Verified!");
 
+            // var data = jsonDecode(response.body);
+            // saveUserInfo(
+            //     userName: data["data"]["name"].toString(),
+            //     userToken: data["data"]["token"].toString());
+
+            Get.deleteAll();
+            Get.offAll(VendorLogInScreen())?.then((value) => Get.delete<VendorLogInPageController>());
+
+
+          }
+
+          else {
+            // Get.back();
+            var data = jsonDecode(response.body);
+            showToastLong("Otp Invalid!");
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          // Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      showToastLong("No Internet Connection!");
+    }
+  }
+
+  userResendOtp({
+    required String email,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Sending...");
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_RESEND_OTP_VENDOR'),
+              body: {
+                'email': email,
+              }
+          );
+          Get.back();
+          //  _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            showToastShort(
+                "Otp send successfully!\n Please check your email!"
+            );
           }
 
           else {
@@ -998,7 +1056,18 @@ class VendorEmailVerificationScreen extends StatelessWidget {
         radius: 10.0);
   }
 
-
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      storage.write(pref_user_type, "vendor");
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
+  }
 
 }
 
