@@ -16,6 +16,7 @@ String SUB_URL_API_SIGN_UP_VENDOR = "api/register-vendor";
 String SUB_URL_API_RESET_PASSWORD = "api/reset-password";
 String SUB_URL_API_SEND_OTP = "api/reset-otp-check";
 String SUB_URL_API_SEND_OTP_VENDOR = "api/check-otp-vendor";
+String SUB_URL_API_RESEND_OTP_VENDOR = "api/resend-otp-vendor";
 String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 String SUB_URL_API_CHANGE_PASSWORD = "api/user/change-password";
 

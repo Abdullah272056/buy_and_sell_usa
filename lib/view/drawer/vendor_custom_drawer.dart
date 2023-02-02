@@ -45,6 +45,7 @@ class VendorCustomDrawer extends StatelessWidget {
                 children: [
                   Container(
                     height: 150,
+                    decoration: BoxDecoration(color: sohojatri_color),
 
                     child: Column(
                       children: [
@@ -64,7 +65,6 @@ class VendorCustomDrawer extends StatelessWidget {
 
                       ],
                     ),
-                    decoration: BoxDecoration(color: sohojatri_color),
                   ),
                      Expanded(child:ListView(
                 padding: EdgeInsets.only(top: 10),

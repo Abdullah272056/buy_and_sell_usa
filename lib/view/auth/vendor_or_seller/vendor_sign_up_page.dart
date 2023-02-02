@@ -34,11 +34,7 @@ class VendorSignUpScreen extends StatelessWidget {
               ),);
 
             }
-
           },)
-
-
-
 
       ),
     );

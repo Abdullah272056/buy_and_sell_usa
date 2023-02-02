@@ -6,17 +6,18 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 
 class VendorEmailVerifyPageController extends GetxController {
-
+  var userEmail="".obs;
   dynamic argumentData = Get.arguments;
- var userEmail="".obs;
+
   @override
   void onInit() {
 
    // _showToast(argumentData[0]['email']);
-    userEmail(argumentData[1]['userEmail'].toString());
-    showToastShort(argumentData[1]['userEmail'].toString());
 
+   //  showToastShort(argumentData[1]['userEmail'] );
+    userEmail(argumentData[0]['productId'].toString());
     super.onInit();
+
   }
 
   ///input box controller

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_log_in_page.dart';
 import 'package:fnf_buy/view/auth/vendor_or_seller/vendor_sign_up_page.dart';
 import 'package:fnf_buy/view/cart/cart_page.dart';
 import 'package:fnf_buy/view/dash_board/dash_board_page.dart';
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      home:
-       DashBoardPageScreen()
+      // home: DashBoardPageScreen()
+      home: VendorLogInScreen()
      // VendorSignUpScreen(),
       // CartPage(),
     );

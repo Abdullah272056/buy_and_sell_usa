@@ -216,7 +216,7 @@ class  VendorSignUpPageController extends GetxController {
         try {
           showLoadingDialog("Checking");
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP_VENDOR'),
-              // var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/login'),
+
               body: {
                 'owner_name': fullNameTxt,
                 'store_name': companyNameTxt,
@@ -238,15 +238,20 @@ class  VendorSignUpPageController extends GetxController {
            showToastShort(response.statusCode.toString());
           if (response.statusCode == 200) {
 
-            // _showToast("success");
-            // var data = jsonDecode(response.body);
 
-            Get.to(VendorEmailVerificationScreen(),
-                arguments: [
-                  {"productId": ""},
-                  {"userEmail": userEmail.toString()}
-                ]
-            )?.then((value) => Get.delete<VendorEmailVerifyPageController>());
+            Get.to(() => VendorEmailVerificationScreen(), arguments: [
+              {"productId": userEmail},
+              {"second": 'Second data'}
+            ])?.then((value) => Get.delete<VendorEmailVerifyPageController>());
+
+
+
+            // Get.to(VendorEmailVerificationScreen(),
+            //     arguments: [
+            //       {"productId": ""},
+            //       {"userEmail": userEmail.toString()}
+            //     ]
+            // );
 
           }
 
@@ -264,6 +269,12 @@ class  VendorSignUpPageController extends GetxController {
 
             if(data["message"]["password"]!=null){
               showToastShort(data["message"]["password"][0].toString());
+              return;
+            }
+
+
+            if(data["message"]["store_social_link"]!=null){
+              showToastShort(data["message"]["store_social_link"][0].toString());
               return;
             }
 

@@ -6,6 +6,7 @@ import 'package:fnf_buy/view/drawer/refund_policy.dart';
 import 'package:fnf_buy/view/drawer/terms_of_use.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controller/auth_controller/user_auth/log_in_page_controller.dart';
 import '../../controller/auth_controller/user_auth/sign_up_page_controller.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
@@ -36,6 +37,9 @@ import 'faq.dart';
 
 class CustomDrawer extends StatelessWidget {
   final customDrawerController = Get.put(CustomDrawerController());
+  // final Uri _url = Uri.parse('https://www.youtube.com/');
+  final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/tracking-api');
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -177,6 +181,21 @@ class CustomDrawer extends StatelessWidget {
                           }
                         },
                       ),
+
+                      ListTile(
+                        leading: Icon(Icons.track_changes,
+                          color: sohojatri_color.withOpacity(.6),
+                          size: 22,
+                        ),
+                        title: Text("Tracking",),
+                        onTap: (){
+
+                          _launchUrl();
+
+
+                        },
+                      ),
+
                       ExpansionTile(
                         leading:Icon(Icons.pages,
                           color: sohojatri_color.withOpacity(.6),
@@ -475,6 +494,12 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+  //join now url page redirect
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   Widget categoriesItemDesign(int index){
     return Container(
