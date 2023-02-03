@@ -25,6 +25,7 @@ import '../auth/vendor_or_seller/vendor_log_in_page.dart';
 import '../auth/vendor_or_seller/vendor_sign_up_page.dart';
 import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
+import '../dash_board/tracking_webview_page.dart';
 import '../product/product_list.dart';
 import 'about_us.dart';
 import 'contact_us.dart';
@@ -82,6 +83,21 @@ class VendorCustomDrawer extends StatelessWidget {
                     // onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardScreen())),
                   ),
 
+                  ListTile(
+                    leading: Icon(Icons.track_changes,
+                      color: sohojatri_color.withOpacity(.6),
+                      size: 22,
+                    ),
+                    title: Text("Tracking",),
+                    onTap: (){
+
+                      Get.to(TrackingWebViewScreen());
+
+                      // _launchUrl();
+
+
+                    },
+                  ),
                   ExpansionTile(
                     leading:Icon(Icons.pages,
                       color: sohojatri_color.withOpacity(.6),

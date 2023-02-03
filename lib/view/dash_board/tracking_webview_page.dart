@@ -43,7 +43,7 @@ class _WebViewPaymentScreenState extends State<TrackingWebViewScreen>{
 
   // final cartViewPageController = Get.put(WebViewPageController1());
 
-  String paymentLink="https://fnfbuy.bizoytech.com/tracking-api";
+  String paymentLink="https://www.trackingmore.com/track/en/9461209205568292657642";
   // String paymentLink="https://www.youtube.com/";
   final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/payment-api?surname=ripon&email=ripon@gmail.com&mobile=01732628761&amount=20');
 
@@ -88,7 +88,7 @@ class _WebViewPaymentScreenState extends State<TrackingWebViewScreen>{
                 ),
                 SizedBox(width: 5,),
                 Expanded(child: Text(
-                  "PAYMENT",
+                  "Tracking",
                   style: TextStyle(color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 16
