@@ -28,6 +28,7 @@ import '../auth/vendor_or_seller/vendor_sign_up_page.dart';
 import '../cart/cart_page.dart';
 import '../checkout step/checkout_page.dart';
 import '../common/login_warning.dart';
+import '../dash_board/tracking_webview_page.dart';
 import '../dash_board/wish_list_page.dart';
 import '../product/product_list.dart';
 import 'about_us.dart';
@@ -190,7 +191,9 @@ class CustomDrawer extends StatelessWidget {
                         title: Text("Tracking",),
                         onTap: (){
 
-                          _launchUrl();
+                          Get.to(TrackingWebViewScreen());
+
+                          // _launchUrl();
 
 
                         },
