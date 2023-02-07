@@ -84,6 +84,7 @@ class HomePageScreen extends StatelessWidget {
                   Flex(
                     direction: Axis.horizontal,
                     children: [
+
                       Container(
                         margin: const EdgeInsets.only(left: 30),
                         child: InkResponse(

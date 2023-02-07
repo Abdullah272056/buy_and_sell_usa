@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
  
      // home: VendorLogInScreen()
      // VendorSignUpScreen(),
-      // CartPage(),
+     // CartPage(),
     );
 
   }
@@ -46,15 +46,6 @@ class MyApp extends StatelessWidget {
     }
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:Colors.white,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+
 
 }

@@ -35,10 +35,9 @@ import 'about_us.dart';
 import 'contact_us.dart';
 import 'faq.dart';
 
-
 class CustomDrawer extends StatelessWidget {
   final customDrawerController = Get.put(CustomDrawerController());
-  // final Uri _url = Uri.parse('https://www.youtube.com/');
+
   final Uri _url = Uri.parse('https://fnfbuy.bizoytech.com/tracking-api');
 
   @override

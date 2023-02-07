@@ -57,7 +57,6 @@ class AccountDetailsPageController extends GetxController {
   var userName="".obs;
   var userToken="".obs;
 
-
   var firstName="".obs;
   var lastName="".obs;
   var emailAddress="".obs;
@@ -95,15 +94,10 @@ class AccountDetailsPageController extends GetxController {
       var storage =GetStorage();
       //userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-
-       //_showToast("anbv=  "+storage.read(pref_user_token).toString());
-
+      //_showToast("anbv=  "+storage.read(pref_user_token).toString());
     } catch (e) {
-
     }
-
   }
-
 
   void getCountryList(String token) async{
     try {
@@ -251,7 +245,6 @@ class AccountDetailsPageController extends GetxController {
     }
   }
 
-
   void updateUserAccountDetails({
             required String token,
             required String firstname,
@@ -263,8 +256,7 @@ class AccountDetailsPageController extends GetxController {
             required String zipCode,
             required String stateId,
             required String countryId
-          }
-      ) async{
+          }) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -312,6 +304,8 @@ class AccountDetailsPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
+
+
 
 
   void getStateList() async{
@@ -497,7 +491,6 @@ class AccountDetailsPageController extends GetxController {
       token: userToken.value,
     );
 
-
   }
 
 
@@ -543,7 +536,6 @@ class AccountDetailsPageController extends GetxController {
           else {
             print(response.reasonPhrase);
           }
-
         } catch (e) {
        //   Navigator.of(context).pop();
           print(e.toString());
@@ -553,18 +545,9 @@ class AccountDetailsPageController extends GetxController {
       Fluttertoast.cancel();
       showToastShort("No Internet Connection!");
     }
-
   }
 
-
-
-
-
-
-
-
 }
-
 
 
 class Country{
