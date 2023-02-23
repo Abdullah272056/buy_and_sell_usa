@@ -23,7 +23,7 @@ class DashBoardPageController extends GetxController {
 
   @override
   void onInit() {
-    log('datasrs: Abdullah');
+
 
     loadUserIdFromSharePref();
     super.onInit();

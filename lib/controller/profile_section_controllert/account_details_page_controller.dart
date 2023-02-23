@@ -494,7 +494,7 @@ class AccountDetailsPageController extends GetxController {
   }
 
 
-  ///nid card verify
+  ///upload image
   _uploadImage({
     required File fontImage,
     required String token,

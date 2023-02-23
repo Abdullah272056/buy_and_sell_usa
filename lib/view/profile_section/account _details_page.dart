@@ -1,5 +1,4 @@
 
-
 import 'package:badges/badges.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +22,6 @@ import '../common/login_warning.dart';
 import '../dash_board/dash_board_page.dart';
 import '../dash_board/wish_list_page.dart';
 import 'image_full_view_screen.dart';
-
-
-
 
 class AccountDetailsPage extends StatelessWidget {
 

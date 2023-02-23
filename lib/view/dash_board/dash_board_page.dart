@@ -73,7 +73,7 @@ class DashBoardPageScreen extends StatelessWidget {
           }
 
           if(index==4){
-            dashBoardPageController.updateSelectedPage([CustomDrawer()]);
+            dashBoardPageController.updateSelectedPage([MorePage()]);
             // selectedPage= SearchPage( );
             return;
           }

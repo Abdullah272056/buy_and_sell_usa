@@ -1,111 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:fnf_buy/view/common/toast.dart';
 import 'package:fnf_buy/view/dash_board/sub_category_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../api_service/api_service.dart';
 import '../../controller/dash_board_controller/caregories_page_controller.dart';
+import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../controller/dash_board_controller/sub_caregories_page_controller.dart';
 import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
 import '../product/product_list.dart';
 import '../shimer/product_shimmir.dart';
+import 'dash_board_page.dart';
 
 class CategoryPage extends StatelessWidget{
   final categoriesPageController = Get.put(CategoriesPageController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return  Scaffold(
-        body:Container(
-            decoration: BoxDecoration(
-              color:fnf_title_bar_bg_color,
-            ),
-            child: Obx(() => Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+    return WillPopScope(
+        onWillPop: () async {
 
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 16,
-                  // height: 50,
+          Get.deleteAll();
+          Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+         return true;
+
+        },
+        child: Scaffold(
+            body:Container(
+                decoration: BoxDecoration(
+                  color:fnf_title_bar_bg_color,
                 ),
-
-                Flex(direction: Axis.horizontal,
+                child: Obx(() => Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 30,),
 
-                    SizedBox(width: 5,),
-                    Expanded(child: Text(
-                      "All Categories",
-                      style: TextStyle(color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17
-                      ),
-                    )),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 16,
+                      // height: 50,
+                    ),
+
+                    Flex(direction: Axis.horizontal,
+                      children: [
+                        SizedBox(width: 30,),
+
+                        SizedBox(width: 5,),
+                        Expanded(child: Text(
+                          "All Categories",
+                          style: TextStyle(color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17
+                          ),
+                        )),
+
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 40,
+                      // height: 50,
+                    ),
+
+                    if(categoriesPageController.categoriesShimmerStatus==1)...{
+                      Expanded(child: Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.only(left: 20,right: 20,top: 00),
+
+                          child:GridView.builder(
+                              itemCount:18,
+                              // itemCount:allProductListPageController.filterProductList.length,
+                              // shrinkWrap: true,
+                              // physics: const ClampingScrollPhysics(),
+                              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: Get.size.width>550?4:3,
+                                  crossAxisSpacing: 15.0,
+                                  mainAxisSpacing: 10.0,
+                                  mainAxisExtent: Get.size.width>550?220: 150
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return categoriesListItemDesignShimmer();
+                              })
+
+
+                      )),
+                    }
+                    else...{
+                      Expanded(child: Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.only(left: 20,right: 20,top: 00),
+
+                          child:Obx(()=>GridView.builder(
+                              itemCount:categoriesPageController.categoriesDataList.length,
+                              // itemCount:allProductListPageController.filterProductList.length,
+                              // shrinkWrap: true,
+                              // physics: const ClampingScrollPhysics(),
+                              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: Get.size.width>550?4:3,
+                                  crossAxisSpacing: 15.0,
+                                  mainAxisSpacing: 7.0,
+                                  mainAxisExtent:Get.size.width>550?220: 150
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return categoriesListItemDesign(response: categoriesPageController.categoriesDataList[index]);
+                              }))
+
+
+                      )),
+                    }
+
+
 
 
                   ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
-                  // height: 50,
-                ),
+                ))
 
-                if(categoriesPageController.categoriesShimmerStatus==1)...{
-                  Expanded(child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 00),
+            )
+        ),
+      );
 
-                      child:GridView.builder(
-                          itemCount:18,
-                          // itemCount:allProductListPageController.filterProductList.length,
-                          // shrinkWrap: true,
-                          // physics: const ClampingScrollPhysics(),
-                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Get.size.width>550?4:3,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 10.0,
-                              mainAxisExtent: Get.size.width>550?220: 150
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return categoriesListItemDesignShimmer();
-                          })
-
-
-                  )),
-                }
-                else...{
-                  Expanded(child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.only(left: 20,right: 20,top: 00),
-
-                      child:Obx(()=>GridView.builder(
-                          itemCount:categoriesPageController.categoriesDataList.length,
-                          // itemCount:allProductListPageController.filterProductList.length,
-                          // shrinkWrap: true,
-                          // physics: const ClampingScrollPhysics(),
-                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Get.size.width>550?4:3,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 7.0,
-                              mainAxisExtent:Get.size.width>550?220: 150
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return categoriesListItemDesign(response: categoriesPageController.categoriesDataList[index]);
-                          }))
-
-
-                  )),
-                }
-
-
-
-
-              ],
-            ))
-
-        )
-    );
   }
 
   Widget categoriesListItemDesign({required var response}){
@@ -117,8 +129,6 @@ class CategoryPage extends StatelessWidget{
           {"categoriesImage": ""}
 
         ])?.then((value) => Get.delete<SubCategoriesPageController>());
-
-
         // Get.to(() => ProductListPage(), arguments: [
         //   {"categoriesId": response["id"].toString()},
         //   {"subCategoriesId": ""},
@@ -213,6 +223,11 @@ class CategoryPage extends StatelessWidget{
 
       ],
     );
+  }
+
+
+  void goToPrevious(){
+    Get.to( DashBoardPageScreen());
   }
 
 

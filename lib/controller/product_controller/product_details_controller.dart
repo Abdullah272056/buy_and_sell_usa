@@ -476,9 +476,6 @@ class ProductDetailsController extends GetxController {
   }
 
 
-
-
-
  Future<bool>  zipCodeCheck({
     required String zipCode,
     required String sellerId
@@ -547,8 +544,6 @@ class ProductDetailsController extends GetxController {
     }
 
   }
-
-
 
 
 }

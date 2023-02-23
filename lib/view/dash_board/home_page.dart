@@ -50,238 +50,262 @@ class HomePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _drawerKey,
-      drawer: CustomDrawer(),
-      body: RefreshIndicator(
-        color: Colors.white,
-        backgroundColor: Colors.blue,
-        triggerMode: RefreshIndicatorTriggerMode.anywhere,
-        onRefresh: () async {
+    return WillPopScope(
+      onWillPop: () async {
+        // Show alert dialog when user presses the back button
+        return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
 
-          homeController.onInit();
-
-          await Future.delayed(const Duration(seconds: 1));
-          //updateDataAfterRefresh();
-        },
-        child:  Column(
-          children: [
-
-            Expanded(child: Container(
-              decoration: BoxDecoration(
-                color:fnf_title_bar_bg_color,
+            content: Text('Are you want to close the app?'),
+            actions: <Widget>[
+              InkWell(
+                onTap: () => Navigator.of(context).pop(false),
+                child: Text('No'),
               ),
-              child: Flex(
-                direction: Axis.vertical,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 20,
-                    // height: 50,
-                  ),
+              SizedBox(width: 20,),
+              InkWell(
+                onTap: () => Navigator.of(context).pop(true),
+                child: Text('Yes'),
+              ),
+              SizedBox(width: 15,),
+            ],
+          ),
+        );
+      },
+      child:   Scaffold(
+        key: _drawerKey,
+        drawer: CustomDrawer(),
+        body: RefreshIndicator(
+          color: Colors.white,
+          backgroundColor: Colors.blue,
+          triggerMode: RefreshIndicatorTriggerMode.anywhere,
+          onRefresh: () async {
 
-                  ///title bar
-                  Obx(() => homeController.searchBoxVisible==0?
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: [
+            homeController.onInit();
 
-                      Container(
-                        margin: const EdgeInsets.only(left: 30),
-                        child: InkResponse(
-                          onTap: () {
+            await Future.delayed(const Duration(seconds: 1));
+            //updateDataAfterRefresh();
+          },
+          child:  Column(
+            children: [
 
-                            if (_drawerKey.currentState!.isDrawerOpen) {
-                              homeController.isDrawerOpen(false);
-                              _drawerKey.currentState!.openEndDrawer();
-                              return;
-                            } else
-                              _drawerKey.currentState!.openDrawer();
-                            homeController.isDrawerOpen(true);
-                          },
-                          child: const Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                            size: 25.0,
+              Expanded(child: Container(
+                decoration: BoxDecoration(
+                  color:fnf_title_bar_bg_color,
+                ),
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 20,
+                      // height: 50,
+                    ),
+
+                    ///title bar
+                    Obx(() => homeController.searchBoxVisible==0?
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: [
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 30),
+                          child: InkResponse(
+                            onTap: () {
+
+                              if (_drawerKey.currentState!.isDrawerOpen) {
+                                homeController.isDrawerOpen(false);
+                                _drawerKey.currentState!.openEndDrawer();
+                                return;
+                              } else
+                                _drawerKey.currentState!.openDrawer();
+                              homeController.isDrawerOpen(true);
+                            },
+                            child: const Icon(
+                              Icons.menu,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
                           ),
                         ),
-                      ),
 
-                      Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        child: InkWell(
+                        Container(
+                          margin: const EdgeInsets.only(left: 20),
+                          child: InkWell(
 
-                          onTap: () {
-                          //  homeController. searchBoxVisible(1);
+                            onTap: () {
+                              //  homeController. searchBoxVisible(1);
 
-                           Get.to(SearchPage());
+                              Get.to(SearchPage());
 
-                          },
-                          child:  Icon(
-                            Icons.search_rounded,
-                            color: Colors.white,
-                            size: 25.0,
+                            },
+                            child:  Icon(
+                              Icons.search_rounded,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
                           ),
                         ),
-                      ),
 
-                      Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 0),
-                            child:  Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 00),
+                        Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 0),
+                              child:  Align(
+                                alignment: Alignment.center,
                                 child: Container(
-                                  padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
+                                  margin: const EdgeInsets.only(right: 00),
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(8.0),
                                         bottomRight: Radius.circular(8.0),
                                         topLeft: Radius.circular(8.0),
                                         bottomLeft: Radius.circular(8.0),
+                                      ),
+                                      color: Colors.black,
                                     ),
-                                    color: Colors.black,
-                                  ),
-                                  child: InkWell(
+                                    child: InkWell(
 
-                                    onTap: () {
-                                    },
-                                    child: Image.asset(
-                                      "assets/images/fnf_logo.png",
-                                      // width: 25,
-                                      fit: BoxFit.fill,
-                                      height: 35,
+                                      onTap: () {
+                                      },
+                                      child: Image.asset(
+                                        "assets/images/fnf_logo.png",
+                                        // width: 25,
+                                        fit: BoxFit.fill,
+                                        height: 35,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )),
-
-                      Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        child: InkWell(
-
-                          onTap: () {
-                            if(homeController.userToken.isNotEmpty &&
-                                homeController.userToken.value!="null"&&
-                                homeController.userToken.value!=null){
-                              // _showToast(homeController.userToken.toString());
-                              //  _showToast("add favourite");
-                              Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
-                            }else{
-                              showLoginWarning();
-                            }
-
-                          },
-                          child:  Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                            size: 25.0,
-                          ),
-                        ),
-                      ),
-
-                      Container(
-                        margin: const EdgeInsets.only(right: 25),
-                        child: InkWell(
-
-                          onTap: () {
-
-                            Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
-                          },
-                          child: Badge(
-                            badgeContent:Obx(()=> Text(
-                              homeController.cartCount.value.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500
-                              ),
                             )),
-                            badgeColor:fnf_color,
-                            child: Icon(
-                              Icons.shopping_cart,
-                              color: Colors.white,
-                              size: 25.0,
-                            ),
-                          ),
-
-
-
-                        ),
-                      ),
-
-                    ],
-                  ):
-
-                  DelayedWidget(
-                    delayDuration: const Duration(milliseconds: 10),// Not required
-                    animationDuration: const Duration(milliseconds: 500),// Not required
-                    animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-                    child: Row(
-                      children: [
 
                         Container(
-                          margin: const EdgeInsets.only(left: 20),
-                          child: InkResponse(
+                          margin: const EdgeInsets.only(right: 20),
+                          child: InkWell(
+
                             onTap: () {
-                              homeController. searchBoxVisible(0);
+                              if(homeController.userToken.isNotEmpty &&
+                                  homeController.userToken.value!="null"&&
+                                  homeController.userToken.value!=null){
+                                // _showToast(homeController.userToken.toString());
+                                //  _showToast("add favourite");
+                                Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                              }else{
+                                showLoginWarning();
+                              }
 
                             },
-                            child: const Icon(
-                              Icons.home,
+                            child:  Icon(
+                              Icons.favorite_border,
                               color: Colors.white,
                               size: 25.0,
                             ),
                           ),
                         ),
 
-                        Expanded(child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),)
+                        Container(
+                          margin: const EdgeInsets.only(right: 25),
+                          child: InkWell(
 
-                      ],
-                    )
+                            onTap: () {
+
+                              Get.to(CartPage())?.then((value) => Get.delete<CartPageController>());
+                            },
+                            child: Badge(
+                              badgeContent:Obx(()=> Text(
+                                homeController.cartCount.value.toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500
+                                ),
+                              )),
+                              badgeColor:fnf_color,
+                              child: Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
+                            ),
 
 
-                  ),
 
-                  ),
-
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 45,
-                    // height: 30,
-                  ),
-
-                  Expanded(
-                      child:  Container(
-                        color: Colors.white,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              _buildBottomSectionDesign(),
-                            ],
                           ),
                         ),
-                      )
+
+                      ],
+                    ):
+
+                    DelayedWidget(
+                        delayDuration: const Duration(milliseconds: 10),// Not required
+                        animationDuration: const Duration(milliseconds: 500),// Not required
+                        animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
+                        child: Row(
+                          children: [
+
+                            Container(
+                              margin: const EdgeInsets.only(left: 20),
+                              child: InkResponse(
+                                onTap: () {
+                                  homeController. searchBoxVisible(0);
+
+                                },
+                                child: const Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                  size: 25.0,
+                                ),
+                              ),
+                            ),
+
+                            Expanded(child: userInputSearchField(homeController.searchController.value, 'Search product', TextInputType.text),)
+
+                          ],
+                        )
 
 
-                  ),
+                    ),
+
+                    ),
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 45,
+                      // height: 30,
+                    ),
+
+                    Expanded(
+                        child:  Container(
+                          color: Colors.white,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                _buildBottomSectionDesign(),
+                              ],
+                            ),
+                          ),
+                        )
 
 
-                ],
-              ),
+                    ),
 
-              /* add child content here */
-            ),),
 
-          ],
+                  ],
+                ),
+
+                /* add child content here */
+              ),),
+
+            ],
+          ),
+
         ),
 
+
+
+
       ),
-
-
-
-
     );
   }
 
@@ -468,7 +492,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildBottomSectionDesign() {
     double sizeHeight = Get.height;
@@ -829,7 +852,6 @@ class HomePageScreen extends StatelessWidget {
               ],
             ))));
   }
-
 
   int length(double sizeWidth){
     double len=((sizeWidth-50)/65);
@@ -1197,8 +1219,6 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   String discountedPriceCalculate({required String regularPrice,required String discountedPercent}){
 

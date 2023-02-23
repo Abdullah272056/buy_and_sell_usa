@@ -54,7 +54,6 @@ class SignUpScreen extends StatelessWidget {
 
   }
 
-
   Widget _buildBodyDesign() {
     return  Center(
       child: SingleChildScrollView(
@@ -178,8 +177,6 @@ class SignUpScreen extends StatelessWidget {
       showToastLong("resumed");
     }
   }
-
-
 
   //user name input field create
   Widget _buildTextFieldUserName({

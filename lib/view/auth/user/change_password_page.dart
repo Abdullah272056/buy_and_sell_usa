@@ -79,8 +79,6 @@ class ChangePasswordScreen extends StatelessWidget {
                       fit: BoxFit.fill,
                       color: forgotten_password_text_color,
                     )
-
-
                   ],
                 ),
               ),
@@ -100,7 +98,6 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               Container(
                 margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
                 child: const Align(alignment: Alignment.center,

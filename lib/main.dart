@@ -10,13 +10,14 @@ import 'package:fnf_buy/view/dash_board/tracking_webview_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() {
-  GetStorage.init();
+Future<void> main() async {
+
+  await GetStorage.init();
   runApp( MyApp());
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-   // statusBarColor:awsStartColor,
-   // systemNavigationBarColor:awsEndColor,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   // statusBarColor:awsStartColor,
+  //   // systemNavigationBarColor:awsEndColor,
+  // ));
 }
 
 class MyApp extends StatelessWidget {
