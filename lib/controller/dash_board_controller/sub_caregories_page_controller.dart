@@ -16,8 +16,6 @@ import '../../view/common/toast.dart';
 
 class SubCategoriesPageController extends GetxController {
 
-
-
   var categoriesDataList=[].obs;
   var categoriesShimmerStatus=1.obs;
   dynamic argumentData = Get.arguments;
@@ -26,7 +24,6 @@ class SubCategoriesPageController extends GetxController {
   var categoryName="".obs;
   var categoryImage="".obs;
   var userToken="".obs;
-
 
   @override
   void onInit() {
@@ -52,9 +49,6 @@ class SubCategoriesPageController extends GetxController {
     }
 
   }
-
-
-
 
   void getCategoriesDataList(String categoriesId) async{
     try {
@@ -90,7 +84,6 @@ class SubCategoriesPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
 
 
 }

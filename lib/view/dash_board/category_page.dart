@@ -126,15 +126,18 @@ class CategoryPage extends StatelessWidget{
         Get.to(() => SubCategoryPage(), arguments: [
           {"categoriesId": response["id"].toString()},
           {"categoriesName": response["category_name"].toString()},
-          {"categoriesImage": ""}
+          {"categoriesImage":response["category_image"].toString()}
 
         ])?.then((value) => Get.delete<SubCategoriesPageController>());
+
+
         // Get.to(() => ProductListPage(), arguments: [
         //   {"categoriesId": response["id"].toString()},
         //   {"subCategoriesId": ""},
         //   {"searchValue": ""}
         //
         // ])?.then((value) => Get.delete<ProductDetailsController>());
+
       },
       child:  Column(
         children: [

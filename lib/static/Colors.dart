@@ -24,12 +24,13 @@ const Color text_color = Color(0xFF1D2733);
 const Color bottom_nav_item_selected_color = Color(0xFFFD8B17);
 const Color bottom_nav_item_unselected_color = Color(0xFF212121);
 
-const Color input_box_OutlineInputBorder_active_color = Color(0xFF56B5E3);
+const Color input_box_OutlineInputBorder_active_color = Color(0xff216FFB);
 const Color input_box_OutlineInputBorder_de_active_color = Color(0xFFa8a8a8);
 
 const Color forgotten_password_text_color = Color(0xFFC26466);
-const Color  input_box_icon_color = Color(0xff858585);
-const Color  button_bg_color = Color(0xffFE4344);
+
+
+
 
 const Color  fnf_color = Color(0xffFE4344);
 const Color  fnf_small_color = Color(0xff525252);
@@ -38,10 +39,18 @@ const  Color fnf_bold_text_color = Color(0xFF1D2733);
 const Color  toast_bg_color = Color(0xfffcfcfc);
 const Color  toast_text_color = Color(0xffFE4344);
 
+
 const Color  fnf_title_bar_bg_color = Color(0xff2146fc);
-
-
 const Color  sohojatri_color = Color(0xff2146fc);
+const Color  reset_button_bg_color = Color(0xffFE4344);
+
+// const Color  fnf_title_bar_bg_color = Color(0xff040051);
+// const Color  sohojatri_color = Color(0xff040051);
+const Color  button_bg_color = Color(0xff216FFB);
+
+
+const Color  input_box_icon_color = Color(0xff858585);
+
 
 const Color  color_demo = Color(0xffe9ffff);
 

@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../api_service/api_service.dart';
 import '../../controller/cart_controller/cart_page_controller.dart';
-import '../../controller/dash_board_controller/caregories_page_controller.dart';
 import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 import '../../controller/dash_board_controller/sub_caregories_page_controller.dart';
 import '../../controller/dash_board_controller/wish_list_page_controller.dart';
 import '../../controller/product_controller/all_product_list_controller.dart';
-import '../../controller/product_controller/product_details_controller.dart';
 import '../../static/Colors.dart';
 import '../cart/cart_page.dart';
 import '../common/login_warning.dart';
 import '../product/product_list.dart';
-import '../profile_section/profile_section_page.dart';
+
 import '../shimer/product_shimmir.dart';
 import 'dash_board_page.dart';
 
@@ -233,13 +229,27 @@ class SubCategoryPage extends StatelessWidget{
                   image:BASE_URL_API_IMAGE_SUB_CATEGORIES+response["photo"].toString(),
                   // "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
                   imageErrorBuilder: (context, url, error) =>
-                      Image.asset(
+
+                      FadeInImage.assetNetwork(
+                        fit: BoxFit.cover,
                         width: double.maxFinite,
                         height: double.maxFinite,
-                        fit: BoxFit.fill,
-                        'assets/images/loading.png',
-                       // fit: BoxFit.fitWidth,
+                        placeholder: 'assets/images/loading.png',
+                        image: BASE_URL_API_IMAGE_CATEGORIES+categoriesPageController.categoryImage.value,
+                        // "https://cdn.vox-cdn.com/thumbor/UMnuubuFGIsw339rSvq3HtaoczQ=/0x0:2048x1280/2000x1333/filters:focal(1024x640:1025x641)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg",
+                        imageErrorBuilder: (context, url, error) =>
+                            Image.asset(
+                             // BASE_URL_API_IMAGE_CATEGORIES+categoriesPageController.categoryImage.value,
+                              width: double.maxFinite,
+                              height: double.maxFinite,
+                              fit: BoxFit.fill,
+
+                               'assets/images/loading.png',
+                              // fit: BoxFit.fitWidth,
+                            ),
                       ),
+
+
                 )),
           ),
           ),
@@ -265,7 +275,6 @@ class SubCategoryPage extends StatelessWidget{
   Widget categoriesListItemDesignShimmer(){
     return Column(
       children: [
-
         Expanded(child:
           ClipRRect(
           borderRadius: BorderRadius.circular(10),

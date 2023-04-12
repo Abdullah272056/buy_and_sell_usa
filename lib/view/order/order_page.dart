@@ -147,8 +147,6 @@ class OrderPage extends StatelessWidget {
                   ),
 
                   SizedBox(width: 25,),
-
-
                 ],
               ),
 
@@ -156,12 +154,6 @@ class OrderPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 125,
                 // height: 50,
               ),
-
-
-
-
-
-
 
               if(orderPageController.cartListShimmerStatus==1)...{
 
@@ -272,7 +264,6 @@ class OrderPage extends StatelessWidget {
                 )),
 
               },
-
 
             ],
           ))

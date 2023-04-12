@@ -340,6 +340,7 @@ class ContactUsPage extends StatelessWidget {
 
                               SizedBox(height: 10,),
                               _buildSendMessageButton(),
+                              SizedBox(height: 10,),
                             ],
                           ),
                         )

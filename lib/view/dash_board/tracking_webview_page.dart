@@ -3,16 +3,21 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:fnf_buy/view/dash_board/wish_list_page.dart';
 
 
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 
 
 import '../../controller/dash_board_controller/dash_board_page_controller.dart';
 
+import '../../controller/dash_board_controller/wish_list_page_controller.dart';
+import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../static/Colors.dart';
 
+import '../common/login_warning.dart';
 import '../dash_board/dash_board_page.dart';
 
 
@@ -39,7 +44,8 @@ class _WebViewPaymentScreenState extends State<TrackingWebViewScreen>{
 
   String trackingLink1="https://www.trackingmore.com/track/en/9461209205568292657642";
   String trackingLink="https://fnfbuy.bizoytech.com/tracking-api";
-
+  var userName="".obs;
+  var userToken="".obs;
 
   @override
   @protected
@@ -110,15 +116,15 @@ class _WebViewPaymentScreenState extends State<TrackingWebViewScreen>{
                   child: InkWell(
 
                     onTap: () {
-                      // if(cartViewPageController.userToken.isNotEmpty &&
-                      //     cartViewPageController.userToken.value!="null"&&
-                      //     cartViewPageController.userToken.value!=null){
-                      //   // _showToast(homeController.userToken.toString());
-                      //   //  _showToast("add favourite");
-                      //   Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
-                      // }else{
-                      //   showLoginWarning();
-                      // }
+                      if( userToken.isNotEmpty &&
+                           userToken.value!="null"&&
+                          userToken.value!=null){
+                        // _showToast(homeController.userToken.toString());
+                        //  _showToast("add favourite");
+                        Get.to(WishListPage())?.then((value) => Get.delete<WishListPageController>());
+                      }else{
+                        showLoginWarning();
+                      }
 
                     },
                     child:  Icon(
@@ -184,5 +190,20 @@ class _WebViewPaymentScreenState extends State<TrackingWebViewScreen>{
 
   }
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
 
+
+
+      //   _showToast("Token1= "+storage.read(pref_user_token).toString());
+
+    } catch (e) {
+
+    }
+
+  }
 }

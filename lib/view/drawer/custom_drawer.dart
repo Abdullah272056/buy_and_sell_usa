@@ -51,20 +51,56 @@ class CustomDrawer extends StatelessWidget {
               child:Column(
                 children: [
                   Container(
-                    height: 150,
+                    height: 180,
                     decoration: BoxDecoration(color: sohojatri_color),
                     child: Column(
                       children: [
                         Expanded(child:Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.only(top: 20,left: 20),
-                              child: Image.asset(
-                                "assets/images/fnf_logo.png",
-                                // width: 25,
-                                fit: BoxFit.fill,
-                                height: 50,
-                              ),
+                              margin: EdgeInsets.only(top: 30,left: 20,),
+                              child: Column(
+                              //  mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 5,),
+                                  Row(
+                                    children:  [
+
+                                      Image.asset(
+                                        "assets/images/fnf_logo.png",
+                                        // width: 25,
+                                        fit: BoxFit.fill,
+                                        height: 60,
+                                      ),
+
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 5,),
+                                  Row(
+                                    children: const [
+
+                                      Expanded(child: Text(
+                                        'An USA based buy and sale online platform',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontFamily: 'PT-Sans',
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400,
+                                          color:Colors.white,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                      ),)
+
+                                    ],
+                                  ),
+                                  Expanded(child: Container())
+                                ],
+                              )
+
+
                             )
                         ),
                         ),

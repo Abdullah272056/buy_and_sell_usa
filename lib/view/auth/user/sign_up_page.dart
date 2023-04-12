@@ -80,7 +80,26 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 5,),
+              Row(
+                children: const [
 
+                  Expanded(child: Text(
+                    'An USA based buy and sale online platform',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'PT-Sans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color:fnf_small_text_color,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    maxLines: 2,
+                  ),)
+
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),

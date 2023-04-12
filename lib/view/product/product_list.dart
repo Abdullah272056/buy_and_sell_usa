@@ -513,8 +513,14 @@ class ProductListPage extends StatelessWidget {
 
         backgroundColor: Colors.white,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+        shape: const RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10.0),
+              topLeft: Radius.circular(10.0)),
+
+
+        //  borderRadius: BorderRadius.circular(10),
         ),
         isScrollControlled: true
 
@@ -746,6 +752,8 @@ class ProductListPage extends StatelessWidget {
 
 
           )
+
+
         ],
       ) ,
     );
@@ -801,7 +809,7 @@ class ProductListPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(5))),
       child: Ink(
         decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [button_bg_color,button_bg_color],
+            gradient: const LinearGradient(colors: [reset_button_bg_color,reset_button_bg_color],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -2204,9 +2212,4 @@ class ProductListPage extends StatelessWidget {
 
 }
 
-class Student {
-  String categoriesName;
-  String categoriesId;
 
-  Student(this.categoriesName, this.categoriesId);
-}

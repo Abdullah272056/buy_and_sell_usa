@@ -68,15 +68,16 @@ class MorePage extends StatelessWidget {
                           decoration: BoxDecoration(color: sohojatri_color),
                           child: Column(
                             children: [
+                              SizedBox(height: 10,),
                               Expanded(child:Align(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.center,
                                   child: Container(
                                     margin: EdgeInsets.only(top: 20,left: 20),
                                     child: Image.asset(
                                       "assets/images/fnf_logo.png",
                                       // width: 25,
                                       fit: BoxFit.fill,
-                                      height: 50,
+                                      height: 60,
                                     ),
                                   )
                               ),

@@ -73,6 +73,7 @@ class HomePageScreen extends StatelessWidget {
           ),
         );
       },
+
       child:   Scaffold(
         key: _drawerKey,
         drawer: CustomDrawer(),
@@ -91,12 +92,13 @@ class HomePageScreen extends StatelessWidget {
             children: [
 
               Expanded(child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color:fnf_title_bar_bg_color,
                 ),
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
+
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 20,
                       // height: 50,
@@ -104,6 +106,7 @@ class HomePageScreen extends StatelessWidget {
 
                     ///title bar
                     Obx(() => homeController.searchBoxVisible==0?
+
                     Flex(
                       direction: Axis.horizontal,
                       children: [
@@ -147,15 +150,14 @@ class HomePageScreen extends StatelessWidget {
                           ),
                         ),
 
-                        Expanded(
-                            child: Container(
+                        Expanded(child: Container(
                               margin: const EdgeInsets.only(right: 0),
                               child:  Align(
                                 alignment: Alignment.center,
                                 child: Container(
                                   margin: const EdgeInsets.only(right: 00),
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                                    padding: EdgeInsets.only(left:5,right: 5,top: 5,bottom: 5),
                                     decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(8.0),
@@ -163,17 +165,18 @@ class HomePageScreen extends StatelessWidget {
                                         topLeft: Radius.circular(8.0),
                                         bottomLeft: Radius.circular(8.0),
                                       ),
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                     child: InkWell(
 
-                                      onTap: () {
-                                      },
+                                      onTap:(){
+
+                                        },
                                       child: Image.asset(
                                         "assets/images/fnf_logo.png",
                                         // width: 25,
-                                        fit: BoxFit.fill,
-                                        height: 35,
+                                        fit: BoxFit.cover,
+                                        height: 32,
                                       ),
                                     ),
                                   ),
@@ -237,7 +240,6 @@ class HomePageScreen extends StatelessWidget {
 
                       ],
                     ):
-
                     DelayedWidget(
                         delayDuration: const Duration(milliseconds: 10),// Not required
                         animationDuration: const Duration(milliseconds: 500),// Not required
@@ -266,9 +268,7 @@ class HomePageScreen extends StatelessWidget {
                         )
 
 
-                    ),
-
-                    ),
+                    ),),
 
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 45,
@@ -290,7 +290,6 @@ class HomePageScreen extends StatelessWidget {
 
                     ),
 
-
                   ],
                 ),
 
@@ -306,6 +305,7 @@ class HomePageScreen extends StatelessWidget {
 
 
       ),
+
     );
   }
 
@@ -414,21 +414,25 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTabButton() {
+  Widget _buildTabButton(){
     return Container(
       margin: const EdgeInsets.only(top: 10,bottom: 5),
       height: 35,
-      child: Row(
+
+      child:Row(
         children: [
+
           Expanded(child:Obx(()=> ListView.builder(
               itemCount:homeController.categoriesDataList.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
+
                 if(index==0){
                   return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,15,0);
                 }
+
                 else if(index==homeController.categoriesDataList.length-1){
                   return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,5,15);
                 }
@@ -437,9 +441,17 @@ class HomePageScreen extends StatelessWidget {
                   return  _buildCategoriesTabItem(homeController.categoriesDataList[index],index,5,0);
                 }
 
-              })),)
+              })),),
+
+
+
+
+          
+
         ],
       ),
+
+
     );
   }
 
@@ -756,6 +768,7 @@ class HomePageScreen extends StatelessWidget {
                               return homeController.homeDataList[index]["sub_categories"].length>0? Column(
                                 children: [
                                   if(homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0)...{
+
                                     Container(
                                       margin:const EdgeInsets.only(right: 20.0,top: 00,left: 20),
                                       child:  Flex(direction: Axis.horizontal,
@@ -806,7 +819,6 @@ class HomePageScreen extends StatelessWidget {
                                       ),
                                     ),
 
-
                                     Container(
                                         margin: const EdgeInsets.only(top: 10),
                                         height:MediaQuery.of(context).size.width<450?255.0:260,
@@ -843,6 +855,8 @@ class HomePageScreen extends StatelessWidget {
                                             )
                                         )
                                     ),
+
+
                                   }
                                 ],
                               ):Container();
@@ -977,11 +991,12 @@ class HomePageScreen extends StatelessWidget {
                               response["product_name"].toString(),
 
                               // "Men Grey Classic Regular Fit Formal Shirt",
-                              overflow: TextOverflow.ellipsis,
+
                               style:  TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 15,
                                   fontWeight: FontWeight.normal),
+                              overflow: TextOverflow.ellipsis,
                               softWrap: false,
                               maxLines: 1,
 
